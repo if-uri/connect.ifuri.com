@@ -493,10 +493,17 @@ pre {
 .footer {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   gap: 10px;
   padding-top: 20px;
   padding-bottom: 36px;
   color: var(--muted);
+}
+
+.footer-eco {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
 }
 
 .error-page {
