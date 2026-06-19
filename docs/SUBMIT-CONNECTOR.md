@@ -1,5 +1,7 @@
 # Submit a connector
 
+Public overview: [docs.ifuri.com/connectors.html](https://docs.ifuri.com/connectors.html).
+
 Create a folder:
 
 ```text
@@ -49,6 +51,12 @@ Public outputs produced from the same manifest:
 - `/registry.json`
 - `/search.json`
 - `/llms.txt`
+
+Example verified package and manifest:
+
+- [github.com/if-uri/urirun-connector-http-check](https://github.com/if-uri/urirun-connector-http-check)
+- [connect.ifuri.com/connectors/http-check](https://connect.ifuri.com/connectors/http-check)
+- [connect.ifuri.com/connectors/http-check.json](https://connect.ifuri.com/connectors/http-check.json)
 
 Do not add arbitrary shell or argv execution to a community connector without a
 separate trust review. That is executable supply-chain surface.

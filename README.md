@@ -29,6 +29,13 @@ Contributor docs:
 
 - [`docs/CONNECTORS-ARCHITECTURE.md`](docs/CONNECTORS-ARCHITECTURE.md)
 - [`docs/SUBMIT-CONNECTOR.md`](docs/SUBMIT-CONNECTOR.md)
+- [`docs/PLESK.md`](docs/PLESK.md)
+
+Public docs:
+
+- [`docs.ifuri.com/connectors.html`](https://docs.ifuri.com/connectors.html)
+- [`docs.ifuri.com/getting-started.html`](https://docs.ifuri.com/getting-started.html)
+- [`docs.ifuri.com/registry-and-bindings.html`](https://docs.ifuri.com/registry-and-bindings.html)
 
 ## Local run
 
@@ -43,6 +50,8 @@ Example connector page:
 ```text
 http://127.0.0.1:8099/connectors/namecheap-dns
 http://127.0.0.1:8099/connectors/namecheap-dns.json
+http://127.0.0.1:8099/connectors/http-check
+http://127.0.0.1:8099/connectors/http-check.json
 http://127.0.0.1:8099/search.json
 http://127.0.0.1:8099/submit
 ```
@@ -64,6 +73,7 @@ OpenGraph/Twitter metadata, `sitemap.xml`, `robots.txt` and `llms.txt`.
 
 ```bash
 curl -fsSL 'https://connect.ifuri.com/install?connectors=planfile,namecheap-dns' | bash
+curl -fsSL 'https://connect.ifuri.com/install?connectors=http-check' | bash
 ```
 
 By default the installer uses the current GitHub source for the Python urirun
@@ -88,3 +98,15 @@ Optional GitHub Actions deploy uses these repository secrets:
 
 When the secrets are not configured, the workflow still runs tests and skips the
 deploy step.
+
+## Verified connector package
+
+`http-check` proves the external connector flow end to end:
+
+- package: [`github.com/if-uri/urirun-connector-http-check`](https://github.com/if-uri/urirun-connector-http-check)
+- hub page: [`/connectors/http-check`](https://connect.ifuri.com/connectors/http-check)
+- route: `httpcheck://host/http/query/status`
+- install: `curl -fsSL 'https://connect.ifuri.com/install?connectors=http-check' | bash`
+
+It was tested through the public installer, direct CLI execution and
+`urirun run` against a compiled registry.

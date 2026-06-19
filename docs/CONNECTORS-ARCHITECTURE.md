@@ -29,6 +29,12 @@ The served machine endpoints are derived from the generated aggregate:
 - `GET /install?connectors=...` -> shell installer for selected ids,
 - `GET /llms.txt` -> compact LLM-readable index.
 
+The public user-facing documentation is maintained in the docs repository:
+
+- [Connector docs](https://docs.ifuri.com/connectors.html),
+- [Registry and bindings](https://docs.ifuri.com/registry-and-bindings.html),
+- [Commands](https://docs.ifuri.com/commands.html).
+
 ## The invariant
 
 Whatever the internal layout, the served bytes of `/connectors.json` and
@@ -122,5 +128,8 @@ are an execution surface.
 2. Done: folder manifests plus generated aggregate.
 3. Done: generator check and snapshot check in smoke tests.
 4. Done: adapter-kind allowlist enforcement for community manifests.
-5. Next: CODEOWNERS for `data/connectors/<id>/`.
-6. Next: submit connector flow that validates a manifest before it reaches the hub.
+5. Done: CODEOWNERS for catalog ownership.
+6. Done: submit connector flow that validates a manifest before it reaches the hub.
+7. Done: external `http-check` connector package installed from GitHub and
+   executed through `urirun run`.
+8. Next: `urirun connectors list/install` consuming `/registry.json` directly.
