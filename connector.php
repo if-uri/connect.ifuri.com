@@ -38,6 +38,7 @@ $title = (string) $connector['name'] . ' URI connector for ifuri + urirun';
 $description = (string) ($connector['description'] ?? $connector['summary'] ?? 'URI connector for ifuri and urirun.');
 $installCommand = hub_install_command([(string) $connector['id']]);
 $status = (string) ($connector['status'] ?? 'planned');
+$provenance = (string) ($connector['provenance'] ?? 'community');
 $isAvailable = $status === 'available';
 $jsonLd = [
     '@context' => 'https://schema.org',
@@ -109,6 +110,7 @@ $jsonLd = [
           <p class="lead"><?php echo hub_h($description); ?></p>
         </div>
         <em class="status <?php echo hub_h($status); ?>"><?php echo hub_h($status); ?></em>
+        <em class="prov <?php echo hub_h($provenance); ?>" title="<?php echo $provenance === 'verified' ? 'Maintained and audited by if-uri' : 'Third-party community connector'; ?>"><?php echo $provenance === 'verified' ? '✓ verified' : 'community'; ?></em>
       </div>
       <div class="hero-actions">
         <button class="primary" data-copy="<?php echo hub_h($installCommand); ?>" <?php echo $isAvailable ? '' : 'disabled'; ?>>Copy install</button>

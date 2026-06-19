@@ -111,6 +111,7 @@ $jsonLd = [
         <?php
           $id = (string) $connector['id'];
           $status = (string) ($connector['status'] ?? 'planned');
+          $provenance = (string) ($connector['provenance'] ?? 'community');
           $disabled = $status !== 'available';
           $search = strtolower(trim($id . ' ' . (string) $connector['name'] . ' ' . (string) $connector['summary'] . ' ' . (string) ($connector['category'] ?? '') . ' ' . implode(' ', $connector['uriSchemes'] ?? []) . ' ' . implode(' ', $connector['routes'] ?? []) . ' ' . implode(' ', $connector['keywords'] ?? [])));
         ?>
@@ -120,6 +121,7 @@ $jsonLd = [
             <span>
               <strong><?php echo hub_h((string) $connector['name']); ?></strong>
               <em class="status <?php echo hub_h($status); ?>"><?php echo hub_h($status); ?></em>
+              <em class="prov <?php echo hub_h($provenance); ?>" title="<?php echo $provenance === 'verified' ? 'Maintained and audited by if-uri' : 'Third-party community connector'; ?>"><?php echo $provenance === 'verified' ? '✓ verified' : 'community'; ?></em>
             </span>
           </label>
           <p class="category"><?php echo hub_h((string) ($connector['category'] ?? 'Connector')); ?></p>

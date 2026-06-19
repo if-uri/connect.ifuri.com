@@ -11,6 +11,8 @@ $urls = [
     ['loc' => hub_url('/connectors.json'), 'priority' => '0.7'],
     ['loc' => hub_url('/registry.json'), 'priority' => '0.7'],
     ['loc' => hub_url('/search.json'), 'priority' => '0.7'],
+    ['loc' => hub_url('/mcp.json'), 'priority' => '0.7'],
+    ['loc' => hub_url('/a2a.json'), 'priority' => '0.7'],
     ['loc' => hub_url('/llms.txt'), 'priority' => '0.6'],
 ];
 foreach (hub_connectors() as $connector) {

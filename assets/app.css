@@ -306,6 +306,24 @@ code {
   color: var(--planned);
 }
 
+.prov {
+  display: inline-flex;
+  min-height: 22px;
+  align-items: center;
+  padding: 0 7px;
+  margin-left: 6px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 740;
+}
+.prov.verified { background: #DCFCE7; color: #166534; }
+.prov.community { background: #E0E7FF; color: #3730A3; }
+:root:not([data-theme="light"]) .prov.verified,
+:root[data-theme="dark"] .prov.verified { background: #14532D; color: #86EFAC; }
+:root:not([data-theme="light"]) .prov.community,
+:root[data-theme="dark"] .prov.community { background: #312E81; color: #C7D2FE; }
+
 .routes {
   display: flex;
   gap: 6px;
