@@ -71,6 +71,7 @@ python3 - "http://127.0.0.1:${PORT}" <<'PY'
 import json
 import sys
 import time
+import urllib.error
 import urllib.request
 from urllib.error import URLError
 
@@ -96,6 +97,7 @@ else:
 catalog = json.loads(open("data/connectors.json").read())
 paths = [
     ("/", "text/html"),
+    ("/submit", "text/html"),
     ("/connectors.json", "application/json"),
     ("/registry.json", "application/json"),
     ("/search.json", "application/json"),
@@ -117,6 +119,9 @@ for path, expected in paths:
         assert 'property="og:title"' in body
         assert 'name="twitter:card"' in body
         assert 'https://get.ifuri.com' in body
+    if path == "/submit":
+        assert 'id="connectorBuilder"' in body
+        assert 'id="validateManifest"' in body
     if path == "/install?connectors=planfile,namecheap-dns":
         assert "planfile>=0.1.103" in body
     if path == "/sitemap.xml":
@@ -155,18 +160,62 @@ for connector in catalog["connectors"]:
     assert manifest["connector"]["id"] == connector["id"]
     assert manifest["registryEntry"]["hubUrl"].endswith("/connectors/" + connector["id"])
     assert manifest["registryEntry"]["manifestUrl"].endswith(manifest_path)
+
+valid_manifest = {
+    "id": "demo-connector",
+    "name": "Demo Connector",
+    "status": "planned",
+    "category": "Test",
+    "summary": "A valid connector manifest used by the smoke test.",
+    "description": "A valid connector manifest used by the smoke test to prove the public validation endpoint works.",
+    "uriSchemes": ["demo"],
+    "routes": ["demo://host/resource/query/status"],
+    "install": {"mode": "planned", "pipSpec": "urirun-connector-demo"},
+    "adapterKinds": ["http-service"],
+    "provenance": "community",
+    "publisher": {"name": "Smoke Test"},
+}
+request = urllib.request.Request(
+    base + "/validate-connector",
+    data=json.dumps(valid_manifest).encode("utf-8"),
+    headers={"content-type": "application/json"},
+    method="POST",
+)
+with urllib.request.urlopen(request, timeout=20) as response:
+    validation = json.loads(response.read().decode("utf-8"))
+assert validation["ok"] is True
+
+invalid_manifest = dict(valid_manifest)
+invalid_manifest["adapterKinds"] = ["shell-template"]
+request = urllib.request.Request(
+    base + "/validate-connector",
+    data=json.dumps(invalid_manifest).encode("utf-8"),
+    headers={"content-type": "application/json"},
+    method="POST",
+)
+try:
+    urllib.request.urlopen(request, timeout=20)
+except urllib.error.HTTPError as exc:
+    assert exc.code == 422
+    rejected = json.loads(exc.read().decode("utf-8"))
+    assert rejected["ok"] is False
+    assert any(error["field"] == "adapterKinds" for error in rejected["errors"])
+else:
+    raise AssertionError("dangerous community adapterKind was accepted")
 PY
 
 if [[ -n "$BASE_URL" ]]; then
   python3 - "$BASE_URL" <<'PY'
 import json
 import sys
+import urllib.error
 import urllib.request
 
 base = sys.argv[1].rstrip("/")
 catalog = json.loads(open("data/connectors.json").read())
 checks = [
     ("/", "text/html"),
+    ("/submit", "text/html"),
     ("/connectors.json", "application/json"),
     ("/registry.json", "application/json"),
     ("/search.json", "application/json"),
@@ -197,6 +246,30 @@ for path, expected in checks:
         else:
             assert 'application/ld+json' in body
             assert 'property="og:title"' in body
+
+valid_manifest = {
+    "id": "public-smoke",
+    "name": "Public Smoke",
+    "status": "planned",
+    "category": "Test",
+    "summary": "A valid connector manifest used by the public smoke test.",
+    "description": "A valid connector manifest used by the public smoke test to prove remote validation works.",
+    "uriSchemes": ["public"],
+    "routes": ["public://host/resource/query/status"],
+    "install": {"mode": "planned", "pipSpec": "urirun-connector-public-smoke"},
+    "adapterKinds": ["http-service"],
+    "provenance": "community",
+    "publisher": {"name": "Smoke Test"},
+}
+request = urllib.request.Request(
+    base + "/validate-connector",
+    data=json.dumps(valid_manifest).encode("utf-8"),
+    headers={"content-type": "application/json"},
+    method="POST",
+)
+with urllib.request.urlopen(request, timeout=25) as response:
+    validation = json.loads(response.read().decode("utf-8"))
+assert validation["ok"] is True
 PY
 fi
 

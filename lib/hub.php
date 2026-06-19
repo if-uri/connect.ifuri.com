@@ -313,6 +313,145 @@ function hub_search_index(): array
     ];
 }
 
+function hub_community_adapter_allowlist(): array
+{
+    return [
+        'domain-monitor',
+        'grpc-transport',
+        'http-service',
+        'local-function',
+        'planfile-task',
+    ];
+}
+
+function hub_connector_manifest_template(): array
+{
+    return [
+        'id' => 'example-connector',
+        'name' => 'Example Connector',
+        'status' => 'planned',
+        'category' => 'Automation',
+        'summary' => 'Short connector summary with the main URI schemes and purpose.',
+        'description' => 'Longer connector description explaining what system it integrates, what URI commands it exposes and when a user should install it.',
+        'uriSchemes' => ['example'],
+        'routes' => ['example://host/resource/query/status'],
+        'useCases' => [
+            'Expose an existing service as URI-addressable commands.',
+            'Generate registry entries that ifuri and urirun can discover.',
+        ],
+        'examples' => [
+            [
+                'title' => 'Query status',
+                'uri' => 'example://host/resource/query/status',
+                'payload' => ['limit' => 10],
+            ],
+        ],
+        'flowExample' => ['example://host/resource/query/status'],
+        'requires' => ['python>=3.10'],
+        'install' => [
+            'mode' => 'planned',
+            'pipSpec' => 'urirun-connector-example',
+        ],
+        'adapterKinds' => ['http-service'],
+        'docsUrl' => 'https://github.com/if-uri/docs',
+        'keywords' => ['example', 'connector', 'URI'],
+        'provenance' => 'community',
+        'publisher' => [
+            'name' => 'Your name or org',
+            'url' => 'https://example.com',
+            'github' => 'https://github.com/example',
+        ],
+    ];
+}
+
+function hub_validation_error(string $field, string $message): array
+{
+    return ['field' => $field, 'message' => $message];
+}
+
+function hub_validate_connector_manifest(array $manifest, ?string $folderId = null): array
+{
+    $errors = [];
+    $required = ['id', 'name', 'status', 'category', 'summary', 'description', 'uriSchemes', 'routes', 'install', 'provenance'];
+    foreach ($required as $field) {
+        if (!array_key_exists($field, $manifest) || $manifest[$field] === '' || $manifest[$field] === []) {
+            $errors[] = hub_validation_error($field, "{$field} is required");
+        }
+    }
+
+    $id = (string) ($manifest['id'] ?? '');
+    if ($id !== '' && !preg_match('/^[a-z0-9][a-z0-9._-]*$/', $id)) {
+        $errors[] = hub_validation_error('id', 'id must match ^[a-z0-9][a-z0-9._-]*$');
+    }
+    if ($folderId !== null && $folderId !== '' && $id !== '' && $id !== $folderId) {
+        $errors[] = hub_validation_error('id', "id must equal folder name {$folderId}");
+    }
+
+    if (isset($manifest['status']) && !in_array($manifest['status'], ['available', 'planned'], true)) {
+        $errors[] = hub_validation_error('status', 'status must be available or planned');
+    }
+
+    $uriSchemes = $manifest['uriSchemes'] ?? [];
+    if (!is_array($uriSchemes) || $uriSchemes === []) {
+        $errors[] = hub_validation_error('uriSchemes', 'uriSchemes must be a non-empty array');
+        $uriSchemes = [];
+    }
+    foreach ($uriSchemes as $scheme) {
+        if (!is_string($scheme) || !preg_match('/^[a-z][a-z0-9+.-]*$/', $scheme)) {
+            $errors[] = hub_validation_error('uriSchemes', 'each URI scheme must match ^[a-z][a-z0-9+.-]*$');
+            break;
+        }
+    }
+
+    $routes = $manifest['routes'] ?? [];
+    if (!is_array($routes) || $routes === []) {
+        $errors[] = hub_validation_error('routes', 'routes must be a non-empty array');
+        $routes = [];
+    }
+    $schemeSet = array_fill_keys(array_map('strval', $uriSchemes), true);
+    foreach ($routes as $route) {
+        if (!is_string($route) || !str_contains($route, '://')) {
+            $errors[] = hub_validation_error('routes', "route is not a URI: " . (is_scalar($route) ? (string) $route : '[non-scalar]'));
+            continue;
+        }
+        $scheme = explode('://', $route, 2)[0];
+        if (!isset($schemeSet[$scheme])) {
+            $errors[] = hub_validation_error('routes', "route {$route} uses a scheme outside uriSchemes");
+        }
+    }
+
+    if (!isset($manifest['install']) || !is_array($manifest['install'])) {
+        $errors[] = hub_validation_error('install', 'install must be an object');
+    } elseif (($manifest['install']['mode'] ?? '') === '') {
+        $errors[] = hub_validation_error('install.mode', 'install.mode is required');
+    } elseif (!in_array($manifest['install']['mode'], ['bundled', 'urirun-extra', 'planned'], true)) {
+        $errors[] = hub_validation_error('install.mode', 'install.mode must be bundled, urirun-extra or planned');
+    }
+
+    $provenance = (string) ($manifest['provenance'] ?? '');
+    if ($provenance !== '' && !in_array($provenance, ['verified', 'community'], true)) {
+        $errors[] = hub_validation_error('provenance', 'provenance must be verified or community');
+    }
+
+    if ($provenance === 'community') {
+        if (!isset($manifest['publisher']) || !is_array($manifest['publisher']) || (string) ($manifest['publisher']['name'] ?? '') === '') {
+            $errors[] = hub_validation_error('publisher.name', 'community connector requires publisher.name');
+        }
+        if (!array_key_exists('adapterKinds', $manifest) || !is_array($manifest['adapterKinds'])) {
+            $errors[] = hub_validation_error('adapterKinds', 'community connector must declare adapterKinds; use [] if it registers no executors');
+        } else {
+            $allowlist = array_fill_keys(hub_community_adapter_allowlist(), true);
+            foreach ($manifest['adapterKinds'] as $adapterKind) {
+                if (!is_string($adapterKind) || !isset($allowlist[$adapterKind])) {
+                    $errors[] = hub_validation_error('adapterKinds', "community connector cannot use adapterKind " . (is_scalar($adapterKind) ? (string) $adapterKind : '[non-scalar]'));
+                }
+            }
+        }
+    }
+
+    return $errors;
+}
+
 function hub_keywords(array $connector = null): string
 {
     $base = ['ifuri', 'urirun', 'URI connector', 'URI registry', 'automation'];
@@ -322,11 +461,11 @@ function hub_keywords(array $connector = null): string
     return implode(', ', array_values(array_unique(array_filter(array_map('strval', $base)))));
 }
 
-function hub_send_json(array $payload, int $status = 200): void
+function hub_send_json(array $payload, int $status = 200, string $cacheControl = 'public, max-age=120'): void
 {
     http_response_code($status);
     header('Content-Type: application/json; charset=utf-8');
-    header('Cache-Control: public, max-age=120');
+    header('Cache-Control: ' . $cacheControl);
     echo json_encode($payload, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
 }
 

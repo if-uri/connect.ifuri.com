@@ -6,6 +6,8 @@
    the domain `httpdocs` directory.
 4. Make sure Apache rewrite rules are enabled so `.htaccess` can route:
    - `/install`
+   - `/submit`
+   - `/validate-connector`
    - `/connectors.json`
    - `/registry.json`
    - `/search.json`
@@ -21,6 +23,7 @@ curl -fsSL https://connect.ifuri.com/connectors.json
 curl -fsSL https://connect.ifuri.com/connectors/namecheap-dns
 curl -fsSL https://connect.ifuri.com/connectors/namecheap-dns.json
 curl -fsSL https://connect.ifuri.com/search.json
+curl -fsSL https://connect.ifuri.com/submit
 curl -fsSL https://connect.ifuri.com/sitemap.xml
 curl -fsSL https://connect.ifuri.com/llms.txt
 curl -fsSL 'https://connect.ifuri.com/install?connectors=planfile' | bash

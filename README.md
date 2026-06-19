@@ -10,6 +10,8 @@ The site is designed for Plesk hosting and exposes:
 - `GET /connectors.json` - connector catalog,
 - `GET /registry.json` - machine-readable URI package catalog,
 - `GET /search.json` - flat connector and URI route search index,
+- `GET /submit` - connector manifest builder and validation page,
+- `POST /validate-connector` - connector manifest validation endpoint,
 - `GET /install?connectors=planfile,namecheap-dns` - shell installer script,
 - `GET /sitemap.xml` - search-engine sitemap for the hub and connector pages,
 - `GET /robots.txt` - crawler policy with sitemap location,
@@ -42,6 +44,7 @@ Example connector page:
 http://127.0.0.1:8099/connectors/namecheap-dns
 http://127.0.0.1:8099/connectors/namecheap-dns.json
 http://127.0.0.1:8099/search.json
+http://127.0.0.1:8099/submit
 ```
 
 ## Test

@@ -1,0 +1,8 @@
+# Connector manifests and policy gates are executable catalog surface.
+* @tom-sapletta-com
+
+/data/connectors/ @tom-sapletta-com
+/data/catalog.meta.json @tom-sapletta-com
+/schema/ @tom-sapletta-com
+/tools/build_catalog.py @tom-sapletta-com
+/api/validate_connector.php @tom-sapletta-com

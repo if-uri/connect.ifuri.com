@@ -58,6 +58,14 @@ document.addEventListener('click', (event) => {
   copyText(button.dataset.copy, button).catch(() => {});
 });
 
+document.addEventListener('click', (event) => {
+  const button = event.target.closest('[data-copy-target]');
+  if (!button || button.disabled) return;
+  const target = document.getElementById(button.dataset.copyTarget);
+  if (!target) return;
+  copyText(target.value || target.textContent || '', button).catch(() => {});
+});
+
 const search = document.getElementById('connectorSearch');
 const cards = Array.from(document.querySelectorAll('.connector'));
 const count = document.getElementById('connectorCount');
@@ -98,3 +106,128 @@ document.querySelectorAll('[data-tabs]').forEach((tabs) => {
 });
 
 refreshCommand();
+
+const builder = document.getElementById('connectorBuilder');
+if (builder) {
+  const form = document.getElementById('connectorBuilderForm');
+  const output = document.getElementById('manifestOutput');
+  const folder = document.getElementById('manifestFolder');
+  const result = document.getElementById('validationResult');
+  const template = window.CONNECTOR_TEMPLATE || {};
+
+  const lineList = (value) => (value || '')
+    .split(/[\n,]+/)
+    .map((item) => item.trim())
+    .filter(Boolean);
+
+  const escapeHtml = (value) => String(value)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#039;');
+
+  const setField = (name, value) => {
+    const field = form?.elements.namedItem(name);
+    if (field) field.value = Array.isArray(value) ? value.join('\n') : (value || '');
+  };
+
+  const readManifest = () => {
+    const values = Object.fromEntries(new FormData(form).entries());
+    const pipValues = lineList(values.pipPackages);
+    const install = { mode: values.installMode || 'planned' };
+    if (install.mode === 'planned' && pipValues[0]) {
+      install.pipSpec = pipValues[0];
+    } else if (pipValues.length) {
+      install.pipPackages = pipValues;
+    }
+    return {
+      id: (values.id || '').trim(),
+      name: (values.name || '').trim(),
+      status: values.status || 'planned',
+      category: (values.category || '').trim(),
+      summary: (values.summary || '').trim(),
+      description: (values.description || '').trim(),
+      uriSchemes: lineList(values.uriSchemes),
+      routes: lineList(values.routes),
+      useCases: template.useCases || [],
+      examples: template.examples || [],
+      flowExample: lineList(values.routes).slice(0, 3),
+      requires: template.requires || ['python>=3.10'],
+      install,
+      adapterKinds: lineList(values.adapterKinds),
+      docsUrl: (values.docsUrl || '').trim(),
+      keywords: lineList(values.keywords),
+      provenance: values.provenance || 'community',
+      publisher: {
+        name: (values.publisherName || '').trim(),
+        url: (values.publisherUrl || '').trim(),
+        github: (values.publisherGithub || '').trim(),
+      },
+    };
+  };
+
+  const renderManifest = () => {
+    const manifest = readManifest();
+    output.value = JSON.stringify(manifest, null, 2);
+    if (folder) folder.textContent = `data/connectors/${manifest.id || '<id>'}/manifest.json`;
+    return manifest;
+  };
+
+  const renderValidation = (payload) => {
+    result.classList.toggle('ok', Boolean(payload.ok));
+    result.classList.toggle('error', !payload.ok);
+    if (payload.ok) {
+      result.innerHTML = `<strong>Valid manifest.</strong><span>${escapeHtml(payload.folder || '')}</span>`;
+      return;
+    }
+    const errors = payload.errors || [{ field: 'unknown', message: 'validation failed' }];
+    result.innerHTML = `<strong>Fix ${errors.length} issue${errors.length === 1 ? '' : 's'}.</strong><ul>${errors.map((item) => `<li><code>${escapeHtml(item.field)}</code> ${escapeHtml(item.message)}</li>`).join('')}</ul>`;
+  };
+
+  const loadTemplate = () => {
+    setField('id', template.id);
+    setField('name', template.name);
+    setField('status', template.status);
+    setField('provenance', template.provenance);
+    setField('category', template.category);
+    setField('installMode', template.install?.mode);
+    setField('summary', template.summary);
+    setField('description', template.description);
+    setField('uriSchemes', template.uriSchemes || []);
+    setField('routes', template.routes || []);
+    setField('adapterKinds', template.adapterKinds || []);
+    setField('pipPackages', template.install?.pipSpec || (template.install?.pipPackages || []).join('\n'));
+    setField('publisherName', template.publisher?.name);
+    setField('publisherUrl', template.publisher?.url);
+    setField('publisherGithub', template.publisher?.github);
+    setField('docsUrl', template.docsUrl);
+    setField('keywords', template.keywords || []);
+    result.textContent = '';
+    result.className = 'validation-result';
+    renderManifest();
+  };
+
+  document.getElementById('loadTemplate')?.addEventListener('click', loadTemplate);
+  document.getElementById('buildManifest')?.addEventListener('click', renderManifest);
+  document.getElementById('validateManifest')?.addEventListener('click', async () => {
+    const manifest = renderManifest();
+    try {
+      const response = await fetch('/validate-connector', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(manifest),
+      });
+      const payload = await response.json();
+      renderValidation(payload);
+    } catch (error) {
+      renderValidation({ ok: false, errors: [{ field: 'network', message: String(error) }] });
+    }
+  });
+  form?.addEventListener('input', () => {
+    result.textContent = '';
+    result.className = 'validation-result';
+    renderManifest();
+  });
+  loadTemplate();
+}

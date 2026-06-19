@@ -70,6 +70,7 @@ $jsonLd = [
       </a>
       <nav>
         <a href="#connectors">Connectors</a>
+        <a href="/submit">Submit connector</a>
         <?php foreach (($site['ecosystem'] ?? []) as $eco): ?>
           <a href="<?php echo hub_h((string) $eco['url']); ?>" title="<?php echo hub_h((string) ($eco['title'] ?? '')); ?>"><?php echo hub_h((string) $eco['label']); ?></a>
         <?php endforeach; ?>
@@ -156,6 +157,7 @@ $jsonLd = [
         <a href="/search.json">/search.json</a>
         <a href="/registry.json">/registry.json</a>
         <a href="/connectors/planfile.json">/connectors/planfile.json</a>
+        <a href="/validate-connector">POST /validate-connector</a>
         <a href="/install?connectors=planfile,namecheap-dns">/install?connectors=planfile,namecheap-dns</a>
       </div>
     </section>

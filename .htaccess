@@ -3,6 +3,8 @@ DirectoryIndex index.php
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteRule ^install$ install.php [L,QSA]
+  RewriteRule ^submit$ submit.php [L,QSA]
+  RewriteRule ^validate-connector$ api/validate_connector.php [L,QSA]
   RewriteRule ^connectors\.json$ api/connectors.php [L,QSA]
   RewriteRule ^registry\.json$ api/registry.php [L,QSA]
   RewriteRule ^search\.json$ api/search.php [L,QSA]

@@ -7,6 +7,7 @@ $catalog = hub_catalog();
 $updated = (string) ($catalog['updatedAt'] ?? gmdate('Y-m-d'));
 $urls = [
     ['loc' => hub_url('/'), 'priority' => '1.0'],
+    ['loc' => hub_url('/submit'), 'priority' => '0.8'],
     ['loc' => hub_url('/connectors.json'), 'priority' => '0.7'],
     ['loc' => hub_url('/registry.json'), 'priority' => '0.7'],
     ['loc' => hub_url('/search.json'), 'priority' => '0.7'],

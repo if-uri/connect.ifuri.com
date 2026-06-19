@@ -461,6 +461,95 @@ pre {
   margin-top: 12px;
 }
 
+.submit-layout {
+  display: grid;
+  grid-template-columns: minmax(280px, .9fr) minmax(320px, 1.1fr);
+  gap: 16px;
+  align-items: start;
+  margin-bottom: 24px;
+}
+
+.builder-form,
+.builder-output {
+  margin-top: 0;
+}
+
+.builder-form label {
+  display: grid;
+  gap: 6px;
+  margin-top: 12px;
+  color: var(--ink);
+  font-weight: 680;
+}
+
+.builder-form input,
+.builder-form select,
+.builder-form textarea,
+.code-output {
+  width: 100%;
+  min-height: 38px;
+  padding: 9px 11px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: white;
+  color: var(--ink);
+  font: inherit;
+}
+
+.builder-form textarea,
+.code-output {
+  resize: vertical;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.code-output {
+  min-height: 620px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.validation-result {
+  min-height: 38px;
+  margin-top: 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--ifuri-neutral-50);
+  color: var(--muted);
+}
+
+.validation-result:empty {
+  display: none;
+}
+
+.validation-result.ok {
+  border-color: var(--brand-accent);
+  background: var(--ifuri-accent-50);
+  color: var(--ifuri-accent-700);
+}
+
+.validation-result.error {
+  border-color: #F59E0B;
+  background: #FFFBEB;
+  color: var(--planned);
+}
+
+.validation-result strong,
+.validation-result span {
+  display: block;
+}
+
+.validation-result ul {
+  margin: 8px 0 0;
+  padding-left: 20px;
+}
+
 .split {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(260px, .8fr);
@@ -515,7 +604,8 @@ pre {
   .footer,
   .split,
   .detail-title,
-  .detail-grid {
+  .detail-grid,
+  .submit-layout {
     display: block;
   }
 
@@ -529,8 +619,13 @@ pre {
   }
 
   .connectors,
-  .command-box {
+  .command-box,
+  .form-grid {
     grid-template-columns: 1fr;
+  }
+
+  .code-output {
+    min-height: 380px;
   }
 
   .detail-hero {

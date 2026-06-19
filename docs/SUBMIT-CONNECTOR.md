@@ -23,10 +23,19 @@ python3 tools/build_catalog.py
 bash tests/smoke.sh
 ```
 
+Validate before editing the catalog:
+
+```bash
+curl -fsS https://connect.ifuri.com/validate-connector \
+  -H 'Content-Type: application/json' \
+  --data @data/connectors/<id>/manifest.json
+```
+
 Review the generated pages:
 
 ```bash
 php -S 127.0.0.1:8099 router.php
+open http://127.0.0.1:8099/submit
 open http://127.0.0.1:8099/connectors/<id>
 open http://127.0.0.1:8099/connectors/<id>.json
 open http://127.0.0.1:8099/search.json

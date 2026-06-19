@@ -14,6 +14,9 @@ echo "Machine catalog: " . hub_url('/connectors.json') . "\n";
 echo "Runtime registry: " . hub_url('/registry.json') . "\n";
 echo "Search index: " . hub_url('/search.json') . "\n";
 echo "Installer endpoint: " . hub_url('/install?connectors=planfile') . "\n";
+echo "Submit connector page: " . hub_url('/submit') . "\n";
+echo "Validate connector endpoint: " . hub_url('/validate-connector') . "\n";
+echo "Connector schema: " . hub_url('/schema/connector.schema.json') . "\n";
 echo "Catalog version: " . (string) ($catalog['version'] ?? 'unknown') . "\n";
 echo "Updated: " . (string) ($catalog['updatedAt'] ?? 'unknown') . "\n\n";
 if (is_array($site['ecosystem'] ?? null) && $site['ecosystem'] !== []) {

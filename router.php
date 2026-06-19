@@ -15,6 +15,14 @@ if ($path === '/install') {
     require __DIR__ . '/install.php';
     return true;
 }
+if ($path === '/submit') {
+    require __DIR__ . '/submit.php';
+    return true;
+}
+if ($path === '/validate-connector') {
+    require __DIR__ . '/api/validate_connector.php';
+    return true;
+}
 if ($path === '/connectors.json') {
     require __DIR__ . '/api/connectors.php';
     return true;
