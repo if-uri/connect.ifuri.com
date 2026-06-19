@@ -1,13 +1,16 @@
+/* Brand palette comes from assets/ifuri-tokens.css (--ifuri-*).
+   Source of truth: github.com/if-uri/logo (COLORS.md). */
 :root {
-  --bg: #f6f7f9;
-  --panel: #ffffff;
-  --ink: #101820;
-  --muted: #627084;
-  --line: #dbe1e8;
-  --accent: #0f766e;
-  --accent-dark: #115e59;
-  --planned: #8a5a00;
-  --shadow: 0 10px 30px rgba(16, 24, 32, 0.08);
+  --bg: var(--ifuri-neutral-50);            /* #F8FAFC */
+  --panel: var(--ifuri-white);
+  --ink: var(--ifuri-text-ink);             /* deep indigo #1E1B4B */
+  --muted: var(--ifuri-text-muted);         /* slate #64748B */
+  --line: var(--ifuri-neutral-200);         /* #E2E8F0 */
+  --accent: var(--ifuri-brand-primary);     /* indigo #4F46E5 */
+  --accent-dark: var(--ifuri-primary-700);  /* #4338CA */
+  --brand-accent: var(--ifuri-brand-accent);/* emerald #10B981 */
+  --planned: #92400E;
+  --shadow: 0 10px 30px rgba(30, 27, 75, 0.10);
 }
 
 * {
@@ -71,7 +74,7 @@ nav {
   width: 34px;
   height: 34px;
   border-radius: 8px;
-  background: var(--accent);
+  background: linear-gradient(135deg, var(--ifuri-primary-600), var(--ifuri-primary-500));
   color: white;
   font-weight: 800;
 }
@@ -88,7 +91,7 @@ nav {
 
 .eyebrow {
   margin: 0 0 8px;
-  color: var(--accent-dark);
+  color: var(--ifuri-accent-700);
   font-weight: 740;
 }
 
@@ -183,10 +186,10 @@ button:disabled {
 code {
   display: inline-block;
   padding: 4px 6px;
-  border: 1px solid #edf0f4;
+  border: 1px solid var(--ifuri-neutral-200);
   border-radius: 5px;
-  background: #f9fafb;
-  color: #263445;
+  background: var(--ifuri-neutral-50);
+  color: var(--ifuri-neutral-700);
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   font-size: 13px;
   overflow-wrap: anywhere;
@@ -233,15 +236,15 @@ code {
   align-items: center;
   padding: 0 7px;
   border-radius: 999px;
-  background: #e5f7f4;
-  color: var(--accent-dark);
+  background: var(--ifuri-accent-100);
+  color: var(--ifuri-accent-700);
   font-size: 12px;
   font-style: normal;
   font-weight: 740;
 }
 
 .status.planned {
-  background: #fff4d6;
+  background: #FEF3C7;
   color: var(--planned);
 }
 
@@ -267,7 +270,7 @@ code {
   padding: 10px 12px;
   border: 1px solid var(--line);
   border-radius: 7px;
-  background: #fbfcfd;
+  background: var(--ifuri-neutral-50);
 }
 
 .footer {

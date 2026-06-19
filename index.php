@@ -15,6 +15,10 @@ $defaultInstall = '/install?connectors=' . rawurlencode($defaultIds);
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>connect.ifuri.com - connector hub</title>
   <meta name="description" content="Connector hub for ifuri and urirun. Pick integrations, copy one command and install URI connectors for your host or node.">
+  <meta name="theme-color" content="#4F46E5">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/favicon.ico" sizes="any">
+  <link rel="stylesheet" href="/assets/ifuri-tokens.css">
   <link rel="stylesheet" href="/assets/app.css">
 </head>
 <body>
