@@ -8,7 +8,9 @@
    - `/install`
    - `/connectors.json`
    - `/registry.json`
+   - `/search.json`
    - `/connectors/{id}`
+   - `/connectors/{id}.json`
    - `/sitemap.xml`
    - `/robots.txt`
    - `/llms.txt`
@@ -17,6 +19,8 @@
 ```bash
 curl -fsSL https://connect.ifuri.com/connectors.json
 curl -fsSL https://connect.ifuri.com/connectors/namecheap-dns
+curl -fsSL https://connect.ifuri.com/connectors/namecheap-dns.json
+curl -fsSL https://connect.ifuri.com/search.json
 curl -fsSL https://connect.ifuri.com/sitemap.xml
 curl -fsSL https://connect.ifuri.com/llms.txt
 curl -fsSL 'https://connect.ifuri.com/install?connectors=planfile' | bash

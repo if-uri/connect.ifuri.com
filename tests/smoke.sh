@@ -93,6 +93,8 @@ paths = [
     ("/", "text/html"),
     ("/connectors.json", "application/json"),
     ("/registry.json", "application/json"),
+    ("/search.json", "application/json"),
+    ("/connectors/planfile.json", "application/json"),
     ("/install?connectors=planfile,namecheap-dns", "text/x-shellscript"),
     ("/sitemap.xml", "application/xml"),
     ("/robots.txt", "text/plain"),
@@ -122,6 +124,10 @@ for path, expected in paths:
 
 registry = json.loads(fetch("/registry.json")[2])
 assert len(registry["connectors"]) == len(catalog["connectors"])
+search = json.loads(fetch("/search.json")[2])
+assert search["version"] == "ifuri.search.v1"
+assert search["recordCount"] >= len(catalog["connectors"])
+assert any(item["type"] == "route" and item["route"] == "dns://host/records/command/plan" for item in search["records"])
 
 for connector in catalog["connectors"]:
     path = "/connectors/" + connector["id"]
@@ -135,6 +141,15 @@ for connector in catalog["connectors"]:
     for route in connector["routes"]:
         assert route in body, (path, route)
     assert f"https://connect.ifuri.com/connectors/{connector['id']}" in fetch("/sitemap.xml")[2]
+    manifest_path = "/connectors/" + connector["id"] + ".json"
+    status, content_type, body = fetch(manifest_path)
+    assert status == 200, manifest_path
+    assert "application/json" in content_type, (manifest_path, content_type)
+    manifest = json.loads(body)
+    assert manifest["version"] == "ifuri.connector.v1"
+    assert manifest["connector"]["id"] == connector["id"]
+    assert manifest["registryEntry"]["hubUrl"].endswith("/connectors/" + connector["id"])
+    assert manifest["registryEntry"]["manifestUrl"].endswith(manifest_path)
 PY
 
 if [[ -n "$BASE_URL" ]]; then
@@ -149,6 +164,8 @@ checks = [
     ("/", "text/html"),
     ("/connectors.json", "application/json"),
     ("/registry.json", "application/json"),
+    ("/search.json", "application/json"),
+    ("/connectors/planfile.json", "application/json"),
     ("/install?connectors=planfile,namecheap-dns", "text/x-shellscript"),
     ("/sitemap.xml", "application/xml"),
     ("/robots.txt", "text/plain"),
@@ -156,6 +173,7 @@ checks = [
 ]
 for connector in catalog["connectors"]:
     checks.append(("/connectors/" + connector["id"], "text/html"))
+    checks.append(("/connectors/" + connector["id"] + ".json", "application/json"))
 
 for path, expected in checks:
     with urllib.request.urlopen(base + path, timeout=25) as response:
@@ -168,8 +186,12 @@ for path, expected in checks:
     if path.startswith("/install"):
         assert "planfile>=0.1.103" in body
     if path.startswith("/connectors/"):
-        assert 'application/ld+json' in body
-        assert 'property="og:title"' in body
+        if path.endswith(".json"):
+            payload = json.loads(body)
+            assert payload["version"] == "ifuri.connector.v1"
+        else:
+            assert 'application/ld+json' in body
+            assert 'property="og:title"' in body
 PY
 fi
 

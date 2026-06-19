@@ -56,6 +56,7 @@ $jsonLd = [
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="/assets/favicon.ico" sizes="any">
   <link rel="sitemap" type="application/xml" href="/sitemap.xml">
+  <link rel="alternate" type="application/json" href="/search.json" title="ifuri connector search index">
   <link rel="stylesheet" href="/assets/ifuri-tokens.css">
   <link rel="stylesheet" href="/assets/app.css">
   <script type="application/ld+json"><?php echo json_encode($jsonLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE); ?></script>
@@ -152,7 +153,9 @@ $jsonLd = [
       </div>
       <div class="links">
         <a href="/connectors.json">/connectors.json</a>
+        <a href="/search.json">/search.json</a>
         <a href="/registry.json">/registry.json</a>
+        <a href="/connectors/planfile.json">/connectors/planfile.json</a>
         <a href="/install?connectors=planfile,namecheap-dns">/install?connectors=planfile,namecheap-dns</a>
       </div>
     </section>

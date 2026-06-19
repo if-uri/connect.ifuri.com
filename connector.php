@@ -77,6 +77,7 @@ $jsonLd = [
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="/assets/favicon.ico" sizes="any">
   <link rel="sitemap" type="application/xml" href="/sitemap.xml">
+  <link rel="alternate" type="application/json" href="<?php echo hub_h(hub_connector_json_path($connector)); ?>" title="<?php echo hub_h((string) $connector['name']); ?> connector manifest">
   <link rel="stylesheet" href="/assets/ifuri-tokens.css">
   <link rel="stylesheet" href="/assets/app.css">
   <script type="application/ld+json"><?php echo json_encode($jsonLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE); ?></script>
@@ -151,7 +152,7 @@ $jsonLd = [
           </div>
         </div>
 
-        <div class="tab-panel" data-tab-panel="routes" role="tabpanel" hidden>
+        <div id="routes" class="tab-panel" data-tab-panel="routes" role="tabpanel" hidden>
           <h2>Routes</h2>
           <div class="route-list">
             <?php foreach (($connector['routes'] ?? []) as $route): ?>
@@ -201,6 +202,8 @@ $jsonLd = [
           <div class="links inline">
             <a href="/registry.json">Full registry</a>
             <a href="/connectors.json">Connector catalog</a>
+            <a href="<?php echo hub_h(hub_connector_json_path($connector)); ?>">Connector JSON</a>
+            <a href="/search.json">Search index</a>
             <a href="/llms.txt">LLM index</a>
           </div>
         </div>

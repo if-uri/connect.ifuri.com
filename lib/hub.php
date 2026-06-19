@@ -79,6 +79,16 @@ function hub_connector_url(array $connector): string
     return hub_url(hub_connector_path($connector));
 }
 
+function hub_connector_json_path(array $connector): string
+{
+    return hub_connector_path($connector) . '.json';
+}
+
+function hub_connector_json_url(array $connector): string
+{
+    return hub_url(hub_connector_json_path($connector));
+}
+
 function hub_selected_ids(?string $raw): array
 {
     if ($raw === null || trim($raw) === '') {
@@ -207,26 +217,99 @@ function hub_registry(): array
 {
     $items = [];
     foreach (hub_connectors() as $connector) {
-        $items[] = [
-            'id' => $connector['id'],
-            'name' => $connector['name'],
-            'status' => $connector['status'],
-            'category' => $connector['category'] ?? null,
-            'summary' => $connector['summary'] ?? null,
-            'description' => $connector['description'] ?? null,
-            'uriSchemes' => $connector['uriSchemes'] ?? [],
-            'routes' => $connector['routes'] ?? [],
-            'examples' => $connector['examples'] ?? [],
-            'flowExample' => $connector['flowExample'] ?? [],
-            'install' => $connector['install'] ?? [],
-            'docsUrl' => $connector['docsUrl'] ?? null,
-            'hubUrl' => hub_connector_url($connector),
-        ];
+        $items[] = hub_registry_entry($connector);
     }
     return [
         'version' => 'ifuri.registry.v1',
         'generatedAt' => gmdate('c'),
         'connectors' => $items,
+    ];
+}
+
+function hub_registry_entry(array $connector): array
+{
+    return [
+        'id' => $connector['id'],
+        'name' => $connector['name'],
+        'status' => $connector['status'],
+        'category' => $connector['category'] ?? null,
+        'summary' => $connector['summary'] ?? null,
+        'description' => $connector['description'] ?? null,
+        'uriSchemes' => $connector['uriSchemes'] ?? [],
+        'routes' => $connector['routes'] ?? [],
+        'examples' => $connector['examples'] ?? [],
+        'flowExample' => $connector['flowExample'] ?? [],
+        'install' => $connector['install'] ?? [],
+        'docsUrl' => $connector['docsUrl'] ?? null,
+        'hubUrl' => hub_connector_url($connector),
+        'manifestUrl' => hub_connector_json_url($connector),
+    ];
+}
+
+function hub_connector_manifest(array $connector): array
+{
+    return [
+        'version' => 'ifuri.connector.v1',
+        'generatedAt' => gmdate('c'),
+        'connector' => $connector,
+        'registryEntry' => hub_registry_entry($connector),
+        'installCommand' => hub_install_command([(string) $connector['id']]),
+    ];
+}
+
+function hub_search_index(): array
+{
+    $records = [];
+    foreach (hub_connectors() as $connector) {
+        $connectorId = (string) $connector['id'];
+        $connectorText = implode(' ', array_filter([
+            $connectorId,
+            $connector['name'] ?? '',
+            $connector['status'] ?? '',
+            $connector['category'] ?? '',
+            $connector['summary'] ?? '',
+            $connector['description'] ?? '',
+            implode(' ', $connector['uriSchemes'] ?? []),
+            implode(' ', $connector['keywords'] ?? []),
+            implode(' ', $connector['useCases'] ?? []),
+            implode(' ', $connector['routes'] ?? []),
+        ]));
+        $records[] = [
+            'type' => 'connector',
+            'id' => $connectorId,
+            'title' => $connector['name'] ?? $connectorId,
+            'status' => $connector['status'] ?? null,
+            'category' => $connector['category'] ?? null,
+            'summary' => $connector['summary'] ?? null,
+            'uriSchemes' => $connector['uriSchemes'] ?? [],
+            'routes' => $connector['routes'] ?? [],
+            'url' => hub_connector_url($connector),
+            'manifestUrl' => hub_connector_json_url($connector),
+            'text' => $connectorText,
+        ];
+        foreach (($connector['routes'] ?? []) as $route) {
+            $scheme = str_contains((string) $route, '://') ? explode('://', (string) $route, 2)[0] : null;
+            $records[] = [
+                'type' => 'route',
+                'id' => $connectorId . ':' . $route,
+                'connectorId' => $connectorId,
+                'connectorName' => $connector['name'] ?? $connectorId,
+                'route' => $route,
+                'scheme' => $scheme,
+                'status' => $connector['status'] ?? null,
+                'url' => hub_connector_url($connector) . '#routes',
+                'manifestUrl' => hub_connector_json_url($connector),
+                'text' => trim($route . ' ' . ($connector['name'] ?? '') . ' ' . ($connector['summary'] ?? '')),
+            ];
+        }
+    }
+
+    return [
+        'version' => 'ifuri.search.v1',
+        'generatedAt' => gmdate('c'),
+        'site' => hub_site(),
+        'recordCount' => count($records),
+        'records' => $records,
     ];
 }
 

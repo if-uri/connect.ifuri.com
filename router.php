@@ -23,6 +23,10 @@ if ($path === '/registry.json') {
     require __DIR__ . '/api/registry.php';
     return true;
 }
+if ($path === '/search.json') {
+    require __DIR__ . '/api/search.php';
+    return true;
+}
 if ($path === '/sitemap.xml') {
     require __DIR__ . '/sitemap.php';
     return true;
@@ -33,6 +37,11 @@ if ($path === '/robots.txt') {
 }
 if ($path === '/llms.txt') {
     require __DIR__ . '/llms.php';
+    return true;
+}
+if (preg_match('#^/connectors/([a-z0-9._-]+)\.json$#', $path, $match)) {
+    $_GET['id'] = $match[1];
+    require __DIR__ . '/api/connector.php';
     return true;
 }
 if (preg_match('#^/connectors/([a-z0-9._-]+)$#', $path, $match)) {

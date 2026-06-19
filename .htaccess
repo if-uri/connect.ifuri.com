@@ -5,6 +5,8 @@ DirectoryIndex index.php
   RewriteRule ^install$ install.php [L,QSA]
   RewriteRule ^connectors\.json$ api/connectors.php [L,QSA]
   RewriteRule ^registry\.json$ api/registry.php [L,QSA]
+  RewriteRule ^search\.json$ api/search.php [L,QSA]
+  RewriteRule ^connectors/([a-z0-9._-]+)\.json$ api/connector.php?id=$1 [L,QSA]
   RewriteRule ^connectors/([a-z0-9._-]+)$ connector.php?id=$1 [L,QSA]
   RewriteRule ^sitemap\.xml$ sitemap.php [L,QSA]
   RewriteRule ^robots\.txt$ robots.php [L,QSA]
