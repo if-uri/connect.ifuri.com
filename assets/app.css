@@ -69,14 +69,11 @@ nav {
 }
 
 .mark {
-  display: inline-grid;
-  place-items: center;
   width: 34px;
   height: 34px;
   border-radius: 8px;
-  background: linear-gradient(135deg, var(--ifuri-primary-600), var(--ifuri-primary-500));
-  color: white;
-  font-weight: 800;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 nav {

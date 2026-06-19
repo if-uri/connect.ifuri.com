@@ -44,7 +44,7 @@ $jsonLd = [
   <header class="site-header">
     <div class="wrap">
       <a class="brand" href="/">
-        <span class="mark">if</span>
+        <img class="mark" src="/assets/mark.svg" alt="ifuri" width="34" height="34">
         <span>connect.ifuri.com</span>
       </a>
       <nav>
