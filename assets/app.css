@@ -148,7 +148,7 @@ button,
   padding: 0 13px;
   border: 1px solid var(--line);
   border-radius: 7px;
-  background: white;
+  background: var(--panel);
   color: var(--ink);
   font: inherit;
   cursor: pointer;
@@ -633,3 +633,52 @@ pre {
     grid-template-columns: 1fr;
   }
 }
+
+
+/* ---- Dark theme: automatic via OS, forced with <html data-theme>. ---- */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+  --bg: #0F172A;
+  --panel: #1E293B;
+  --ink: #F1F5F9;
+  --muted: #94A3B8;
+  --line: #334155;
+  --accent-dark: #A5B4FC;
+  --brand-accent: #34D399;
+  --planned: #FCD34D;
+  /* remap the ifuri light-surface tokens so pills/code/tabs flip via cascade */
+  --ifuri-neutral-50: #1E293B;
+  --ifuri-neutral-200: #334155;
+  --ifuri-neutral-700: #CBD5E1;
+  --ifuri-primary-50: #312E81;
+  --ifuri-primary-700: #C7D2FE;
+  --ifuri-accent-100: #064E3B;
+  --ifuri-accent-700: #6EE7B7;
+  }
+  :root:not([data-theme="light"]) .site-header {
+  background: rgba(15, 23, 42, 0.92);
+  }
+  :root:not([data-theme="light"]) .status.planned { background: #3F2D0B; }
+}
+:root[data-theme="dark"] {
+  --bg: #0F172A;
+  --panel: #1E293B;
+  --ink: #F1F5F9;
+  --muted: #94A3B8;
+  --line: #334155;
+  --accent-dark: #A5B4FC;
+  --brand-accent: #34D399;
+  --planned: #FCD34D;
+  /* remap the ifuri light-surface tokens so pills/code/tabs flip via cascade */
+  --ifuri-neutral-50: #1E293B;
+  --ifuri-neutral-200: #334155;
+  --ifuri-neutral-700: #CBD5E1;
+  --ifuri-primary-50: #312E81;
+  --ifuri-primary-700: #C7D2FE;
+  --ifuri-accent-100: #064E3B;
+  --ifuri-accent-700: #6EE7B7;
+}
+:root[data-theme="dark"] .site-header {
+  background: rgba(15, 23, 42, 0.92);
+}
+:root[data-theme="dark"] .status.planned { background: #3F2D0B; }
