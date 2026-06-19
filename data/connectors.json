@@ -22,6 +22,11 @@
         "label": "Docs",
         "url": "https://docs.ifuri.com/connectors.html",
         "title": "Connector documentation"
+      },
+      {
+        "label": "Roadmap",
+        "url": "https://roadmap.ifuri.com/",
+        "title": "ifuri roadmap"
       }
     ]
   },
