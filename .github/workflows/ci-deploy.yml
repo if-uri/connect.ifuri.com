@@ -17,6 +17,9 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y php-cli rsync python3-jsonschema
 
+      - name: Validate connector manifests + catalog (JSON Schema)
+        run: python3 scripts/validate_connectors.py
+
       - name: Smoke test
         run: bash tests/smoke.sh
 
