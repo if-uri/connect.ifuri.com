@@ -176,7 +176,7 @@
             ],
             "install": {
                 "mode": "urirun-extra",
-                "pipSpec": "urirun-connector-http-check @ git+https://github.com/if-uri/urirun-connector-http-check.git@v0.1.3"
+                "pipSpec": "urirun-connector-http-check @ git+https://github.com/if-uri/urirun-connector-http-check.git@v0.1.4"
             },
             "docsUrl": "https://github.com/if-uri/urirun-connector-http-check",
             "hubUrl": "https://connect.ifuri.com/connectors/http-check",
@@ -188,7 +188,7 @@
             "status": "available",
             "category": "Operations",
             "summary": "Expose current time and timezone checks through time:// URI commands.",
-            "description": "Time Tools is a minimal external urirun connector package. It declares time:// routes with @urirun.command, returns structured JSON, and can be projected to MCP tools / A2A skills.",
+            "description": "Time Tools is a minimal external urirun connector package. It declares time:// routes with @connector.command, returns structured JSON, and can be projected to MCP tools / A2A skills.",
             "uriSchemes": [
                 "time"
             ],
@@ -218,7 +218,7 @@
             ],
             "install": {
                 "mode": "urirun-extra",
-                "pipSpec": "urirun-connector-time-tools @ git+https://github.com/if-uri/urirun-connector-time-tools.git@v0.1.0"
+                "pipSpec": "urirun-connector-time-tools @ git+https://github.com/if-uri/urirun-connector-time-tools.git@v0.1.1"
             },
             "docsUrl": "https://github.com/if-uri/urirun-connector-time-tools",
             "hubUrl": "https://connect.ifuri.com/connectors/time-tools",
