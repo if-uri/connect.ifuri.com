@@ -1,7 +1,7 @@
 {
   "version": "ifuri.connectors.v1",
   "updatedAt": "2026-06-20",
-  "defaultPipSpec": "urirun @ git+https://github.com/tellmesh/urirun.git@v0.3.5#subdirectory=adapters/python",
+  "defaultPipSpec": "urirun @ git+https://github.com/tellmesh/urirun.git@v0.3.11#subdirectory=adapters/python",
   "site": {
     "baseUrl": "https://connect.ifuri.com",
     "title": "ifuri Connect - URI connector hub for urirun",

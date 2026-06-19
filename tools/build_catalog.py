@@ -11,6 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 META_PATH = ROOT / "data" / "catalog.meta.json"
 CONNECTORS_DIR = ROOT / "data" / "connectors"
 OUTPUT_PATH = ROOT / "data" / "connectors.json"
+SCHEMA_PATH = ROOT / "schema" / "connector.schema.json"
 
 
 CATALOG_FIELDS = [
@@ -118,12 +119,39 @@ def public_connector(manifest: dict) -> dict:
     return {key: manifest[key] for key in CATALOG_FIELDS if key in manifest}
 
 
+def schema_validator():
+    """Draft 2020-12 validator for the formal connector manifest schema.
+
+    Complements validate_manifest() (cross-field rules it can't express, e.g.
+    id == folder name) by enforcing the structural contract: additionalProperties,
+    maxLength, enums and patterns declared in schema/connector.schema.json.
+    """
+    try:
+        import jsonschema
+    except ModuleNotFoundError as exc:  # pragma: no cover
+        raise RuntimeError(
+            "jsonschema is required for manifest validation; "
+            "install it with `pip install jsonschema` (CI: apt python3-jsonschema)"
+        ) from exc
+    return jsonschema.Draft202012Validator(load_json(SCHEMA_PATH))
+
+
+def validate_schema(validator, path: Path, manifest: dict) -> None:
+    errors = sorted(validator.iter_errors(manifest), key=lambda e: list(e.path))
+    if errors:
+        err = errors[0]
+        loc = "/".join(str(p) for p in err.path) or "<root>"
+        raise ValueError(f"{path}: schema violation at {loc}: {err.message}")
+
+
 def build_catalog() -> dict:
     meta = load_json(META_PATH)
+    validator = schema_validator()
     manifests: dict[str, dict] = {}
     for path in sorted(CONNECTORS_DIR.glob("*/manifest.json")):
         manifest = load_json(path)
         validate_manifest(path, manifest)
+        validate_schema(validator, path, manifest)
         manifests[manifest["id"]] = manifest
 
     order = [str(item) for item in meta.get("connectorOrder", [])]
