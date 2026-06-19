@@ -51,6 +51,15 @@ REQUIRED = {
 }
 
 
+COMMUNITY_ADAPTER_ALLOWLIST = {
+    "domain-monitor",
+    "grpc-transport",
+    "http-service",
+    "local-function",
+    "planfile-task",
+}
+
+
 def load_json(path: Path) -> dict:
     with path.open("r", encoding="utf-8") as handle:
         data = json.load(handle)
@@ -76,6 +85,14 @@ def validate_manifest(path: Path, manifest: dict) -> None:
 
     if manifest["provenance"] == "community" and not manifest.get("publisher"):
         raise ValueError(f"{path}: community connector requires publisher")
+
+    if manifest["provenance"] == "community":
+        for adapter_kind in manifest.get("adapterKinds") or []:
+            if adapter_kind not in COMMUNITY_ADAPTER_ALLOWLIST:
+                raise ValueError(
+                    f"{path}: community connector cannot use adapterKind {adapter_kind!r}; "
+                    "review the allowlist before publishing"
+                )
 
     schemes = set(manifest.get("uriSchemes") or [])
     if not schemes:

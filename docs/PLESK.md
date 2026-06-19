@@ -27,3 +27,9 @@ curl -fsSL 'https://connect.ifuri.com/install?connectors=planfile' | bash
 ```
 
 No Composer install step is required.
+
+Connector catalog build check:
+
+```bash
+python3 tools/build_catalog.py --check
+```

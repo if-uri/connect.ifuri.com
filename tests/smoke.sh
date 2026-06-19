@@ -8,7 +8,11 @@ cd "$ROOT"
 
 find . -path './.git' -prune -o -name '*.php' -print -exec php -l {} \; >/tmp/connect-ifuri-php-lint.log
 python3 -m json.tool data/connectors.json >/tmp/connect-ifuri-connectors.json
+python3 -m json.tool data/catalog.meta.json >/tmp/connect-ifuri-catalog-meta.json
+python3 -m json.tool schema/connector.schema.json >/tmp/connect-ifuri-connector-schema.json
 python3 -m json.tool schema/connectors.schema.json >/tmp/connect-ifuri-schema.json
+python3 tools/build_catalog.py --check
+php tests/snapshot_test.php
 
 python3 - <<'PY'
 import json

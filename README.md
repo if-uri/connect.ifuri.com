@@ -15,6 +15,19 @@ The site is designed for Plesk hosting and exposes:
 - `GET /robots.txt` - crawler policy with sitemap location,
 - `GET /llms.txt` - compact LLM-readable connector index.
 
+Connector source files live in `data/connectors/{id}/manifest.json`.
+`data/connectors.json` is generated from those manifests:
+
+```bash
+python3 tools/build_catalog.py
+python3 tools/build_catalog.py --check
+```
+
+Contributor docs:
+
+- [`docs/CONNECTORS-ARCHITECTURE.md`](docs/CONNECTORS-ARCHITECTURE.md)
+- [`docs/SUBMIT-CONNECTOR.md`](docs/SUBMIT-CONNECTOR.md)
+
 ## Local run
 
 ```bash

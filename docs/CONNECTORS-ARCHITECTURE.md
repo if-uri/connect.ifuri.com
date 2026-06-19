@@ -1,126 +1,123 @@
 # Connector catalog architecture
 
-## Where we are (and why it's correct)
+## Where we are
 
-The source of truth is a single **`data/connectors.json`**. At 7 first-party
-connectors this is the right call: atomic, one fetch, trivial to validate, **no
-build step**. The served machine endpoints are derived from it:
+The source of truth is now one folder per connector:
 
-- `GET /connectors.json` → the catalog verbatim (`hub_catalog()`).
-- `GET /registry.json` → a projection with a volatile `generatedAt` (`hub_registry()`).
-- `GET /install?connectors=…` → a shell installer for the selected ids.
+```text
+data/catalog.meta.json
+data/connectors/<id>/manifest.json
+schema/connector.schema.json
+```
 
-Do **not** split into folders yet. Premature.
+`data/connectors.json` is a generated aggregate committed to the repository so
+Plesk can serve the hub without a build step at request time.
 
-## The invariant (already guarded)
-
-Whatever the internal layout, **the served bytes of `/connectors.json` and
-`/registry.json` must not change** unless the change is intentional. That is what
-makes a future "source = folders, served = generated aggregate" migration safe and
-reversible — the ifuri app never sees the seam.
-
-This is **locked by a test, today**: `tests/snapshot_test.php` compares the served
-output (registry `generatedAt` normalized) against `tests/golden/*`.
+Build and check:
 
 ```bash
-php tests/snapshot_test.php           # CI gate — fails on any contract drift
-php tests/snapshot_test.php --update  # only after an *intentional* catalog change
+python3 tools/build_catalog.py
+python3 tools/build_catalog.py --check
 ```
 
-Green snapshot == contract untouched. Run it after editing `data/connectors.json`
-or `lib/hub.php`; if the diff is intended, `--update` and commit the refreshed golden.
+The served machine endpoints are derived from the generated aggregate:
 
-## Migration trigger (not a calendar, an event)
+- `GET /connectors.json` -> full public connector catalog,
+- `GET /connectors/{id}.json` -> one connector manifest plus registry entry,
+- `GET /registry.json` -> runtime registry projection,
+- `GET /search.json` -> flat connector and URI route search index,
+- `GET /install?connectors=...` -> shell installer for selected ids,
+- `GET /llms.txt` -> compact LLM-readable index.
 
-Move to folders the moment **either** happens — not before:
+## The invariant
 
-1. a connector needs its **own assets** (icon, long README, screenshots, example
-   payload files), or
-2. an **external publisher** wants to contribute a connector.
+Whatever the internal layout, the served bytes of `/connectors.json` and
+`/registry.json` must not change unless the change is intentional. That is what
+makes future refactors safe for the ifuri app.
 
-Until then the single file wins.
+This is guarded by:
 
-## Target layout — design for assets, get publishers for free
-
-Per the priority decision: lay out for **assets-per-connector**. It is the richer
-superset; external publishers are the *same* layout plus process (CODEOWNERS, CI,
-trust policy), not a different one.
-
+```bash
+python3 tools/build_catalog.py --check
+php tests/snapshot_test.php
+bash tests/smoke.sh
 ```
+
+`tests/snapshot_test.php` compares `/connectors.json` and `/registry.json`
+against `tests/golden/*`, with volatile `generatedAt` normalized.
+
+```bash
+php tests/snapshot_test.php           # verify
+php tests/snapshot_test.php --update  # only after an intentional contract change
+```
+
+## Folder layout
+
+Each connector owns its manifest and future assets:
+
+```text
 data/connectors/<id>/
-  manifest.json        # source of truth — schema/connector.schema.json
-  icon.svg             # optional, folder-only asset
+  manifest.json        # source of truth, schema/connector.schema.json
+  icon.svg             # optional, folder-relative asset
   README.md            # optional long-form docs
   examples/
-    *.json             # optional example payloads, referenced by examples[].payloadFile
+    *.json             # optional example payloads
 ```
 
-### Field mapping (`manifest.json` → `connectors.json` entry)
+`data/catalog.meta.json` stores shared catalog metadata and `connectorOrder`.
+That keeps ordering stable without adding UI-only order fields to manifests.
 
-`manifest.json` is a **superset** of one catalog entry. Aggregation:
+## Field mapping
+
+`manifest.json` is a superset of one public catalog entry.
 
 | manifest field | catalog entry | rule |
 |----------------|---------------|------|
-| `id` | `id` | must equal folder name (CI-checked) |
+| `id` | `id` | must equal folder name |
 | `name`,`status`,`category`,`summary`,`description` | same | copied 1:1 |
 | `uriSchemes`,`routes`,`useCases`,`flowExample`,`requires`,`keywords` | same | copied 1:1 |
 | `install` | `install` | copied 1:1 |
 | `docsUrl` | `docsUrl` | copied 1:1 |
-| `examples[].payloadFile` | `examples[].payload` | file inlined; `payloadFile` dropped |
-| `icon` (folder-relative) | — | resolved to a hub URL; emitted only if present |
-| `readme` | — | rendered into the detail page; not in catalog JSON |
-| `provenance`,`publisher`,`adapterKinds` | — | trust metadata; surfaced as a badge, not part of the install contract |
+| `provenance`,`publisher`,`adapterKinds` | same | copied for trust-aware clients |
+| `icon`,`readme` | same when present | currently folder-relative metadata |
 
-**Byte-compat rule:** for the current 7 connectors, none carry `icon`/`readme`/
-`provenance`, so the generated `connectors.json` is identical to today's — the
-snapshot test passes unchanged. New fields appear only when a connector adds them,
-which *is* an intentional change (regenerate goldens then).
+The generator validates:
 
-### Aggregation: runtime glob vs build step
+- required fields,
+- folder name equals `id`,
+- route schemes are listed in `uriSchemes`,
+- `status` is `available` or `planned`,
+- `provenance` is `verified` or `community`,
+- community connectors declare `publisher`,
+- community connector `adapterKinds` are allowlisted.
 
-Two options, both keep the endpoints byte-identical:
+## Trust model
 
-- **Runtime glob** in `lib/hub.php`: `hub_catalog()` globs `data/connectors/*/manifest.json`,
-  inlines assets, sorts deterministically, returns the same array shape. Zero build,
-  fits the dependency-free Plesk model. Preferred while the catalog is small.
-- **Build step** (`bin/build-catalog.php` → writes `data/connectors.json`): better if
-  glob cost ever matters or you want the aggregate committed. The snapshot test doubles
-  as the build's correctness check.
+Folder-per-connector solves review mechanics: less merge conflict pressure,
+clear ownership and a natural place for docs/assets. It does not by itself solve
+the supply-chain risk of executable installers and adapter kinds.
 
-Either way: **deterministic ordering** (sort by `id`) so output is stable.
+Trust fields are first-class:
 
-## Trust model — required *before* external publishers (independent of layout)
+- `provenance: verified` - maintained or reviewed by if-uri,
+- `provenance: community` - third-party connector, must declare `publisher`.
 
-Folder-per-connector solves review *mechanics* (merge conflicts, CODEOWNERS). It does
-**not** solve that a connector declares `adapterKinds` + an `install` surface and the
-hub serves `/install` — that is executable / supply-chain surface. Stand this up
-**before** the first outside PR:
+Before accepting external publishers, CI should enforce an adapter-kind
+allowlist by provenance:
 
-1. **Schema gate in CI** — every `manifest.json` validated against
-   `schema/connector.schema.json`; reject anything malformed or with an unknown
-   `adapter kind`. A binding without a declared schema does not merge.
-2. **Adapter-kind allowlist by provenance** — `verified` connectors may use any kind;
-   `community` connectors are restricted, e.g.
+| adapter kind | community? |
+|--------------|------------|
+| `http-service`, `planfile-task`, `domain-monitor` | allowed |
+| `argv-template`, `shell-template`, `command` | verified only |
 
-   | kind | community? |
-   |------|-----------|
-   | `http-service`, `planfile-task`, `domain-monitor` | allowed |
-   | `argv-template`, `shell-template`, `command` | **verified only** |
+Rationale: arbitrary shell or argv templates from a third-party catalog entry
+are an execution surface.
 
-   Rationale: arbitrary shell/argv from a third party is RCE-by-catalog.
-3. **Provenance split** — `verified` vs `community` is a first-class field, shown as a
-   UI badge and carried in `/registry.json`. Users (and the ifuri app) decide what they
-   trust. Default the app to `verified`-only unless the user opts in.
-4. **CODEOWNERS** per `data/connectors/<id>/` so the owning team reviews changes to its
-   own connector; if-uri maintainers own the schema, allowlist and `verified` tier.
+## Current order of work
 
-PyPI / npm / Terraform Registry learned this *after* incidents. Cheaper to have the
-model before the first foreign connector lands than to retrofit it.
-
-## Order of work (all layout-independent except the last)
-
-1. ✅ Snapshot test + goldens (`tests/snapshot_test.php`) — the safety net. **Done.**
-2. CI workflow: `php -l`, snapshot test, `manifest.json` schema validation.
-3. Adapter-kind allowlist + provenance enforcement in CI.
-4. Only then: flip `hub_catalog()` to glob folders, migrating one connector as the
-   pattern. Snapshot stays green → done, invisibly.
+1. Done: public connector pages and machine endpoints.
+2. Done: folder manifests plus generated aggregate.
+3. Done: generator check and snapshot check in smoke tests.
+4. Done: adapter-kind allowlist enforcement for community manifests.
+5. Next: CODEOWNERS for `data/connectors/<id>/`.
+6. Next: submit connector flow that validates a manifest before it reaches the hub.
