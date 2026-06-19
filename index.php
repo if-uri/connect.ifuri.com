@@ -185,6 +185,7 @@ $jsonLd = [
 
   <footer class="wrap footer">
     <span>Catalog version <?php echo hub_h((string) ($catalog['version'] ?? 'unknown')); ?></span>
+    <span>Site v<?php echo hub_h(hub_version()); ?></span>
     <?php if (!empty($site['ecosystem'])): ?>
       <nav class="footer-eco" aria-label="ifuri ecosystem">
         <?php foreach ($site['ecosystem'] as $eco): ?>

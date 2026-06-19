@@ -25,3 +25,21 @@ serve: ## Start local PHP server on http://127.0.0.1:8099
 .PHONY: deploy
 deploy: ## Publish to connect.ifuri.com (Plesk)
 	bash scripts/deploy-plesk.sh
+
+VERSION := $(shell cat VERSION 2>/dev/null || echo 0.0.0)
+
+.PHONY: version
+version: ## Print the current site version (VERSION file)
+	@echo $(VERSION)
+
+.PHONY: push
+push: ## Bump VERSION (LEVEL=patch|minor|major, default patch), commit, tag v<version>, push
+	@level="$(or $(LEVEL),patch)"; \
+	  cur=$$(cat VERSION 2>/dev/null || echo 0.0.0); \
+	  new=$$(awk -F. -v l="$$level" '{ if(l=="major") print $$1+1".0.0"; else if(l=="minor") print $$1"."$$2+1".0"; else print $$1"."$$2"."$$3+1 }' VERSION); \
+	  echo "$$new" > VERSION; \
+	  git add VERSION; \
+	  git commit -m "release: v$$new"; \
+	  git tag -a "v$$new" -m "v$$new"; \
+	  git push && git push --tags; \
+	  echo "released v$$new (was v$$cur); deploy carries VERSION -> footer shows it"

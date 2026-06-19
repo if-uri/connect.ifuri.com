@@ -6,6 +6,19 @@ function hub_base_path(): string
     return dirname(__DIR__);
 }
 
+function hub_version(): string
+{
+    static $version = null;
+    if ($version === null) {
+        $file = hub_base_path() . '/VERSION';
+        $version = is_file($file) ? trim((string) file_get_contents($file)) : '';
+        if ($version === '') {
+            $version = '0.0.0';
+        }
+    }
+    return $version;
+}
+
 function hub_json(string $path): array
 {
     $fullPath = hub_base_path() . '/' . ltrim($path, '/');
