@@ -186,5 +186,6 @@ $jsonLd = [
   <script>window.CONNECT_HUB_BASE = <?php echo json_encode(hub_base_url(), JSON_UNESCAPED_SLASHES); ?>;</script>
   <script>window.CONNECTOR_TEMPLATE = <?php echo json_encode($template, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE); ?>;</script>
   <script src="/assets/app.js"></script>
+  <script src="/assets/ifuri-ecobar.js" defer></script>
 </body>
 </html>

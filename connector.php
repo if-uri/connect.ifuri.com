@@ -25,6 +25,7 @@ if ($connector === null) {
     <p class="lead">The requested connector is not published in the ifuri connector catalog.</p>
     <a class="button primary" href="/">Back to connector hub</a>
   </main>
+  <script src="/assets/ifuri-ecobar.js" defer></script>
 </body>
 </html><?php
     exit;

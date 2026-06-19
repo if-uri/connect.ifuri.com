@@ -56,5 +56,6 @@ $site = hub_site();
     <?php endif; ?>
   </footer>
   <script src="/assets/app.js" defer></script>
+  <script src="/assets/ifuri-ecobar.js" defer></script>
 </body>
 </html>
