@@ -5,6 +5,10 @@ DirectoryIndex index.php
   RewriteRule ^install$ install.php [L,QSA]
   RewriteRule ^connectors\.json$ api/connectors.php [L,QSA]
   RewriteRule ^registry\.json$ api/registry.php [L,QSA]
+  RewriteRule ^connectors/([a-z0-9._-]+)$ connector.php?id=$1 [L,QSA]
+  RewriteRule ^sitemap\.xml$ sitemap.php [L,QSA]
+  RewriteRule ^robots\.txt$ robots.php [L,QSA]
+  RewriteRule ^llms\.txt$ llms.php [L,QSA]
 </IfModule>
 
 <IfModule mod_headers.c>

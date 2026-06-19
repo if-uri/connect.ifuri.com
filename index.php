@@ -5,21 +5,58 @@ require_once __DIR__ . '/lib/hub.php';
 
 $catalog = hub_catalog();
 $connectors = hub_connectors();
-$available = array_values(array_filter($connectors, static fn ($item) => ($item['status'] ?? '') === 'available'));
+$site = hub_site();
+$available = hub_available_connectors();
 $defaultIds = implode(',', array_column($available, 'id'));
-$defaultInstall = '/install?connectors=' . rawurlencode($defaultIds);
+$defaultInstall = hub_default_install_path();
+$canonical = hub_url('/');
+$socialImage = (string) ($site['image'] ?? hub_url('/assets/social-card.svg'));
+$jsonLd = [
+    '@context' => 'https://schema.org',
+    '@type' => 'CollectionPage',
+    'name' => $site['title'] ?? 'ifuri Connect',
+    'description' => $site['description'] ?? 'URI connector hub for ifuri and urirun.',
+    'url' => $canonical,
+    'mainEntity' => [
+        '@type' => 'ItemList',
+        'itemListElement' => array_map(
+            static fn ($connector, $index) => [
+                '@type' => 'ListItem',
+                'position' => $index + 1,
+                'url' => hub_connector_url($connector),
+                'name' => $connector['name'] ?? $connector['id'],
+            ],
+            $connectors,
+            array_keys($connectors)
+        ),
+    ],
+];
 ?><!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>connect.ifuri.com - connector hub</title>
-  <meta name="description" content="Connector hub for ifuri and urirun. Pick integrations, copy one command and install URI connectors for your host or node.">
+  <title><?php echo hub_h((string) ($site['title'] ?? 'connect.ifuri.com - connector hub')); ?></title>
+  <meta name="description" content="<?php echo hub_h((string) ($site['description'] ?? 'Connector hub for ifuri and urirun.')); ?>">
+  <meta name="keywords" content="<?php echo hub_h(hub_keywords()); ?>">
+  <link rel="canonical" href="<?php echo hub_h($canonical); ?>">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ifuri Connect">
+  <meta property="og:title" content="<?php echo hub_h((string) ($site['title'] ?? 'ifuri Connect')); ?>">
+  <meta property="og:description" content="<?php echo hub_h((string) ($site['description'] ?? 'URI connector hub for ifuri and urirun.')); ?>">
+  <meta property="og:url" content="<?php echo hub_h($canonical); ?>">
+  <meta property="og:image" content="<?php echo hub_h($socialImage); ?>">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="<?php echo hub_h((string) ($site['title'] ?? 'ifuri Connect')); ?>">
+  <meta name="twitter:description" content="<?php echo hub_h((string) ($site['description'] ?? 'URI connector hub for ifuri and urirun.')); ?>">
+  <meta name="twitter:image" content="<?php echo hub_h($socialImage); ?>">
   <meta name="theme-color" content="#4F46E5">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="/assets/favicon.ico" sizes="any">
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml">
   <link rel="stylesheet" href="/assets/ifuri-tokens.css">
   <link rel="stylesheet" href="/assets/app.css">
+  <script type="application/ld+json"><?php echo json_encode($jsonLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE); ?></script>
 </head>
 <body>
   <header class="site-header">
@@ -29,8 +66,10 @@ $defaultInstall = '/install?connectors=' . rawurlencode($defaultIds);
         <span>connect.ifuri.com</span>
       </a>
       <nav>
+        <a href="#connectors">Connectors</a>
         <a href="/connectors.json">connectors.json</a>
         <a href="/registry.json">registry.json</a>
+        <a href="/llms.txt">llms.txt</a>
         <a href="https://github.com/if-uri/connect.ifuri.com">GitHub</a>
       </nav>
     </div>
@@ -40,9 +79,9 @@ $defaultInstall = '/install?connectors=' . rawurlencode($defaultIds);
     <section class="hero">
       <p class="eyebrow">Connector hub for ifuri + urirun</p>
       <h1>Install URI connectors with one command.</h1>
-      <p class="lead">Choose any set of connectors, copy the generated one-liner and let ifuri/urirun expose their URI bindings, registry entries and flows.</p>
+      <p class="lead">Choose connectors, copy one command and let ifuri/urirun expose their URI bindings, registry entries, requirements and flow examples.</p>
       <div class="hero-actions">
-        <button class="primary" data-copy="<?php echo hub_h("curl -fsSL 'https://connect.ifuri.com{$defaultInstall}' | bash"); ?>">Copy default install</button>
+        <button class="primary" data-copy="<?php echo hub_h(hub_install_command($defaultIds === '' ? [] : explode(',', $defaultIds))); ?>">Copy default install</button>
         <a class="button" href="<?php echo hub_h($defaultInstall); ?>">Open installer script</a>
       </div>
     </section>
@@ -56,12 +95,12 @@ $defaultInstall = '/install?connectors=' . rawurlencode($defaultIds);
         <button id="selectAvailable">Select available</button>
       </div>
       <div class="command-box">
-        <code id="installCommand">curl -fsSL 'https://connect.ifuri.com<?php echo hub_h($defaultInstall); ?>' | bash</code>
+        <code id="installCommand"><?php echo hub_h(hub_install_command($defaultIds === '' ? [] : explode(',', $defaultIds))); ?></code>
         <button class="primary" id="copyInstall">Copy</button>
       </div>
     </section>
 
-    <div class="connector-filter">
+    <div id="connectors" class="connector-filter">
       <input id="connectorSearch" type="search" placeholder="Filter connectors by name, summary or URI scheme…" aria-label="Filter connectors" autocomplete="off">
       <span id="connectorCount" class="muted-count"></span>
     </div>
@@ -72,7 +111,7 @@ $defaultInstall = '/install?connectors=' . rawurlencode($defaultIds);
           $id = (string) $connector['id'];
           $status = (string) ($connector['status'] ?? 'planned');
           $disabled = $status !== 'available';
-          $search = strtolower(trim($id . ' ' . (string) $connector['name'] . ' ' . (string) $connector['summary'] . ' ' . implode(' ', $connector['routes'] ?? [])));
+          $search = strtolower(trim($id . ' ' . (string) $connector['name'] . ' ' . (string) $connector['summary'] . ' ' . (string) ($connector['category'] ?? '') . ' ' . implode(' ', $connector['uriSchemes'] ?? []) . ' ' . implode(' ', $connector['routes'] ?? []) . ' ' . implode(' ', $connector['keywords'] ?? [])));
         ?>
         <article class="connector" data-status="<?php echo hub_h($status); ?>" data-id="<?php echo hub_h($id); ?>" data-search="<?php echo hub_h($search); ?>">
           <label class="connector-top">
@@ -82,15 +121,22 @@ $defaultInstall = '/install?connectors=' . rawurlencode($defaultIds);
               <em class="status <?php echo hub_h($status); ?>"><?php echo hub_h($status); ?></em>
             </span>
           </label>
+          <p class="category"><?php echo hub_h((string) ($connector['category'] ?? 'Connector')); ?></p>
           <p><?php echo hub_h((string) $connector['summary']); ?></p>
+          <div class="schemes" aria-label="URI schemes">
+            <?php foreach (($connector['uriSchemes'] ?? []) as $scheme): ?>
+              <span><?php echo hub_h((string) $scheme); ?>://</span>
+            <?php endforeach; ?>
+          </div>
           <div class="routes">
             <?php foreach (($connector['routes'] ?? []) as $route): ?>
               <code><?php echo hub_h((string) $route); ?></code>
             <?php endforeach; ?>
           </div>
           <div class="connector-foot">
+            <a href="<?php echo hub_h(hub_connector_path($connector)); ?>">Details</a>
             <a href="<?php echo hub_h((string) ($connector['docsUrl'] ?? 'https://github.com/if-uri/docs')); ?>">Docs</a>
-            <button data-copy="<?php echo hub_h("curl -fsSL 'https://connect.ifuri.com/install?connectors={$id}' | bash"); ?>" <?php echo $disabled ? 'disabled' : ''; ?>>Copy install</button>
+            <button data-copy="<?php echo hub_h(hub_install_command([$id])); ?>" <?php echo $disabled ? 'disabled' : ''; ?>>Copy install</button>
           </div>
         </article>
       <?php endforeach; ?>
@@ -115,6 +161,7 @@ $defaultInstall = '/install?connectors=' . rawurlencode($defaultIds);
     <span>Updated <?php echo hub_h((string) ($catalog['updatedAt'] ?? 'unknown')); ?></span>
   </footer>
 
+  <script>window.CONNECT_HUB_BASE = <?php echo json_encode(hub_base_url(), JSON_UNESCAPED_SLASHES); ?>;</script>
   <script src="/assets/app.js"></script>
 </body>
 </html>

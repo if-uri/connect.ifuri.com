@@ -6,10 +6,134 @@ BASE_URL="${CONNECT_HUB_BASE:-}"
 
 cd "$ROOT"
 
-find . -name '*.php' -print -exec php -l {} \; >/tmp/connect-ifuri-php-lint.log
+find . -path './.git' -prune -o -name '*.php' -print -exec php -l {} \; >/tmp/connect-ifuri-php-lint.log
 python3 -m json.tool data/connectors.json >/tmp/connect-ifuri-connectors.json
+python3 -m json.tool schema/connectors.schema.json >/tmp/connect-ifuri-schema.json
+
+python3 - <<'PY'
+import json
+import re
+from pathlib import Path
+
+catalog = json.loads(Path("data/connectors.json").read_text())
+ids = set()
+assert catalog.get("site", {}).get("baseUrl", "").startswith("https://"), "site.baseUrl must be absolute https"
+for connector in catalog["connectors"]:
+    cid = connector["id"]
+    assert re.match(r"^[a-z0-9][a-z0-9._-]*$", cid), cid
+    assert cid not in ids, f"duplicate connector id: {cid}"
+    ids.add(cid)
+    assert connector["status"] in {"available", "planned"}, cid
+    assert len(connector["summary"]) >= 40, cid
+    assert len(connector["description"]) >= len(connector["summary"]), cid
+    assert connector["uriSchemes"], cid
+    assert connector["routes"], cid
+    for route in connector["routes"]:
+        assert "://" in route, (cid, route)
+        assert route.split("://", 1)[0] in connector["uriSchemes"], (cid, route)
+    assert connector.get("useCases"), cid
+    assert connector.get("examples"), cid
+print(f"validated {len(ids)} connectors")
+PY
+
+connector_ids="$(python3 - <<'PY'
+import json
+print(" ".join(c["id"] for c in json.load(open("data/connectors.json"))["connectors"]))
+PY
+)"
+
+for id in $connector_ids; do
+  php -r 'require "lib/hub.php"; echo hub_installer_script([$argv[1]]);' "$id" >"/tmp/connect-ifuri-install-$id.sh"
+  bash -n "/tmp/connect-ifuri-install-$id.sh"
+done
+
 php -r 'require "lib/hub.php"; echo hub_installer_script(["planfile","namecheap-dns"]);' >/tmp/connect-ifuri-install.sh
 bash -n /tmp/connect-ifuri-install.sh
+
+PORT="$(python3 - <<'PY'
+import socket
+s = socket.socket()
+s.bind(("127.0.0.1", 0))
+print(s.getsockname()[1])
+s.close()
+PY
+)"
+php -S "127.0.0.1:${PORT}" router.php >/tmp/connect-ifuri-server.log 2>&1 &
+SERVER_PID="$!"
+trap 'kill "$SERVER_PID" >/dev/null 2>&1 || true' EXIT
+
+python3 - "http://127.0.0.1:${PORT}" <<'PY'
+import json
+import sys
+import time
+import urllib.request
+from urllib.error import URLError
+
+base = sys.argv[1].rstrip("/")
+
+def fetch(path):
+    with urllib.request.urlopen(base + path, timeout=20) as response:
+        body = response.read().decode("utf-8")
+        return response.status, response.headers.get("content-type", ""), body
+
+last = None
+for _ in range(60):
+    try:
+        status, _, _ = fetch("/")
+        if status == 200:
+            break
+    except Exception as exc:
+        last = exc
+        time.sleep(0.2)
+else:
+    raise SystemExit(f"local PHP server did not start: {last}")
+
+catalog = json.loads(open("data/connectors.json").read())
+paths = [
+    ("/", "text/html"),
+    ("/connectors.json", "application/json"),
+    ("/registry.json", "application/json"),
+    ("/install?connectors=planfile,namecheap-dns", "text/x-shellscript"),
+    ("/sitemap.xml", "application/xml"),
+    ("/robots.txt", "text/plain"),
+    ("/llms.txt", "text/plain"),
+    ("/assets/social-card.svg", "image/svg+xml"),
+]
+for path, expected in paths:
+    status, content_type, body = fetch(path)
+    assert status == 200, (path, status)
+    assert expected in content_type, (path, content_type)
+    if path.endswith(".json"):
+        json.loads(body)
+    if path == "/":
+        assert 'application/ld+json' in body
+        assert 'property="og:title"' in body
+        assert 'name="twitter:card"' in body
+    if path == "/install?connectors=planfile,namecheap-dns":
+        assert "planfile>=0.1.103" in body
+    if path == "/sitemap.xml":
+        assert "https://connect.ifuri.com/connectors/planfile" in body
+    if path == "/robots.txt":
+        assert "Sitemap: https://connect.ifuri.com/sitemap.xml" in body
+    if path == "/llms.txt":
+        assert "## Connectors" in body
+
+registry = json.loads(fetch("/registry.json")[2])
+assert len(registry["connectors"]) == len(catalog["connectors"])
+
+for connector in catalog["connectors"]:
+    path = "/connectors/" + connector["id"]
+    status, content_type, body = fetch(path)
+    assert status == 200, path
+    assert "text/html" in content_type, (path, content_type)
+    assert connector["name"] in body, path
+    assert 'application/ld+json' in body, path
+    assert 'property="og:title"' in body, path
+    assert 'data-tab-target="routes"' in body, path
+    for route in connector["routes"]:
+        assert route in body, (path, route)
+    assert f"https://connect.ifuri.com/connectors/{connector['id']}" in fetch("/sitemap.xml")[2]
+PY
 
 if [[ -n "$BASE_URL" ]]; then
   python3 - "$BASE_URL" <<'PY'
@@ -18,14 +142,21 @@ import sys
 import urllib.request
 
 base = sys.argv[1].rstrip("/")
+catalog = json.loads(open("data/connectors.json").read())
 checks = [
     ("/", "text/html"),
     ("/connectors.json", "application/json"),
     ("/registry.json", "application/json"),
     ("/install?connectors=planfile,namecheap-dns", "text/x-shellscript"),
+    ("/sitemap.xml", "application/xml"),
+    ("/robots.txt", "text/plain"),
+    ("/llms.txt", "text/plain"),
 ]
+for connector in catalog["connectors"]:
+    checks.append(("/connectors/" + connector["id"], "text/html"))
+
 for path, expected in checks:
-    with urllib.request.urlopen(base + path, timeout=20) as response:
+    with urllib.request.urlopen(base + path, timeout=25) as response:
         body = response.read().decode("utf-8")
         content_type = response.headers.get("content-type", "")
     assert response.status == 200, (path, response.status)
@@ -34,6 +165,9 @@ for path, expected in checks:
         json.loads(body)
     if path.startswith("/install"):
         assert "planfile>=0.1.103" in body
+    if path.startswith("/connectors/"):
+        assert 'application/ld+json' in body
+        assert 'property="og:title"' in body
 PY
 fi
 

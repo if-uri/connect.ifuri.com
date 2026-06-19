@@ -30,6 +30,26 @@ function hub_connectors(): array
     return hub_catalog()['connectors'] ?? [];
 }
 
+function hub_site(): array
+{
+    return hub_catalog()['site'] ?? [];
+}
+
+function hub_base_url(): string
+{
+    $env = getenv('CONNECT_HUB_PUBLIC_BASE');
+    $base = is_string($env) && trim($env) !== '' ? trim($env) : (string) (hub_site()['baseUrl'] ?? 'https://connect.ifuri.com');
+    return rtrim($base, '/');
+}
+
+function hub_url(string $path = '/'): string
+{
+    if ($path === '') {
+        $path = '/';
+    }
+    return hub_base_url() . '/' . ltrim($path, '/');
+}
+
 function hub_connector_map(): array
 {
     $map = [];
@@ -39,6 +59,24 @@ function hub_connector_map(): array
         }
     }
     return $map;
+}
+
+function hub_connector(?string $id): ?array
+{
+    if ($id === null || !preg_match('/^[a-z0-9._-]+$/', $id)) {
+        return null;
+    }
+    return hub_connector_map()[$id] ?? null;
+}
+
+function hub_connector_path(array $connector): string
+{
+    return '/connectors/' . rawurlencode((string) $connector['id']);
+}
+
+function hub_connector_url(array $connector): string
+{
+    return hub_url(hub_connector_path($connector));
 }
 
 function hub_selected_ids(?string $raw): array
@@ -55,6 +93,34 @@ function hub_selected_ids(?string $raw): array
         }
     }
     return array_keys($ids);
+}
+
+function hub_available_connectors(): array
+{
+    return array_values(array_filter(hub_connectors(), static fn ($item) => ($item['status'] ?? '') === 'available'));
+}
+
+function hub_default_install_path(): string
+{
+    $ids = implode(',', array_column(hub_available_connectors(), 'id'));
+    return '/install?connectors=' . rawurlencode($ids);
+}
+
+function hub_install_path(array $ids): string
+{
+    $clean = [];
+    foreach ($ids as $id) {
+        $value = strtolower(trim((string) $id));
+        if ($value !== '' && preg_match('/^[a-z0-9._-]+$/', $value)) {
+            $clean[$value] = true;
+        }
+    }
+    return '/install?connectors=' . rawurlencode(implode(',', array_keys($clean)));
+}
+
+function hub_install_command(array $ids): string
+{
+    return "curl -fsSL '" . hub_url(hub_install_path($ids)) . "' | bash";
 }
 
 function hub_installer_script(array $ids): string
@@ -145,9 +211,16 @@ function hub_registry(): array
             'id' => $connector['id'],
             'name' => $connector['name'],
             'status' => $connector['status'],
+            'category' => $connector['category'] ?? null,
+            'summary' => $connector['summary'] ?? null,
+            'description' => $connector['description'] ?? null,
+            'uriSchemes' => $connector['uriSchemes'] ?? [],
             'routes' => $connector['routes'] ?? [],
+            'examples' => $connector['examples'] ?? [],
+            'flowExample' => $connector['flowExample'] ?? [],
             'install' => $connector['install'] ?? [],
             'docsUrl' => $connector['docsUrl'] ?? null,
+            'hubUrl' => hub_connector_url($connector),
         ];
     }
     return [
@@ -155,6 +228,15 @@ function hub_registry(): array
         'generatedAt' => gmdate('c'),
         'connectors' => $items,
     ];
+}
+
+function hub_keywords(array $connector = null): string
+{
+    $base = ['ifuri', 'urirun', 'URI connector', 'URI registry', 'automation'];
+    if ($connector !== null) {
+        $base = array_merge($base, $connector['keywords'] ?? [], $connector['uriSchemes'] ?? []);
+    }
+    return implode(', ', array_values(array_unique(array_filter(array_map('strval', $base)))));
 }
 
 function hub_send_json(array $payload, int $status = 200): void
