@@ -58,6 +58,5 @@ if (preg_match('#^/connectors/([a-z0-9._-]+)$#', $path, $match)) {
     return true;
 }
 
-http_response_code(404);
-echo 'Not found';
+require __DIR__ . '/404.php';
 return true;
