@@ -2,7 +2,7 @@
 
 __NAME__ connector for [ifURI](https://ifuri.com) / [urirun](https://github.com/tellmesh/urirun).
 
-- Declares `__SCHEME__://` URI routes with `@urirun.v2.uri_command`.
+- Declares `__SCHEME__://` URI routes with `@urirun.command`.
 - `connector.manifest.json` is the connect.ifuri.com catalog entry (validated by schema).
 - CLI: `__CLI__ run <target>` · `__CLI__ manifest` · `__CLI__ bindings`.
 

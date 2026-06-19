@@ -4,7 +4,7 @@
   "status": "available",
   "category": "Operations",
   "summary": "__NAME__ connector exposing __SCHEME__:// URI commands and a small CLI.",
-  "description": "Replace this with a real description. A minimal external urirun connector package: it declares __SCHEME__:// routes via @uri_command, returns structured JSON, and can be projected to MCP tools / A2A skills.",
+  "description": "Replace this with a real description. A minimal external urirun connector package: it declares __SCHEME__:// routes via @urirun.command, returns structured JSON, and can be projected to MCP tools / A2A skills.",
   "uriSchemes": [
     "__SCHEME__"
   ],
