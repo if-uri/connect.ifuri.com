@@ -682,3 +682,12 @@ pre {
   background: rgba(15, 23, 42, 0.92);
 }
 :root[data-theme="dark"] .status.planned { background: #3F2D0B; }
+
+.theme-toggle {
+  min-height: 32px;
+  width: 36px;
+  padding: 0;
+  border-radius: 8px;
+  font-size: 15px;
+  line-height: 1;
+}

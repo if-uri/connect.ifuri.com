@@ -54,5 +54,6 @@ $site = hub_site();
       </nav>
     <?php endif; ?>
   </footer>
+  <script src="/assets/app.js" defer></script>
 </body>
 </html>

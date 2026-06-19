@@ -231,3 +231,30 @@ if (builder) {
   });
   loadTemplate();
 }
+
+
+// Theme toggle: cycles light/dark and persists; defaults to OS preference.
+(function () {
+  const KEY = 'ifuri-theme';
+  const root = document.documentElement;
+  const saved = localStorage.getItem(KEY);
+  if (saved === 'dark' || saved === 'light') root.setAttribute('data-theme', saved);
+  const nav = document.querySelector('.site-header nav');
+  if (!nav) return;
+  const isDark = () => root.getAttribute('data-theme')
+    ? root.getAttribute('data-theme') === 'dark'
+    : window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'theme-toggle';
+  btn.setAttribute('aria-label', 'Toggle dark mode');
+  const render = () => { btn.textContent = isDark() ? '\u2600' : '\u263e'; };
+  btn.addEventListener('click', () => {
+    const next = isDark() ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    localStorage.setItem(KEY, next);
+    render();
+  });
+  nav.prepend(btn);
+  render();
+})();
