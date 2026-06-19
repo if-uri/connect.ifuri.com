@@ -25,6 +25,13 @@ python3 tools/build_catalog.py
 python3 tools/build_catalog.py --check
 ```
 
+Manifests and the generated catalog are validated against `schema/connector.schema.json`
+and `schema/connectors.schema.json`:
+
+```bash
+python3 scripts/validate_connectors.py   # needs python3-jsonschema; run in CI
+```
+
 Contributor docs:
 
 - [`docs/CONNECTORS-ARCHITECTURE.md`](docs/CONNECTORS-ARCHITECTURE.md)
