@@ -105,8 +105,8 @@ Trust fields are first-class:
 - `provenance: verified` - maintained or reviewed by if-uri,
 - `provenance: community` - third-party connector, must declare `publisher`.
 
-Before accepting external publishers, CI should enforce an adapter-kind
-allowlist by provenance:
+CI enforces an adapter-kind allowlist by provenance
+(`tools/build_catalog.py` validation, proven by `tests/policy_test.py`):
 
 | adapter kind | community? |
 |--------------|------------|
