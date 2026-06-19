@@ -29,6 +29,7 @@
     "planfile",
     "sqlite-context",
     "domain-monitor",
+    "http-check",
     "namecheap-dns",
     "grpc-transport",
     "mqtt",

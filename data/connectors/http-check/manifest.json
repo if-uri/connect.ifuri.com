@@ -1,0 +1,56 @@
+{
+  "id": "http-check",
+  "name": "HTTP Check",
+  "status": "available",
+  "category": "Operations",
+  "summary": "Check HTTP endpoints through httpcheck:// URI commands and a small Python CLI.",
+  "description": "HTTP Check is a minimal external urirun connector package. It verifies that a URL responds, optionally checks an expected status code, and returns structured JSON for host workflows, smoke tests and daily operations.",
+  "uriSchemes": [
+    "httpcheck"
+  ],
+  "routes": [
+    "httpcheck://host/http/query/status"
+  ],
+  "useCases": [
+    "Check that a website responds with HTTP 200.",
+    "Use a small external connector package in ifuri flows.",
+    "Prove that connect.ifuri.com can install connector packages from GitHub."
+  ],
+  "examples": [
+    {
+      "title": "Check ifuri.com",
+      "uri": "httpcheck://host/http/query/status",
+      "payload": {
+        "url": "https://ifuri.com",
+        "expectStatus": 200
+      }
+    }
+  ],
+  "flowExample": [
+    "httpcheck://host/http/query/status"
+  ],
+  "requires": [
+    "python>=3.10"
+  ],
+  "install": {
+    "mode": "urirun-extra",
+    "pipSpec": "urirun-connector-http-check @ git+https://github.com/if-uri/urirun-connector-http-check.git@main"
+  },
+  "adapterKinds": [
+    "http-service"
+  ],
+  "docsUrl": "https://github.com/if-uri/urirun-connector-http-check",
+  "keywords": [
+    "http",
+    "status",
+    "monitoring",
+    "smoke test",
+    "connector"
+  ],
+  "provenance": "verified",
+  "publisher": {
+    "name": "if-uri",
+    "url": "https://ifuri.com",
+    "github": "https://github.com/if-uri"
+  }
+}
