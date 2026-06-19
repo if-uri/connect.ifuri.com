@@ -178,6 +178,14 @@ function hub_installer_script(array $ids): string
     }
 
     $connectorList = implode(' ', array_map('escapeshellarg', array_column($selected, 'id')));
+    $modules = [];
+    foreach ($selected as $connector) {
+        if (($connector['status'] ?? '') !== 'available') {
+            continue;
+        }
+        $modules[] = 'urirun_connector_' . str_replace('-', '_', (string) $connector['id']);
+    }
+    $moduleList = implode(' ', array_map('escapeshellarg', $modules));
     $script = <<<'SH'
 #!/usr/bin/env bash
 set -euo pipefail
@@ -210,18 +218,46 @@ SH;
         $escaped = str_replace("'", "'\"'\"'", $spec);
         $script .= "  \$PIP_BIN install '{$escaped}'\n";
     }
+    $script .= "\nREG_DIR=\"\${IFURI_REGISTRY_DIR:-\$HOME/.ifuri}\"\n";
+    $script .= "MODULES=(" . $moduleList . ")\n";
     $script .= <<<'SH'
 
 if command -v urirun >/dev/null 2>&1; then
   echo
   echo "urirun installed:"
-  urirun --help | head -20 || true
+  urirun --help | head -5 || true
 fi
 
-echo
-echo "Next:"
-echo "  urirun connectors list   # after connector entry-point support lands"
-echo "  ifuri host dashboard     # from the ifuri app/host package"
+mkdir -p "$REG_DIR"
+if [ "${#MODULES[@]}" -gt 0 ]; then
+  echo
+  echo "Building a urirun registry from the installed connectors..."
+  $PYTHON_BIN - "$REG_DIR/connectors.bindings.v2.json" "${MODULES[@]}" <<'PY'
+import importlib, json, sys
+import urirun.v2 as v2
+
+out = sys.argv[1]
+for name in sys.argv[2:]:
+    try:
+        importlib.import_module(name)  # registers the package's @uri_command routes
+    except Exception as exc:  # noqa: BLE001 - skip a connector that failed to install
+        print(f"  skip {name}: {exc}", file=sys.stderr)
+doc = v2.connector_bindings()  # all routes registered by the imported connectors
+with open(out, "w", encoding="utf-8") as fh:
+    json.dump(doc, fh, indent=2)
+print(f"  bindings: {len(doc.get('bindings', {}))} route(s) -> {out}")
+PY
+  urirun validate "$REG_DIR/connectors.bindings.v2.json"
+  urirun compile "$REG_DIR/connectors.bindings.v2.json" --out "$REG_DIR/connectors.registry.json"
+  echo "  registry: $REG_DIR/connectors.registry.json"
+  echo
+  echo "Run a connector route:"
+  echo "  ifuri-app urirun-call <uri> --registry $REG_DIR/connectors.registry.json --execute"
+  echo "  urirun run <uri> $REG_DIR/connectors.registry.json --execute --allow '<scheme>://*'"
+else
+  echo
+  echo "No installable connectors selected (planned connectors have no package yet)."
+fi
 SH;
     return $script . "\n";
 }
