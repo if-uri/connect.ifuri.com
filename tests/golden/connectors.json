@@ -584,6 +584,184 @@
             }
         },
         {
+            "id": "get-node",
+            "name": "Get Node",
+            "status": "planned",
+            "category": "Operations",
+            "summary": "Bootstrap and health-check urirun nodes from get.ifuri.com through node:// URI routes.",
+            "description": "Get Node wraps the get.ifuri.com installer so flows can fetch the node bootstrap script and check a node's health over node:// routes — a programmatic path to stand up and verify urirun nodes across a LAN.",
+            "uriSchemes": [
+                "node"
+            ],
+            "routes": [
+                "node://get/installer/query/script",
+                "node://host/runtime/query/health"
+            ],
+            "useCases": [
+                "Fetch the node installer script in a provisioning flow.",
+                "Check a freshly installed node's /health.",
+                "Stand up urirun nodes across a LAN from one host."
+            ],
+            "examples": [
+                {
+                    "title": "Check a node's health",
+                    "uri": "node://host/runtime/query/health",
+                    "payload": {
+                        "endpoint": "http://192.168.1.20:8765"
+                    }
+                }
+            ],
+            "flowExample": [
+                "node://get/installer/query/script",
+                "node://host/runtime/query/health"
+            ],
+            "requires": [
+                "get.ifuri.com reachable; target host with python3"
+            ],
+            "install": {
+                "mode": "planned",
+                "pipSpec": "urirun-connector-get-node"
+            },
+            "adapterKinds": [
+                "http-service",
+                "command"
+            ],
+            "docsUrl": "https://get.ifuri.com",
+            "keywords": [
+                "node",
+                "installer",
+                "bootstrap",
+                "provisioning",
+                "health"
+            ],
+            "provenance": "verified",
+            "publisher": {
+                "name": "if-uri",
+                "url": "https://ifuri.com",
+                "github": "https://github.com/if-uri"
+            }
+        },
+        {
+            "id": "kvm",
+            "name": "KVM Control",
+            "status": "planned",
+            "category": "Remote",
+            "summary": "Send keyboard/mouse input and capture the screen through kvm:// URI routes.",
+            "description": "KVM Control maps remote keyboard, mouse and screen-capture actions to kvm:// routes so a host can drive another machine over the URI contract, gated by policy. Intended for lab automation and assisted remote control, not unattended access.",
+            "uriSchemes": [
+                "kvm"
+            ],
+            "routes": [
+                "kvm://host/input/command/key",
+                "kvm://host/input/command/move",
+                "kvm://host/screen/query/capture"
+            ],
+            "useCases": [
+                "Type text into a remote machine from a flow.",
+                "Move/click the pointer for assisted control.",
+                "Capture the remote screen for a check."
+            ],
+            "examples": [
+                {
+                    "title": "Type a key sequence",
+                    "uri": "kvm://host/input/command/key",
+                    "payload": {
+                        "keys": "ctrl+alt+t"
+                    }
+                }
+            ],
+            "flowExample": [
+                "kvm://host/screen/query/capture",
+                "kvm://host/input/command/key"
+            ],
+            "requires": [
+                "a host that grants input-control permissions (e.g. uinput / accessibility)"
+            ],
+            "install": {
+                "mode": "planned",
+                "pipSpec": "urirun-connector-kvm"
+            },
+            "adapterKinds": [
+                "command"
+            ],
+            "docsUrl": "https://github.com/if-uri/examples",
+            "keywords": [
+                "KVM",
+                "remote",
+                "input",
+                "keyboard",
+                "mouse",
+                "screen"
+            ],
+            "provenance": "verified",
+            "publisher": {
+                "name": "if-uri",
+                "url": "https://ifuri.com",
+                "github": "https://github.com/if-uri"
+            }
+        },
+        {
+            "id": "llm",
+            "name": "Local LLM",
+            "status": "planned",
+            "category": "AI",
+            "summary": "Run local LLM completions and list models through llm:// URI routes.",
+            "description": "Local LLM bridges a self-hosted model runtime (Ollama, llama.cpp or vLLM) into llm:// routes, so flows and agents can request completions and list models with the same URI contract — and project them to MCP tools / A2A skills, keeping inference on-device.",
+            "uriSchemes": [
+                "llm"
+            ],
+            "routes": [
+                "llm://host/chat/command/complete",
+                "llm://host/model/query/list"
+            ],
+            "useCases": [
+                "Summarise a flow step's output with a local model.",
+                "List installed models from an agent.",
+                "Keep inference on the LAN with no external API."
+            ],
+            "examples": [
+                {
+                    "title": "Complete a prompt",
+                    "uri": "llm://host/chat/command/complete",
+                    "payload": {
+                        "model": "qwen2.5",
+                        "prompt": "Summarise: ...",
+                        "maxTokens": 256
+                    }
+                }
+            ],
+            "flowExample": [
+                "llm://host/model/query/list",
+                "llm://host/chat/command/complete"
+            ],
+            "requires": [
+                "a local LLM runtime (Ollama / llama.cpp / vLLM)"
+            ],
+            "install": {
+                "mode": "planned",
+                "pipSpec": "urirun-connector-llm"
+            },
+            "adapterKinds": [
+                "http-service",
+                "command"
+            ],
+            "docsUrl": "https://github.com/if-uri/examples",
+            "keywords": [
+                "LLM",
+                "AI",
+                "Ollama",
+                "qwen",
+                "inference",
+                "local"
+            ],
+            "provenance": "verified",
+            "publisher": {
+                "name": "if-uri",
+                "url": "https://ifuri.com",
+                "github": "https://github.com/if-uri"
+            }
+        },
+        {
             "id": "mcp-filesystem",
             "name": "MCP Filesystem",
             "status": "planned",

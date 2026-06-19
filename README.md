@@ -52,6 +52,8 @@ http://127.0.0.1:8099/connectors/namecheap-dns
 http://127.0.0.1:8099/connectors/namecheap-dns.json
 http://127.0.0.1:8099/connectors/http-check
 http://127.0.0.1:8099/connectors/http-check.json
+http://127.0.0.1:8099/connectors/time-tools
+http://127.0.0.1:8099/connectors/time-tools.json
 http://127.0.0.1:8099/search.json
 http://127.0.0.1:8099/submit
 ```
@@ -74,6 +76,7 @@ OpenGraph/Twitter metadata, `sitemap.xml`, `robots.txt` and `llms.txt`.
 ```bash
 curl -fsSL 'https://connect.ifuri.com/install?connectors=planfile,namecheap-dns' | bash
 curl -fsSL 'https://connect.ifuri.com/install?connectors=http-check' | bash
+curl -fsSL 'https://connect.ifuri.com/install?connectors=time-tools' | bash
 ```
 
 By default the installer uses the pinned GitHub source for the Python urirun
@@ -99,7 +102,7 @@ Optional GitHub Actions deploy uses these repository secrets:
 When the secrets are not configured, the workflow still runs tests and skips the
 deploy step.
 
-## Verified connector package
+## Verified connector packages
 
 `http-check` proves the external connector flow end to end:
 
@@ -110,6 +113,14 @@ deploy step.
 
 It was tested through the public installer, direct CLI execution and
 `urirun run` against a compiled registry.
+
+`time-tools` is the second external connector package and proves the same flow
+without requiring network services or secrets:
+
+- package: [`github.com/if-uri/urirun-connector-time-tools`](https://github.com/if-uri/urirun-connector-time-tools)
+- hub page: [`/connectors/time-tools`](https://connect.ifuri.com/connectors/time-tools)
+- route: `time://host/clock/query/now`
+- install: `curl -fsSL 'https://connect.ifuri.com/install?connectors=time-tools' | bash`
 
 ## Authoring a new connector
 

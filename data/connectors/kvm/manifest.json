@@ -1,0 +1,39 @@
+{
+  "id": "kvm",
+  "name": "KVM Control",
+  "status": "planned",
+  "category": "Remote",
+  "summary": "Send keyboard/mouse input and capture the screen through kvm:// URI routes.",
+  "description": "KVM Control maps remote keyboard, mouse and screen-capture actions to kvm:// routes so a host can drive another machine over the URI contract, gated by policy. Intended for lab automation and assisted remote control, not unattended access.",
+  "uriSchemes": ["kvm"],
+  "routes": [
+    "kvm://host/input/command/key",
+    "kvm://host/input/command/move",
+    "kvm://host/screen/query/capture"
+  ],
+  "useCases": [
+    "Type text into a remote machine from a flow.",
+    "Move/click the pointer for assisted control.",
+    "Capture the remote screen for a check."
+  ],
+  "examples": [
+    {
+      "title": "Type a key sequence",
+      "uri": "kvm://host/input/command/key",
+      "payload": { "keys": "ctrl+alt+t" }
+    }
+  ],
+  "flowExample": [
+    "kvm://host/screen/query/capture",
+    "kvm://host/input/command/key"
+  ],
+  "requires": [
+    "a host that grants input-control permissions (e.g. uinput / accessibility)"
+  ],
+  "install": { "mode": "planned", "pipSpec": "urirun-connector-kvm" },
+  "adapterKinds": ["command"],
+  "docsUrl": "https://github.com/if-uri/examples",
+  "keywords": ["KVM", "remote", "input", "keyboard", "mouse", "screen"],
+  "provenance": "verified",
+  "publisher": { "name": "if-uri", "url": "https://ifuri.com", "github": "https://github.com/if-uri" }
+}

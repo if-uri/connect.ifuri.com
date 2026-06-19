@@ -1,0 +1,38 @@
+{
+  "id": "llm",
+  "name": "Local LLM",
+  "status": "planned",
+  "category": "AI",
+  "summary": "Run local LLM completions and list models through llm:// URI routes.",
+  "description": "Local LLM bridges a self-hosted model runtime (Ollama, llama.cpp or vLLM) into llm:// routes, so flows and agents can request completions and list models with the same URI contract — and project them to MCP tools / A2A skills, keeping inference on-device.",
+  "uriSchemes": ["llm"],
+  "routes": [
+    "llm://host/chat/command/complete",
+    "llm://host/model/query/list"
+  ],
+  "useCases": [
+    "Summarise a flow step's output with a local model.",
+    "List installed models from an agent.",
+    "Keep inference on the LAN with no external API."
+  ],
+  "examples": [
+    {
+      "title": "Complete a prompt",
+      "uri": "llm://host/chat/command/complete",
+      "payload": { "model": "qwen2.5", "prompt": "Summarise: ...", "maxTokens": 256 }
+    }
+  ],
+  "flowExample": [
+    "llm://host/model/query/list",
+    "llm://host/chat/command/complete"
+  ],
+  "requires": [
+    "a local LLM runtime (Ollama / llama.cpp / vLLM)"
+  ],
+  "install": { "mode": "planned", "pipSpec": "urirun-connector-llm" },
+  "adapterKinds": ["http-service", "command"],
+  "docsUrl": "https://github.com/if-uri/examples",
+  "keywords": ["LLM", "AI", "Ollama", "qwen", "inference", "local"],
+  "provenance": "verified",
+  "publisher": { "name": "if-uri", "url": "https://ifuri.com", "github": "https://github.com/if-uri" }
+}

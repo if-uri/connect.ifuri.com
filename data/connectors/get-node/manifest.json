@@ -1,0 +1,38 @@
+{
+  "id": "get-node",
+  "name": "Get Node",
+  "status": "planned",
+  "category": "Operations",
+  "summary": "Bootstrap and health-check urirun nodes from get.ifuri.com through node:// URI routes.",
+  "description": "Get Node wraps the get.ifuri.com installer so flows can fetch the node bootstrap script and check a node's health over node:// routes — a programmatic path to stand up and verify urirun nodes across a LAN.",
+  "uriSchemes": ["node"],
+  "routes": [
+    "node://get/installer/query/script",
+    "node://host/runtime/query/health"
+  ],
+  "useCases": [
+    "Fetch the node installer script in a provisioning flow.",
+    "Check a freshly installed node's /health.",
+    "Stand up urirun nodes across a LAN from one host."
+  ],
+  "examples": [
+    {
+      "title": "Check a node's health",
+      "uri": "node://host/runtime/query/health",
+      "payload": { "endpoint": "http://192.168.1.20:8765" }
+    }
+  ],
+  "flowExample": [
+    "node://get/installer/query/script",
+    "node://host/runtime/query/health"
+  ],
+  "requires": [
+    "get.ifuri.com reachable; target host with python3"
+  ],
+  "install": { "mode": "planned", "pipSpec": "urirun-connector-get-node" },
+  "adapterKinds": ["http-service", "command"],
+  "docsUrl": "https://get.ifuri.com",
+  "keywords": ["node", "installer", "bootstrap", "provisioning", "health"],
+  "provenance": "verified",
+  "publisher": { "name": "if-uri", "url": "https://ifuri.com", "github": "https://github.com/if-uri" }
+}
