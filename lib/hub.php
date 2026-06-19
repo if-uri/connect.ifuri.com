@@ -522,3 +522,63 @@ function hub_h(string $value): string
 {
     return htmlspecialchars($value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 }
+
+function hub_tool_name(string $uri): string
+{
+    $name = strtolower((string) preg_replace('/[^a-zA-Z0-9]+/', '_', $uri));
+    return trim($name, '_');
+}
+
+function hub_mcp_tools(): array
+{
+    $tools = [];
+    foreach (hub_connectors() as $c) {
+        foreach (($c['routes'] ?? []) as $route) {
+            $tools[] = [
+                'name' => hub_tool_name((string) $route),
+                'description' => trim(sprintf('%s — %s [%s]', $c['name'] ?? $c['id'], $c['summary'] ?? '', $c['status'] ?? 'planned')),
+                'inputSchema' => ['type' => 'object'],
+                'annotations' => [
+                    'connector' => $c['id'] ?? null,
+                    'uri' => $route,
+                    'status' => $c['status'] ?? null,
+                    'category' => $c['category'] ?? null,
+                    'install' => $c['install'] ?? null,
+                ],
+            ];
+        }
+    }
+    return [
+        'version' => 'connect.mcp.v1',
+        'generatedAt' => gmdate('c'),
+        'server' => ['name' => 'ifuri-connect', 'url' => hub_base_url()],
+        'note' => 'Discovery projection of the connector catalog. Install a connector (annotations.install) to get an executable urirun registry: curl -fsSL ' . hub_base_url() . '/install?connectors=<id> | bash',
+        'tools' => $tools,
+    ];
+}
+
+function hub_a2a_card(): array
+{
+    $skills = [];
+    foreach (hub_connectors() as $c) {
+        $tags = array_values(array_unique(array_merge($c['uriSchemes'] ?? [], $c['keywords'] ?? [])));
+        $skills[] = [
+            'id' => $c['id'] ?? '',
+            'name' => $c['name'] ?? ($c['id'] ?? ''),
+            'description' => $c['summary'] ?? ($c['description'] ?? ''),
+            'tags' => $tags,
+            'examples' => $c['routes'] ?? [],
+        ];
+    }
+    return [
+        'name' => 'ifuri-connect',
+        'description' => 'ifURI connector hub: URI routes for DNS, files, LLM, devices, processes and more — installable as urirun registries and projectable to MCP tools.',
+        'url' => hub_base_url(),
+        'version' => hub_version(),
+        'provider' => ['organization' => 'if-uri', 'url' => 'https://ifuri.com'],
+        'capabilities' => ['streaming' => false, 'pushNotifications' => false, 'stateTransitionHistory' => false],
+        'defaultInputModes' => ['application/json'],
+        'defaultOutputModes' => ['application/json'],
+        'skills' => $skills,
+    ];
+}
