@@ -13,13 +13,45 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'POST') {
     exit;
 }
 
-$raw = file_get_contents('php://input');
-$payload = json_decode((string) $raw, true);
+$maxBody = 64 * 1024; // 64 KB is plenty for a connector manifest
+$rlMax = (int) (getenv('CONNECT_VALIDATE_RL_MAX') ?: 30);
+$rlWindow = (int) (getenv('CONNECT_VALIDATE_RL_WINDOW') ?: 60);
+
+if (!hub_rate_limit('validate', hub_client_ip(), $rlMax, $rlWindow)) {
+    header('Retry-After: ' . $rlWindow);
+    hub_send_json([
+        'ok' => false,
+        'error' => 'rate_limited',
+        'message' => "Too many validation requests. Try again in {$rlWindow}s.",
+    ], 429, 'no-store');
+    exit;
+}
+
+if ((int) ($_SERVER['CONTENT_LENGTH'] ?? 0) > $maxBody) {
+    hub_send_json([
+        'ok' => false,
+        'error' => 'payload_too_large',
+        'message' => 'Manifest body exceeds 64 KB.',
+    ], 413, 'no-store');
+    exit;
+}
+
+$raw = file_get_contents('php://input', false, null, 0, $maxBody + 1);
+if ($raw !== false && strlen($raw) > $maxBody) {
+    hub_send_json([
+        'ok' => false,
+        'error' => 'payload_too_large',
+        'message' => 'Manifest body exceeds 64 KB.',
+    ], 413, 'no-store');
+    exit;
+}
+
+$payload = json_decode((string) $raw, true, 32); // shallow depth cap to reject nesting spam
 if (!is_array($payload)) {
     hub_send_json([
         'ok' => false,
         'errors' => [
-            hub_validation_error('body', 'request body must be a JSON object'),
+            hub_validation_error('body', 'request body must be a JSON object (max 64 KB, max depth 32)'),
         ],
     ], 400, 'no-store');
     exit;

@@ -239,7 +239,7 @@ import urirun
 out = sys.argv[1]
 for name in sys.argv[2:]:
     try:
-        importlib.import_module(name)  # registers the package's @urirun.command routes
+        importlib.import_module(name)  # registers the package's connector-declared URI routes
     except Exception as exc:  # noqa: BLE001 - skip a connector that failed to install
         print(f"  skip {name}: {exc}", file=sys.stderr)
 doc = urirun.connector_bindings()  # all routes registered by the imported connectors
@@ -581,4 +581,47 @@ function hub_a2a_card(): array
         'defaultOutputModes' => ['application/json'],
         'skills' => $skills,
     ];
+}
+
+function hub_client_ip(): string
+{
+    foreach (['HTTP_CF_CONNECTING_IP', 'HTTP_X_FORWARDED_FOR', 'REMOTE_ADDR'] as $key) {
+        $value = (string) ($_SERVER[$key] ?? '');
+        if ($value !== '') {
+            $first = trim(explode(',', $value)[0]);
+            if ($first !== '') {
+                return $first;
+            }
+        }
+    }
+    return 'unknown';
+}
+
+/**
+ * Simple file-based sliding-window rate limit (server-local temp, not deployed).
+ * Returns true when the request is allowed, false when the limit is exceeded.
+ */
+function hub_rate_limit(string $bucket, string $id, int $max, int $window): bool
+{
+    $dir = sys_get_temp_dir() . '/ifuri-connect-rl';
+    if (!is_dir($dir)) {
+        @mkdir($dir, 0700, true);
+    }
+    $file = $dir . '/' . preg_replace('/[^a-z0-9]+/i', '', $bucket) . '_' . substr(hash('sha256', $id), 0, 16);
+    $now = time();
+    $times = [];
+    if (is_file($file)) {
+        foreach (explode("\n", (string) @file_get_contents($file)) as $line) {
+            $t = (int) $line;
+            if ($t > $now - $window) {
+                $times[] = $t;
+            }
+        }
+    }
+    if (count($times) >= $max) {
+        return false;
+    }
+    $times[] = $now;
+    @file_put_contents($file, implode("\n", $times), LOCK_EX);
+    return true;
 }
