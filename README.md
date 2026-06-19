@@ -110,3 +110,16 @@ deploy step.
 
 It was tested through the public installer, direct CLI execution and
 `urirun run` against a compiled registry.
+
+## Authoring a new connector
+
+Scaffold a connector package from the template (mirrors `urirun-connector-http-check`):
+
+```bash
+scripts/new-connector.sh <id> [scheme] [Name]   # e.g. scripts/new-connector.sh weather-now weather "Weather Now"
+cd ../urirun-connector-<id> && make test          # editable install + urirun smoke (validate/compile/run + MCP)
+```
+
+The generated `connector.manifest.json` is schema-valid and ready to submit at
+https://connect.ifuri.com/submit . Implement `run()` in the package's `core.py`.
+CI (`scripts/validate_connectors.py` + template self-check) keeps manifests valid.

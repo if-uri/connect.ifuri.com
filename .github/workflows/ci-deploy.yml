@@ -20,6 +20,19 @@ jobs:
       - name: Validate connector manifests + catalog (JSON Schema)
         run: python3 scripts/validate_connectors.py
 
+      - name: Connector template self-check (scaffold stays schema-valid)
+        run: |
+          tmp="$(mktemp -d)"
+          bash scripts/new-connector.sh template-check tplchk "Template Check" "$tmp/c"
+          python3 - "$tmp/c/urirun_connector_template_check/connector.manifest.json" <<'PY'
+          import json, sys
+          from jsonschema import Draft202012Validator
+          errs = list(Draft202012Validator(json.load(open("schema/connector.schema.json"))).iter_errors(json.load(open(sys.argv[1]))))
+          print("template manifest valid:", not errs)
+          [print(" ", list(e.path), e.message) for e in errs]
+          sys.exit(1 if errs else 0)
+          PY
+
       - name: Smoke test
         run: bash tests/smoke.sh
 

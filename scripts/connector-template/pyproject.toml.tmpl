@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "urirun-connector-__ID__"
+version = "0.1.0"
+description = "__NAME__ connector for ifuri and urirun"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "Apache-2.0"
+authors = [{ name = "if-uri" }]
+dependencies = [
+  "urirun @ git+https://github.com/tellmesh/urirun.git@v0.3.11#subdirectory=adapters/python",
+]
+
+[project.urls]
+Homepage = "https://connect.ifuri.com/connectors/__ID__"
+Repository = "https://github.com/if-uri/urirun-connector-__ID__"
+
+[project.scripts]
+__CLI__ = "__PKG__.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["__PKG__*"]
+
+[tool.setuptools.package-data]
+__PKG__ = ["connector.manifest.json"]

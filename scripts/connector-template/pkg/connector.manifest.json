@@ -1,0 +1,27 @@
+{
+  "id": "__ID__",
+  "name": "__NAME__",
+  "status": "available",
+  "category": "Operations",
+  "summary": "__NAME__ connector exposing __SCHEME__:// URI commands and a small CLI.",
+  "description": "Replace this with a real description. A minimal external urirun connector package: it declares __SCHEME__:// routes via @uri_command, returns structured JSON, and can be projected to MCP tools / A2A skills.",
+  "uriSchemes": [
+    "__SCHEME__"
+  ],
+  "routes": [
+    "__SCHEME__://host/__SCHEME__/query/run"
+  ],
+  "adapterKinds": [
+    "command"
+  ],
+  "install": {
+    "mode": "urirun-extra",
+    "pipSpec": "urirun-connector-__ID__ @ git+https://github.com/if-uri/urirun-connector-__ID__.git@main"
+  },
+  "provenance": "community",
+  "publisher": {
+    "name": "__NAME__ maintainer",
+    "url": "https://example.com",
+    "github": "https://github.com/your-org"
+  }
+}
