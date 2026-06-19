@@ -212,6 +212,7 @@ $jsonLd = [
   </main>
 
   <footer class="wrap footer">
+    <span>Site v<?php echo hub_h(hub_version()); ?></span>
     <span>Catalog version <?php echo hub_h((string) (hub_catalog()['version'] ?? 'unknown')); ?></span>
     <span><a href="/sitemap.xml">sitemap.xml</a></span>
   </footer>

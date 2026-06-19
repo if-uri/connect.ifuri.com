@@ -178,6 +178,7 @@ $jsonLd = [
   </main>
 
   <footer class="wrap footer">
+    <span>Site v<?php echo hub_h(hub_version()); ?></span>
     <span><a href="/docs/SUBMIT-CONNECTOR.md">Submit docs</a></span>
     <span><a href="/schema/connector.schema.json">connector.schema.json</a></span>
   </footer>

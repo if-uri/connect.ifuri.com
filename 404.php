@@ -45,6 +45,7 @@ $site = hub_site();
   </main>
 
   <footer class="wrap footer">
+    <span>Site v<?php echo hub_h(hub_version()); ?></span>
     <span>connect.ifuri.com</span>
     <?php if (!empty($site['ecosystem'])): ?>
       <nav class="footer-eco" aria-label="ifuri ecosystem">
