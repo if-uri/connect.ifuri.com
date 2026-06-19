@@ -234,15 +234,15 @@ if [ "${#MODULES[@]}" -gt 0 ]; then
   echo "Building a urirun registry from the installed connectors..."
   $PYTHON_BIN - "$REG_DIR/connectors.bindings.v2.json" "${MODULES[@]}" <<'PY'
 import importlib, json, sys
-import urirun.v2 as v2
+import urirun
 
 out = sys.argv[1]
 for name in sys.argv[2:]:
     try:
-        importlib.import_module(name)  # registers the package's @uri_command routes
+        importlib.import_module(name)  # registers the package's @urirun.command routes
     except Exception as exc:  # noqa: BLE001 - skip a connector that failed to install
         print(f"  skip {name}: {exc}", file=sys.stderr)
-doc = v2.connector_bindings()  # all routes registered by the imported connectors
+doc = urirun.connector_bindings()  # all routes registered by the imported connectors
 with open(out, "w", encoding="utf-8") as fh:
     json.dump(doc, fh, indent=2)
 print(f"  bindings: {len(doc.get('bindings', {}))} route(s) -> {out}")
