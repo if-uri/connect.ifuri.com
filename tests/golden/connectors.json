@@ -1,0 +1,425 @@
+{
+    "version": "ifuri.connectors.v1",
+    "updatedAt": "2026-06-19",
+    "defaultPipSpec": "urirun @ git+https://github.com/tellmesh/urirun.git@main#subdirectory=adapters/python",
+    "site": {
+        "baseUrl": "https://connect.ifuri.com",
+        "title": "ifuri Connect - URI connector hub for urirun",
+        "description": "Install ifuri and urirun connectors from one catalog. Each connector documents its URI schemes, routes, requirements, install command and registry contract.",
+        "image": "https://connect.ifuri.com/assets/social-card.svg",
+        "ecosystem": [
+            {
+                "label": "ifuri.com",
+                "url": "https://ifuri.com",
+                "title": "Main site"
+            },
+            {
+                "label": "get.ifuri.com",
+                "url": "https://get.ifuri.com",
+                "title": "One-line node + connector installers"
+            },
+            {
+                "label": "Docs",
+                "url": "https://ifuri.com/urirun/",
+                "title": "urirun documentation"
+            }
+        ]
+    },
+    "connectors": [
+        {
+            "id": "planfile",
+            "name": "Planfile Tasks",
+            "status": "available",
+            "category": "Planning",
+            "summary": "Plan, group and execute daily tasks through task:// and planfile:// URI commands.",
+            "description": "Planfile Tasks turns a local planfile project into URI-addressable work items. It is the connector for daily tasks, sprint grouping, status changes and LLM-generated task execution plans.",
+            "uriSchemes": [
+                "task",
+                "planfile"
+            ],
+            "routes": [
+                "task://host/tickets/query/list",
+                "task://host/ticket/command/create",
+                "planfile://host/dsl/command/run"
+            ],
+            "useCases": [
+                "Create tasks from chat or a host workflow.",
+                "Group tasks into sprint-like queues.",
+                "Run planfile DSL from the same URI registry as other automation."
+            ],
+            "examples": [
+                {
+                    "title": "List host tickets",
+                    "uri": "task://host/tickets/query/list",
+                    "payload": {
+                        "sprint": "all"
+                    }
+                },
+                {
+                    "title": "Create a ticket",
+                    "uri": "task://host/ticket/command/create",
+                    "payload": {
+                        "title": "Check DNS records",
+                        "group": "ops"
+                    }
+                }
+            ],
+            "flowExample": [
+                "task://host/ticket/command/create",
+                "task://host/tickets/query/list",
+                "planfile://host/dsl/command/run"
+            ],
+            "requires": [
+                "python>=3.10"
+            ],
+            "install": {
+                "mode": "bundled",
+                "pipPackages": [
+                    "planfile>=0.1.103"
+                ]
+            },
+            "docsUrl": "https://github.com/if-uri/docs",
+            "keywords": [
+                "tasks",
+                "planfile",
+                "todo",
+                "sprint",
+                "LLM workflow"
+            ]
+        },
+        {
+            "id": "sqlite-context",
+            "name": "SQLite Context Store",
+            "status": "available",
+            "category": "Data",
+            "summary": "Local data, artifacts, checks and logs over data://, artifact://, check:// and log://.",
+            "description": "SQLite Context Store gives the host a small durable memory for records, artifacts, checks and logs. It is useful for workflows that need to remember what was checked, imported, generated or changed.",
+            "uriSchemes": [
+                "data",
+                "artifact",
+                "check",
+                "log"
+            ],
+            "routes": [
+                "data://host/records/query/search",
+                "artifact://host/artifacts/query/list",
+                "log://host/logs/query/recent"
+            ],
+            "useCases": [
+                "Store structured context imported by an LLM.",
+                "List artifacts created by automation.",
+                "Show backend and node logs in the host UI."
+            ],
+            "examples": [
+                {
+                    "title": "Search local context",
+                    "uri": "data://host/records/query/search",
+                    "payload": {
+                        "q": "domain",
+                        "limit": 10
+                    }
+                },
+                {
+                    "title": "Read recent logs",
+                    "uri": "log://host/logs/query/recent",
+                    "payload": {
+                        "limit": 20
+                    }
+                }
+            ],
+            "flowExample": [
+                "data://host/records/query/search",
+                "artifact://host/artifacts/query/list",
+                "log://host/logs/query/recent"
+            ],
+            "requires": [
+                "python>=3.10"
+            ],
+            "install": {
+                "mode": "bundled",
+                "pipPackages": []
+            },
+            "docsUrl": "https://github.com/if-uri/docs",
+            "keywords": [
+                "sqlite",
+                "context",
+                "logs",
+                "artifacts",
+                "memory"
+            ]
+        },
+        {
+            "id": "domain-monitor",
+            "name": "Domain Monitor",
+            "status": "available",
+            "category": "Operations",
+            "summary": "HTTP, DNS, screenshots, checks, logs and repair tickets for website operations.",
+            "description": "Domain Monitor is the operational connector for recurring website checks. It can query HTTP status, inspect DNS state, create logs and prepare repair tickets when a domain fails validation.",
+            "uriSchemes": [
+                "monitor",
+                "dns",
+                "flow",
+                "check",
+                "log"
+            ],
+            "routes": [
+                "monitor://host/http/query/status",
+                "dns://host/records/query/current",
+                "flow://host/domain/command/check"
+            ],
+            "useCases": [
+                "Check if a site responds correctly.",
+                "Compare expected and current DNS records.",
+                "Create task tickets for failed domain checks."
+            ],
+            "examples": [
+                {
+                    "title": "Check HTTP status",
+                    "uri": "monitor://host/http/query/status",
+                    "payload": {
+                        "url": "https://ifuri.com"
+                    }
+                },
+                {
+                    "title": "Run domain flow",
+                    "uri": "flow://host/domain/command/check",
+                    "payload": {
+                        "domain": "ifuri.com"
+                    }
+                }
+            ],
+            "flowExample": [
+                "monitor://host/http/query/status",
+                "dns://host/records/query/current",
+                "task://host/ticket/command/create"
+            ],
+            "requires": [
+                "python>=3.10"
+            ],
+            "install": {
+                "mode": "bundled",
+                "pipPackages": [
+                    "planfile>=0.1.103"
+                ]
+            },
+            "docsUrl": "https://github.com/if-uri/docs",
+            "keywords": [
+                "domain",
+                "monitoring",
+                "DNS",
+                "HTTP",
+                "operations"
+            ]
+        },
+        {
+            "id": "namecheap-dns",
+            "name": "Namecheap DNS",
+            "status": "available",
+            "category": "DNS",
+            "summary": "Safe DNS plan, backup and apply flow for Namecheap host records.",
+            "description": "Namecheap DNS wraps the Namecheap API as URI commands. Workflows can plan changes, back up current host records and apply a reviewed DNS update without hard-coding SDK calls in the host app.",
+            "uriSchemes": [
+                "dns"
+            ],
+            "routes": [
+                "dns://host/records/command/plan",
+                "dns://host/records/command/backup",
+                "dns://host/records/command/apply"
+            ],
+            "useCases": [
+                "Generate a DNS change plan from desired records.",
+                "Back up Namecheap host records before a change.",
+                "Apply reviewed DNS records from a host workflow."
+            ],
+            "examples": [
+                {
+                    "title": "Plan a DNS update",
+                    "uri": "dns://host/records/command/plan",
+                    "payload": {
+                        "domain": "example.com",
+                        "records": []
+                    }
+                },
+                {
+                    "title": "Back up records",
+                    "uri": "dns://host/records/command/backup",
+                    "payload": {
+                        "domain": "example.com"
+                    }
+                }
+            ],
+            "flowExample": [
+                "dns://host/records/command/backup",
+                "dns://host/records/command/plan",
+                "dns://host/records/command/apply"
+            ],
+            "requires": [
+                "python>=3.10",
+                "NAMECHEAP_API_USER",
+                "NAMECHEAP_API_KEY",
+                "NAMECHEAP_USERNAME",
+                "NAMECHEAP_CLIENT_IP"
+            ],
+            "install": {
+                "mode": "bundled",
+                "pipPackages": [
+                    "planfile>=0.1.103"
+                ]
+            },
+            "docsUrl": "https://github.com/if-uri/docs",
+            "keywords": [
+                "Namecheap",
+                "DNS",
+                "records",
+                "domain",
+                "API"
+            ]
+        },
+        {
+            "id": "grpc-transport",
+            "name": "gRPC Transport",
+            "status": "available",
+            "category": "Transport",
+            "summary": "Expose and call URI registries over gRPC for service-to-service communication.",
+            "description": "gRPC Transport is a transport connector for exposing URI registries between services. It keeps the same URI binding contract while switching the network transport to gRPC.",
+            "uriSchemes": [
+                "transport"
+            ],
+            "routes": [
+                "transport://grpc/service/command/serve"
+            ],
+            "useCases": [
+                "Expose a runtime registry to another service.",
+                "Use URI routes over gRPC instead of only HTTP.",
+                "Test service-to-service URI execution contracts."
+            ],
+            "examples": [
+                {
+                    "title": "Serve URI runtime over gRPC",
+                    "uri": "transport://grpc/service/command/serve",
+                    "payload": {
+                        "host": "0.0.0.0",
+                        "port": 50051
+                    }
+                }
+            ],
+            "flowExample": [
+                "transport://grpc/service/command/serve"
+            ],
+            "requires": [
+                "python>=3.10"
+            ],
+            "install": {
+                "mode": "bundled",
+                "pipPackages": [
+                    "grpcio>=1.60"
+                ]
+            },
+            "docsUrl": "https://github.com/if-uri/docs",
+            "keywords": [
+                "gRPC",
+                "transport",
+                "service",
+                "registry",
+                "runtime"
+            ]
+        },
+        {
+            "id": "mqtt",
+            "name": "MQTT Device Bridge",
+            "status": "planned",
+            "category": "IoT",
+            "summary": "Publish, subscribe and bridge firmware/backend/frontend device commands through MQTT URI routes.",
+            "description": "MQTT Device Bridge will map device, firmware, backend and frontend actions to shared URI routes. The goal is to control firmware and read telemetry without a separate SDK per layer.",
+            "uriSchemes": [
+                "mqtt",
+                "device"
+            ],
+            "routes": [
+                "mqtt://broker/topic/command/publish",
+                "device://device-01/led/command/set"
+            ],
+            "useCases": [
+                "Publish firmware commands from a backend flow.",
+                "Use the same device URI from frontend and host.",
+                "Bridge telemetry into the registry runtime."
+            ],
+            "examples": [
+                {
+                    "title": "Set a device LED",
+                    "uri": "device://device-01/led/command/set",
+                    "payload": {
+                        "on": true
+                    }
+                }
+            ],
+            "flowExample": [
+                "mqtt://broker/topic/command/publish",
+                "device://device-01/led/command/set"
+            ],
+            "requires": [
+                "mqtt broker"
+            ],
+            "install": {
+                "mode": "planned",
+                "pipSpec": "urirun-connectors-mqtt"
+            },
+            "docsUrl": "https://github.com/if-uri/examples",
+            "keywords": [
+                "MQTT",
+                "firmware",
+                "device",
+                "IoT",
+                "telemetry"
+            ]
+        },
+        {
+            "id": "browser-control",
+            "name": "Browser Control",
+            "status": "planned",
+            "category": "Automation",
+            "summary": "Drive browser actions and screenshots through browser:// URI commands for demos and QA.",
+            "description": "Browser Control will expose browser actions as URI commands for visual checks, screenshots and demo automation. In the LAN lab it should target the noVNC machine, not the physical host browser.",
+            "uriSchemes": [
+                "browser"
+            ],
+            "routes": [
+                "browser://desktop/page/command/open",
+                "browser://desktop/page/command/screenshot"
+            ],
+            "useCases": [
+                "Open pages inside a controlled demo desktop.",
+                "Capture screenshots as URI flow artifacts.",
+                "Run repeatable browser QA from NL-to-flow."
+            ],
+            "examples": [
+                {
+                    "title": "Open a page",
+                    "uri": "browser://desktop/page/command/open",
+                    "payload": {
+                        "url": "https://example.com/"
+                    }
+                }
+            ],
+            "flowExample": [
+                "browser://desktop/page/command/open",
+                "browser://desktop/page/command/screenshot"
+            ],
+            "requires": [
+                "browser runtime"
+            ],
+            "install": {
+                "mode": "planned",
+                "pipSpec": "urirun-connectors-browser"
+            },
+            "docsUrl": "https://github.com/if-uri/examples",
+            "keywords": [
+                "browser",
+                "screenshot",
+                "QA",
+                "noVNC",
+                "automation"
+            ]
+        }
+    ]
+}
