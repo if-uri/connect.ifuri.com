@@ -61,14 +61,20 @@ $defaultInstall = '/install?connectors=' . rawurlencode($defaultIds);
       </div>
     </section>
 
+    <div class="connector-filter">
+      <input id="connectorSearch" type="search" placeholder="Filter connectors by name, summary or URI scheme…" aria-label="Filter connectors" autocomplete="off">
+      <span id="connectorCount" class="muted-count"></span>
+    </div>
+
     <section class="connectors" aria-label="Connectors">
       <?php foreach ($connectors as $connector): ?>
         <?php
           $id = (string) $connector['id'];
           $status = (string) ($connector['status'] ?? 'planned');
           $disabled = $status !== 'available';
+          $search = strtolower(trim($id . ' ' . (string) $connector['name'] . ' ' . (string) $connector['summary'] . ' ' . implode(' ', $connector['routes'] ?? [])));
         ?>
-        <article class="connector" data-status="<?php echo hub_h($status); ?>" data-id="<?php echo hub_h($id); ?>">
+        <article class="connector" data-status="<?php echo hub_h($status); ?>" data-id="<?php echo hub_h($id); ?>" data-search="<?php echo hub_h($search); ?>">
           <label class="connector-top">
             <input type="checkbox" class="connector-check" value="<?php echo hub_h($id); ?>" <?php echo $disabled ? 'disabled' : 'checked'; ?>>
             <span>
@@ -88,6 +94,7 @@ $defaultInstall = '/install?connectors=' . rawurlencode($defaultIds);
           </div>
         </article>
       <?php endforeach; ?>
+      <p id="noResults" class="no-results" hidden>No connectors match your filter.</p>
     </section>
 
     <section class="panel split">

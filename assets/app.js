@@ -44,4 +44,23 @@ document.addEventListener('click', (event) => {
   copyText(button.dataset.copy, button).catch(() => {});
 });
 
+const search = document.getElementById('connectorSearch');
+const cards = Array.from(document.querySelectorAll('.connector'));
+const count = document.getElementById('connectorCount');
+const noResults = document.getElementById('noResults');
+
+function filterConnectors() {
+  const term = (search?.value || '').trim().toLowerCase();
+  let visible = 0;
+  cards.forEach((card) => {
+    const match = !term || (card.dataset.search || '').includes(term);
+    card.classList.toggle('hidden', !match);
+    if (match) visible += 1;
+  });
+  if (count) count.textContent = term ? `${visible} of ${cards.length}` : '';
+  if (noResults) noResults.hidden = visible !== 0;
+}
+
+search?.addEventListener('input', filterConnectors);
+
 refreshCommand();
