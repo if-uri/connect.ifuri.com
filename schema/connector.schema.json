@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://connect.ifuri.com/schema/connector.schema.json",
+  "title": "ifuri connect — per-connector manifest (folder source of truth)",
+  "description": "Schema for data/connectors/<id>/manifest.json. A superset of one connectors.json entry: every field below either maps 1:1 into the catalog entry or is a folder-only asset/provenance field resolved during aggregation. id MUST equal the folder name.",
+  "type": "object",
+  "required": ["id", "name", "status", "category", "summary", "description", "uriSchemes", "routes", "install", "provenance"],
+  "additionalProperties": false,
+  "properties": {
+    "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9._-]*$", "description": "Must equal the containing folder name." },
+    "name": { "type": "string" },
+    "status": { "type": "string", "enum": ["available", "planned"] },
+    "category": { "type": "string" },
+    "summary": { "type": "string", "maxLength": 200 },
+    "description": { "type": "string" },
+    "uriSchemes": { "type": "array", "items": { "type": "string", "pattern": "^[a-z][a-z0-9+.-]*$" } },
+    "routes": { "type": "array", "items": { "type": "string" } },
+    "useCases": { "type": "array", "items": { "type": "string" } },
+    "examples": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["title", "uri", "payload"],
+        "additionalProperties": false,
+        "properties": {
+          "title": { "type": "string" },
+          "uri": { "type": "string" },
+          "payload": {},
+          "payloadFile": { "type": "string", "description": "Relative path (within the folder) to a JSON payload; inlined into 'payload' at aggregation time." }
+        }
+      }
+    },
+    "flowExample": { "type": "array", "items": { "type": "string" } },
+    "requires": { "type": "array", "items": { "type": "string" } },
+    "install": {
+      "type": "object",
+      "required": ["mode"],
+      "additionalProperties": false,
+      "properties": {
+        "mode": { "type": "string", "enum": ["bundled", "urirun-extra", "planned"] },
+        "extra": { "type": "string" },
+        "pipSpec": { "type": "string" },
+        "pipPackages": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "adapterKinds": {
+      "type": "array",
+      "description": "urirun executor kinds this connector registers. CI gates community provenance against an allowlist (see docs/CONNECTORS-ARCHITECTURE.md).",
+      "items": { "type": "string" }
+    },
+    "docsUrl": { "type": "string" },
+    "keywords": { "type": "array", "items": { "type": "string" } },
+
+    "provenance": {
+      "type": "string",
+      "enum": ["verified", "community"],
+      "description": "Trust tier. 'verified' = maintained/audited by if-uri; 'community' = third-party, restricted to allowlisted adapterKinds."
+    },
+    "publisher": {
+      "type": "object",
+      "description": "Who publishes this connector (required for community provenance).",
+      "required": ["name"],
+      "properties": {
+        "name": { "type": "string" },
+        "url": { "type": "string" },
+        "github": { "type": "string" }
+      }
+    },
+    "icon": { "type": "string", "description": "Folder-relative path to an SVG icon (e.g. icon.svg). Resolved to a hub URL during aggregation." },
+    "readme": { "type": "string", "description": "Folder-relative path to long-form Markdown docs (e.g. README.md)." }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "provenance": { "const": "community" } } },
+      "then": { "required": ["publisher"] }
+    }
+  ]
+}
