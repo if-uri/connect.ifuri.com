@@ -71,9 +71,6 @@ $jsonLd = [
       <nav>
         <a href="#connectors">Connectors</a>
         <a href="/submit">Submit connector</a>
-        <?php foreach (($site['ecosystem'] ?? []) as $eco): ?>
-          <a href="<?php echo hub_h((string) $eco['url']); ?>" title="<?php echo hub_h((string) ($eco['title'] ?? '')); ?>"><?php echo hub_h((string) $eco['label']); ?></a>
-        <?php endforeach; ?>
         <a href="https://github.com/if-uri/connect.ifuri.com">GitHub</a>
       </nav>
     </div>
