@@ -71,8 +71,8 @@
   },
   "allOf": [
     {
-      "if": { "properties": { "provenance": { "const": "community" } } },
-      "then": { "required": ["publisher"] }
+      "if": { "properties": { "provenance": { "const": "community" } }, "required": ["provenance"] },
+      "then": { "required": ["publisher", "adapterKinds"] }
     }
   ]
 }

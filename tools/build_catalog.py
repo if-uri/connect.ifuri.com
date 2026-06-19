@@ -83,11 +83,19 @@ def validate_manifest(path: Path, manifest: dict) -> None:
     if manifest["provenance"] not in {"verified", "community"}:
         raise ValueError(f"{path}: unsupported provenance {manifest['provenance']!r}")
 
-    if manifest["provenance"] == "community" and not manifest.get("publisher"):
-        raise ValueError(f"{path}: community connector requires publisher")
-
     if manifest["provenance"] == "community":
-        for adapter_kind in manifest.get("adapterKinds") or []:
+        if not manifest.get("publisher"):
+            raise ValueError(f"{path}: community connector requires publisher")
+        # Require an explicit adapterKinds declaration: the allowlist can only
+        # protect against kinds the manifest actually claims. A silent omission
+        # would let a third party register executors the gate never sees, so an
+        # absent key is itself a rejection (use [] for "registers no executors").
+        if not isinstance(manifest.get("adapterKinds"), list):
+            raise ValueError(
+                f"{path}: community connector must declare adapterKinds "
+                "(use [] if it registers no executors)"
+            )
+        for adapter_kind in manifest["adapterKinds"]:
             if adapter_kind not in COMMUNITY_ADAPTER_ALLOWLIST:
                 raise ValueError(
                     f"{path}: community connector cannot use adapterKind {adapter_kind!r}; "

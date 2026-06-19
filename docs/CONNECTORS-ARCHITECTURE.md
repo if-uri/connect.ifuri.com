@@ -89,7 +89,10 @@ The generator validates:
 - `status` is `available` or `planned`,
 - `provenance` is `verified` or `community`,
 - community connectors declare `publisher`,
-- community connector `adapterKinds` are allowlisted.
+- community connectors must declare `adapterKinds` explicitly (use `[]` for
+  "registers no executors") — an absent declaration is itself a rejection, since
+  the allowlist can only protect against kinds the manifest actually claims,
+- every declared community `adapterKind` is on the allowlist.
 
 ## Trust model
 

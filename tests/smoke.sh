@@ -12,6 +12,7 @@ python3 -m json.tool data/catalog.meta.json >/tmp/connect-ifuri-catalog-meta.jso
 python3 -m json.tool schema/connector.schema.json >/tmp/connect-ifuri-connector-schema.json
 python3 -m json.tool schema/connectors.schema.json >/tmp/connect-ifuri-schema.json
 python3 tools/build_catalog.py --check
+python3 tests/policy_test.py
 php tests/snapshot_test.php
 
 python3 - <<'PY'
