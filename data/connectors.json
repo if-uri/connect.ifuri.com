@@ -1,0 +1,100 @@
+{
+  "version": "ifuri.connectors.v1",
+  "updatedAt": "2026-06-19",
+  "defaultPipSpec": "urirun[host] @ git+https://github.com/tellmesh/urirun.git@main#subdirectory=adapters/python",
+  "connectors": [
+    {
+      "id": "planfile",
+      "name": "Planfile Tasks",
+      "status": "available",
+      "summary": "Plan, group and execute daily tasks through task:// and planfile:// URI commands.",
+      "routes": ["task://host/tickets/query/list", "task://host/ticket/command/create", "planfile://host/dsl/command/run"],
+      "requires": ["python>=3.10"],
+      "install": {
+        "mode": "urirun-extra",
+        "extra": "planfile",
+        "pipSpec": "urirun[planfile] @ git+https://github.com/tellmesh/urirun.git@main#subdirectory=adapters/python"
+      },
+      "docsUrl": "https://github.com/if-uri/docs"
+    },
+    {
+      "id": "sqlite-context",
+      "name": "SQLite Context Store",
+      "status": "available",
+      "summary": "Local data, artifacts, checks and logs over data://, artifact://, check:// and log://.",
+      "routes": ["data://host/records/query/search", "artifact://host/artifacts/query/list", "log://host/logs/query/recent"],
+      "requires": ["python>=3.10"],
+      "install": {
+        "mode": "bundled",
+        "pipSpec": "urirun[host] @ git+https://github.com/tellmesh/urirun.git@main#subdirectory=adapters/python"
+      },
+      "docsUrl": "https://github.com/if-uri/docs"
+    },
+    {
+      "id": "domain-monitor",
+      "name": "Domain Monitor",
+      "status": "available",
+      "summary": "HTTP, DNS, screenshots, checks, logs and repair tickets for website operations.",
+      "routes": ["monitor://host/http/query/status", "dns://host/records/query/current", "flow://host/domain/command/check"],
+      "requires": ["python>=3.10"],
+      "install": {
+        "mode": "bundled",
+        "pipSpec": "urirun[host] @ git+https://github.com/tellmesh/urirun.git@main#subdirectory=adapters/python"
+      },
+      "docsUrl": "https://github.com/if-uri/docs"
+    },
+    {
+      "id": "namecheap-dns",
+      "name": "Namecheap DNS",
+      "status": "available",
+      "summary": "Safe DNS plan, backup and apply flow for Namecheap host records.",
+      "routes": ["dns://host/records/command/plan", "dns://host/records/command/backup", "dns://host/records/command/apply"],
+      "requires": ["python>=3.10", "NAMECHEAP_API_USER", "NAMECHEAP_API_KEY", "NAMECHEAP_USERNAME", "NAMECHEAP_CLIENT_IP"],
+      "install": {
+        "mode": "bundled",
+        "pipSpec": "urirun[host] @ git+https://github.com/tellmesh/urirun.git@main#subdirectory=adapters/python"
+      },
+      "docsUrl": "https://github.com/if-uri/docs"
+    },
+    {
+      "id": "grpc-transport",
+      "name": "gRPC Transport",
+      "status": "available",
+      "summary": "Expose and call URI registries over gRPC for service-to-service communication.",
+      "routes": ["transport://grpc/service/command/serve"],
+      "requires": ["python>=3.10"],
+      "install": {
+        "mode": "urirun-extra",
+        "extra": "grpc",
+        "pipSpec": "urirun[grpc] @ git+https://github.com/tellmesh/urirun.git@main#subdirectory=adapters/python"
+      },
+      "docsUrl": "https://github.com/if-uri/docs"
+    },
+    {
+      "id": "mqtt",
+      "name": "MQTT Device Bridge",
+      "status": "planned",
+      "summary": "Publish, subscribe and bridge firmware/backend/frontend device commands through MQTT URI routes.",
+      "routes": ["mqtt://broker/topic/command/publish", "device://device-01/led/command/set"],
+      "requires": ["mqtt broker"],
+      "install": {
+        "mode": "planned",
+        "pipSpec": "urirun-connectors-mqtt"
+      },
+      "docsUrl": "https://github.com/if-uri/examples"
+    },
+    {
+      "id": "browser-control",
+      "name": "Browser Control",
+      "status": "planned",
+      "summary": "Drive browser actions and screenshots through browser:// URI commands for demos and QA.",
+      "routes": ["browser://desktop/page/command/open", "browser://desktop/page/command/screenshot"],
+      "requires": ["browser runtime"],
+      "install": {
+        "mode": "planned",
+        "pipSpec": "urirun-connectors-browser"
+      },
+      "docsUrl": "https://github.com/if-uri/examples"
+    }
+  ]
+}
