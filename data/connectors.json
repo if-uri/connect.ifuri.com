@@ -1,7 +1,7 @@
 {
   "version": "ifuri.connectors.v1",
   "updatedAt": "2026-06-19",
-  "defaultPipSpec": "urirun[host] @ git+https://github.com/tellmesh/urirun.git@main#subdirectory=adapters/python",
+  "defaultPipSpec": "urirun @ git+https://github.com/tellmesh/urirun.git@main#subdirectory=adapters/python",
   "connectors": [
     {
       "id": "planfile",
@@ -11,9 +11,8 @@
       "routes": ["task://host/tickets/query/list", "task://host/ticket/command/create", "planfile://host/dsl/command/run"],
       "requires": ["python>=3.10"],
       "install": {
-        "mode": "urirun-extra",
-        "extra": "planfile",
-        "pipSpec": "urirun[planfile] @ git+https://github.com/tellmesh/urirun.git@main#subdirectory=adapters/python"
+        "mode": "bundled",
+        "pipPackages": ["planfile>=0.1.103"]
       },
       "docsUrl": "https://github.com/if-uri/docs"
     },
@@ -26,7 +25,7 @@
       "requires": ["python>=3.10"],
       "install": {
         "mode": "bundled",
-        "pipSpec": "urirun[host] @ git+https://github.com/tellmesh/urirun.git@main#subdirectory=adapters/python"
+        "pipPackages": []
       },
       "docsUrl": "https://github.com/if-uri/docs"
     },
@@ -39,7 +38,7 @@
       "requires": ["python>=3.10"],
       "install": {
         "mode": "bundled",
-        "pipSpec": "urirun[host] @ git+https://github.com/tellmesh/urirun.git@main#subdirectory=adapters/python"
+        "pipPackages": ["planfile>=0.1.103"]
       },
       "docsUrl": "https://github.com/if-uri/docs"
     },
@@ -52,7 +51,7 @@
       "requires": ["python>=3.10", "NAMECHEAP_API_USER", "NAMECHEAP_API_KEY", "NAMECHEAP_USERNAME", "NAMECHEAP_CLIENT_IP"],
       "install": {
         "mode": "bundled",
-        "pipSpec": "urirun[host] @ git+https://github.com/tellmesh/urirun.git@main#subdirectory=adapters/python"
+        "pipPackages": ["planfile>=0.1.103"]
       },
       "docsUrl": "https://github.com/if-uri/docs"
     },
@@ -64,9 +63,8 @@
       "routes": ["transport://grpc/service/command/serve"],
       "requires": ["python>=3.10"],
       "install": {
-        "mode": "urirun-extra",
-        "extra": "grpc",
-        "pipSpec": "urirun[grpc] @ git+https://github.com/tellmesh/urirun.git@main#subdirectory=adapters/python"
+        "mode": "bundled",
+        "pipPackages": ["grpcio>=1.60"]
       },
       "docsUrl": "https://github.com/if-uri/docs"
     },

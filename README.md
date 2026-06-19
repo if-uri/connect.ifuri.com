@@ -17,6 +17,14 @@ php -S 127.0.0.1:8099 -t .
 
 Open `http://127.0.0.1:8099/`.
 
+## Test
+
+```bash
+bash tests/smoke.sh
+CONNECT_HUB_BASE=https://connect.ifuri.com bash tests/smoke.sh
+CONNECT_HUB_BASE=https://connect.ifuri.com CONNECT_HUB_INSTALL_TEST=1 bash tests/smoke.sh
+```
+
 ## One-liner
 
 ```bash

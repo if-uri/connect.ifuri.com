@@ -71,14 +71,20 @@ function hub_installer_script(array $ids): string
         $selected = array_values(array_filter(hub_connectors(), static fn ($item) => ($item['status'] ?? '') === 'available'));
     }
 
-    $pipSpecs = [];
+    $coreSpec = (string) ($catalog['defaultPipSpec'] ?? '');
+    $pipPackages = [];
     foreach ($selected as $connector) {
         if (($connector['status'] ?? '') !== 'available') {
             continue;
         }
-        $spec = $connector['install']['pipSpec'] ?? ($catalog['defaultPipSpec'] ?? '');
-        if ($spec !== '') {
-            $pipSpecs[$spec] = true;
+        $install = $connector['install'] ?? [];
+        if (($install['pipSpec'] ?? '') !== '' && $install['pipSpec'] !== $coreSpec) {
+            $pipPackages[(string) $install['pipSpec']] = true;
+        }
+        foreach (($install['pipPackages'] ?? []) as $package) {
+            if ((string) $package !== '') {
+                $pipPackages[(string) $package] = true;
+            }
         }
     }
 
@@ -106,11 +112,15 @@ SH;
     $script .= "if [ -n \"\${URIRUN_PIP_SPEC:-}\" ]; then\n";
     $script .= "  \$PIP_BIN install \"\$URIRUN_PIP_SPEC\"\n";
     $script .= "else\n";
-    foreach (array_keys($pipSpecs) as $spec) {
+    if ($coreSpec !== '') {
+        $escapedCore = str_replace("'", "'\"'\"'", $coreSpec);
+        $script .= "  \$PIP_BIN install '{$escapedCore}'\n";
+    }
+    $script .= "fi\n";
+    foreach (array_keys($pipPackages) as $spec) {
         $escaped = str_replace("'", "'\"'\"'", $spec);
         $script .= "  \$PIP_BIN install '{$escaped}'\n";
     }
-    $script .= "fi\n";
     $script .= <<<'SH'
 
 if command -v urirun >/dev/null 2>&1; then
