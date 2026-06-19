@@ -34,7 +34,7 @@
   ],
   "install": {
     "mode": "urirun-extra",
-    "pipSpec": "urirun-connector-http-check @ git+https://github.com/if-uri/urirun-connector-http-check.git@main"
+    "pipSpec": "urirun-connector-http-check @ git+https://github.com/if-uri/urirun-connector-http-check.git@v0.1.1"
   },
   "adapterKinds": [
     "http-service"

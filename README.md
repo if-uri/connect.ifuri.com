@@ -76,11 +76,11 @@ curl -fsSL 'https://connect.ifuri.com/install?connectors=planfile,namecheap-dns'
 curl -fsSL 'https://connect.ifuri.com/install?connectors=http-check' | bash
 ```
 
-By default the installer uses the current GitHub source for the Python urirun
-package. Override it when the final `if-uri/urirun` package is published:
+By default the installer uses the pinned GitHub source for the Python urirun
+package. Override it only when testing another runtime ref or fork:
 
 ```bash
-URIRUN_PIP_SPEC='urirun @ git+https://github.com/if-uri/urirun.git@main#subdirectory=runtimes/python' \
+URIRUN_PIP_SPEC='urirun @ git+https://github.com/tellmesh/urirun.git@v0.3.5#subdirectory=adapters/python' \
 curl -fsSL 'https://connect.ifuri.com/install?connectors=planfile' | bash
 ```
 
