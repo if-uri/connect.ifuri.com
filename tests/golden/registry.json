@@ -183,6 +183,48 @@
             "manifestUrl": "https://connect.ifuri.com/connectors/http-check.json"
         },
         {
+            "id": "time-tools",
+            "name": "Time Tools",
+            "status": "available",
+            "category": "Operations",
+            "summary": "Expose current time and timezone checks through time:// URI commands.",
+            "description": "Time Tools is a minimal external urirun connector package. It declares time:// routes with @urirun.command, returns structured JSON, and can be projected to MCP tools / A2A skills.",
+            "uriSchemes": [
+                "time"
+            ],
+            "routes": [
+                "time://host/clock/query/now"
+            ],
+            "examples": [
+                {
+                    "title": "Read UTC time",
+                    "uri": "time://host/clock/query/now",
+                    "payload": {
+                        "timezone": "UTC",
+                        "output": "iso"
+                    }
+                },
+                {
+                    "title": "Read Warsaw date",
+                    "uri": "time://host/clock/query/now",
+                    "payload": {
+                        "timezone": "Europe/Warsaw",
+                        "output": "date"
+                    }
+                }
+            ],
+            "flowExample": [
+                "time://host/clock/query/now"
+            ],
+            "install": {
+                "mode": "urirun-extra",
+                "pipSpec": "urirun-connector-time-tools @ git+https://github.com/if-uri/urirun-connector-time-tools.git@v0.1.0"
+            },
+            "docsUrl": "https://github.com/if-uri/urirun-connector-time-tools",
+            "hubUrl": "https://connect.ifuri.com/connectors/time-tools",
+            "manifestUrl": "https://connect.ifuri.com/connectors/time-tools.json"
+        },
+        {
             "id": "namecheap-dns",
             "name": "Namecheap DNS",
             "status": "available",

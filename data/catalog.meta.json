@@ -30,6 +30,7 @@
     "sqlite-context",
     "domain-monitor",
     "http-check",
+    "time-tools",
     "namecheap-dns",
     "grpc-transport",
     "mqtt",

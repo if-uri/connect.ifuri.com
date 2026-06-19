@@ -286,6 +286,70 @@
       }
     },
     {
+      "id": "time-tools",
+      "name": "Time Tools",
+      "status": "available",
+      "category": "Operations",
+      "summary": "Expose current time and timezone checks through time:// URI commands.",
+      "description": "Time Tools is a minimal external urirun connector package. It declares time:// routes with @urirun.command, returns structured JSON, and can be projected to MCP tools / A2A skills.",
+      "uriSchemes": [
+        "time"
+      ],
+      "routes": [
+        "time://host/clock/query/now"
+      ],
+      "useCases": [
+        "Stamp task and flow execution with host-local or UTC time.",
+        "Verify that connector packages can be installed from GitHub and projected to MCP/A2A.",
+        "Use time:// in flows without coupling the flow to Python code."
+      ],
+      "examples": [
+        {
+          "title": "Read UTC time",
+          "uri": "time://host/clock/query/now",
+          "payload": {
+            "timezone": "UTC",
+            "output": "iso"
+          }
+        },
+        {
+          "title": "Read Warsaw date",
+          "uri": "time://host/clock/query/now",
+          "payload": {
+            "timezone": "Europe/Warsaw",
+            "output": "date"
+          }
+        }
+      ],
+      "flowExample": [
+        "time://host/clock/query/now"
+      ],
+      "requires": [
+        "python>=3.10"
+      ],
+      "install": {
+        "mode": "urirun-extra",
+        "pipSpec": "urirun-connector-time-tools @ git+https://github.com/if-uri/urirun-connector-time-tools.git@v0.1.0"
+      },
+      "adapterKinds": [
+        "local-function"
+      ],
+      "docsUrl": "https://github.com/if-uri/urirun-connector-time-tools",
+      "keywords": [
+        "time",
+        "timezone",
+        "clock",
+        "workflow",
+        "connector"
+      ],
+      "provenance": "verified",
+      "publisher": {
+        "name": "if-uri",
+        "url": "https://ifuri.com",
+        "github": "https://github.com/if-uri"
+      }
+    },
+    {
       "id": "namecheap-dns",
       "name": "Namecheap DNS",
       "status": "available",
