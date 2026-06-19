@@ -335,6 +335,42 @@
             "docsUrl": "https://github.com/if-uri/examples",
             "hubUrl": "https://connect.ifuri.com/connectors/browser-control",
             "manifestUrl": "https://connect.ifuri.com/connectors/browser-control.json"
+        },
+        {
+            "id": "mcp-filesystem",
+            "name": "MCP Filesystem",
+            "status": "planned",
+            "category": "Files",
+            "summary": "Read, list and write files through fs:// URI routes backed by the MCP filesystem server.",
+            "description": "MCP Filesystem bridges the Model Context Protocol filesystem server (@modelcontextprotocol/server-filesystem) into urirun fs:// routes, so flows and agents can read, list and write files under an allowlisted root with the same URI contract — and project them to MCP tools / A2A skills.",
+            "uriSchemes": [
+                "fs"
+            ],
+            "routes": [
+                "fs://host/file/query/read",
+                "fs://host/dir/query/list",
+                "fs://host/file/command/write"
+            ],
+            "examples": [
+                {
+                    "title": "Read a file",
+                    "uri": "fs://host/file/query/read",
+                    "payload": {
+                        "path": "README.md"
+                    }
+                }
+            ],
+            "flowExample": [
+                "fs://host/dir/query/list",
+                "fs://host/file/query/read"
+            ],
+            "install": {
+                "mode": "planned",
+                "pipSpec": "urirun-connector-mcp-filesystem"
+            },
+            "docsUrl": "https://modelcontextprotocol.io",
+            "hubUrl": "https://connect.ifuri.com/connectors/mcp-filesystem",
+            "manifestUrl": "https://connect.ifuri.com/connectors/mcp-filesystem.json"
         }
     ]
 }

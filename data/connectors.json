@@ -518,6 +518,67 @@
         "url": "https://ifuri.com",
         "github": "https://github.com/if-uri"
       }
+    },
+    {
+      "id": "mcp-filesystem",
+      "name": "MCP Filesystem",
+      "status": "planned",
+      "category": "Files",
+      "summary": "Read, list and write files through fs:// URI routes backed by the MCP filesystem server.",
+      "description": "MCP Filesystem bridges the Model Context Protocol filesystem server (@modelcontextprotocol/server-filesystem) into urirun fs:// routes, so flows and agents can read, list and write files under an allowlisted root with the same URI contract — and project them to MCP tools / A2A skills.",
+      "uriSchemes": [
+        "fs"
+      ],
+      "routes": [
+        "fs://host/file/query/read",
+        "fs://host/dir/query/list",
+        "fs://host/file/command/write"
+      ],
+      "useCases": [
+        "Read a file into a flow step under an allowlisted root.",
+        "List a directory from an agent via MCP tools.",
+        "Write generated artifacts back to disk through a policy-gated route."
+      ],
+      "examples": [
+        {
+          "title": "Read a file",
+          "uri": "fs://host/file/query/read",
+          "payload": {
+            "path": "README.md"
+          }
+        }
+      ],
+      "flowExample": [
+        "fs://host/dir/query/list",
+        "fs://host/file/query/read"
+      ],
+      "requires": [
+        "node (npx) for @modelcontextprotocol/server-filesystem",
+        "an allowlisted root directory"
+      ],
+      "install": {
+        "mode": "planned",
+        "pipSpec": "urirun-connector-mcp-filesystem"
+      },
+      "adapterKinds": [
+        "mcp",
+        "command"
+      ],
+      "docsUrl": "https://modelcontextprotocol.io",
+      "keywords": [
+        "MCP",
+        "filesystem",
+        "files",
+        "read",
+        "write",
+        "agent"
+      ],
+      "provenance": "verified",
+      "publisher": {
+        "name": "if-uri",
+        "url": "https://ifuri.com",
+        "github": "https://github.com/if-uri"
+      }
     }
   ]
 }
