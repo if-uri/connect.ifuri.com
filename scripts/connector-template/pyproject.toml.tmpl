@@ -11,8 +11,11 @@ requires-python = ">=3.10"
 license = "Apache-2.0"
 authors = [{ name = "if-uri" }]
 dependencies = [
-  "urirun @ git+https://github.com/tellmesh/urirun.git@v0.3.12#subdirectory=adapters/python",
+  "urirun @ git+https://github.com/tellmesh/urirun.git@v0.3.13#subdirectory=adapters/python",
 ]
+
+[project.optional-dependencies]
+test = ["pytest>=8"]
 
 [project.urls]
 Homepage = "https://connect.ifuri.com/connectors/__ID__"

@@ -41,7 +41,7 @@ $site = hub_site();
       <a class="button primary" href="/">Back to catalog</a>
       <a class="button" href="/#connectors">Browse connectors</a>
     </div>
-    <p class="muted" style="margin-top:24px">Machine endpoints: <a href="/connectors.json">/connectors.json</a> · <a href="/registry.json">/registry.json</a> · <a href="/search.json">/search.json</a></p>
+    <p class="muted" style="margin-top:24px">Machine endpoints: <a href="/connectors.json">/connectors.json</a> · <a href="/registry.json">/registry.json</a> · <a href="/search.json">/search.json</a> · <a href="/mcp.json">/mcp.json</a> · <a href="/a2a.json">/a2a.json</a></p>
   </main>
 
   <footer class="wrap footer">

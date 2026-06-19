@@ -13,6 +13,8 @@ echo "Canonical site: " . hub_url('/') . "\n";
 echo "Machine catalog: " . hub_url('/connectors.json') . "\n";
 echo "Runtime registry: " . hub_url('/registry.json') . "\n";
 echo "Search index: " . hub_url('/search.json') . "\n";
+echo "MCP tools (discovery): " . hub_url('/mcp.json') . "\n";
+echo "A2A agent card: " . hub_url('/a2a.json') . " (also /.well-known/agent.json)\n";
 echo "Installer endpoint: " . hub_url('/install?connectors=planfile') . "\n";
 echo "Submit connector page: " . hub_url('/submit') . "\n";
 echo "Validate connector endpoint: " . hub_url('/validate-connector') . "\n";

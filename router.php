@@ -35,6 +35,14 @@ if ($path === '/search.json') {
     require __DIR__ . '/api/search.php';
     return true;
 }
+if ($path === '/mcp.json') {
+    require __DIR__ . '/api/mcp.php';
+    return true;
+}
+if ($path === '/a2a.json' || $path === '/.well-known/agent.json' || $path === '/.well-known/agent-card.json') {
+    require __DIR__ . '/api/a2a.php';
+    return true;
+}
 if ($path === '/sitemap.xml') {
     require __DIR__ . '/sitemap.php';
     return true;
