@@ -109,6 +109,7 @@ for path, expected in paths:
         assert 'application/ld+json' in body
         assert 'property="og:title"' in body
         assert 'name="twitter:card"' in body
+        assert 'https://get.ifuri.com' in body
     if path == "/install?connectors=planfile,namecheap-dns":
         assert "planfile>=0.1.103" in body
     if path == "/sitemap.xml":
@@ -117,6 +118,7 @@ for path, expected in paths:
         assert "Sitemap: https://connect.ifuri.com/sitemap.xml" in body
     if path == "/llms.txt":
         assert "## Connectors" in body
+        assert "https://get.ifuri.com" in body
 
 registry = json.loads(fetch("/registry.json")[2])
 assert len(registry["connectors"]) == len(catalog["connectors"])

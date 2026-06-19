@@ -479,6 +479,17 @@ pre {
   background: var(--ifuri-neutral-50);
 }
 
+.links a strong,
+.links a span {
+  display: block;
+}
+
+.links a span {
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
 .footer {
   display: flex;
   justify-content: space-between;

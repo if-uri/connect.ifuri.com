@@ -15,6 +15,20 @@ echo "Runtime registry: " . hub_url('/registry.json') . "\n";
 echo "Installer endpoint: " . hub_url('/install?connectors=planfile') . "\n";
 echo "Catalog version: " . (string) ($catalog['version'] ?? 'unknown') . "\n";
 echo "Updated: " . (string) ($catalog['updatedAt'] ?? 'unknown') . "\n\n";
+if (is_array($site['ecosystem'] ?? null) && $site['ecosystem'] !== []) {
+    echo "## Ecosystem\n\n";
+    foreach ($site['ecosystem'] as $item) {
+        if (!is_array($item) || !isset($item['label'], $item['url'])) {
+            continue;
+        }
+        echo "- " . (string) $item['label'] . ": " . (string) $item['url'];
+        if (($item['title'] ?? '') !== '') {
+            echo " - " . (string) $item['title'];
+        }
+        echo "\n";
+    }
+    echo "\n";
+}
 echo "## Connectors\n\n";
 foreach (hub_connectors() as $connector) {
     echo "### " . (string) ($connector['name'] ?? $connector['id']) . "\n";

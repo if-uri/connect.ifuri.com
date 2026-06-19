@@ -11,12 +11,14 @@ $defaultIds = implode(',', array_column($available, 'id'));
 $defaultInstall = hub_default_install_path();
 $canonical = hub_url('/');
 $socialImage = (string) ($site['image'] ?? hub_url('/assets/social-card.svg'));
+$ecosystem = is_array($site['ecosystem'] ?? null) ? $site['ecosystem'] : [];
 $jsonLd = [
     '@context' => 'https://schema.org',
     '@type' => 'CollectionPage',
     'name' => $site['title'] ?? 'ifuri Connect',
     'description' => $site['description'] ?? 'URI connector hub for ifuri and urirun.',
     'url' => $canonical,
+    'sameAs' => array_values(array_filter(array_map(static fn ($item) => is_array($item) ? ($item['url'] ?? null) : null, $ecosystem))),
     'mainEntity' => [
         '@type' => 'ItemList',
         'itemListElement' => array_map(
@@ -67,9 +69,9 @@ $jsonLd = [
       </a>
       <nav>
         <a href="#connectors">Connectors</a>
-        <a href="/connectors.json">connectors.json</a>
-        <a href="/registry.json">registry.json</a>
-        <a href="/llms.txt">llms.txt</a>
+        <?php foreach (($site['ecosystem'] ?? []) as $eco): ?>
+          <a href="<?php echo hub_h((string) $eco['url']); ?>" title="<?php echo hub_h((string) ($eco['title'] ?? '')); ?>"><?php echo hub_h((string) $eco['label']); ?></a>
+        <?php endforeach; ?>
         <a href="https://github.com/if-uri/connect.ifuri.com">GitHub</a>
       </nav>
     </div>
@@ -154,10 +156,37 @@ $jsonLd = [
         <a href="/install?connectors=planfile,namecheap-dns">/install?connectors=planfile,namecheap-dns</a>
       </div>
     </section>
+
+    <?php if ($ecosystem !== []): ?>
+      <section class="panel split">
+        <div>
+          <h2>ifuri ecosystem</h2>
+          <p>Use these public entry points together: website, one-line installer and connector hub.</p>
+        </div>
+        <div class="links">
+          <?php foreach ($ecosystem as $item): ?>
+            <?php if (!is_array($item) || !isset($item['url'], $item['label'])) continue; ?>
+            <a href="<?php echo hub_h((string) $item['url']); ?>">
+              <strong><?php echo hub_h((string) $item['label']); ?></strong>
+              <?php if (($item['title'] ?? '') !== ''): ?>
+                <span><?php echo hub_h((string) $item['title']); ?></span>
+              <?php endif; ?>
+            </a>
+          <?php endforeach; ?>
+        </div>
+      </section>
+    <?php endif; ?>
   </main>
 
   <footer class="wrap footer">
     <span>Catalog version <?php echo hub_h((string) ($catalog['version'] ?? 'unknown')); ?></span>
+    <?php if (!empty($site['ecosystem'])): ?>
+      <nav class="footer-eco" aria-label="ifuri ecosystem">
+        <?php foreach ($site['ecosystem'] as $eco): ?>
+          <a href="<?php echo hub_h((string) $eco['url']); ?>"><?php echo hub_h((string) $eco['label']); ?></a>
+        <?php endforeach; ?>
+      </nav>
+    <?php endif; ?>
     <span>Updated <?php echo hub_h((string) ($catalog['updatedAt'] ?? 'unknown')); ?></span>
   </footer>
 

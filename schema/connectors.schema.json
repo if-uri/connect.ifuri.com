@@ -17,7 +17,19 @@
         "baseUrl": { "type": "string" },
         "title": { "type": "string" },
         "description": { "type": "string" },
-        "image": { "type": "string" }
+        "image": { "type": "string" },
+        "ecosystem": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["label", "url"],
+            "properties": {
+              "label": { "type": "string" },
+              "url": { "type": "string" },
+              "title": { "type": "string" }
+            }
+          }
+        }
       }
     },
     "connectors": {

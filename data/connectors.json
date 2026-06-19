@@ -6,7 +6,12 @@
     "baseUrl": "https://connect.ifuri.com",
     "title": "ifuri Connect - URI connector hub for urirun",
     "description": "Install ifuri and urirun connectors from one catalog. Each connector documents its URI schemes, routes, requirements, install command and registry contract.",
-    "image": "https://connect.ifuri.com/assets/social-card.svg"
+    "image": "https://connect.ifuri.com/assets/social-card.svg",
+    "ecosystem": [
+      { "label": "ifuri.com", "url": "https://ifuri.com", "title": "Main site" },
+      { "label": "get.ifuri.com", "url": "https://get.ifuri.com", "title": "One-line node + connector installers" },
+      { "label": "Docs", "url": "https://ifuri.com/urirun/", "title": "urirun documentation" }
+    ]
   },
   "connectors": [
     {
