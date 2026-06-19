@@ -1,0 +1,69 @@
+{
+  "id": "domain-monitor",
+  "name": "Domain Monitor",
+  "status": "available",
+  "category": "Operations",
+  "summary": "HTTP, DNS, screenshots, checks, logs and repair tickets for website operations.",
+  "description": "Domain Monitor is the operational connector for recurring website checks. It can query HTTP status, inspect DNS state, create logs and prepare repair tickets when a domain fails validation.",
+  "uriSchemes": [
+    "monitor",
+    "dns",
+    "flow",
+    "check",
+    "log"
+  ],
+  "routes": [
+    "monitor://host/http/query/status",
+    "dns://host/records/query/current",
+    "flow://host/domain/command/check"
+  ],
+  "useCases": [
+    "Check if a site responds correctly.",
+    "Compare expected and current DNS records.",
+    "Create task tickets for failed domain checks."
+  ],
+  "examples": [
+    {
+      "title": "Check HTTP status",
+      "uri": "monitor://host/http/query/status",
+      "payload": {
+        "url": "https://ifuri.com"
+      }
+    },
+    {
+      "title": "Run domain flow",
+      "uri": "flow://host/domain/command/check",
+      "payload": {
+        "domain": "ifuri.com"
+      }
+    }
+  ],
+  "flowExample": [
+    "monitor://host/http/query/status",
+    "dns://host/records/query/current",
+    "task://host/ticket/command/create"
+  ],
+  "requires": [
+    "python>=3.10"
+  ],
+  "install": {
+    "mode": "bundled",
+    "pipPackages": [
+      "planfile>=0.1.103"
+    ]
+  },
+  "docsUrl": "https://github.com/if-uri/docs",
+  "keywords": [
+    "domain",
+    "monitoring",
+    "DNS",
+    "HTTP",
+    "operations"
+  ],
+  "provenance": "verified",
+  "publisher": {
+    "name": "if-uri",
+    "url": "https://ifuri.com",
+    "github": "https://github.com/if-uri"
+  }
+}

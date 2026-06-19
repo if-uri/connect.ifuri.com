@@ -1,0 +1,55 @@
+{
+  "id": "mqtt",
+  "name": "MQTT Device Bridge",
+  "status": "planned",
+  "category": "IoT",
+  "summary": "Publish, subscribe and bridge firmware/backend/frontend device commands through MQTT URI routes.",
+  "description": "MQTT Device Bridge will map device, firmware, backend and frontend actions to shared URI routes. The goal is to control firmware and read telemetry without a separate SDK per layer.",
+  "uriSchemes": [
+    "mqtt",
+    "device"
+  ],
+  "routes": [
+    "mqtt://broker/topic/command/publish",
+    "device://device-01/led/command/set"
+  ],
+  "useCases": [
+    "Publish firmware commands from a backend flow.",
+    "Use the same device URI from frontend and host.",
+    "Bridge telemetry into the registry runtime."
+  ],
+  "examples": [
+    {
+      "title": "Set a device LED",
+      "uri": "device://device-01/led/command/set",
+      "payload": {
+        "on": true
+      }
+    }
+  ],
+  "flowExample": [
+    "mqtt://broker/topic/command/publish",
+    "device://device-01/led/command/set"
+  ],
+  "requires": [
+    "mqtt broker"
+  ],
+  "install": {
+    "mode": "planned",
+    "pipSpec": "urirun-connectors-mqtt"
+  },
+  "docsUrl": "https://github.com/if-uri/examples",
+  "keywords": [
+    "MQTT",
+    "firmware",
+    "device",
+    "IoT",
+    "telemetry"
+  ],
+  "provenance": "verified",
+  "publisher": {
+    "name": "if-uri",
+    "url": "https://ifuri.com",
+    "github": "https://github.com/if-uri"
+  }
+}

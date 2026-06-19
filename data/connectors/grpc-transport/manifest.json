@@ -1,0 +1,55 @@
+{
+  "id": "grpc-transport",
+  "name": "gRPC Transport",
+  "status": "available",
+  "category": "Transport",
+  "summary": "Expose and call URI registries over gRPC for service-to-service communication.",
+  "description": "gRPC Transport is a transport connector for exposing URI registries between services. It keeps the same URI binding contract while switching the network transport to gRPC.",
+  "uriSchemes": [
+    "transport"
+  ],
+  "routes": [
+    "transport://grpc/service/command/serve"
+  ],
+  "useCases": [
+    "Expose a runtime registry to another service.",
+    "Use URI routes over gRPC instead of only HTTP.",
+    "Test service-to-service URI execution contracts."
+  ],
+  "examples": [
+    {
+      "title": "Serve URI runtime over gRPC",
+      "uri": "transport://grpc/service/command/serve",
+      "payload": {
+        "host": "0.0.0.0",
+        "port": 50051
+      }
+    }
+  ],
+  "flowExample": [
+    "transport://grpc/service/command/serve"
+  ],
+  "requires": [
+    "python>=3.10"
+  ],
+  "install": {
+    "mode": "bundled",
+    "pipPackages": [
+      "grpcio>=1.60"
+    ]
+  },
+  "docsUrl": "https://github.com/if-uri/docs",
+  "keywords": [
+    "gRPC",
+    "transport",
+    "service",
+    "registry",
+    "runtime"
+  ],
+  "provenance": "verified",
+  "publisher": {
+    "name": "if-uri",
+    "url": "https://ifuri.com",
+    "github": "https://github.com/if-uri"
+  }
+}

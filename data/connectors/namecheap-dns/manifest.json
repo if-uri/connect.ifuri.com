@@ -1,0 +1,70 @@
+{
+  "id": "namecheap-dns",
+  "name": "Namecheap DNS",
+  "status": "available",
+  "category": "DNS",
+  "summary": "Safe DNS plan, backup and apply flow for Namecheap host records.",
+  "description": "Namecheap DNS wraps the Namecheap API as URI commands. Workflows can plan changes, back up current host records and apply a reviewed DNS update without hard-coding SDK calls in the host app.",
+  "uriSchemes": [
+    "dns"
+  ],
+  "routes": [
+    "dns://host/records/command/plan",
+    "dns://host/records/command/backup",
+    "dns://host/records/command/apply"
+  ],
+  "useCases": [
+    "Generate a DNS change plan from desired records.",
+    "Back up Namecheap host records before a change.",
+    "Apply reviewed DNS records from a host workflow."
+  ],
+  "examples": [
+    {
+      "title": "Plan a DNS update",
+      "uri": "dns://host/records/command/plan",
+      "payload": {
+        "domain": "example.com",
+        "records": []
+      }
+    },
+    {
+      "title": "Back up records",
+      "uri": "dns://host/records/command/backup",
+      "payload": {
+        "domain": "example.com"
+      }
+    }
+  ],
+  "flowExample": [
+    "dns://host/records/command/backup",
+    "dns://host/records/command/plan",
+    "dns://host/records/command/apply"
+  ],
+  "requires": [
+    "python>=3.10",
+    "NAMECHEAP_API_USER",
+    "NAMECHEAP_API_KEY",
+    "NAMECHEAP_USERNAME",
+    "NAMECHEAP_CLIENT_IP"
+  ],
+  "install": {
+    "mode": "bundled",
+    "pipPackages": [
+      "planfile>=0.1.103"
+    ]
+  },
+  "docsUrl": "https://github.com/if-uri/docs",
+  "keywords": [
+    "Namecheap",
+    "DNS",
+    "records",
+    "domain",
+    "API"
+  ],
+  "provenance": "verified",
+  "publisher": {
+    "name": "if-uri",
+    "url": "https://ifuri.com",
+    "github": "https://github.com/if-uri"
+  }
+}

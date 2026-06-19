@@ -1,0 +1,67 @@
+{
+  "id": "sqlite-context",
+  "name": "SQLite Context Store",
+  "status": "available",
+  "category": "Data",
+  "summary": "Local data, artifacts, checks and logs over data://, artifact://, check:// and log://.",
+  "description": "SQLite Context Store gives the host a small durable memory for records, artifacts, checks and logs. It is useful for workflows that need to remember what was checked, imported, generated or changed.",
+  "uriSchemes": [
+    "data",
+    "artifact",
+    "check",
+    "log"
+  ],
+  "routes": [
+    "data://host/records/query/search",
+    "artifact://host/artifacts/query/list",
+    "log://host/logs/query/recent"
+  ],
+  "useCases": [
+    "Store structured context imported by an LLM.",
+    "List artifacts created by automation.",
+    "Show backend and node logs in the host UI."
+  ],
+  "examples": [
+    {
+      "title": "Search local context",
+      "uri": "data://host/records/query/search",
+      "payload": {
+        "q": "domain",
+        "limit": 10
+      }
+    },
+    {
+      "title": "Read recent logs",
+      "uri": "log://host/logs/query/recent",
+      "payload": {
+        "limit": 20
+      }
+    }
+  ],
+  "flowExample": [
+    "data://host/records/query/search",
+    "artifact://host/artifacts/query/list",
+    "log://host/logs/query/recent"
+  ],
+  "requires": [
+    "python>=3.10"
+  ],
+  "install": {
+    "mode": "bundled",
+    "pipPackages": []
+  },
+  "docsUrl": "https://github.com/if-uri/docs",
+  "keywords": [
+    "sqlite",
+    "context",
+    "logs",
+    "artifacts",
+    "memory"
+  ],
+  "provenance": "verified",
+  "publisher": {
+    "name": "if-uri",
+    "url": "https://ifuri.com",
+    "github": "https://github.com/if-uri"
+  }
+}

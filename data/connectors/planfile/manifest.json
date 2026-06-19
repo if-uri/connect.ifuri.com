@@ -1,0 +1,67 @@
+{
+  "id": "planfile",
+  "name": "Planfile Tasks",
+  "status": "available",
+  "category": "Planning",
+  "summary": "Plan, group and execute daily tasks through task:// and planfile:// URI commands.",
+  "description": "Planfile Tasks turns a local planfile project into URI-addressable work items. It is the connector for daily tasks, sprint grouping, status changes and LLM-generated task execution plans.",
+  "uriSchemes": [
+    "task",
+    "planfile"
+  ],
+  "routes": [
+    "task://host/tickets/query/list",
+    "task://host/ticket/command/create",
+    "planfile://host/dsl/command/run"
+  ],
+  "useCases": [
+    "Create tasks from chat or a host workflow.",
+    "Group tasks into sprint-like queues.",
+    "Run planfile DSL from the same URI registry as other automation."
+  ],
+  "examples": [
+    {
+      "title": "List host tickets",
+      "uri": "task://host/tickets/query/list",
+      "payload": {
+        "sprint": "all"
+      }
+    },
+    {
+      "title": "Create a ticket",
+      "uri": "task://host/ticket/command/create",
+      "payload": {
+        "title": "Check DNS records",
+        "group": "ops"
+      }
+    }
+  ],
+  "flowExample": [
+    "task://host/ticket/command/create",
+    "task://host/tickets/query/list",
+    "planfile://host/dsl/command/run"
+  ],
+  "requires": [
+    "python>=3.10"
+  ],
+  "install": {
+    "mode": "bundled",
+    "pipPackages": [
+      "planfile>=0.1.103"
+    ]
+  },
+  "docsUrl": "https://github.com/if-uri/docs",
+  "keywords": [
+    "tasks",
+    "planfile",
+    "todo",
+    "sprint",
+    "LLM workflow"
+  ],
+  "provenance": "verified",
+  "publisher": {
+    "name": "if-uri",
+    "url": "https://ifuri.com",
+    "github": "https://github.com/if-uri"
+  }
+}

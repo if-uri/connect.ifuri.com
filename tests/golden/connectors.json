@@ -85,7 +85,13 @@
                 "todo",
                 "sprint",
                 "LLM workflow"
-            ]
+            ],
+            "provenance": "verified",
+            "publisher": {
+                "name": "if-uri",
+                "url": "https://ifuri.com",
+                "github": "https://github.com/if-uri"
+            }
         },
         {
             "id": "sqlite-context",
@@ -146,7 +152,13 @@
                 "logs",
                 "artifacts",
                 "memory"
-            ]
+            ],
+            "provenance": "verified",
+            "publisher": {
+                "name": "if-uri",
+                "url": "https://ifuri.com",
+                "github": "https://github.com/if-uri"
+            }
         },
         {
             "id": "domain-monitor",
@@ -209,7 +221,13 @@
                 "DNS",
                 "HTTP",
                 "operations"
-            ]
+            ],
+            "provenance": "verified",
+            "publisher": {
+                "name": "if-uri",
+                "url": "https://ifuri.com",
+                "github": "https://github.com/if-uri"
+            }
         },
         {
             "id": "namecheap-dns",
@@ -273,7 +291,13 @@
                 "records",
                 "domain",
                 "API"
-            ]
+            ],
+            "provenance": "verified",
+            "publisher": {
+                "name": "if-uri",
+                "url": "https://ifuri.com",
+                "github": "https://github.com/if-uri"
+            }
         },
         {
             "id": "grpc-transport",
@@ -322,7 +346,13 @@
                 "service",
                 "registry",
                 "runtime"
-            ]
+            ],
+            "provenance": "verified",
+            "publisher": {
+                "name": "if-uri",
+                "url": "https://ifuri.com",
+                "github": "https://github.com/if-uri"
+            }
         },
         {
             "id": "mqtt",
@@ -371,7 +401,13 @@
                 "device",
                 "IoT",
                 "telemetry"
-            ]
+            ],
+            "provenance": "verified",
+            "publisher": {
+                "name": "if-uri",
+                "url": "https://ifuri.com",
+                "github": "https://github.com/if-uri"
+            }
         },
         {
             "id": "browser-control",
@@ -419,7 +455,13 @@
                 "QA",
                 "noVNC",
                 "automation"
-            ]
+            ],
+            "provenance": "verified",
+            "publisher": {
+                "name": "if-uri",
+                "url": "https://ifuri.com",
+                "github": "https://github.com/if-uri"
+            }
         }
     ]
 }

@@ -1,0 +1,54 @@
+{
+  "id": "browser-control",
+  "name": "Browser Control",
+  "status": "planned",
+  "category": "Automation",
+  "summary": "Drive browser actions and screenshots through browser:// URI commands for demos and QA.",
+  "description": "Browser Control will expose browser actions as URI commands for visual checks, screenshots and demo automation. In the LAN lab it should target the noVNC machine, not the physical host browser.",
+  "uriSchemes": [
+    "browser"
+  ],
+  "routes": [
+    "browser://desktop/page/command/open",
+    "browser://desktop/page/command/screenshot"
+  ],
+  "useCases": [
+    "Open pages inside a controlled demo desktop.",
+    "Capture screenshots as URI flow artifacts.",
+    "Run repeatable browser QA from NL-to-flow."
+  ],
+  "examples": [
+    {
+      "title": "Open a page",
+      "uri": "browser://desktop/page/command/open",
+      "payload": {
+        "url": "https://example.com/"
+      }
+    }
+  ],
+  "flowExample": [
+    "browser://desktop/page/command/open",
+    "browser://desktop/page/command/screenshot"
+  ],
+  "requires": [
+    "browser runtime"
+  ],
+  "install": {
+    "mode": "planned",
+    "pipSpec": "urirun-connectors-browser"
+  },
+  "docsUrl": "https://github.com/if-uri/examples",
+  "keywords": [
+    "browser",
+    "screenshot",
+    "QA",
+    "noVNC",
+    "automation"
+  ],
+  "provenance": "verified",
+  "publisher": {
+    "name": "if-uri",
+    "url": "https://ifuri.com",
+    "github": "https://github.com/if-uri"
+  }
+}
