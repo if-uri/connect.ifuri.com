@@ -117,6 +117,8 @@ for path, expected in paths:
     if path == "/":
         assert 'application/ld+json' in body
         assert 'property="og:title"' in body
+        assert 'rel="canonical"' in body
+        assert 'property="og:image"' in body
         assert 'name="twitter:card"' in body
         assert 'https://get.ifuri.com' in body
     if path == "/submit":
@@ -147,6 +149,8 @@ for connector in catalog["connectors"]:
     assert connector["name"] in body, path
     assert 'application/ld+json' in body, path
     assert 'property="og:title"' in body, path
+    assert 'rel="canonical"' in body, path
+    assert 'property="og:image"' in body, path
     assert 'data-tab-target="routes"' in body, path
     for route in connector["routes"]:
         assert route in body, (path, route)
@@ -246,6 +250,8 @@ for path, expected in checks:
         else:
             assert 'application/ld+json' in body
             assert 'property="og:title"' in body
+            assert 'rel="canonical"' in body
+            assert 'property="og:image"' in body
 
 valid_manifest = {
     "id": "public-smoke",
