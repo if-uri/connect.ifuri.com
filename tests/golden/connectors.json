@@ -37,26 +37,36 @@
             "status": "available",
             "category": "Planning",
             "summary": "Plan, group and execute daily tasks through task:// and planfile:// URI commands.",
-            "description": "Planfile Tasks turns a local planfile project into URI-addressable work items. It is the connector for daily tasks, sprint grouping, status changes and LLM-generated task execution plans.",
+            "description": "Planfile Tasks is an external urirun connector package that turns a local planfile project into URI-addressable work items. It owns ticket list, create, status and DSL routes, generates bindings from decorators, compiles into a normal urirun registry, and projects to MCP tools / A2A skills for host workflows.",
             "uriSchemes": [
                 "task",
                 "planfile"
             ],
             "routes": [
                 "task://host/tickets/query/list",
+                "task://host/ticket/query/next",
+                "task://host/ticket/query/show",
                 "task://host/ticket/command/create",
+                "task://host/ticket/command/start",
+                "task://host/ticket/command/complete",
+                "task://host/ticket/command/fail",
+                "task://host/ticket/command/block",
+                "task://host/ticket/command/ready",
                 "planfile://host/dsl/command/run"
             ],
             "useCases": [
                 "Create tasks from chat or a host workflow.",
                 "Group tasks into sprint-like queues.",
-                "Run planfile DSL from the same URI registry as other automation."
+                "Change ticket lifecycle state from a URI flow.",
+                "Run planfile DSL from the same URI registry as other automation.",
+                "Expose task operations to MCP/A2A so LLM agents can discover and call them."
             ],
             "examples": [
                 {
                     "title": "List host tickets",
                     "uri": "task://host/tickets/query/list",
                     "payload": {
+                        "project": ".",
                         "sprint": "all"
                     }
                 },
@@ -64,13 +74,25 @@
                     "title": "Create a ticket",
                     "uri": "task://host/ticket/command/create",
                     "payload": {
-                        "title": "Check DNS records",
-                        "group": "ops"
+                        "project": ".",
+                        "name": "Check DNS records",
+                        "queue": "ops",
+                        "prompt": "Check if configured domains resolve and answer with HTTP 200"
+                    }
+                },
+                {
+                    "title": "Run planfile DSL",
+                    "uri": "planfile://host/dsl/command/run",
+                    "payload": {
+                        "project": ".",
+                        "command": "list tickets sprint=current"
                     }
                 }
             ],
             "flowExample": [
                 "task://host/ticket/command/create",
+                "task://host/ticket/command/start",
+                "task://host/ticket/command/complete",
                 "task://host/tickets/query/list",
                 "planfile://host/dsl/command/run"
             ],
@@ -78,12 +100,13 @@
                 "python>=3.10"
             ],
             "install": {
-                "mode": "bundled",
-                "pipPackages": [
-                    "planfile>=0.1.103"
-                ]
+                "mode": "urirun-extra",
+                "pipSpec": "urirun-connector-planfile @ git+https://github.com/if-uri/urirun-connector-planfile.git@v0.1.1"
             },
-            "docsUrl": "https://github.com/if-uri/docs",
+            "adapterKinds": [
+                "argv-template"
+            ],
+            "docsUrl": "https://github.com/if-uri/urirun-connector-planfile",
             "keywords": [
                 "tasks",
                 "planfile",

@@ -114,6 +114,17 @@ deploy step.
 
 ## Verified connector packages
 
+`planfile` is now an external connector package for task queues and sprint
+workflows:
+
+- package: [`github.com/if-uri/urirun-connector-planfile`](https://github.com/if-uri/urirun-connector-planfile)
+- hub page: [`/connectors/planfile`](https://connect.ifuri.com/connectors/planfile)
+- routes: `task://host/tickets/query/list`, `task://host/ticket/command/create`, `planfile://host/dsl/command/run`
+- install: `curl -fsSL 'https://connect.ifuri.com/install?connectors=planfile' | bash`
+
+It was tested through direct CLI execution, generated bindings, `urirun run`,
+Docker, MCP tools and A2A skill projection.
+
 `http-check` proves the external connector flow end to end:
 
 - package: [`github.com/if-uri/urirun-connector-http-check`](https://github.com/if-uri/urirun-connector-http-check)
