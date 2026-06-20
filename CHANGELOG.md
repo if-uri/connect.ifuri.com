@@ -21,8 +21,11 @@
 - Update the `planfile` catalog entry from bundled integration metadata to the
   external `urirun-connector-planfile` package, including full route coverage,
   GitHub pip spec, examples and refreshed generated snapshots.
-- Update `domain-monitor` and `namecheap-dns` catalog entries to the external
+- Update `domain-monitor` catalog entry to the external
   `urirun-connector-domain-monitor` package, including full route coverage,
+  GitHub pip spec, examples and refreshed generated snapshots.
+- Update `namecheap-dns` catalog entry to the dedicated external
+  `urirun-connector-namecheap-dns` package, including full route coverage,
   GitHub pip spec, examples and refreshed generated snapshots.
 - Update `sqlite-context` catalog entry to the external
   `urirun-connector-sqlite-context` package, including full route coverage,

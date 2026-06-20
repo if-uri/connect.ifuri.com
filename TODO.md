@@ -17,7 +17,7 @@
 
 ## Related resources
 
-- Runtime: https://github.com/tellmesh/urirun
+- Runtime: https://github.com/if-uri/urirun
 - Docs: https://github.com/if-uri/docs
 - Examples: https://github.com/if-uri/examples
 - App/host: https://github.com/if-uri/app

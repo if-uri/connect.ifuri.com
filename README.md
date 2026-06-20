@@ -93,7 +93,7 @@ By default the installer uses the pinned GitHub source for the Python urirun
 package. Override it only when testing another runtime ref or fork:
 
 ```bash
-URIRUN_PIP_SPEC='urirun @ git+https://github.com/tellmesh/urirun.git@v0.3.14#subdirectory=adapters/python' \
+URIRUN_PIP_SPEC='urirun @ git+https://github.com/if-uri/urirun.git@v0.3.14#subdirectory=adapters/python' \
 curl -fsSL 'https://connect.ifuri.com/install?connectors=planfile' | bash
 ```
 
@@ -125,13 +125,24 @@ workflows:
 It was tested through direct CLI execution, generated bindings, `urirun run`,
 Docker, MCP tools and A2A skill projection.
 
-`domain-monitor` is now an external connector package for domain operations and
-Namecheap DNS planning:
+`domain-monitor` is now an external connector package for domain observations,
+logs, screenshot artifacts and domain-check flows:
 
 - package: [`github.com/if-uri/urirun-connector-domain-monitor`](https://github.com/if-uri/urirun-connector-domain-monitor)
-- hub pages: [`/connectors/domain-monitor`](https://connect.ifuri.com/connectors/domain-monitor), [`/connectors/namecheap-dns`](https://connect.ifuri.com/connectors/namecheap-dns)
-- routes: `monitor://host/http/query/status`, `dns://host/records/command/plan`, `flow://host/domain/command/check`
+- hub page: [`/connectors/domain-monitor`](https://connect.ifuri.com/connectors/domain-monitor)
+- routes: `monitor://host/http/query/status`, `flow://host/domain/command/check`, `flow://host/daily/command/run`
 - install: `curl -fsSL 'https://connect.ifuri.com/install?connectors=domain-monitor' | bash`
+
+It was tested through a fresh GitHub install, direct CLI execution, generated
+bindings, `urirun run`, Docker, MCP tools and A2A skill projection.
+
+`namecheap-dns` is now a dedicated external connector package for safe
+Namecheap host-record changes:
+
+- package: [`github.com/if-uri/urirun-connector-namecheap-dns`](https://github.com/if-uri/urirun-connector-namecheap-dns)
+- hub page: [`/connectors/namecheap-dns`](https://connect.ifuri.com/connectors/namecheap-dns)
+- routes: `dns://host/records/query/current`, `dns://host/records/command/plan`, `dns://host/records/command/backup`, `dns://host/records/command/apply`
+- install: `curl -fsSL 'https://connect.ifuri.com/install?connectors=namecheap-dns' | bash`
 
 It was tested through a fresh GitHub install, direct CLI execution, generated
 bindings, `urirun run`, Docker, MCP tools and A2A skill projection.
@@ -179,7 +190,7 @@ CI (`scripts/validate_connectors.py` + template self-check) keeps manifests vali
 
 ## Related repositories
 
-- Runtime: [tellmesh/urirun](https://github.com/tellmesh/urirun)
+- Runtime: [if-uri/urirun](https://github.com/if-uri/urirun)
 - Public docs: [if-uri/docs](https://github.com/if-uri/docs)
 - Examples and E2E flows: [if-uri/examples](https://github.com/if-uri/examples)
 - App/host: [if-uri/app](https://github.com/if-uri/app)
@@ -187,3 +198,4 @@ CI (`scripts/validate_connectors.py` + template self-check) keeps manifests vali
 - HTTP connector: [if-uri/urirun-connector-http-check](https://github.com/if-uri/urirun-connector-http-check)
 - Time connector: [if-uri/urirun-connector-time-tools](https://github.com/if-uri/urirun-connector-time-tools)
 - Browser connector: [if-uri/urirun-connector-browser-control](https://github.com/if-uri/urirun-connector-browser-control)
+- Namecheap DNS connector: [if-uri/urirun-connector-namecheap-dns](https://github.com/if-uri/urirun-connector-namecheap-dns)
