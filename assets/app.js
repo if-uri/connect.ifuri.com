@@ -178,12 +178,16 @@ if (builder) {
   const renderValidation = (payload) => {
     result.classList.toggle('ok', Boolean(payload.ok));
     result.classList.toggle('error', !payload.ok);
+    const i18n = window.CONNECT_I18N || {};
     if (payload.ok) {
-      result.innerHTML = `<strong>Valid manifest.</strong><span>${escapeHtml(payload.folder || '')}</span>`;
+      const validText = i18n.validManifest || 'Valid manifest.';
+      result.innerHTML = `<strong>${escapeHtml(validText)}</strong><span>${escapeHtml(payload.folder || '')}</span>`;
       return;
     }
     const errors = payload.errors || [{ field: 'unknown', message: 'validation failed' }];
-    result.innerHTML = `<strong>Fix ${errors.length} issue${errors.length === 1 ? '' : 's'}.</strong><ul>${errors.map((item) => `<li><code>${escapeHtml(item.field)}</code> ${escapeHtml(item.message)}</li>`).join('')}</ul>`;
+    const fixTemplate = i18n.fixIssues || 'Fix {n} issue(s).';
+    const fixText = fixTemplate.replace('{n}', String(errors.length));
+    result.innerHTML = `<strong>${escapeHtml(fixText)}</strong><ul>${errors.map((item) => `<li><code>${escapeHtml(item.field)}</code> ${escapeHtml(item.message)}</li>`).join('')}</ul>`;
   };
 
   const loadTemplate = () => {

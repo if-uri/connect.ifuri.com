@@ -121,17 +121,17 @@ $jsonLd = [
 
     <section class="panel">
       <div class="tabs" data-tabs>
-        <div class="tab-list" role="tablist" aria-label="Connector sections">
-          <button class="tab is-active" type="button" data-tab-target="overview" role="tab" aria-selected="true">Overview</button>
-          <button class="tab" type="button" data-tab-target="routes" role="tab" aria-selected="false">URI routes</button>
-          <button class="tab" type="button" data-tab-target="install" role="tab" aria-selected="false">Install</button>
-          <button class="tab" type="button" data-tab-target="registry" role="tab" aria-selected="false">Registry</button>
+        <div class="tab-list" role="tablist" aria-label="<?php echo hub_h(hub_t('tablistAria')); ?>">
+          <button class="tab is-active" type="button" data-tab-target="overview" role="tab" aria-selected="true"><?php echo hub_h(hub_t('tabOverview')); ?></button>
+          <button class="tab" type="button" data-tab-target="routes" role="tab" aria-selected="false"><?php echo hub_h(hub_t('tabRoutes')); ?></button>
+          <button class="tab" type="button" data-tab-target="install" role="tab" aria-selected="false"><?php echo hub_h(hub_t('tabInstall')); ?></button>
+          <button class="tab" type="button" data-tab-target="registry" role="tab" aria-selected="false"><?php echo hub_h(hub_t('tabRegistry')); ?></button>
         </div>
 
         <div class="tab-panel is-active" data-tab-panel="overview" role="tabpanel">
           <div class="detail-grid">
             <div>
-              <h2>What it does</h2>
+              <h2><?php echo hub_h(hub_t('whatItDoes')); ?></h2>
               <ul class="clean-list">
                 <?php foreach (($connector['useCases'] ?? []) as $useCase): ?>
                   <li><?php echo hub_h((string) $useCase); ?></li>
@@ -139,13 +139,13 @@ $jsonLd = [
               </ul>
             </div>
             <div>
-              <h2>URI schemes</h2>
+              <h2><?php echo hub_h(hub_t('schemesAria')); ?></h2>
               <div class="schemes large">
                 <?php foreach (($connector['uriSchemes'] ?? []) as $scheme): ?>
                   <span><?php echo hub_h((string) $scheme); ?>://</span>
                 <?php endforeach; ?>
               </div>
-              <h2>Requirements</h2>
+              <h2><?php echo hub_h(hub_t('requirements')); ?></h2>
               <ul class="clean-list compact">
                 <?php foreach (($connector['requires'] ?? []) as $requirement): ?>
                   <li><code><?php echo hub_h((string) $requirement); ?></code></li>
@@ -156,22 +156,22 @@ $jsonLd = [
         </div>
 
         <div id="routes" class="tab-panel" data-tab-panel="routes" role="tabpanel" hidden>
-          <h2>Routes</h2>
+          <h2><?php echo hub_h(hub_t('routesTitle')); ?></h2>
           <div class="route-list">
             <?php foreach (($connector['routes'] ?? []) as $route): ?>
               <button class="copy-row" type="button" data-copy="<?php echo hub_h((string) $route); ?>">
                 <code><?php echo hub_h((string) $route); ?></code>
-                <span>Copy</span>
+                <span><?php echo hub_h(hub_t('copy')); ?></span>
               </button>
             <?php endforeach; ?>
           </div>
 
           <?php if (($connector['examples'] ?? []) !== []): ?>
-            <h2>Examples</h2>
+            <h2><?php echo hub_h(hub_t('examplesTitle')); ?></h2>
             <div class="examples">
               <?php foreach (($connector['examples'] ?? []) as $example): ?>
                 <article class="example">
-                  <h3><?php echo hub_h((string) ($example['title'] ?? 'Example')); ?></h3>
+                  <h3><?php echo hub_h((string) ($example['title'] ?? hub_t('exampleFallback'))); ?></h3>
                   <code><?php echo hub_h((string) ($example['uri'] ?? '')); ?></code>
                   <pre><?php echo hub_h(json_encode($example['payload'] ?? (object) [], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)); ?></pre>
                 </article>
@@ -181,18 +181,18 @@ $jsonLd = [
         </div>
 
         <div class="tab-panel" data-tab-panel="install" role="tabpanel" hidden>
-          <h2>Install command</h2>
+          <h2><?php echo hub_h(hub_t('installCommandTitle')); ?></h2>
           <div class="command-box">
             <code><?php echo hub_h($installCommand); ?></code>
-            <button class="primary" data-copy="<?php echo hub_h($installCommand); ?>" <?php echo $isAvailable ? '' : 'disabled'; ?>>Copy</button>
+            <button class="primary" data-copy="<?php echo hub_h($installCommand); ?>" <?php echo $isAvailable ? '' : 'disabled'; ?>><?php echo hub_h(hub_t('copy')); ?></button>
           </div>
           <?php if (!$isAvailable): ?>
-            <p class="notice">This connector is planned. The installer is visible for contract design, but execution is disabled until the connector package is available.</p>
+            <p class="notice"><?php echo hub_h(hub_t('plannedNotice')); ?></p>
           <?php endif; ?>
         </div>
 
         <div class="tab-panel" data-tab-panel="registry" role="tabpanel" hidden>
-          <h2>Registry entry</h2>
+          <h2><?php echo hub_h(hub_t('registryEntryTitle')); ?></h2>
           <pre><?php echo hub_h(json_encode([
               'id' => $connector['id'],
               'name' => $connector['name'],
@@ -203,11 +203,11 @@ $jsonLd = [
               'hubUrl' => $canonical,
           ], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)); ?></pre>
           <div class="links inline">
-            <a href="/registry.json">Full registry</a>
-            <a href="/connectors.json">Connector catalog</a>
-            <a href="<?php echo hub_h(hub_connector_json_path($connector)); ?>">Connector JSON</a>
-            <a href="/search.json">Search index</a>
-            <a href="/llms.txt">LLM index</a>
+            <a href="/registry.json"><?php echo hub_h(hub_t('fullRegistry')); ?></a>
+            <a href="/connectors.json"><?php echo hub_h(hub_t('connectorCatalog')); ?></a>
+            <a href="<?php echo hub_h(hub_connector_json_path($connector)); ?>"><?php echo hub_h(hub_t('connectorJson')); ?></a>
+            <a href="/search.json"><?php echo hub_h(hub_t('searchIndex')); ?></a>
+            <a href="/llms.txt"><?php echo hub_h(hub_t('llmIndex')); ?></a>
           </div>
         </div>
       </div>
@@ -215,12 +215,14 @@ $jsonLd = [
   </main>
 
   <footer class="wrap footer">
-    <span>Site v<?php echo hub_h(hub_version()); ?></span>
-    <span>Catalog version <?php echo hub_h((string) (hub_catalog()['version'] ?? 'unknown')); ?></span>
+    <span><?php echo hub_h(hub_t('footerSite')); ?><?php echo hub_h(hub_version()); ?></span>
+    <span><?php echo hub_h(hub_t('footerCatalog')); ?> <?php echo hub_h((string) (hub_catalog()['version'] ?? 'unknown')); ?></span>
     <span><a href="/sitemap.xml">sitemap.xml</a></span>
   </footer>
 
-  <script>window.CONNECT_HUB_BASE = <?php echo json_encode(hub_base_url(), JSON_UNESCAPED_SLASHES); ?>;</script>
+  <script>window.CONNECT_HUB_BASE = <?php echo json_encode(hub_base_url(), JSON_UNESCAPED_SLASHES); ?>;
+window.CONNECT_I18N = <?php echo json_encode(hub_js_i18n(), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE); ?>;</script>
   <script src="/assets/app.js"></script>
+  <script src="/assets/ifuri-ecobar.js" defer></script>
 </body>
 </html>
