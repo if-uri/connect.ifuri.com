@@ -126,7 +126,7 @@ for path, expected in paths:
         assert 'id="validateManifest"' in body
     if path == "/install?connectors=planfile,namecheap-dns":
         assert "urirun-connector-planfile" in body
-        assert "urirun-connector-domain-monitor" in body
+        assert "urirun-connector-namecheap-dns" in body
     if path == "/sitemap.xml":
         assert "https://connect.ifuri.com/connectors/planfile" in body
     if path == "/robots.txt":
