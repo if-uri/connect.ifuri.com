@@ -4,7 +4,7 @@
   "status": "available",
   "category": "DNS",
   "summary": "Safe DNS plan, backup and apply flow for Namecheap host records.",
-  "description": "Namecheap DNS wraps the Namecheap API as URI commands. Workflows can plan changes, back up current host records and apply a reviewed DNS update without hard-coding SDK calls in the host app.",
+  "description": "Namecheap DNS is the DNS-focused connector page for Namecheap routes delivered by urirun-connector-domain-monitor. Workflows can plan changes, back up current host records and apply a reviewed DNS update without hard-coding SDK calls in the host app.",
   "uriSchemes": [
     "dns"
   ],
@@ -24,14 +24,18 @@
       "uri": "dns://host/records/command/plan",
       "payload": {
         "domain": "example.com",
-        "records": []
+        "provider": "namecheap",
+        "current_records": "[{\"Name\":\"@\",\"Type\":\"A\",\"Address\":\"203.0.113.10\"}]",
+        "desired_records": "[{\"Name\":\"@\",\"Type\":\"A\",\"Address\":\"203.0.113.11\"}]"
       }
     },
     {
       "title": "Back up records",
       "uri": "dns://host/records/command/backup",
       "payload": {
-        "domain": "example.com"
+        "domain": "example.com",
+        "provider": "namecheap",
+        "current_records": "[{\"Name\":\"@\",\"Type\":\"A\",\"Address\":\"203.0.113.10\"}]"
       }
     }
   ],
@@ -48,12 +52,13 @@
     "NAMECHEAP_CLIENT_IP"
   ],
   "install": {
-    "mode": "bundled",
-    "pipPackages": [
-      "planfile>=0.1.103"
-    ]
+    "mode": "urirun-extra",
+    "pipSpec": "urirun-connector-domain-monitor @ git+https://github.com/if-uri/urirun-connector-domain-monitor.git@v0.1.0"
   },
-  "docsUrl": "https://github.com/if-uri/docs",
+  "adapterKinds": [
+    "argv-template"
+  ],
+  "docsUrl": "https://github.com/if-uri/urirun-connector-domain-monitor",
   "keywords": [
     "Namecheap",
     "DNS",

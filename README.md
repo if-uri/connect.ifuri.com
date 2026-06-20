@@ -125,6 +125,17 @@ workflows:
 It was tested through direct CLI execution, generated bindings, `urirun run`,
 Docker, MCP tools and A2A skill projection.
 
+`domain-monitor` is now an external connector package for domain operations and
+Namecheap DNS planning:
+
+- package: [`github.com/if-uri/urirun-connector-domain-monitor`](https://github.com/if-uri/urirun-connector-domain-monitor)
+- hub pages: [`/connectors/domain-monitor`](https://connect.ifuri.com/connectors/domain-monitor), [`/connectors/namecheap-dns`](https://connect.ifuri.com/connectors/namecheap-dns)
+- routes: `monitor://host/http/query/status`, `dns://host/records/command/plan`, `flow://host/domain/command/check`
+- install: `curl -fsSL 'https://connect.ifuri.com/install?connectors=domain-monitor' | bash`
+
+It was tested through a fresh GitHub install, direct CLI execution, generated
+bindings, `urirun run`, Docker, MCP tools and A2A skill projection.
+
 `http-check` proves the external connector flow end to end:
 
 - package: [`github.com/if-uri/urirun-connector-http-check`](https://github.com/if-uri/urirun-connector-http-check)

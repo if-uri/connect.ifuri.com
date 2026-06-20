@@ -3,56 +3,82 @@
   "name": "Domain Monitor",
   "status": "available",
   "category": "Operations",
-  "summary": "HTTP, DNS, screenshots, checks, logs and repair tickets for website operations.",
-  "description": "Domain Monitor is the operational connector for recurring website checks. It can query HTTP status, inspect DNS state, create logs and prepare repair tickets when a domain fails validation.",
+  "summary": "HTTP, DNS, screenshots, logs, Namecheap planning and daily domain checks through URI commands.",
+  "description": "Domain Monitor is an external urirun connector package for recurring website operations. It generates bindings from decorators, checks HTTP and DNS state, writes logs, stores screenshot metadata, plans safe Namecheap DNS changes and exposes daily check flows through the same URI registry used by MCP and A2A.",
   "uriSchemes": [
     "monitor",
     "dns",
+    "browser",
     "flow",
-    "check",
     "log"
   ],
   "routes": [
     "monitor://host/http/query/status",
     "dns://host/records/query/current",
-    "flow://host/domain/command/check"
+    "dns://host/records/query/expected",
+    "dns://host/records/command/plan",
+    "dns://host/records/command/backup",
+    "dns://host/records/command/apply",
+    "browser://host/page/command/screenshot",
+    "log://host/daily/command/write",
+    "log://host/logs/query/recent",
+    "flow://host/domain/command/check",
+    "flow://host/daily/command/run"
   ],
   "useCases": [
     "Check if a site responds correctly.",
     "Compare expected and current DNS records.",
-    "Create task tickets for failed domain checks."
+    "Plan, back up and safely apply reviewed Namecheap DNS records.",
+    "Record logs and screenshot artifacts from the same domain workflow.",
+    "Expose domain operations to MCP/A2A so LLM agents can discover and call them."
   ],
   "examples": [
     {
       "title": "Check HTTP status",
       "uri": "monitor://host/http/query/status",
       "payload": {
+        "domain": "ifuri.com",
         "url": "https://ifuri.com"
+      }
+    },
+    {
+      "title": "Plan Namecheap DNS update with mock records",
+      "uri": "dns://host/records/command/plan",
+      "payload": {
+        "domain": "example.com",
+        "provider": "namecheap",
+        "current_records": "[{\"Name\":\"@\",\"Type\":\"A\",\"Address\":\"203.0.113.10\"}]",
+        "desired_records": "[{\"Name\":\"@\",\"Type\":\"A\",\"Address\":\"203.0.113.11\"}]"
       }
     },
     {
       "title": "Run domain flow",
       "uri": "flow://host/domain/command/check",
       "payload": {
-        "domain": "ifuri.com"
+        "domain": "ifuri.com",
+        "url": "https://ifuri.com"
       }
     }
   ],
   "flowExample": [
     "monitor://host/http/query/status",
     "dns://host/records/query/current",
-    "task://host/ticket/command/create"
+    "dns://host/records/command/plan",
+    "browser://host/page/command/screenshot",
+    "log://host/daily/command/write",
+    "flow://host/domain/command/check"
   ],
   "requires": [
     "python>=3.10"
   ],
   "install": {
-    "mode": "bundled",
-    "pipPackages": [
-      "planfile>=0.1.103"
-    ]
+    "mode": "urirun-extra",
+    "pipSpec": "urirun-connector-domain-monitor @ git+https://github.com/if-uri/urirun-connector-domain-monitor.git@v0.1.0"
   },
-  "docsUrl": "https://github.com/if-uri/docs",
+  "adapterKinds": [
+    "argv-template"
+  ],
+  "docsUrl": "https://github.com/if-uri/urirun-connector-domain-monitor",
   "keywords": [
     "domain",
     "monitoring",
