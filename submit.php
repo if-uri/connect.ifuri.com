@@ -63,6 +63,9 @@ $jsonLd = [
       <p class="lead"><?php echo hub_lang() === 'en'
           ? 'Fill the contract, validate it against the same policy as CI, then add the generated JSON to '
           : 'Wypełnij kontrakt, zwaliduj go tą samą polityką co CI, a następnie dodaj wygenerowany JSON do '; ?><code>data/connectors/&lt;id&gt;/manifest.json</code>.</p>
+      <p class="lead"><?php echo hub_lang() === 'en'
+          ? 'Connectors can be authored in any language — the contract is the same <code>urirun.bindings.v2</code> document. Build it with the urirun SDK for Python, JavaScript, Go or PHP: '
+          : 'Connectory możesz pisać w dowolnym języku — kontrakt to ten sam dokument <code>urirun.bindings.v2</code>. Zbuduj go SDK urirun dla Pythona, JavaScriptu, Go albo PHP: '; ?><a href="https://docs.ifuri.com/generating-connectors.html">generating connectors</a>.</p>
     </section>
 
     <section class="submit-layout" id="connectorBuilder">
