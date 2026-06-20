@@ -225,22 +225,18 @@
             "name": "Domain Monitor",
             "status": "available",
             "category": "Operations",
-            "summary": "HTTP, DNS, screenshots, logs, Namecheap planning and daily domain checks through URI commands.",
-            "description": "Domain Monitor is an external urirun connector package for recurring website operations. It generates bindings from decorators, checks HTTP and DNS state, writes logs, stores screenshot metadata, plans safe Namecheap DNS changes and exposes daily check flows through the same URI registry used by MCP and A2A.",
+            "summary": "HTTP, DNS reads, screenshots, logs and daily domain checks through URI commands.",
+            "description": "Domain Monitor is an external urirun connector package for recurring website operations. It generates bindings from decorators, checks HTTP and DNS state, writes logs, stores screenshot metadata and exposes daily check flows through the same URI registry used by MCP and A2A. Provider-specific DNS mutations live in dedicated connectors such as Namecheap DNS.",
             "uriSchemes": [
                 "monitor",
-                "dns",
                 "browser",
                 "flow",
                 "log"
             ],
             "routes": [
                 "monitor://host/http/query/status",
-                "dns://host/records/query/current",
-                "dns://host/records/query/expected",
-                "dns://host/records/command/plan",
-                "dns://host/records/command/backup",
-                "dns://host/records/command/apply",
+                "monitor://host/dns/query/current",
+                "monitor://host/dns/query/expected",
                 "browser://host/page/command/screenshot",
                 "log://host/daily/command/write",
                 "log://host/logs/query/recent",
@@ -250,8 +246,8 @@
             "useCases": [
                 "Check if a site responds correctly.",
                 "Compare expected and current DNS records.",
-                "Plan, back up and safely apply reviewed Namecheap DNS records.",
                 "Record logs and screenshot artifacts from the same domain workflow.",
+                "Compose domain checks with provider-specific DNS connectors when a repair is needed.",
                 "Expose domain operations to MCP/A2A so LLM agents can discover and call them."
             ],
             "examples": [
@@ -264,13 +260,11 @@
                     }
                 },
                 {
-                    "title": "Plan Namecheap DNS update with mock records",
-                    "uri": "dns://host/records/command/plan",
+                    "title": "Read current DNS records",
+                    "uri": "monitor://host/dns/query/current",
                     "payload": {
                         "domain": "example.com",
-                        "provider": "namecheap",
-                        "current_records": "[{\"Name\":\"@\",\"Type\":\"A\",\"Address\":\"203.0.113.10\"}]",
-                        "desired_records": "[{\"Name\":\"@\",\"Type\":\"A\",\"Address\":\"203.0.113.11\"}]"
+                        "record_types": "A,AAAA"
                     }
                 },
                 {
@@ -284,8 +278,7 @@
             ],
             "flowExample": [
                 "monitor://host/http/query/status",
-                "dns://host/records/query/current",
-                "dns://host/records/command/plan",
+                "monitor://host/dns/query/current",
                 "browser://host/page/command/screenshot",
                 "log://host/daily/command/write",
                 "flow://host/domain/command/check"
@@ -295,7 +288,7 @@
             ],
             "install": {
                 "mode": "urirun-extra",
-                "pipSpec": "urirun-connector-domain-monitor @ git+https://github.com/if-uri/urirun-connector-domain-monitor.git@v0.1.0"
+                "pipSpec": "urirun-connector-domain-monitor @ git+https://github.com/if-uri/urirun-connector-domain-monitor.git@v0.2.0"
             },
             "adapterKinds": [
                 "argv-template"

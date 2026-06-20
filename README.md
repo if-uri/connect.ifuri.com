@@ -130,7 +130,7 @@ logs, screenshot artifacts and domain-check flows:
 
 - package: [`github.com/if-uri/urirun-connector-domain-monitor`](https://github.com/if-uri/urirun-connector-domain-monitor)
 - hub page: [`/connectors/domain-monitor`](https://connect.ifuri.com/connectors/domain-monitor)
-- routes: `monitor://host/http/query/status`, `flow://host/domain/command/check`, `flow://host/daily/command/run`
+- routes: `monitor://host/http/query/status`, `monitor://host/dns/query/current`, `flow://host/domain/command/check`, `flow://host/daily/command/run`
 - install: `curl -fsSL 'https://connect.ifuri.com/install?connectors=domain-monitor' | bash`
 
 It was tested through a fresh GitHub install, direct CLI execution, generated
