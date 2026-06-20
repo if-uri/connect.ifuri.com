@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# Author: Tom Sapletta · https://tom.sapletta.com
+# Part of the ifURI solution.
+
 # Publish connect.ifuri.com (PHP app). No --delete: preserves server-side data/.
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"

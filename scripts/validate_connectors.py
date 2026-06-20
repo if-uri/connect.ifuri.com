@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Author: Tom Sapletta · https://tom.sapletta.com
+# Part of the ifURI solution.
+
 """Validate connector manifests + the aggregated catalog against the JSON schemas.
 
 - data/connectors/<id>/manifest.json  -> schema/connector.schema.json (+ id == folder)

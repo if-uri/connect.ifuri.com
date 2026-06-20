@@ -1,3 +1,6 @@
+// Author: Tom Sapletta · https://tom.sapletta.com
+// Part of the ifURI solution.
+
 const checks = Array.from(document.querySelectorAll('.connector-check'));
 const command = document.getElementById('installCommand');
 const copyInstall = document.getElementById('copyInstall');

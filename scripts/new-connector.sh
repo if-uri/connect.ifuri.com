@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# Author: Tom Sapletta · https://tom.sapletta.com
+# Part of the ifURI solution.
+
 # Scaffold a new urirun connector package from the template.
 # Usage: scripts/new-connector.sh <id> [scheme] [Name] [target-dir]
 #   <id>      kebab-case connector id (e.g. weather-now)

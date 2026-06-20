@@ -3,6 +3,14 @@
 ## [Unreleased]
 
 ### Added
+- Bilingual PL/EN UI driven by the shared ifuri ecobar `?lang=` signal
+  (Polish default, English fallback) across `index.php`, `connector.php` and
+  `submit.php`. UI strings live in a single `lib/i18n.php` catalog consumed via
+  new `hub_lang()` / `hub_t()` / `hub_js_i18n()` helpers; client-side strings in
+  `assets/app.js` read `window.CONNECT_I18N`. Connector catalog content
+  (names, summaries) stays data-driven and untranslated.
+- Render the shared cross-domain ifuri ecobar on connector detail pages so they
+  match the homepage and submit page.
 - Add repository-level TODO for connector hub roadmap work.
 - Link the hub README to the current cross-repository work summary and related
   runtime, app, examples and connector repositories.

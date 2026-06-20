@@ -1,3 +1,6 @@
+# Author: Tom Sapletta · https://tom.sapletta.com
+# Part of the ifURI solution.
+
 from __future__ import annotations
 
 from __PKG__ import connector_manifest, run, urirun_bindings

@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Author: Tom Sapletta · https://tom.sapletta.com
+# Part of the ifURI solution.
+
 """Proves the community supply-chain gate in tools/build_catalog.py.
 
 A gate without a test is a wish. These cases assert that validate_manifest()
