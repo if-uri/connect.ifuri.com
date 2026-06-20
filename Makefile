@@ -10,6 +10,10 @@ build-catalog: ## Rebuild data/connectors.json from connector manifests
 check-catalog: ## Verify generated catalog is up to date
 	python3 tools/build_catalog.py --check
 
+.PHONY: check-connectors
+check-connectors: ## Reachability + version-pin checks for connector manifests
+	python3 scripts/check_connectors.py
+
 .PHONY: test
 test: ## Run local smoke tests
 	bash tests/smoke.sh

@@ -20,6 +20,12 @@ jobs:
       - name: Validate connector manifests + catalog (JSON Schema)
         run: python3 scripts/validate_connectors.py
 
+      - name: Catalog is up to date (connectors.json matches manifests)
+        run: python3 tools/build_catalog.py --check
+
+      - name: Connector reachability + version pins
+        run: python3 scripts/check_connectors.py
+
       - name: Connector template self-check (scaffold stays schema-valid)
         run: |
           tmp="$(mktemp -d)"
