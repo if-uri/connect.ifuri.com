@@ -200,7 +200,7 @@
             ],
             "install": {
                 "mode": "urirun-extra",
-                "pipSpec": "urirun-connector-sqlite-context @ git+https://github.com/if-uri/urirun-connector-sqlite-context.git@v0.1.0"
+                "pipSpec": "urirun-connector-sqlite-context @ git+https://github.com/if-uri/urirun-connector-sqlite-context.git@v0.1.1"
             },
             "adapterKinds": [
                 "argv-template"
