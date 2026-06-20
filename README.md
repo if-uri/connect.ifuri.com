@@ -136,6 +136,16 @@ Namecheap DNS planning:
 It was tested through a fresh GitHub install, direct CLI execution, generated
 bindings, `urirun run`, Docker, MCP tools and A2A skill projection.
 
+`sqlite-context` is now an external connector package for host memory:
+
+- package: [`github.com/if-uri/urirun-connector-sqlite-context`](https://github.com/if-uri/urirun-connector-sqlite-context)
+- hub page: [`/connectors/sqlite-context`](https://connect.ifuri.com/connectors/sqlite-context)
+- routes: `data://host/record/command/upsert`, `artifact://host/artifacts/query/list`, `log://host/logs/query/recent`
+- install: `curl -fsSL 'https://connect.ifuri.com/install?connectors=sqlite-context' | bash`
+
+It was tested through a fresh GitHub install, direct CLI execution, generated
+bindings, `urirun run`, Docker, MCP tools and A2A skill projection.
+
 `http-check` proves the external connector flow end to end:
 
 - package: [`github.com/if-uri/urirun-connector-http-check`](https://github.com/if-uri/urirun-connector-http-check)

@@ -4,7 +4,7 @@
   "status": "available",
   "category": "Data",
   "summary": "Local data, artifacts, checks and logs over data://, artifact://, check:// and log://.",
-  "description": "SQLite Context Store gives the host a small durable memory for records, artifacts, checks and logs. It is useful for workflows that need to remember what was checked, imported, generated or changed.",
+  "description": "SQLite Context Store is an external urirun connector package that gives the host a small durable memory for records, artifacts, checks and logs. It generates bindings from decorators, compiles into a normal urirun registry, and projects to MCP tools / A2A skills for host workflows that need to remember what was checked, imported, generated or changed.",
   "uriSchemes": [
     "data",
     "artifact",
@@ -12,16 +12,43 @@
     "log"
   ],
   "routes": [
+    "data://host/datasets/query/list",
+    "data://host/dataset/command/create",
+    "data://host/record/command/upsert",
     "data://host/records/query/search",
+    "data://host/sql/query/read-only",
+    "artifact://host/artifact/command/register",
     "artifact://host/artifacts/query/list",
+    "check://host/check/command/add",
+    "check://host/checks/query/recent",
+    "log://host/daily/command/write",
     "log://host/logs/query/recent"
   ],
   "useCases": [
     "Store structured context imported by an LLM.",
+    "Create datasets and upsert records from URI flows.",
     "List artifacts created by automation.",
-    "Show backend and node logs in the host UI."
+    "Show backend and node logs in the host UI.",
+    "Expose local context to MCP/A2A without coupling the app to SQLite APIs."
   ],
   "examples": [
+    {
+      "title": "Create a dataset",
+      "uri": "data://host/dataset/command/create",
+      "payload": {
+        "name": "domains",
+        "dataset_schema": "{\"type\":\"object\",\"required\":[\"domain\"],\"properties\":{\"domain\":{\"type\":\"string\"}}}"
+      }
+    },
+    {
+      "title": "Upsert local context",
+      "uri": "data://host/record/command/upsert",
+      "payload": {
+        "dataset": "domains",
+        "key": "ifuri.com",
+        "data": "{\"domain\":\"ifuri.com\",\"url\":\"https://ifuri.com\"}"
+      }
+    },
     {
       "title": "Search local context",
       "uri": "data://host/records/query/search",
@@ -39,6 +66,8 @@
     }
   ],
   "flowExample": [
+    "data://host/dataset/command/create",
+    "data://host/record/command/upsert",
     "data://host/records/query/search",
     "artifact://host/artifacts/query/list",
     "log://host/logs/query/recent"
@@ -47,10 +76,13 @@
     "python>=3.10"
   ],
   "install": {
-    "mode": "bundled",
-    "pipPackages": []
+    "mode": "urirun-extra",
+    "pipSpec": "urirun-connector-sqlite-context @ git+https://github.com/if-uri/urirun-connector-sqlite-context.git@v0.1.0"
   },
-  "docsUrl": "https://github.com/if-uri/docs",
+  "adapterKinds": [
+    "argv-template"
+  ],
+  "docsUrl": "https://github.com/if-uri/urirun-connector-sqlite-context",
   "keywords": [
     "sqlite",
     "context",

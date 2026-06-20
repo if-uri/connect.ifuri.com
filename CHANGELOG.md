@@ -16,3 +16,6 @@
 - Update `domain-monitor` and `namecheap-dns` catalog entries to the external
   `urirun-connector-domain-monitor` package, including full route coverage,
   GitHub pip spec, examples and refreshed generated snapshots.
+- Update `sqlite-context` catalog entry to the external
+  `urirun-connector-sqlite-context` package, including full route coverage,
+  GitHub pip spec, examples and refreshed generated snapshots.
