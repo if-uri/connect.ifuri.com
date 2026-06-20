@@ -11,6 +11,10 @@ if ($path === '/') {
     require __DIR__ . '/index.php';
     return true;
 }
+if ($path === '/categories') {
+    require __DIR__ . '/categories.php';
+    return true;
+}
 if ($path === '/install') {
     require __DIR__ . '/install.php';
     return true;

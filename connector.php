@@ -93,6 +93,7 @@ $jsonLd = [
       </a>
       <nav>
         <a href="/#connectors">Connectors</a>
+        <a href="/categories">Categories</a>
         <a href="/connectors.json">connectors.json</a>
         <a href="/registry.json">registry.json</a>
         <a href="/llms.txt">llms.txt</a>

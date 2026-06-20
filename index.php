@@ -71,6 +71,7 @@ $jsonLd = [
       </a>
       <nav>
         <a href="#connectors">Connectors</a>
+        <a href="/categories">Categories</a>
         <a href="/submit">Submit connector</a>
         <a href="https://github.com/if-uri/connect.ifuri.com">GitHub</a>
       </nav>
