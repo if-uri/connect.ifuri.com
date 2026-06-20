@@ -28,6 +28,11 @@ return [
     'statusAvailable'=> ['en' => 'available', 'pl' => 'dostępny'],
     'statusPlanned'  => ['en' => 'planned', 'pl' => 'planowany'],
 
+    // --- shared site-header navigation (json/llms.txt filenames stay literal) ---
+    'navConnectors'  => ['en' => 'Connectors', 'pl' => 'Connectory'],
+    'navCategories'  => ['en' => 'Categories', 'pl' => 'Kategorie'],
+    'navSubmit'      => ['en' => 'Submit connector', 'pl' => 'Zgłoś connector'],
+
     // --- index.php ---
     'eyebrow'        => ['en' => 'Connector hub for ifuri + urirun', 'pl' => 'Hub connectorów dla ifuri + urirun'],
     'h1'             => ['en' => 'Install URI connectors with one command.', 'pl' => 'Instaluj connectory URI jedną komendą.'],
@@ -70,6 +75,19 @@ return [
     'connectorJson'  => ['en' => 'Connector JSON', 'pl' => 'JSON connectora'],
     'searchIndex'    => ['en' => 'Search index', 'pl' => 'Indeks wyszukiwania'],
     'llmIndex'       => ['en' => 'LLM index', 'pl' => 'Indeks LLM'],
+
+    // --- categories.php ---
+    'catTitle'       => ['en' => 'Connector categories · connect.ifuri.com', 'pl' => 'Kategorie connectorów · connect.ifuri.com'],
+    'catDescription' => ['en' => 'Browse ifURI / urirun connectors by category: automation, operations, DNS, transport, planning, data and more.', 'pl' => 'Przeglądaj connectory ifURI / urirun według kategorii: automatyzacja, operacje, DNS, transport, planowanie, dane i więcej.'],
+    'catEyebrow'     => ['en' => 'Catalog', 'pl' => 'Katalog'],
+    'catH1'          => ['en' => 'Connectors by category', 'pl' => 'Connectory według kategorii'],
+    'lanTitle'       => ['en' => 'Use connectors in a LAN demo', 'pl' => 'Użyj connectorów w demie LAN'],
+    'lanLead'        => ['en' => 'Install connectors from this hub, then drive them across machines with a URI flow.', 'pl' => 'Zainstaluj connectory z tego huba, a potem steruj nimi na wielu maszynach za pomocą flow URI.'],
+    'lanDemo1'       => ['en' => 'URI commands drive real browsers inside noVNC desktops across four computers.', 'pl' => 'Komendy URI sterują prawdziwymi przeglądarkami w pulpitach noVNC na czterech komputerach.'],
+    'lanDemo2'       => ['en' => 'host plus nodes install hub connectors and execute URI routes end-to-end.', 'pl' => 'host i węzły instalują connectory z huba i wykonują trasy URI end-to-end.'],
+    'allConnectors'  => ['en' => 'All connectors', 'pl' => 'Wszystkie connectory'],
+    'connectorDocs'  => ['en' => 'Connector docs', 'pl' => 'Dokumentacja connectorów'],
+    'novncGuide'     => ['en' => 'noVNC guide', 'pl' => 'Przewodnik noVNC'],
 
     // --- submit.php ---
     'submitTitle'    => ['en' => 'Submit a URI connector - ifuri Connect', 'pl' => 'Zgłoś connector URI - ifuri Connect'],

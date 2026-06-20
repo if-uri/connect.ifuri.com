@@ -92,8 +92,8 @@ $jsonLd = [
         <span>connect.ifuri.com</span>
       </a>
       <nav>
-        <a href="/#connectors">Connectors</a>
-        <a href="/categories">Categories</a>
+        <a href="/#connectors"><?php echo hub_h(hub_t('navConnectors')); ?></a>
+        <a href="/categories"><?php echo hub_h(hub_t('navCategories')); ?></a>
         <a href="/connectors.json">connectors.json</a>
         <a href="/registry.json">registry.json</a>
         <a href="/llms.txt">llms.txt</a>

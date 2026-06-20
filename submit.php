@@ -48,7 +48,7 @@ $jsonLd = [
         <span>connect.ifuri.com</span>
       </a>
       <nav>
-        <a href="/#connectors">Connectors</a>
+        <a href="/#connectors"><?php echo hub_h(hub_t('navConnectors')); ?></a>
         <a href="/search.json">search.json</a>
         <a href="/llms.txt">llms.txt</a>
         <a href="https://github.com/if-uri/connect.ifuri.com">GitHub</a>

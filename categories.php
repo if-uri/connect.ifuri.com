@@ -6,8 +6,8 @@ require_once __DIR__ . '/lib/hub.php';
 $site = hub_site();
 $canonical = hub_url('/categories');
 $socialImage = (string) ($site['image'] ?? hub_url('/assets/social-card.svg'));
-$title = 'Connector categories · connect.ifuri.com';
-$description = 'Browse ifURI / urirun connectors by category: automation, operations, DNS, transport, planning, data and more.';
+$title = hub_t('catTitle');
+$description = hub_t('catDescription');
 
 // Group connectors by category.
 $byCategory = [];
@@ -60,8 +60,8 @@ $jsonLd = [
         <span>connect.ifuri.com</span>
       </a>
       <nav>
-        <a href="/#connectors">Connectors</a>
-        <a href="/categories">Categories</a>
+        <a href="/#connectors"><?php echo hub_h(hub_t('navConnectors')); ?></a>
+        <a href="/categories"><?php echo hub_h(hub_t('navCategories')); ?></a>
         <a href="/connectors.json">connectors.json</a>
         <a href="/llms.txt">llms.txt</a>
         <a href="https://github.com/if-uri/connect.ifuri.com">GitHub</a>
@@ -71,8 +71,8 @@ $jsonLd = [
 
   <main class="wrap">
     <section class="detail-hero">
-      <p class="eyebrow">Catalog</p>
-      <h1>Connectors by category</h1>
+      <p class="eyebrow"><?php echo hub_h(hub_t('catEyebrow')); ?></p>
+      <h1><?php echo hub_h(hub_t('catH1')); ?></h1>
       <p class="lead"><?php echo hub_h($description); ?></p>
       <div class="schemes large">
         <?php foreach (array_keys($byCategory) as $cat): ?>
@@ -108,20 +108,20 @@ $jsonLd = [
     <?php endforeach; ?>
 
     <section class="panel" id="lan-demos">
-      <h2>Use connectors in a LAN demo</h2>
-      <p class="lead">Install connectors from this hub, then drive them across machines with a URI flow.</p>
+      <h2><?php echo hub_h(hub_t('lanTitle')); ?></h2>
+      <p class="lead"><?php echo hub_h(hub_t('lanLead')); ?></p>
       <div class="command-box">
         <code><?php echo hub_h(hub_install_command(['http-check', 'time-tools'])); ?></code>
-        <button class="primary" data-copy="<?php echo hub_h(hub_install_command(['http-check', 'time-tools'])); ?>">Copy</button>
+        <button class="primary" data-copy="<?php echo hub_h(hub_install_command(['http-check', 'time-tools'])); ?>"><?php echo hub_h(hub_t('copy')); ?></button>
       </div>
       <ul class="clean-list">
-        <li><a href="https://github.com/if-uri/examples/tree/main/11-novnc_lan_flow">11-novnc_lan_flow</a> — URI commands drive real browsers inside noVNC desktops across four computers.</li>
-        <li><a href="https://github.com/if-uri/examples/tree/main/12-full_e2e_connect_lab">12-full_e2e_connect_lab</a> — host plus nodes install hub connectors and execute URI routes end-to-end.</li>
+        <li><a href="https://github.com/if-uri/examples/tree/main/11-novnc_lan_flow">11-novnc_lan_flow</a> — <?php echo hub_h(hub_t('lanDemo1')); ?></li>
+        <li><a href="https://github.com/if-uri/examples/tree/main/12-full_e2e_connect_lab">12-full_e2e_connect_lab</a> — <?php echo hub_h(hub_t('lanDemo2')); ?></li>
       </ul>
       <div class="links inline">
-        <a href="/#connectors">All connectors</a>
-        <a href="https://docs.ifuri.com/connectors.html">Connector docs</a>
-        <a href="https://docs.ifuri.com/novnc-demo.html">noVNC guide</a>
+        <a href="/#connectors"><?php echo hub_h(hub_t('allConnectors')); ?></a>
+        <a href="https://docs.ifuri.com/connectors.html"><?php echo hub_h(hub_t('connectorDocs')); ?></a>
+        <a href="https://docs.ifuri.com/novnc-demo.html"><?php echo hub_h(hub_t('novncGuide')); ?></a>
       </div>
     </section>
   </main>
