@@ -175,6 +175,9 @@ $jsonLd = [
         </div>
         <textarea class="code-output" id="manifestOutput" spellcheck="false"></textarea>
         <div class="validation-result" id="validationResult" aria-live="polite"></div>
+        <div class="hero-actions">
+          <a class="button" id="openGithubIssue" href="https://github.com/if-uri/connect.ifuri.com/issues/new?labels=connector-submission&amp;template=connector-submission.md" target="_blank" rel="noopener"><?php echo hub_lang() === 'en' ? 'Open a GitHub issue with this manifest' : 'Otwórz zgłoszenie GitHub z tym manifestem'; ?></a>
+        </div>
       </section>
     </section>
   </main>
@@ -188,6 +191,31 @@ $jsonLd = [
   <script>window.CONNECT_HUB_BASE = <?php echo json_encode(hub_base_url(), JSON_UNESCAPED_SLASHES); ?>;
 window.CONNECT_I18N = <?php echo json_encode(hub_js_i18n(), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE); ?>;</script>
   <script>window.CONNECTOR_TEMPLATE = <?php echo json_encode($template, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE); ?>;</script>
+  <script>
+  // Prefill a GitHub issue with the built manifest. Falls back to the blank
+  // issue template when the manifest box is empty or unparseable.
+  (function () {
+    var link = document.getElementById('openGithubIssue');
+    var out = document.getElementById('manifestOutput');
+    if (!link || !out) return;
+    var base = 'https://github.com/if-uri/connect.ifuri.com/issues/new';
+    link.addEventListener('click', function (ev) {
+      var text = (out.value || '').trim();
+      if (!text) return; // keep the default template href
+      var id = '<id>';
+      try { id = (JSON.parse(text).id || id); } catch (e) {}
+      var body = '## Connector manifest\n\n```json\n' + text + '\n```\n\n' +
+        'Built and validated at https://connect.ifuri.com/submit';
+      var url = base + '?labels=connector-submission' +
+        '&title=' + encodeURIComponent('Connector: ' + id) +
+        '&body=' + encodeURIComponent(body);
+      if (url.length < 7800) { // stay under GitHub's URL limit
+        ev.preventDefault();
+        window.open(url, '_blank', 'noopener');
+      }
+    });
+  })();
+  </script>
   <script src="/assets/app.js"></script>
   <script src="/assets/ifuri-ecobar.js" defer></script>
 </body>
