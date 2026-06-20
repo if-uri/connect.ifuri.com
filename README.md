@@ -37,12 +37,15 @@ Contributor docs:
 - [`docs/CONNECTORS-ARCHITECTURE.md`](docs/CONNECTORS-ARCHITECTURE.md)
 - [`docs/SUBMIT-CONNECTOR.md`](docs/SUBMIT-CONNECTOR.md)
 - [`docs/PLESK.md`](docs/PLESK.md)
+- [`TODO.md`](TODO.md)
+- [`CHANGELOG.md`](CHANGELOG.md)
 
 Public docs:
 
 - [`docs.ifuri.com/connectors.html`](https://docs.ifuri.com/connectors.html)
 - [`docs.ifuri.com/getting-started.html`](https://docs.ifuri.com/getting-started.html)
 - [`docs.ifuri.com/registry-and-bindings.html`](https://docs.ifuri.com/registry-and-bindings.html)
+- [`docs.ifuri.com` work summary source](https://github.com/if-uri/docs/blob/main/work-summary-2026-06-20.md)
 
 ## Local run
 
@@ -141,3 +144,14 @@ cd ../urirun-connector-<id> && make test          # editable install + urirun sm
 The generated `connector.manifest.json` is schema-valid and ready to submit at
 https://connect.ifuri.com/submit . Implement `run()` in the package's `core.py`.
 CI (`scripts/validate_connectors.py` + template self-check) keeps manifests valid.
+
+## Related repositories
+
+- Runtime: [tellmesh/urirun](https://github.com/tellmesh/urirun)
+- Public docs: [if-uri/docs](https://github.com/if-uri/docs)
+- Examples and E2E flows: [if-uri/examples](https://github.com/if-uri/examples)
+- App/host: [if-uri/app](https://github.com/if-uri/app)
+- Installer: [if-uri/get](https://github.com/if-uri/get)
+- HTTP connector: [if-uri/urirun-connector-http-check](https://github.com/if-uri/urirun-connector-http-check)
+- Time connector: [if-uri/urirun-connector-time-tools](https://github.com/if-uri/urirun-connector-time-tools)
+- Browser connector: [if-uri/urirun-connector-browser-control](https://github.com/if-uri/urirun-connector-browser-control)
