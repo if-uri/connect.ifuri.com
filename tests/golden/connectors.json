@@ -1,7 +1,7 @@
 {
     "version": "ifuri.connectors.v1",
     "updatedAt": "2026-06-20",
-    "defaultPipSpec": "urirun @ git+https://github.com/tellmesh/urirun.git@v0.3.13#subdirectory=adapters/python",
+    "defaultPipSpec": "urirun @ git+https://github.com/tellmesh/urirun.git@v0.3.14#subdirectory=adapters/python",
     "site": {
         "baseUrl": "https://connect.ifuri.com",
         "title": "ifuri Connect - URI connector hub for urirun",
@@ -270,7 +270,7 @@
             ],
             "install": {
                 "mode": "urirun-extra",
-                "pipSpec": "urirun-connector-http-check @ git+https://github.com/if-uri/urirun-connector-http-check.git@v0.1.4"
+                "pipSpec": "urirun-connector-http-check @ git+https://github.com/if-uri/urirun-connector-http-check.git@v0.1.5"
             },
             "adapterKinds": [
                 "http-service"
@@ -334,7 +334,7 @@
             ],
             "install": {
                 "mode": "urirun-extra",
-                "pipSpec": "urirun-connector-time-tools @ git+https://github.com/if-uri/urirun-connector-time-tools.git@v0.1.1"
+                "pipSpec": "urirun-connector-time-tools @ git+https://github.com/if-uri/urirun-connector-time-tools.git@v0.1.2"
             },
             "adapterKinds": [
                 "local-function"
@@ -347,7 +347,7 @@
                 "workflow",
                 "connector"
             ],
-            "provenance": "verified",
+            "provenance": "community",
             "publisher": {
                 "name": "if-uri",
                 "url": "https://ifuri.com",
@@ -537,10 +537,10 @@
         {
             "id": "browser-control",
             "name": "Browser Control",
-            "status": "planned",
+            "status": "available",
             "category": "Automation",
-            "summary": "Drive browser actions and screenshots through browser:// URI commands for demos and QA.",
-            "description": "Browser Control will expose browser actions as URI commands for visual checks, screenshots and demo automation. In the LAN lab it should target the noVNC machine, not the physical host browser.",
+            "summary": "Drive browser/noVNC actions through browser:// URI commands for demos and QA.",
+            "description": "Browser Control exposes browser actions as URI commands. By default it is safe and does not open the physical host browser; set BROWSER_CONTROL_ENDPOINT or URI_SERVICE_MAP to forward commands to a noVNC or urirun node.",
             "uriSchemes": [
                 "browser"
             ],
@@ -549,9 +549,9 @@
                 "browser://desktop/page/command/screenshot"
             ],
             "useCases": [
-                "Open pages inside a controlled demo desktop.",
-                "Capture screenshots as URI flow artifacts.",
-                "Run repeatable browser QA from NL-to-flow."
+                "Open pages inside a controlled noVNC demo desktop.",
+                "Capture browser screenshots as URI flow artifacts.",
+                "Run repeatable browser QA from NL-to-URI workflows."
             ],
             "examples": [
                 {
@@ -560,6 +560,14 @@
                     "payload": {
                         "url": "https://example.com/"
                     }
+                },
+                {
+                    "title": "Screenshot a page",
+                    "uri": "browser://desktop/page/command/screenshot",
+                    "payload": {
+                        "url": "https://example.com/",
+                        "output": "example.png"
+                    }
                 }
             ],
             "flowExample": [
@@ -567,13 +575,16 @@
                 "browser://desktop/page/command/screenshot"
             ],
             "requires": [
-                "browser runtime"
+                "browser runtime or noVNC urirun node"
             ],
             "install": {
-                "mode": "planned",
-                "pipSpec": "urirun-connectors-browser"
+                "mode": "urirun-extra",
+                "pipSpec": "urirun-connector-browser-control @ git+https://github.com/if-uri/urirun-connector-browser-control.git@v0.1.1"
             },
-            "docsUrl": "https://github.com/if-uri/examples",
+            "adapterKinds": [
+                "command"
+            ],
+            "docsUrl": "https://github.com/if-uri/urirun-connector-browser-control",
             "keywords": [
                 "browser",
                 "screenshot",

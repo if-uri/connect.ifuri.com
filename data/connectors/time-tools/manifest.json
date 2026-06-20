@@ -40,13 +40,19 @@
   "requires": [
     "python>=3.10"
   ],
-  "install": {
-    "mode": "urirun-extra",
-    "pipSpec": "urirun-connector-time-tools @ git+https://github.com/if-uri/urirun-connector-time-tools.git@v0.1.1"
-  },
   "adapterKinds": [
     "local-function"
   ],
+  "install": {
+    "mode": "urirun-extra",
+    "pipSpec": "urirun-connector-time-tools @ git+https://github.com/if-uri/urirun-connector-time-tools.git@v0.1.2"
+  },
+  "provenance": "community",
+  "publisher": {
+    "name": "if-uri",
+    "url": "https://ifuri.com",
+    "github": "https://github.com/if-uri"
+  },
   "docsUrl": "https://github.com/if-uri/urirun-connector-time-tools",
   "keywords": [
     "time",
@@ -54,11 +60,5 @@
     "clock",
     "workflow",
     "connector"
-  ],
-  "provenance": "verified",
-  "publisher": {
-    "name": "if-uri",
-    "url": "https://ifuri.com",
-    "github": "https://github.com/if-uri"
-  }
+  ]
 }

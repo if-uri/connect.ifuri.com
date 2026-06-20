@@ -1,10 +1,10 @@
 {
   "id": "browser-control",
   "name": "Browser Control",
-  "status": "planned",
+  "status": "available",
   "category": "Automation",
-  "summary": "Drive browser actions and screenshots through browser:// URI commands for demos and QA.",
-  "description": "Browser Control will expose browser actions as URI commands for visual checks, screenshots and demo automation. In the LAN lab it should target the noVNC machine, not the physical host browser.",
+  "summary": "Drive browser/noVNC actions through browser:// URI commands for demos and QA.",
+  "description": "Browser Control exposes browser actions as URI commands. By default it is safe and does not open the physical host browser; set BROWSER_CONTROL_ENDPOINT or URI_SERVICE_MAP to forward commands to a noVNC or urirun node.",
   "uriSchemes": [
     "browser"
   ],
@@ -12,10 +12,13 @@
     "browser://desktop/page/command/open",
     "browser://desktop/page/command/screenshot"
   ],
+  "adapterKinds": [
+    "command"
+  ],
   "useCases": [
-    "Open pages inside a controlled demo desktop.",
-    "Capture screenshots as URI flow artifacts.",
-    "Run repeatable browser QA from NL-to-flow."
+    "Open pages inside a controlled noVNC demo desktop.",
+    "Capture browser screenshots as URI flow artifacts.",
+    "Run repeatable browser QA from NL-to-URI workflows."
   ],
   "examples": [
     {
@@ -24,6 +27,14 @@
       "payload": {
         "url": "https://example.com/"
       }
+    },
+    {
+      "title": "Screenshot a page",
+      "uri": "browser://desktop/page/command/screenshot",
+      "payload": {
+        "url": "https://example.com/",
+        "output": "example.png"
+      }
     }
   ],
   "flowExample": [
@@ -31,13 +42,13 @@
     "browser://desktop/page/command/screenshot"
   ],
   "requires": [
-    "browser runtime"
+    "browser runtime or noVNC urirun node"
   ],
   "install": {
-    "mode": "planned",
-    "pipSpec": "urirun-connectors-browser"
+    "mode": "urirun-extra",
+    "pipSpec": "urirun-connector-browser-control @ git+https://github.com/if-uri/urirun-connector-browser-control.git@v0.1.1"
   },
-  "docsUrl": "https://github.com/if-uri/examples",
+  "docsUrl": "https://github.com/if-uri/urirun-connector-browser-control",
   "keywords": [
     "browser",
     "screenshot",

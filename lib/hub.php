@@ -179,11 +179,24 @@ function hub_installer_script(array $ids): string
 
     $connectorList = implode(' ', array_map('escapeshellarg', array_column($selected, 'id')));
     $modules = [];
+    $bundled = [
+        'planfile' => false,
+        'sqlite-context' => false,
+        'domain-monitor' => false,
+        'namecheap-dns' => false,
+        'grpc-transport' => false,
+    ];
     foreach ($selected as $connector) {
         if (($connector['status'] ?? '') !== 'available') {
             continue;
         }
-        $modules[] = 'urirun_connector_' . str_replace('-', '_', (string) $connector['id']);
+        $id = (string) $connector['id'];
+        $installMode = (string) (($connector['install'] ?? [])['mode'] ?? '');
+        if ($installMode === 'urirun-extra') {
+            $modules[] = 'urirun_connector_' . str_replace('-', '_', $id);
+        } elseif (array_key_exists($id, $bundled)) {
+            $bundled[$id] = true;
+        }
     }
     $moduleList = implode(' ', array_map('escapeshellarg', $modules));
     $script = <<<'SH'
@@ -218,21 +231,52 @@ SH;
         $escaped = str_replace("'", "'\"'\"'", $spec);
         $script .= "  \$PIP_BIN install '{$escaped}'\n";
     }
+    if ($pipPackages) {
+        $script .= "echo \"Ensuring selected urirun runtime after connector package installs...\"\n";
+        $script .= "if [ -n \"\${URIRUN_PIP_SPEC:-}\" ]; then\n";
+        $script .= "  \$PIP_BIN install \"\$URIRUN_PIP_SPEC\"\n";
+        $script .= "else\n";
+        if ($coreSpec !== '') {
+            $escapedCore = str_replace("'", "'\"'\"'", $coreSpec);
+            $script .= "  \$PIP_BIN install '{$escapedCore}'\n";
+        }
+        $script .= "fi\n";
+    }
     $script .= "\nREG_DIR=\"\${IFURI_REGISTRY_DIR:-\$HOME/.ifuri}\"\n";
+    $script .= "WANT_PLANFILE=" . ($bundled['planfile'] ? '1' : '0') . "\n";
+    $script .= "WANT_SQLITE_CONTEXT=" . ($bundled['sqlite-context'] ? '1' : '0') . "\n";
+    $script .= "WANT_DOMAIN_MONITOR=" . ($bundled['domain-monitor'] ? '1' : '0') . "\n";
+    $script .= "WANT_NAMECHEAP_DNS=" . ($bundled['namecheap-dns'] ? '1' : '0') . "\n";
+    $script .= "WANT_GRPC_TRANSPORT=" . ($bundled['grpc-transport'] ? '1' : '0') . "\n";
     $script .= "MODULES=(" . $moduleList . ")\n";
     $script .= <<<'SH'
 
 if command -v urirun >/dev/null 2>&1; then
   echo
-  echo "urirun installed:"
+  echo "system urirun found:"
   urirun --help | head -5 || true
 fi
 
+if [ -n "${URIRUN_BIN:-}" ]; then
+  read -r -a URIRUN_CMD <<< "$URIRUN_BIN"
+else
+  URIRUN_CMD=("$PYTHON_BIN" -m urirun.v2)
+fi
+
+echo
+echo "installer urirun runtime:"
+"${URIRUN_CMD[@]}" --help | head -5 || true
+
 mkdir -p "$REG_DIR"
+HOST_DB="${IFURI_HOST_DB:-$REG_DIR/host.db}"
+PLANFILE_PROJECT="${IFURI_PLANFILE_PROJECT:-$REG_DIR/planfile-project}"
+SCREENSHOT_DIR="${IFURI_SCREENSHOT_DIR:-$REG_DIR/screenshots}"
+BINDING_FILES=()
+
 if [ "${#MODULES[@]}" -gt 0 ]; then
   echo
-  echo "Building a urirun registry from the installed connectors..."
-  $PYTHON_BIN - "$REG_DIR/connectors.bindings.v2.json" "${MODULES[@]}" <<'PY'
+  echo "Building bindings from connector packages..."
+  $PYTHON_BIN - "$REG_DIR/connector-packages.bindings.v2.json" "${MODULES[@]}" <<'PY'
 import importlib, json, sys
 import urirun
 
@@ -240,15 +284,52 @@ out = sys.argv[1]
 for name in sys.argv[2:]:
     try:
         importlib.import_module(name)  # registers the package's connector-declared URI routes
-    except Exception as exc:  # noqa: BLE001 - skip a connector that failed to install
-        print(f"  skip {name}: {exc}", file=sys.stderr)
+    except Exception as exc:  # noqa: BLE001 - installer must not silently drop selected packages
+        raise SystemExit(f"connector package import failed for {name}: {exc}") from exc
 doc = urirun.connector_bindings()  # all routes registered by the imported connectors
 with open(out, "w", encoding="utf-8") as fh:
     json.dump(doc, fh, indent=2)
 print(f"  bindings: {len(doc.get('bindings', {}))} route(s) -> {out}")
 PY
-  urirun validate "$REG_DIR/connectors.bindings.v2.json"
-  urirun compile "$REG_DIR/connectors.bindings.v2.json" --out "$REG_DIR/connectors.registry.json"
+  BINDING_FILES+=("$REG_DIR/connector-packages.bindings.v2.json")
+fi
+
+if [ "$WANT_SQLITE_CONTEXT" = "1" ]; then
+  echo "Building bundled sqlite-context bindings..."
+  "${URIRUN_CMD[@]}" host data bindings --target host --db "$HOST_DB" --out "$REG_DIR/sqlite-context.bindings.v2.json"
+  BINDING_FILES+=("$REG_DIR/sqlite-context.bindings.v2.json")
+fi
+
+if [ "$WANT_DOMAIN_MONITOR" = "1" ] || [ "$WANT_NAMECHEAP_DNS" = "1" ]; then
+  echo "Building bundled domain/namecheap bindings..."
+  mkdir -p "$PLANFILE_PROJECT" "$SCREENSHOT_DIR"
+  "${URIRUN_CMD[@]}" host monitor bindings \
+    --target host \
+    --db "$HOST_DB" \
+    --project "$PLANFILE_PROJECT" \
+    --screenshot-dir "$SCREENSHOT_DIR" \
+    --out "$REG_DIR/domain-monitor.bindings.v2.json"
+  BINDING_FILES+=("$REG_DIR/domain-monitor.bindings.v2.json")
+fi
+
+if [ "$WANT_PLANFILE" = "1" ]; then
+  echo "Building bundled planfile bindings..."
+  mkdir -p "$PLANFILE_PROJECT"
+  "${URIRUN_CMD[@]}" host task bindings --target host --project "$PLANFILE_PROJECT" --out "$REG_DIR/planfile.bindings.v2.json"
+  BINDING_FILES+=("$REG_DIR/planfile.bindings.v2.json")
+fi
+
+if [ "$WANT_GRPC_TRANSPORT" = "1" ]; then
+  echo "gRPC transport installed. Use: python3 -m urirun.v2_grpc serve <registry.json>"
+fi
+
+if [ "${#BINDING_FILES[@]}" -gt 0 ]; then
+  echo
+  echo "Compiling selected connector registry..."
+  for file in "${BINDING_FILES[@]}"; do
+    "${URIRUN_CMD[@]}" validate "$file"
+  done
+  "${URIRUN_CMD[@]}" compile "${BINDING_FILES[@]}" --out "$REG_DIR/connectors.registry.json" --on-conflict keep
   echo "  registry: $REG_DIR/connectors.registry.json"
   echo
   echo "Run a connector route:"
