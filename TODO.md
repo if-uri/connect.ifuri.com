@@ -2,6 +2,12 @@
 
 ## Connector hub roadmap
 
+- [ ] Implement IFURI-018: show route schemas, tested versions, Docker smoke
+      commands, policy notes and compatibility badges on every connector page.
+- [ ] Add install bundles so users can select multiple connectors and get one
+      generated command for host or node setup.
+- [ ] Add connector health history from CI/Docker matrix runs once IFURI-016
+      publishes artifacts.
 - [x] Add a visible connector category page for browser, monitoring, task,
       DNS, time and transport connectors. (`/categories`)
 - [x] Add version compatibility checks between connector manifests and the

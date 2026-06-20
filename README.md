@@ -89,6 +89,14 @@ curl -fsSL 'https://connect.ifuri.com/install?connectors=http-check' | bash
 curl -fsSL 'https://connect.ifuri.com/install?connectors=time-tools' | bash
 ```
 
+Dry-run the same catalog install from a local `urirun` runtime:
+
+```bash
+urirun connectors list --available
+urirun connectors show http-check
+urirun connectors install http-check
+```
+
 By default the installer uses the pinned GitHub source for the Python urirun
 package. Override it only when testing another runtime ref or fork:
 

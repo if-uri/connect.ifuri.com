@@ -3,6 +3,8 @@
 ## [Unreleased]
 
 ### Added
+- Add structure-audit follow-up tasks for connector contract pages,
+  compatibility badges, install bundles and matrix-test health history.
 - Bilingual PL/EN UI driven by the shared ifuri ecobar `?lang=` signal
   (Polish default, English fallback) across `index.php`, `connector.php` and
   `submit.php`. UI strings live in a single `lib/i18n.php` catalog consumed via
@@ -18,6 +20,10 @@
 ### Changed
 - Document the hub as part of the broader `urirun` connector ecosystem rather
   than a standalone PHP site.
+- Point connector templates and active runtime install snippets at
+  `github.com/if-uri/urirun`.
+- Document local `urirun connectors ...` dry-run commands next to public
+  installer one-liners.
 - Update the `planfile` catalog entry from bundled integration metadata to the
   external `urirun-connector-planfile` package, including full route coverage,
   GitHub pip spec, examples and refreshed generated snapshots.
