@@ -7,9 +7,9 @@ $id = (string) ($_GET['id'] ?? '');
 $connector = hub_connector($id);
 if ($connector === null) {
     http_response_code(404);
-    $title = 'Connector not found - ifuri Connect';
+    $title = hub_t('nfTitle');
     ?><!doctype html>
-<html lang="en">
+<html lang="<?php echo hub_h(hub_lang()); ?>">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,9 +21,9 @@ if ($connector === null) {
 <body>
   <main class="wrap error-page">
     <p class="eyebrow">404</p>
-    <h1>Connector not found.</h1>
-    <p class="lead">The requested connector is not published in the ifuri connector catalog.</p>
-    <a class="button primary" href="/">Back to connector hub</a>
+    <h1><?php echo hub_h(hub_t('nfH1')); ?></h1>
+    <p class="lead"><?php echo hub_h(hub_t('nfLead')); ?></p>
+    <a class="button primary" href="/"><?php echo hub_h(hub_t('nfBack')); ?></a>
   </main>
   <script src="/assets/ifuri-ecobar.js" defer></script>
 </body>
@@ -57,7 +57,7 @@ $jsonLd = [
     ],
 ];
 ?><!doctype html>
-<html lang="en">
+<html lang="<?php echo hub_h(hub_lang()); ?>">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -103,19 +103,19 @@ $jsonLd = [
 
   <main class="wrap">
     <section class="detail-hero">
-      <p class="eyebrow"><?php echo hub_h((string) ($connector['category'] ?? 'Connector')); ?> connector</p>
+      <p class="eyebrow"><?php echo hub_h((string) ($connector['category'] ?? hub_t('categoryFallback'))); ?> <?php echo hub_h(hub_t('connectorWord')); ?></p>
       <div class="detail-title">
         <div>
           <h1><?php echo hub_h((string) $connector['name']); ?></h1>
           <p class="lead"><?php echo hub_h($description); ?></p>
         </div>
-        <em class="status <?php echo hub_h($status); ?>"><?php echo hub_h($status); ?></em>
-        <em class="prov <?php echo hub_h($provenance); ?>" title="<?php echo $provenance === 'verified' ? 'Maintained and audited by if-uri' : 'Third-party community connector'; ?>"><?php echo $provenance === 'verified' ? '✓ verified' : 'community'; ?></em>
+        <em class="status <?php echo hub_h($status); ?>"><?php echo hub_h($status === 'available' ? hub_t('statusAvailable') : ($status === 'planned' ? hub_t('statusPlanned') : $status)); ?></em>
+        <em class="prov <?php echo hub_h($provenance); ?>" title="<?php echo hub_h($provenance === 'verified' ? hub_t('verifiedTitle') : hub_t('communityTitle')); ?>"><?php echo hub_h($provenance === 'verified' ? hub_t('verified') : hub_t('community')); ?></em>
       </div>
       <div class="hero-actions">
-        <button class="primary" data-copy="<?php echo hub_h($installCommand); ?>" <?php echo $isAvailable ? '' : 'disabled'; ?>>Copy install</button>
-        <a class="button" href="<?php echo hub_h(hub_install_path([(string) $connector['id']])); ?>">Open installer script</a>
-        <a class="button" href="<?php echo hub_h((string) ($connector['docsUrl'] ?? 'https://github.com/if-uri/docs')); ?>">Docs</a>
+        <button class="primary" data-copy="<?php echo hub_h($installCommand); ?>" <?php echo $isAvailable ? '' : 'disabled'; ?>><?php echo hub_h(hub_t('copyInstall')); ?></button>
+        <a class="button" href="<?php echo hub_h(hub_install_path([(string) $connector['id']])); ?>"><?php echo hub_h(hub_t('openInstaller')); ?></a>
+        <a class="button" href="<?php echo hub_h((string) ($connector['docsUrl'] ?? 'https://github.com/if-uri/docs')); ?>"><?php echo hub_h(hub_t('docs')); ?></a>
       </div>
     </section>
 

@@ -604,6 +604,36 @@ function hub_h(string $value): string
     return htmlspecialchars($value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 }
 
+function hub_lang(): string
+{
+    static $lang = null;
+    if ($lang === null) {
+        $lang = (($_GET['lang'] ?? '') === 'en') ? 'en' : 'pl';
+    }
+    return $lang;
+}
+
+function hub_t(string $key): string
+{
+    static $strings = null;
+    if ($strings === null) {
+        $strings = require __DIR__ . '/i18n.php';
+    }
+    $lang = hub_lang();
+    return (string) ($strings[$key][$lang] ?? $strings[$key]['en'] ?? $key);
+}
+
+/** Strings consumed client-side, exposed once as window.CONNECT_I18N. */
+function hub_js_i18n(): array
+{
+    return [
+        'copied' => hub_t('jsCopied'),
+        'of' => hub_t('jsOf'),
+        'validManifest' => hub_t('jsValidManifest'),
+        'fixIssues' => hub_t('jsFixIssues'),
+    ];
+}
+
 function hub_tool_name(string $uri): string
 {
     $name = strtolower((string) preg_replace('/[^a-zA-Z0-9]+/', '_', $uri));
