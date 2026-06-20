@@ -12,6 +12,47 @@ $defaultInstall = hub_default_install_path();
 $canonical = hub_url('/');
 $socialImage = (string) ($site['image'] ?? hub_url('/assets/social-card.svg'));
 $ecosystem = is_array($site['ecosystem'] ?? null) ? $site['ecosystem'] : [];
+
+// Language follows the same ?lang= signal as the shared ifuri ecobar, which
+// defaults to Polish across the ecosystem (ifuri.com, get.ifuri.com, docs).
+$lang = (($_GET['lang'] ?? '') === 'en') ? 'en' : 'pl';
+$strings = [
+    'eyebrow'        => ['en' => 'Connector hub for ifuri + urirun', 'pl' => 'Hub connectorów dla ifuri + urirun'],
+    'h1'             => ['en' => 'Install URI connectors with one command.', 'pl' => 'Instaluj connectory URI jedną komendą.'],
+    'lead'           => ['en' => 'Choose connectors, copy one command and let ifuri/urirun expose their URI bindings, registry entries, requirements and flow examples.', 'pl' => 'Wybierz connectory, skopiuj jedną komendę, a ifuri/urirun udostępni ich bindings URI, wpisy rejestru, wymagania i przykłady flow.'],
+    'copyDefault'    => ['en' => 'Copy default install', 'pl' => 'Kopiuj domyślną instalację'],
+    'openInstaller'  => ['en' => 'Open installer script', 'pl' => 'Otwórz skrypt instalatora'],
+    'buildTitle'     => ['en' => 'Build install command', 'pl' => 'Zbuduj komendę instalacji'],
+    'buildLead'      => ['en' => 'Select multiple connectors. Planned connectors stay visible but are not included in the installer yet.', 'pl' => 'Wybierz wiele connectorów. Planowane connectory pozostają widoczne, ale nie są jeszcze dołączane do instalatora.'],
+    'selectAvailable'=> ['en' => 'Select available', 'pl' => 'Zaznacz dostępne'],
+    'copy'           => ['en' => 'Copy', 'pl' => 'Kopiuj'],
+    'filterPlaceholder' => ['en' => 'Filter connectors by name, summary or URI scheme…', 'pl' => 'Filtruj connectory po nazwie, opisie lub schemacie URI…'],
+    'filterAria'     => ['en' => 'Filter connectors', 'pl' => 'Filtruj connectory'],
+    'connectorsAria' => ['en' => 'Connectors', 'pl' => 'Connectory'],
+    'verified'       => ['en' => '✓ verified', 'pl' => '✓ zweryfikowany'],
+    'community'      => ['en' => 'community', 'pl' => 'społeczność'],
+    'verifiedTitle'  => ['en' => 'Maintained and audited by if-uri', 'pl' => 'Utrzymywany i audytowany przez if-uri'],
+    'communityTitle' => ['en' => 'Third-party community connector', 'pl' => 'Zewnętrzny connector społecznościowy'],
+    'categoryFallback' => ['en' => 'Connector', 'pl' => 'Connector'],
+    'schemesAria'    => ['en' => 'URI schemes', 'pl' => 'Schematy URI'],
+    'details'        => ['en' => 'Details', 'pl' => 'Szczegóły'],
+    'docs'           => ['en' => 'Docs', 'pl' => 'Dokumentacja'],
+    'copyInstall'    => ['en' => 'Copy install', 'pl' => 'Kopiuj instalację'],
+    'noResults'      => ['en' => 'No connectors match your filter.', 'pl' => 'Żaden connector nie pasuje do filtra.'],
+    'machineTitle'   => ['en' => 'Machine endpoints', 'pl' => 'Endpointy maszynowe'],
+    'machineLead'    => ['en' => 'ifuri app and future registry tooling can read the same catalog as users.', 'pl' => 'Aplikacja ifuri i przyszłe narzędzia rejestru czytają ten sam katalog co użytkownicy.'],
+    'ecoTitle'       => ['en' => 'ifuri ecosystem', 'pl' => 'Ekosystem ifuri'],
+    'ecoLead'        => ['en' => 'Use these public entry points together: website, one-line installer and connector hub.', 'pl' => 'Korzystaj z tych publicznych punktów wejścia razem: strona, jednoliniowy instalator i hub connectorów.'],
+    'footerCatalog'  => ['en' => 'Catalog version', 'pl' => 'Wersja katalogu'],
+    'footerSite'     => ['en' => 'Site v', 'pl' => 'Strona v'],
+    'footerUpdated'  => ['en' => 'Updated', 'pl' => 'Zaktualizowano'],
+    'statusAvailable'=> ['en' => 'available', 'pl' => 'dostępny'],
+    'statusPlanned'  => ['en' => 'planned', 'pl' => 'planowany'],
+    'jsCopied'       => ['en' => 'Copied', 'pl' => 'Skopiowano'],
+    'jsOf'           => ['en' => 'of', 'pl' => 'z'],
+];
+$t = static fn (string $key): string => (string) ($strings[$key][$lang] ?? $strings[$key]['en'] ?? $key);
+$jsLang = ['copied' => $t('jsCopied'), 'of' => $t('jsOf')];
 $jsonLd = [
     '@context' => 'https://schema.org',
     '@type' => 'CollectionPage',
@@ -34,7 +75,7 @@ $jsonLd = [
     ],
 ];
 ?><!doctype html>
-<html lang="en">
+<html lang="<?php echo hub_h($lang); ?>">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -78,35 +119,35 @@ $jsonLd = [
 
   <main class="wrap">
     <section class="hero">
-      <p class="eyebrow">Connector hub for ifuri + urirun</p>
-      <h1>Install URI connectors with one command.</h1>
-      <p class="lead">Choose connectors, copy one command and let ifuri/urirun expose their URI bindings, registry entries, requirements and flow examples.</p>
+      <p class="eyebrow"><?php echo hub_h($t('eyebrow')); ?></p>
+      <h1><?php echo hub_h($t('h1')); ?></h1>
+      <p class="lead"><?php echo hub_h($t('lead')); ?></p>
       <div class="hero-actions">
-        <button class="primary" data-copy="<?php echo hub_h(hub_install_command($defaultIds === '' ? [] : explode(',', $defaultIds))); ?>">Copy default install</button>
-        <a class="button" href="<?php echo hub_h($defaultInstall); ?>">Open installer script</a>
+        <button class="primary" data-copy="<?php echo hub_h(hub_install_command($defaultIds === '' ? [] : explode(',', $defaultIds))); ?>"><?php echo hub_h($t('copyDefault')); ?></button>
+        <a class="button" href="<?php echo hub_h($defaultInstall); ?>"><?php echo hub_h($t('openInstaller')); ?></a>
       </div>
     </section>
 
     <section class="panel">
       <div class="panel-head">
         <div>
-          <h2>Build install command</h2>
-          <p>Select multiple connectors. Planned connectors stay visible but are not included in the installer yet.</p>
+          <h2><?php echo hub_h($t('buildTitle')); ?></h2>
+          <p><?php echo hub_h($t('buildLead')); ?></p>
         </div>
-        <button id="selectAvailable">Select available</button>
+        <button id="selectAvailable"><?php echo hub_h($t('selectAvailable')); ?></button>
       </div>
       <div class="command-box">
         <code id="installCommand"><?php echo hub_h(hub_install_command($defaultIds === '' ? [] : explode(',', $defaultIds))); ?></code>
-        <button class="primary" id="copyInstall">Copy</button>
+        <button class="primary" id="copyInstall"><?php echo hub_h($t('copy')); ?></button>
       </div>
     </section>
 
     <div id="connectors" class="connector-filter">
-      <input id="connectorSearch" type="search" placeholder="Filter connectors by name, summary or URI scheme…" aria-label="Filter connectors" autocomplete="off">
+      <input id="connectorSearch" type="search" placeholder="<?php echo hub_h($t('filterPlaceholder')); ?>" aria-label="<?php echo hub_h($t('filterAria')); ?>" autocomplete="off">
       <span id="connectorCount" class="muted-count"></span>
     </div>
 
-    <section class="connectors" aria-label="Connectors">
+    <section class="connectors" aria-label="<?php echo hub_h($t('connectorsAria')); ?>">
       <?php foreach ($connectors as $connector): ?>
         <?php
           $id = (string) $connector['id'];
@@ -120,13 +161,13 @@ $jsonLd = [
             <input type="checkbox" class="connector-check" value="<?php echo hub_h($id); ?>" <?php echo $disabled ? 'disabled' : 'checked'; ?>>
             <span>
               <strong><?php echo hub_h((string) $connector['name']); ?></strong>
-              <em class="status <?php echo hub_h($status); ?>"><?php echo hub_h($status); ?></em>
-              <em class="prov <?php echo hub_h($provenance); ?>" title="<?php echo $provenance === 'verified' ? 'Maintained and audited by if-uri' : 'Third-party community connector'; ?>"><?php echo $provenance === 'verified' ? '✓ verified' : 'community'; ?></em>
+              <em class="status <?php echo hub_h($status); ?>"><?php echo hub_h($status === 'available' ? $t('statusAvailable') : ($status === 'planned' ? $t('statusPlanned') : $status)); ?></em>
+              <em class="prov <?php echo hub_h($provenance); ?>" title="<?php echo hub_h($provenance === 'verified' ? $t('verifiedTitle') : $t('communityTitle')); ?>"><?php echo hub_h($provenance === 'verified' ? $t('verified') : $t('community')); ?></em>
             </span>
           </label>
-          <p class="category"><?php echo hub_h((string) ($connector['category'] ?? 'Connector')); ?></p>
+          <p class="category"><?php echo hub_h((string) ($connector['category'] ?? $t('categoryFallback'))); ?></p>
           <p><?php echo hub_h((string) $connector['summary']); ?></p>
-          <div class="schemes" aria-label="URI schemes">
+          <div class="schemes" aria-label="<?php echo hub_h($t('schemesAria')); ?>">
             <?php foreach (($connector['uriSchemes'] ?? []) as $scheme): ?>
               <span><?php echo hub_h((string) $scheme); ?>://</span>
             <?php endforeach; ?>
@@ -137,19 +178,19 @@ $jsonLd = [
             <?php endforeach; ?>
           </div>
           <div class="connector-foot">
-            <a href="<?php echo hub_h(hub_connector_path($connector)); ?>">Details</a>
-            <a href="<?php echo hub_h((string) ($connector['docsUrl'] ?? 'https://github.com/if-uri/docs')); ?>">Docs</a>
-            <button data-copy="<?php echo hub_h(hub_install_command([$id])); ?>" <?php echo $disabled ? 'disabled' : ''; ?>>Copy install</button>
+            <a href="<?php echo hub_h(hub_connector_path($connector)); ?>"><?php echo hub_h($t('details')); ?></a>
+            <a href="<?php echo hub_h((string) ($connector['docsUrl'] ?? 'https://github.com/if-uri/docs')); ?>"><?php echo hub_h($t('docs')); ?></a>
+            <button data-copy="<?php echo hub_h(hub_install_command([$id])); ?>" <?php echo $disabled ? 'disabled' : ''; ?>><?php echo hub_h($t('copyInstall')); ?></button>
           </div>
         </article>
       <?php endforeach; ?>
-      <p id="noResults" class="no-results" hidden>No connectors match your filter.</p>
+      <p id="noResults" class="no-results" hidden><?php echo hub_h($t('noResults')); ?></p>
     </section>
 
     <section class="panel split">
       <div>
-        <h2>Machine endpoints</h2>
-        <p>ifuri app and future registry tooling can read the same catalog as users.</p>
+        <h2><?php echo hub_h($t('machineTitle')); ?></h2>
+        <p><?php echo hub_h($t('machineLead')); ?></p>
       </div>
       <div class="links">
         <a href="/connectors.json">/connectors.json</a>
@@ -164,8 +205,8 @@ $jsonLd = [
     <?php if ($ecosystem !== []): ?>
       <section class="panel split">
         <div>
-          <h2>ifuri ecosystem</h2>
-          <p>Use these public entry points together: website, one-line installer and connector hub.</p>
+          <h2><?php echo hub_h($t('ecoTitle')); ?></h2>
+          <p><?php echo hub_h($t('ecoLead')); ?></p>
         </div>
         <div class="links">
           <?php foreach ($ecosystem as $item): ?>
@@ -183,8 +224,8 @@ $jsonLd = [
   </main>
 
   <footer class="wrap footer">
-    <span>Catalog version <?php echo hub_h((string) ($catalog['version'] ?? 'unknown')); ?></span>
-    <span>Site v<?php echo hub_h(hub_version()); ?></span>
+    <span><?php echo hub_h($t('footerCatalog')); ?> <?php echo hub_h((string) ($catalog['version'] ?? 'unknown')); ?></span>
+    <span><?php echo hub_h($t('footerSite')); ?><?php echo hub_h(hub_version()); ?></span>
     <?php if (!empty($site['ecosystem'])): ?>
       <nav class="footer-eco" aria-label="ifuri ecosystem">
         <?php foreach ($site['ecosystem'] as $eco): ?>
@@ -192,10 +233,11 @@ $jsonLd = [
         <?php endforeach; ?>
       </nav>
     <?php endif; ?>
-    <span>Updated <?php echo hub_h((string) ($catalog['updatedAt'] ?? 'unknown')); ?></span>
+    <span><?php echo hub_h($t('footerUpdated')); ?> <?php echo hub_h((string) ($catalog['updatedAt'] ?? 'unknown')); ?></span>
   </footer>
 
-  <script>window.CONNECT_HUB_BASE = <?php echo json_encode(hub_base_url(), JSON_UNESCAPED_SLASHES); ?>;</script>
+  <script>window.CONNECT_HUB_BASE = <?php echo json_encode(hub_base_url(), JSON_UNESCAPED_SLASHES); ?>;
+window.CONNECT_I18N = <?php echo json_encode($jsLang, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE); ?>;</script>
   <script src="/assets/app.js"></script>
   <script src="/assets/ifuri-ecobar.js" defer></script>
 </body>

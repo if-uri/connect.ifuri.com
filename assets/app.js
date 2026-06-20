@@ -33,7 +33,7 @@ async function copyText(value, button) {
     input.remove();
   }
   const previous = button.textContent;
-  button.textContent = 'Copied';
+  button.textContent = (window.CONNECT_I18N && window.CONNECT_I18N.copied) || 'Copied';
   window.setTimeout(() => {
     button.textContent = previous;
   }, 1400);
@@ -79,7 +79,8 @@ function filterConnectors() {
     card.classList.toggle('hidden', !match);
     if (match) visible += 1;
   });
-  if (count) count.textContent = term ? `${visible} of ${cards.length}` : '';
+  const ofWord = (window.CONNECT_I18N && window.CONNECT_I18N.of) || 'of';
+  if (count) count.textContent = term ? `${visible} ${ofWord} ${cards.length}` : '';
   if (noResults) noResults.hidden = visible !== 0;
 }
 
