@@ -17,6 +17,7 @@ python3 -m json.tool schema/connectors.schema.json >/tmp/connect-ifuri-schema.js
 python3 tools/build_catalog.py --check
 python3 tests/policy_test.py
 php tests/snapshot_test.php
+php tests/sign_test.php
 
 python3 - <<'PY'
 import json

@@ -39,6 +39,7 @@ $description = (string) ($connector['description'] ?? $connector['summary'] ?? '
 $installCommand = hub_install_command([(string) $connector['id']]);
 $status = (string) ($connector['status'] ?? 'planned');
 $provenance = (string) ($connector['provenance'] ?? 'community');
+$signed = hub_connector_verified($id);
 $isAvailable = $status === 'available';
 $jsonLd = [
     '@context' => 'https://schema.org',
@@ -112,6 +113,7 @@ $jsonLd = [
         </div>
         <em class="status <?php echo hub_h($status); ?>"><?php echo hub_h($status === 'available' ? hub_t('statusAvailable') : ($status === 'planned' ? hub_t('statusPlanned') : $status)); ?></em>
         <em class="prov <?php echo hub_h($provenance); ?>" title="<?php echo hub_h($provenance === 'verified' ? hub_t('verifiedTitle') : hub_t('communityTitle')); ?>"><?php echo hub_h($provenance === 'verified' ? hub_t('verified') : hub_t('community')); ?></em>
+        <?php if ($signed): ?><em class="prov verified" title="Manifest signed by a trusted publisher (Ed25519)">&#x1F512; signed</em><?php endif; ?>
       </div>
       <div class="hero-actions">
         <button class="primary" data-copy="<?php echo hub_h($installCommand); ?>" <?php echo $isAvailable ? '' : 'disabled'; ?>><?php echo hub_h(hub_t('copyInstall')); ?></button>

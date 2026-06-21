@@ -66,7 +66,8 @@
             },
             "docsUrl": "https://github.com/if-uri/urirun-connector-planfile",
             "hubUrl": "https://connect.ifuri.com/connectors/planfile",
-            "manifestUrl": "https://connect.ifuri.com/connectors/planfile.json"
+            "manifestUrl": "https://connect.ifuri.com/connectors/planfile.json",
+            "verified": false
         },
         {
             "id": "sqlite-context",
@@ -141,7 +142,8 @@
             },
             "docsUrl": "https://github.com/if-uri/urirun-connector-sqlite-context",
             "hubUrl": "https://connect.ifuri.com/connectors/sqlite-context",
-            "manifestUrl": "https://connect.ifuri.com/connectors/sqlite-context.json"
+            "manifestUrl": "https://connect.ifuri.com/connectors/sqlite-context.json",
+            "verified": false
         },
         {
             "id": "domain-monitor",
@@ -205,7 +207,8 @@
             },
             "docsUrl": "https://github.com/if-uri/urirun-connector-domain-monitor",
             "hubUrl": "https://connect.ifuri.com/connectors/domain-monitor",
-            "manifestUrl": "https://connect.ifuri.com/connectors/domain-monitor.json"
+            "manifestUrl": "https://connect.ifuri.com/connectors/domain-monitor.json",
+            "verified": false
         },
         {
             "id": "http-check",
@@ -239,7 +242,8 @@
             },
             "docsUrl": "https://github.com/if-uri/urirun-connector-http-check",
             "hubUrl": "https://connect.ifuri.com/connectors/http-check",
-            "manifestUrl": "https://connect.ifuri.com/connectors/http-check.json"
+            "manifestUrl": "https://connect.ifuri.com/connectors/http-check.json",
+            "verified": false
         },
         {
             "id": "time-tools",
@@ -281,7 +285,8 @@
             },
             "docsUrl": "https://github.com/if-uri/urirun-connector-time-tools",
             "hubUrl": "https://connect.ifuri.com/connectors/time-tools",
-            "manifestUrl": "https://connect.ifuri.com/connectors/time-tools.json"
+            "manifestUrl": "https://connect.ifuri.com/connectors/time-tools.json",
+            "verified": false
         },
         {
             "id": "namecheap-dns",
@@ -341,7 +346,8 @@
             },
             "docsUrl": "https://github.com/if-uri/urirun-connector-namecheap-dns",
             "hubUrl": "https://connect.ifuri.com/connectors/namecheap-dns",
-            "manifestUrl": "https://connect.ifuri.com/connectors/namecheap-dns.json"
+            "manifestUrl": "https://connect.ifuri.com/connectors/namecheap-dns.json",
+            "verified": false
         },
         {
             "id": "grpc-transport",
@@ -377,7 +383,8 @@
             },
             "docsUrl": "https://github.com/if-uri/docs",
             "hubUrl": "https://connect.ifuri.com/connectors/grpc-transport",
-            "manifestUrl": "https://connect.ifuri.com/connectors/grpc-transport.json"
+            "manifestUrl": "https://connect.ifuri.com/connectors/grpc-transport.json",
+            "verified": false
         },
         {
             "id": "mqtt",
@@ -413,7 +420,8 @@
             },
             "docsUrl": "https://github.com/if-uri/examples",
             "hubUrl": "https://connect.ifuri.com/connectors/mqtt",
-            "manifestUrl": "https://connect.ifuri.com/connectors/mqtt.json"
+            "manifestUrl": "https://connect.ifuri.com/connectors/mqtt.json",
+            "verified": false
         },
         {
             "id": "browser-control",
@@ -456,7 +464,8 @@
             },
             "docsUrl": "https://github.com/if-uri/urirun-connector-browser-control",
             "hubUrl": "https://connect.ifuri.com/connectors/browser-control",
-            "manifestUrl": "https://connect.ifuri.com/connectors/browser-control.json"
+            "manifestUrl": "https://connect.ifuri.com/connectors/browser-control.json",
+            "verified": false
         },
         {
             "id": "get-node",
@@ -491,7 +500,8 @@
             },
             "docsUrl": "https://get.ifuri.com",
             "hubUrl": "https://connect.ifuri.com/connectors/get-node",
-            "manifestUrl": "https://connect.ifuri.com/connectors/get-node.json"
+            "manifestUrl": "https://connect.ifuri.com/connectors/get-node.json",
+            "verified": false
         },
         {
             "id": "kvm",
@@ -527,7 +537,8 @@
             },
             "docsUrl": "https://github.com/if-uri/examples",
             "hubUrl": "https://connect.ifuri.com/connectors/kvm",
-            "manifestUrl": "https://connect.ifuri.com/connectors/kvm.json"
+            "manifestUrl": "https://connect.ifuri.com/connectors/kvm.json",
+            "verified": false
         },
         {
             "id": "llm",
@@ -564,7 +575,8 @@
             },
             "docsUrl": "https://github.com/if-uri/examples",
             "hubUrl": "https://connect.ifuri.com/connectors/llm",
-            "manifestUrl": "https://connect.ifuri.com/connectors/llm.json"
+            "manifestUrl": "https://connect.ifuri.com/connectors/llm.json",
+            "verified": false
         },
         {
             "id": "mcp-filesystem",
@@ -600,7 +612,8 @@
             },
             "docsUrl": "https://modelcontextprotocol.io",
             "hubUrl": "https://connect.ifuri.com/connectors/mcp-filesystem",
-            "manifestUrl": "https://connect.ifuri.com/connectors/mcp-filesystem.json"
+            "manifestUrl": "https://connect.ifuri.com/connectors/mcp-filesystem.json",
+            "verified": false
         }
     ]
 }

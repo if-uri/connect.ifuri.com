@@ -373,6 +373,7 @@ function hub_registry_entry(array $connector): array
         'docsUrl' => $connector['docsUrl'] ?? null,
         'hubUrl' => hub_connector_url($connector),
         'manifestUrl' => hub_connector_json_url($connector),
+        'verified' => hub_connector_verified($connector['id'] ?? null),
     ];
 }
 
@@ -735,4 +736,103 @@ function hub_rate_limit(string $bucket, string $id, int $max, int $window): bool
     $times[] = $now;
     @file_put_contents($file, implode("\n", $times), LOCK_EX);
     return true;
+}
+
+// ---------------------------------------------------------------------------
+// Connector trust: optional Ed25519-signed manifests + a signature-backed badge.
+// A manifest carries a detached signature under `trust`; the hub verifies it
+// against an allowlisted publisher keyring (data/publishers.json). Only a valid
+// signature from a trusted publisher counts as "verified" — `provenance` alone
+// (self-asserted) does not.
+// ---------------------------------------------------------------------------
+
+function hub_publishers_path(): string
+{
+    $env = getenv('IFURI_PUBLISHERS_FILE');
+    return $env !== false && $env !== '' ? $env : hub_base_path() . '/data/publishers.json';
+}
+
+function hub_trusted_publishers(): array
+{
+    $pubs = [];
+    $path = hub_publishers_path();
+    if (is_file($path)) {
+        $data = json_decode((string) @file_get_contents($path), true);
+        foreach (($data['publishers'] ?? []) as $p) {
+            if (!empty($p['id']) && !empty($p['publicKey'])) {
+                $pubs[(string) $p['id']] = $p;
+            }
+        }
+    }
+    return $pubs;
+}
+
+/**
+ * Canonical manifest bytes for signing/verification: the manifest minus its
+ * `trust` block, keys sorted recursively, compact JSON. Deterministic and
+ * language-agnostic (byte-identical to the Python canonicaliser).
+ */
+function hub_canonical_manifest(array $manifest): string
+{
+    unset($manifest['trust']);
+    $sort = static function (&$value) use (&$sort): void {
+        if (is_array($value)) {
+            if (array_keys($value) !== range(0, count($value) - 1)) {
+                ksort($value);
+            }
+            foreach ($value as &$child) {
+                $sort($child);
+            }
+        }
+    };
+    $sort($manifest);
+    return json_encode($manifest, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+}
+
+/**
+ * Verify a manifest's detached Ed25519 signature against the trusted publisher
+ * keyring. True only for a valid signature from an allowlisted publisher.
+ */
+function hub_manifest_verified(array $manifest): bool
+{
+    $trust = $manifest['trust'] ?? null;
+    if (!is_array($trust) || ($trust['alg'] ?? '') !== 'ed25519') {
+        return false;
+    }
+    $pubId = (string) ($trust['publisherId'] ?? '');
+    $sigB64 = (string) ($trust['signature'] ?? '');
+    $publishers = hub_trusted_publishers();
+    if ($pubId === '' || $sigB64 === '' || !isset($publishers[$pubId])) {
+        return false;
+    }
+    $sig = base64_decode($sigB64, true);
+    $key = base64_decode((string) $publishers[$pubId]['publicKey'], true);
+    if ($sig === false || $key === false
+        || strlen($key) !== SODIUM_CRYPTO_SIGN_PUBLICKEYBYTES
+        || strlen($sig) !== SODIUM_CRYPTO_SIGN_BYTES) {
+        return false;
+    }
+    try {
+        return sodium_crypto_sign_verify_detached($sig, hub_canonical_manifest($manifest), $key);
+    } catch (\SodiumException $e) {
+        return false;
+    }
+}
+
+/**
+ * Whether a catalog connector is signature-verified — reads the connector's own
+ * manifest file (the signed artifact), so it is independent of catalog transforms.
+ */
+function hub_connector_verified(?string $id): bool
+{
+    $id = (string) $id;
+    if ($id === '' || !preg_match('/^[a-z0-9][a-z0-9-]*$/', $id)) {
+        return false;
+    }
+    $path = hub_base_path() . '/data/connectors/' . $id . '/manifest.json';
+    if (!is_file($path)) {
+        return false;
+    }
+    $manifest = json_decode((string) @file_get_contents($path), true);
+    return is_array($manifest) && hub_manifest_verified($manifest);
 }

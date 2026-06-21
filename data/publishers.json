@@ -1,0 +1,5 @@
+{
+  "version": "ifuri.publishers.v1",
+  "_doc": "Trusted connector publishers. A connector manifest is shown as signature-verified only when its trust.signature is a valid Ed25519 signature from a publisher listed here. Add an entry: {id, name, publicKey (base64 Ed25519), url?}. Generate keys with scripts/sign-manifest.php keygen.",
+  "publishers": []
+}

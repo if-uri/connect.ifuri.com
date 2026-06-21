@@ -11,6 +11,7 @@ submissions and edits are never clobbered by a push.
 | `connectors/<id>/manifest.json` | Per-connector manifest (one folder per connector). Validated against [`../schema/connector.schema.json`](../schema/connector.schema.json). `id` must equal the folder name. |
 | `connectors.json` | Aggregated catalog served at `/connectors.json`. **Generated** from the per-connector manifests by `make build-catalog` (`tools/build_catalog.py`); validated against [`../schema/connectors.schema.json`](../schema/connectors.schema.json). |
 | `catalog.meta.json` | Catalog-wide metadata: `version`, `updatedAt`, `defaultPipSpec`, and `site` (titles, ecosystem links). |
+| `publishers.json` | Trusted connector-publisher keyring (Ed25519 public keys). A manifest's optional `trust` signature is verified against this list to earn the signature "verified" badge. Sign/verify with `scripts/sign-manifest.php`. |
 
 ## Workflow
 

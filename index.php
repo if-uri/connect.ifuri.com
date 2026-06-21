@@ -114,6 +114,7 @@ $jsonLd = [
           $id = (string) $connector['id'];
           $status = (string) ($connector['status'] ?? 'planned');
           $provenance = (string) ($connector['provenance'] ?? 'community');
+          $signed = hub_connector_verified($id);
           $disabled = $status !== 'available';
           $search = strtolower(trim($id . ' ' . (string) $connector['name'] . ' ' . (string) $connector['summary'] . ' ' . (string) ($connector['category'] ?? '') . ' ' . implode(' ', $connector['uriSchemes'] ?? []) . ' ' . implode(' ', $connector['routes'] ?? []) . ' ' . implode(' ', $connector['keywords'] ?? [])));
         ?>
@@ -124,6 +125,7 @@ $jsonLd = [
               <strong><?php echo hub_h((string) $connector['name']); ?></strong>
               <em class="status <?php echo hub_h($status); ?>"><?php echo hub_h($status === 'available' ? hub_t('statusAvailable') : ($status === 'planned' ? hub_t('statusPlanned') : $status)); ?></em>
               <em class="prov <?php echo hub_h($provenance); ?>" title="<?php echo hub_h($provenance === 'verified' ? hub_t('verifiedTitle') : hub_t('communityTitle')); ?>"><?php echo hub_h($provenance === 'verified' ? hub_t('verified') : hub_t('community')); ?></em>
+              <?php if ($signed): ?><em class="prov verified" title="Manifest signed by a trusted publisher (Ed25519)">&#x1F512; signed</em><?php endif; ?>
             </span>
           </label>
           <p class="category"><?php echo hub_h((string) ($connector['category'] ?? hub_t('categoryFallback'))); ?></p>

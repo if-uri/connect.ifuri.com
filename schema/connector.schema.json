@@ -67,7 +67,19 @@
       }
     },
     "icon": { "type": "string", "description": "Folder-relative path to an SVG icon (e.g. icon.svg). Resolved to a hub URL during aggregation." },
-    "readme": { "type": "string", "description": "Folder-relative path to long-form Markdown docs (e.g. README.md)." }
+    "readme": { "type": "string", "description": "Folder-relative path to long-form Markdown docs (e.g. README.md)." },
+    "trust": {
+      "type": "object",
+      "description": "Optional detached Ed25519 signature over the canonical manifest (minus this block). Verified against data/publishers.json; backs the signature 'verified' badge. Generate with scripts/sign-manifest.php.",
+      "required": ["alg", "publisherId", "signature"],
+      "additionalProperties": false,
+      "properties": {
+        "alg": { "type": "string", "const": "ed25519" },
+        "publisherId": { "type": "string", "pattern": "^[a-z0-9][a-z0-9._-]*$" },
+        "signature": { "type": "string", "description": "base64-encoded detached signature" },
+        "signedAt": { "type": "string" }
+      }
+    }
   },
   "allOf": [
     {
