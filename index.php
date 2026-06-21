@@ -70,6 +70,8 @@ $jsonLd = [
         <span>connect.ifuri.com</span>
       </a>
       <nav>
+        <a href="https://ifuri.com/">ifuri.com</a>
+        <a href="https://docs.ifuri.com/">Docs</a>
         <a href="#connectors"><?php echo hub_h(hub_t('navConnectors')); ?></a>
         <a href="/categories"><?php echo hub_h(hub_t('navCategories')); ?></a>
         <a href="/submit"><?php echo hub_h(hub_t('navSubmit')); ?></a>
