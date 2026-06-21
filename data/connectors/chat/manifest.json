@@ -1,0 +1,55 @@
+{
+  "id": "chat",
+  "name": "Chat Bridge",
+  "status": "planned",
+  "category": "Messaging",
+  "summary": "Deprecated chat bridge \u2014 map transcript to URI and forward to urisys RDP stack.",
+  "description": "Deprecated chat bridge \u2014 map transcript to URI and forward to urisys RDP stack. A tellmesh capability pack adopted into urirun via its manifest (`urirun adopt-pack`): 2 chat:// routes mapped 1:1 to bindings.v2, validated, ready to project to MCP tools / A2A skills.",
+  "uriSchemes": [
+    "chat"
+  ],
+  "routes": [
+    "chat://local/message/command/send",
+    "chat://local/uri/command/execute"
+  ],
+  "useCases": [
+    "Address chat:// capabilities as URIs in a flow.",
+    "Project Chat Bridge operations to MCP tools / A2A skills.",
+    "Adopt the pack with one command, no code change."
+  ],
+  "examples": [
+    {
+      "title": "Chat Bridge \u2014 first route",
+      "uri": "chat://local/message/command/send",
+      "payload": {}
+    }
+  ],
+  "flowExample": [
+    "chat://local/message/command/send",
+    "chat://local/uri/command/execute"
+  ],
+  "requires": [
+    "the tellmesh 'urichat' pack (GitHub) for real handlers; dispatch works simulated without it"
+  ],
+  "install": {
+    "mode": "planned",
+    "pipSpec": "urichat"
+  },
+  "adapterKinds": [
+    "local-function"
+  ],
+  "docsUrl": "https://docs.ifuri.com/adopt-as-uri.html",
+  "keywords": [
+    "chat",
+    "chat bridge",
+    "tellmesh",
+    "capability pack",
+    "uri"
+  ],
+  "provenance": "community",
+  "publisher": {
+    "name": "tellmesh",
+    "url": "https://github.com/tellmesh",
+    "github": "https://github.com/tellmesh"
+  }
+}

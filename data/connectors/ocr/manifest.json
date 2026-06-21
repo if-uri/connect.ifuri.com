@@ -1,0 +1,55 @@
+{
+  "id": "ocr",
+  "name": "OCR",
+  "status": "planned",
+  "category": "Vision",
+  "summary": "OCR text extraction from latest screenshot or image id (mock/tesseract).",
+  "description": "OCR text extraction from latest screenshot or image id (mock/tesseract). A tellmesh capability pack adopted into urirun via its manifest (`urirun adopt-pack`): 2 ocr:// routes mapped 1:1 to bindings.v2, validated, ready to project to MCP tools / A2A skills.",
+  "uriSchemes": [
+    "ocr"
+  ],
+  "routes": [
+    "ocr://host/image/latest/query/text",
+    "ocr://host/image/image_id/query/text"
+  ],
+  "useCases": [
+    "Address ocr:// capabilities as URIs in a flow.",
+    "Project OCR operations to MCP tools / A2A skills.",
+    "Adopt the pack with one command, no code change."
+  ],
+  "examples": [
+    {
+      "title": "OCR \u2014 first route",
+      "uri": "ocr://host/image/latest/query/text",
+      "payload": {}
+    }
+  ],
+  "flowExample": [
+    "ocr://host/image/latest/query/text",
+    "ocr://host/image/image_id/query/text"
+  ],
+  "requires": [
+    "the tellmesh 'uriocr' pack (GitHub) for real handlers; dispatch works simulated without it"
+  ],
+  "install": {
+    "mode": "planned",
+    "pipSpec": "uriocr"
+  },
+  "adapterKinds": [
+    "local-function"
+  ],
+  "docsUrl": "https://docs.ifuri.com/adopt-as-uri.html",
+  "keywords": [
+    "ocr",
+    "ocr",
+    "tellmesh",
+    "capability pack",
+    "uri"
+  ],
+  "provenance": "community",
+  "publisher": {
+    "name": "tellmesh",
+    "url": "https://github.com/tellmesh",
+    "github": "https://github.com/tellmesh"
+  }
+}

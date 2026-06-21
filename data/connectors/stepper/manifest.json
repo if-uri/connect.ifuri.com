@@ -1,0 +1,60 @@
+{
+  "id": "stepper",
+  "name": "Stepper Motor",
+  "status": "planned",
+  "category": "Devices",
+  "summary": "Stepper motor URI pack (mock + rpi-gpio-step-dir drivers).",
+  "description": "Stepper motor URI pack (mock + rpi-gpio-step-dir drivers). A tellmesh capability pack adopted into urirun via its manifest (`urirun adopt-pack`): 7 stepper:// routes mapped 1:1 to bindings.v2, validated, ready to project to MCP tools / A2A skills.",
+  "uriSchemes": [
+    "stepper"
+  ],
+  "routes": [
+    "stepper://device/axis/axis/query/status",
+    "stepper://device/axis/axis/command/enable",
+    "stepper://device/axis/axis/command/disable",
+    "stepper://device/axis/axis/command/stop",
+    "stepper://device/axis/axis/command/home",
+    "stepper://device/axis/axis/command/move-relative",
+    "stepper://device/axis/axis/command/move-absolute"
+  ],
+  "useCases": [
+    "Address stepper:// capabilities as URIs in a flow.",
+    "Project Stepper Motor operations to MCP tools / A2A skills.",
+    "Adopt the pack with one command, no code change."
+  ],
+  "examples": [
+    {
+      "title": "Stepper Motor \u2014 first route",
+      "uri": "stepper://device/axis/axis/query/status",
+      "payload": {}
+    }
+  ],
+  "flowExample": [
+    "stepper://device/axis/axis/query/status",
+    "stepper://device/axis/axis/command/enable"
+  ],
+  "requires": [
+    "the tellmesh 'uristepper' pack (GitHub) for real handlers; dispatch works simulated without it"
+  ],
+  "install": {
+    "mode": "planned",
+    "pipSpec": "uristepper"
+  },
+  "adapterKinds": [
+    "local-function"
+  ],
+  "docsUrl": "https://docs.ifuri.com/adopt-as-uri.html",
+  "keywords": [
+    "stepper",
+    "stepper motor",
+    "tellmesh",
+    "capability pack",
+    "uri"
+  ],
+  "provenance": "community",
+  "publisher": {
+    "name": "tellmesh",
+    "url": "https://github.com/tellmesh",
+    "github": "https://github.com/tellmesh"
+  }
+}

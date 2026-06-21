@@ -1,0 +1,58 @@
+{
+  "id": "rdp",
+  "name": "RDP Desktop",
+  "status": "planned",
+  "category": "Desktop",
+  "summary": "RDP session and X11 display queries for urirdp-docker.",
+  "description": "RDP session and X11 display queries for urirdp-docker. A tellmesh capability pack adopted into urirun via its manifest (`urirun adopt-pack`): 5 rdp:// routes mapped 1:1 to bindings.v2, validated, ready to project to MCP tools / A2A skills.",
+  "uriSchemes": [
+    "rdp"
+  ],
+  "routes": [
+    "rdp://host/session/query/status",
+    "rdp://host/session/query/display",
+    "rdp://host/display/query/status",
+    "rdp://host/session/command/prepare-target",
+    "rdp://host/session/command/dismiss-target"
+  ],
+  "useCases": [
+    "Address rdp:// capabilities as URIs in a flow.",
+    "Project RDP Desktop operations to MCP tools / A2A skills.",
+    "Adopt the pack with one command, no code change."
+  ],
+  "examples": [
+    {
+      "title": "RDP Desktop \u2014 first route",
+      "uri": "rdp://host/session/query/status",
+      "payload": {}
+    }
+  ],
+  "flowExample": [
+    "rdp://host/session/query/status",
+    "rdp://host/session/query/display"
+  ],
+  "requires": [
+    "the tellmesh 'urirdp' pack (GitHub) for real handlers; dispatch works simulated without it"
+  ],
+  "install": {
+    "mode": "planned",
+    "pipSpec": "urirdp"
+  },
+  "adapterKinds": [
+    "local-function"
+  ],
+  "docsUrl": "https://docs.ifuri.com/adopt-as-uri.html",
+  "keywords": [
+    "rdp",
+    "rdp desktop",
+    "tellmesh",
+    "capability pack",
+    "uri"
+  ],
+  "provenance": "community",
+  "publisher": {
+    "name": "tellmesh",
+    "url": "https://github.com/tellmesh",
+    "github": "https://github.com/tellmesh"
+  }
+}

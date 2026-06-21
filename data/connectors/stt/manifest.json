@@ -1,0 +1,56 @@
+{
+  "id": "stt",
+  "name": "Speech to Text",
+  "status": "planned",
+  "category": "Voice",
+  "summary": "Speech-to-text pack (mock MVP; browser passthrough + audio transcribe).",
+  "description": "Speech-to-text pack (mock MVP; browser passthrough + audio transcribe). A tellmesh capability pack adopted into urirun via its manifest (`urirun adopt-pack`): 3 stt:// routes mapped 1:1 to bindings.v2, validated, ready to project to MCP tools / A2A skills.",
+  "uriSchemes": [
+    "stt"
+  ],
+  "routes": [
+    "stt://local/session/session/command/start",
+    "stt://local/session/session/query/transcript",
+    "stt://local/audio/command/transcribe"
+  ],
+  "useCases": [
+    "Address stt:// capabilities as URIs in a flow.",
+    "Project Speech to Text operations to MCP tools / A2A skills.",
+    "Adopt the pack with one command, no code change."
+  ],
+  "examples": [
+    {
+      "title": "Speech to Text \u2014 first route",
+      "uri": "stt://local/session/session/command/start",
+      "payload": {}
+    }
+  ],
+  "flowExample": [
+    "stt://local/session/session/command/start",
+    "stt://local/session/session/query/transcript"
+  ],
+  "requires": [
+    "the tellmesh 'uristt' pack (GitHub) for real handlers; dispatch works simulated without it"
+  ],
+  "install": {
+    "mode": "planned",
+    "pipSpec": "uristt"
+  },
+  "adapterKinds": [
+    "local-function"
+  ],
+  "docsUrl": "https://docs.ifuri.com/adopt-as-uri.html",
+  "keywords": [
+    "stt",
+    "speech to text",
+    "tellmesh",
+    "capability pack",
+    "uri"
+  ],
+  "provenance": "community",
+  "publisher": {
+    "name": "tellmesh",
+    "url": "https://github.com/tellmesh",
+    "github": "https://github.com/tellmesh"
+  }
+}

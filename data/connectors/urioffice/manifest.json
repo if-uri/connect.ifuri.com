@@ -1,0 +1,58 @@
+{
+  "id": "urioffice",
+  "name": "Office Documents",
+  "status": "planned",
+  "category": "Files",
+  "summary": "Office document mock/writer/LibreOffice automation for urisys-node.",
+  "description": "Office document mock/writer/LibreOffice automation for urisys-node. A tellmesh capability pack adopted into urirun via its manifest (`urirun adopt-pack`): 5 urioffice:// routes mapped 1:1 to bindings.v2, validated, ready to project to MCP tools / A2A skills.",
+  "uriSchemes": [
+    "urioffice"
+  ],
+  "routes": [
+    "urioffice://host/query/status",
+    "urioffice://host/document/command/open",
+    "urioffice://host/document/command/save",
+    "urioffice://host/document/command/export-pdf",
+    "urioffice://host/writer/command/render"
+  ],
+  "useCases": [
+    "Address urioffice:// capabilities as URIs in a flow.",
+    "Project Office Documents operations to MCP tools / A2A skills.",
+    "Adopt the pack with one command, no code change."
+  ],
+  "examples": [
+    {
+      "title": "Office Documents \u2014 first route",
+      "uri": "urioffice://host/query/status",
+      "payload": {}
+    }
+  ],
+  "flowExample": [
+    "urioffice://host/query/status",
+    "urioffice://host/document/command/open"
+  ],
+  "requires": [
+    "the tellmesh 'urioffice' pack (GitHub) for real handlers; dispatch works simulated without it"
+  ],
+  "install": {
+    "mode": "planned",
+    "pipSpec": "urioffice"
+  },
+  "adapterKinds": [
+    "local-function"
+  ],
+  "docsUrl": "https://docs.ifuri.com/adopt-as-uri.html",
+  "keywords": [
+    "urioffice",
+    "office documents",
+    "tellmesh",
+    "capability pack",
+    "uri"
+  ],
+  "provenance": "community",
+  "publisher": {
+    "name": "tellmesh",
+    "url": "https://github.com/tellmesh",
+    "github": "https://github.com/tellmesh"
+  }
+}

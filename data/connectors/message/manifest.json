@@ -1,0 +1,53 @@
+{
+  "id": "message",
+  "name": "Messaging",
+  "status": "planned",
+  "category": "Messaging",
+  "summary": "Simple alert/message dispatch mock for lab and node.",
+  "description": "Simple alert/message dispatch mock for lab and node. A tellmesh capability pack adopted into urirun via its manifest (`urirun adopt-pack`): 1 message:// routes mapped 1:1 to bindings.v2, validated, ready to project to MCP tools / A2A skills.",
+  "uriSchemes": [
+    "message"
+  ],
+  "routes": [
+    "message://local/alert/command/send"
+  ],
+  "useCases": [
+    "Address message:// capabilities as URIs in a flow.",
+    "Project Messaging operations to MCP tools / A2A skills.",
+    "Adopt the pack with one command, no code change."
+  ],
+  "examples": [
+    {
+      "title": "Messaging \u2014 first route",
+      "uri": "message://local/alert/command/send",
+      "payload": {}
+    }
+  ],
+  "flowExample": [
+    "message://local/alert/command/send"
+  ],
+  "requires": [
+    "the tellmesh 'urimessage' pack (GitHub) for real handlers; dispatch works simulated without it"
+  ],
+  "install": {
+    "mode": "planned",
+    "pipSpec": "urimessage"
+  },
+  "adapterKinds": [
+    "local-function"
+  ],
+  "docsUrl": "https://docs.ifuri.com/adopt-as-uri.html",
+  "keywords": [
+    "message",
+    "messaging",
+    "tellmesh",
+    "capability pack",
+    "uri"
+  ],
+  "provenance": "community",
+  "publisher": {
+    "name": "tellmesh",
+    "url": "https://github.com/tellmesh",
+    "github": "https://github.com/tellmesh"
+  }
+}

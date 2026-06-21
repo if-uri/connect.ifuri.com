@@ -692,6 +692,61 @@
       }
     },
     {
+      "id": "chat",
+      "name": "Chat Bridge",
+      "status": "planned",
+      "category": "Messaging",
+      "summary": "Deprecated chat bridge — map transcript to URI and forward to urisys RDP stack.",
+      "description": "Deprecated chat bridge — map transcript to URI and forward to urisys RDP stack. A tellmesh capability pack adopted into urirun via its manifest (`urirun adopt-pack`): 2 chat:// routes mapped 1:1 to bindings.v2, validated, ready to project to MCP tools / A2A skills.",
+      "uriSchemes": [
+        "chat"
+      ],
+      "routes": [
+        "chat://local/message/command/send",
+        "chat://local/uri/command/execute"
+      ],
+      "useCases": [
+        "Address chat:// capabilities as URIs in a flow.",
+        "Project Chat Bridge operations to MCP tools / A2A skills.",
+        "Adopt the pack with one command, no code change."
+      ],
+      "examples": [
+        {
+          "title": "Chat Bridge — first route",
+          "uri": "chat://local/message/command/send",
+          "payload": {}
+        }
+      ],
+      "flowExample": [
+        "chat://local/message/command/send",
+        "chat://local/uri/command/execute"
+      ],
+      "requires": [
+        "the tellmesh 'urichat' pack (GitHub) for real handlers; dispatch works simulated without it"
+      ],
+      "install": {
+        "mode": "planned",
+        "pipSpec": "urichat"
+      },
+      "adapterKinds": [
+        "local-function"
+      ],
+      "docsUrl": "https://docs.ifuri.com/adopt-as-uri.html",
+      "keywords": [
+        "chat",
+        "chat bridge",
+        "tellmesh",
+        "capability pack",
+        "uri"
+      ],
+      "provenance": "community",
+      "publisher": {
+        "name": "tellmesh",
+        "url": "https://github.com/tellmesh",
+        "github": "https://github.com/tellmesh"
+      }
+    },
+    {
       "id": "get-node",
       "name": "Get Node",
       "status": "planned",
@@ -747,6 +802,123 @@
         "name": "if-uri",
         "url": "https://ifuri.com",
         "github": "https://github.com/if-uri"
+      }
+    },
+    {
+      "id": "him",
+      "name": "Human-in-the-Middle",
+      "status": "planned",
+      "category": "Agents",
+      "summary": "Human input mock (mouse/keyboard) for urisys-node.",
+      "description": "Human input mock (mouse/keyboard) for urisys-node. A tellmesh capability pack adopted into urirun via its manifest (`urirun adopt-pack`): 8 him:// routes mapped 1:1 to bindings.v2, validated, ready to project to MCP tools / A2A skills.",
+      "uriSchemes": [
+        "him"
+      ],
+      "routes": [
+        "him://host/mouse/query/status",
+        "him://host/mouse/command/move",
+        "him://host/mouse/command/click",
+        "him://host/mouse/command/scroll",
+        "him://host/keyboard/command/type",
+        "him://host/keyboard/command/type-text",
+        "him://host/keyboard/command/hotkey",
+        "him://host/keyboard/command/key"
+      ],
+      "useCases": [
+        "Address him:// capabilities as URIs in a flow.",
+        "Project Human-in-the-Middle operations to MCP tools / A2A skills.",
+        "Adopt the pack with one command, no code change."
+      ],
+      "examples": [
+        {
+          "title": "Human-in-the-Middle — first route",
+          "uri": "him://host/mouse/query/status",
+          "payload": {}
+        }
+      ],
+      "flowExample": [
+        "him://host/mouse/query/status",
+        "him://host/mouse/command/move"
+      ],
+      "requires": [
+        "the tellmesh 'urihim' pack (GitHub) for real handlers; dispatch works simulated without it"
+      ],
+      "install": {
+        "mode": "planned",
+        "pipSpec": "urihim"
+      },
+      "adapterKinds": [
+        "local-function"
+      ],
+      "docsUrl": "https://docs.ifuri.com/adopt-as-uri.html",
+      "keywords": [
+        "him",
+        "human-in-the-middle",
+        "tellmesh",
+        "capability pack",
+        "uri"
+      ],
+      "provenance": "community",
+      "publisher": {
+        "name": "tellmesh",
+        "url": "https://github.com/tellmesh",
+        "github": "https://github.com/tellmesh"
+      }
+    },
+    {
+      "id": "img2nl",
+      "name": "Screen to Language",
+      "status": "planned",
+      "category": "Vision",
+      "summary": "Screen capture + UI target detection via img2nl (KVM eyes).",
+      "description": "Screen capture + UI target detection via img2nl (KVM eyes). A tellmesh capability pack adopted into urirun via its manifest (`urirun adopt-pack`): 3 img2nl:// routes mapped 1:1 to bindings.v2, validated, ready to project to MCP tools / A2A skills.",
+      "uriSchemes": [
+        "img2nl"
+      ],
+      "routes": [
+        "img2nl://host/screen/command/capture-click",
+        "img2nl://host/image/latest/command/click",
+        "img2nl://host/image/latest/query/targets"
+      ],
+      "useCases": [
+        "Address img2nl:// capabilities as URIs in a flow.",
+        "Project Screen to Language operations to MCP tools / A2A skills.",
+        "Adopt the pack with one command, no code change."
+      ],
+      "examples": [
+        {
+          "title": "Screen to Language — first route",
+          "uri": "img2nl://host/screen/command/capture-click",
+          "payload": {}
+        }
+      ],
+      "flowExample": [
+        "img2nl://host/screen/command/capture-click",
+        "img2nl://host/image/latest/command/click"
+      ],
+      "requires": [
+        "the tellmesh 'uriimg2nl' pack (GitHub) for real handlers; dispatch works simulated without it"
+      ],
+      "install": {
+        "mode": "planned",
+        "pipSpec": "uriimg2nl"
+      },
+      "adapterKinds": [
+        "local-function"
+      ],
+      "docsUrl": "https://docs.ifuri.com/adopt-as-uri.html",
+      "keywords": [
+        "img2nl",
+        "screen to language",
+        "tellmesh",
+        "capability pack",
+        "uri"
+      ],
+      "provenance": "community",
+      "publisher": {
+        "name": "tellmesh",
+        "url": "https://github.com/tellmesh",
+        "github": "https://github.com/tellmesh"
       }
     },
     {
@@ -928,6 +1100,572 @@
         "name": "if-uri",
         "url": "https://ifuri.com",
         "github": "https://github.com/if-uri"
+      }
+    },
+    {
+      "id": "message",
+      "name": "Messaging",
+      "status": "planned",
+      "category": "Messaging",
+      "summary": "Simple alert/message dispatch mock for lab and node.",
+      "description": "Simple alert/message dispatch mock for lab and node. A tellmesh capability pack adopted into urirun via its manifest (`urirun adopt-pack`): 1 message:// routes mapped 1:1 to bindings.v2, validated, ready to project to MCP tools / A2A skills.",
+      "uriSchemes": [
+        "message"
+      ],
+      "routes": [
+        "message://local/alert/command/send"
+      ],
+      "useCases": [
+        "Address message:// capabilities as URIs in a flow.",
+        "Project Messaging operations to MCP tools / A2A skills.",
+        "Adopt the pack with one command, no code change."
+      ],
+      "examples": [
+        {
+          "title": "Messaging — first route",
+          "uri": "message://local/alert/command/send",
+          "payload": {}
+        }
+      ],
+      "flowExample": [
+        "message://local/alert/command/send"
+      ],
+      "requires": [
+        "the tellmesh 'urimessage' pack (GitHub) for real handlers; dispatch works simulated without it"
+      ],
+      "install": {
+        "mode": "planned",
+        "pipSpec": "urimessage"
+      },
+      "adapterKinds": [
+        "local-function"
+      ],
+      "docsUrl": "https://docs.ifuri.com/adopt-as-uri.html",
+      "keywords": [
+        "message",
+        "messaging",
+        "tellmesh",
+        "capability pack",
+        "uri"
+      ],
+      "provenance": "community",
+      "publisher": {
+        "name": "tellmesh",
+        "url": "https://github.com/tellmesh",
+        "github": "https://github.com/tellmesh"
+      }
+    },
+    {
+      "id": "ocr",
+      "name": "OCR",
+      "status": "planned",
+      "category": "Vision",
+      "summary": "OCR text extraction from latest screenshot or image id (mock/tesseract).",
+      "description": "OCR text extraction from latest screenshot or image id (mock/tesseract). A tellmesh capability pack adopted into urirun via its manifest (`urirun adopt-pack`): 2 ocr:// routes mapped 1:1 to bindings.v2, validated, ready to project to MCP tools / A2A skills.",
+      "uriSchemes": [
+        "ocr"
+      ],
+      "routes": [
+        "ocr://host/image/latest/query/text",
+        "ocr://host/image/image_id/query/text"
+      ],
+      "useCases": [
+        "Address ocr:// capabilities as URIs in a flow.",
+        "Project OCR operations to MCP tools / A2A skills.",
+        "Adopt the pack with one command, no code change."
+      ],
+      "examples": [
+        {
+          "title": "OCR — first route",
+          "uri": "ocr://host/image/latest/query/text",
+          "payload": {}
+        }
+      ],
+      "flowExample": [
+        "ocr://host/image/latest/query/text",
+        "ocr://host/image/image_id/query/text"
+      ],
+      "requires": [
+        "the tellmesh 'uriocr' pack (GitHub) for real handlers; dispatch works simulated without it"
+      ],
+      "install": {
+        "mode": "planned",
+        "pipSpec": "uriocr"
+      },
+      "adapterKinds": [
+        "local-function"
+      ],
+      "docsUrl": "https://docs.ifuri.com/adopt-as-uri.html",
+      "keywords": [
+        "ocr",
+        "ocr",
+        "tellmesh",
+        "capability pack",
+        "uri"
+      ],
+      "provenance": "community",
+      "publisher": {
+        "name": "tellmesh",
+        "url": "https://github.com/tellmesh",
+        "github": "https://github.com/tellmesh"
+      }
+    },
+    {
+      "id": "rdp",
+      "name": "RDP Desktop",
+      "status": "planned",
+      "category": "Desktop",
+      "summary": "RDP session and X11 display queries for urirdp-docker.",
+      "description": "RDP session and X11 display queries for urirdp-docker. A tellmesh capability pack adopted into urirun via its manifest (`urirun adopt-pack`): 5 rdp:// routes mapped 1:1 to bindings.v2, validated, ready to project to MCP tools / A2A skills.",
+      "uriSchemes": [
+        "rdp"
+      ],
+      "routes": [
+        "rdp://host/session/query/status",
+        "rdp://host/session/query/display",
+        "rdp://host/display/query/status",
+        "rdp://host/session/command/prepare-target",
+        "rdp://host/session/command/dismiss-target"
+      ],
+      "useCases": [
+        "Address rdp:// capabilities as URIs in a flow.",
+        "Project RDP Desktop operations to MCP tools / A2A skills.",
+        "Adopt the pack with one command, no code change."
+      ],
+      "examples": [
+        {
+          "title": "RDP Desktop — first route",
+          "uri": "rdp://host/session/query/status",
+          "payload": {}
+        }
+      ],
+      "flowExample": [
+        "rdp://host/session/query/status",
+        "rdp://host/session/query/display"
+      ],
+      "requires": [
+        "the tellmesh 'urirdp' pack (GitHub) for real handlers; dispatch works simulated without it"
+      ],
+      "install": {
+        "mode": "planned",
+        "pipSpec": "urirdp"
+      },
+      "adapterKinds": [
+        "local-function"
+      ],
+      "docsUrl": "https://docs.ifuri.com/adopt-as-uri.html",
+      "keywords": [
+        "rdp",
+        "rdp desktop",
+        "tellmesh",
+        "capability pack",
+        "uri"
+      ],
+      "provenance": "community",
+      "publisher": {
+        "name": "tellmesh",
+        "url": "https://github.com/tellmesh",
+        "github": "https://github.com/tellmesh"
+      }
+    },
+    {
+      "id": "screen",
+      "name": "Screen Capture",
+      "status": "planned",
+      "category": "Vision",
+      "summary": "Screen capture — frame query, single capture, capture loop.",
+      "description": "Screen capture — frame query, single capture, capture loop. A tellmesh capability pack adopted into urirun via its manifest (`urirun adopt-pack`): 3 screen:// routes mapped 1:1 to bindings.v2, validated, ready to project to MCP tools / A2A skills.",
+      "uriSchemes": [
+        "screen"
+      ],
+      "routes": [
+        "screen://target/monitor/monitor/query/frame",
+        "screen://target/monitor/monitor/command/capture",
+        "screen://target/capture/command/loop"
+      ],
+      "useCases": [
+        "Address screen:// capabilities as URIs in a flow.",
+        "Project Screen Capture operations to MCP tools / A2A skills.",
+        "Adopt the pack with one command, no code change."
+      ],
+      "examples": [
+        {
+          "title": "Screen Capture — first route",
+          "uri": "screen://target/monitor/monitor/query/frame",
+          "payload": {}
+        }
+      ],
+      "flowExample": [
+        "screen://target/monitor/monitor/query/frame",
+        "screen://target/monitor/monitor/command/capture"
+      ],
+      "requires": [
+        "the tellmesh 'uriscreen' pack (GitHub) for real handlers; dispatch works simulated without it"
+      ],
+      "install": {
+        "mode": "planned",
+        "pipSpec": "uriscreen"
+      },
+      "adapterKinds": [
+        "local-function"
+      ],
+      "docsUrl": "https://docs.ifuri.com/adopt-as-uri.html",
+      "keywords": [
+        "screen",
+        "screen capture",
+        "tellmesh",
+        "capability pack",
+        "uri"
+      ],
+      "provenance": "community",
+      "publisher": {
+        "name": "tellmesh",
+        "url": "https://github.com/tellmesh",
+        "github": "https://github.com/tellmesh"
+      }
+    },
+    {
+      "id": "stepper",
+      "name": "Stepper Motor",
+      "status": "planned",
+      "category": "Devices",
+      "summary": "Stepper motor URI pack (mock + rpi-gpio-step-dir drivers).",
+      "description": "Stepper motor URI pack (mock + rpi-gpio-step-dir drivers). A tellmesh capability pack adopted into urirun via its manifest (`urirun adopt-pack`): 7 stepper:// routes mapped 1:1 to bindings.v2, validated, ready to project to MCP tools / A2A skills.",
+      "uriSchemes": [
+        "stepper"
+      ],
+      "routes": [
+        "stepper://device/axis/axis/query/status",
+        "stepper://device/axis/axis/command/enable",
+        "stepper://device/axis/axis/command/disable",
+        "stepper://device/axis/axis/command/stop",
+        "stepper://device/axis/axis/command/home",
+        "stepper://device/axis/axis/command/move-relative",
+        "stepper://device/axis/axis/command/move-absolute"
+      ],
+      "useCases": [
+        "Address stepper:// capabilities as URIs in a flow.",
+        "Project Stepper Motor operations to MCP tools / A2A skills.",
+        "Adopt the pack with one command, no code change."
+      ],
+      "examples": [
+        {
+          "title": "Stepper Motor — first route",
+          "uri": "stepper://device/axis/axis/query/status",
+          "payload": {}
+        }
+      ],
+      "flowExample": [
+        "stepper://device/axis/axis/query/status",
+        "stepper://device/axis/axis/command/enable"
+      ],
+      "requires": [
+        "the tellmesh 'uristepper' pack (GitHub) for real handlers; dispatch works simulated without it"
+      ],
+      "install": {
+        "mode": "planned",
+        "pipSpec": "uristepper"
+      },
+      "adapterKinds": [
+        "local-function"
+      ],
+      "docsUrl": "https://docs.ifuri.com/adopt-as-uri.html",
+      "keywords": [
+        "stepper",
+        "stepper motor",
+        "tellmesh",
+        "capability pack",
+        "uri"
+      ],
+      "provenance": "community",
+      "publisher": {
+        "name": "tellmesh",
+        "url": "https://github.com/tellmesh",
+        "github": "https://github.com/tellmesh"
+      }
+    },
+    {
+      "id": "stt",
+      "name": "Speech to Text",
+      "status": "planned",
+      "category": "Voice",
+      "summary": "Speech-to-text pack (mock MVP; browser passthrough + audio transcribe).",
+      "description": "Speech-to-text pack (mock MVP; browser passthrough + audio transcribe). A tellmesh capability pack adopted into urirun via its manifest (`urirun adopt-pack`): 3 stt:// routes mapped 1:1 to bindings.v2, validated, ready to project to MCP tools / A2A skills.",
+      "uriSchemes": [
+        "stt"
+      ],
+      "routes": [
+        "stt://local/session/session/command/start",
+        "stt://local/session/session/query/transcript",
+        "stt://local/audio/command/transcribe"
+      ],
+      "useCases": [
+        "Address stt:// capabilities as URIs in a flow.",
+        "Project Speech to Text operations to MCP tools / A2A skills.",
+        "Adopt the pack with one command, no code change."
+      ],
+      "examples": [
+        {
+          "title": "Speech to Text — first route",
+          "uri": "stt://local/session/session/command/start",
+          "payload": {}
+        }
+      ],
+      "flowExample": [
+        "stt://local/session/session/command/start",
+        "stt://local/session/session/query/transcript"
+      ],
+      "requires": [
+        "the tellmesh 'uristt' pack (GitHub) for real handlers; dispatch works simulated without it"
+      ],
+      "install": {
+        "mode": "planned",
+        "pipSpec": "uristt"
+      },
+      "adapterKinds": [
+        "local-function"
+      ],
+      "docsUrl": "https://docs.ifuri.com/adopt-as-uri.html",
+      "keywords": [
+        "stt",
+        "speech to text",
+        "tellmesh",
+        "capability pack",
+        "uri"
+      ],
+      "provenance": "community",
+      "publisher": {
+        "name": "tellmesh",
+        "url": "https://github.com/tellmesh",
+        "github": "https://github.com/tellmesh"
+      }
+    },
+    {
+      "id": "urimail",
+      "name": "Email",
+      "status": "planned",
+      "category": "Messaging",
+      "summary": "Mail mock/mailpit/smtp automation for urisys-node.",
+      "description": "Mail mock/mailpit/smtp automation for urisys-node. A tellmesh capability pack adopted into urirun via its manifest (`urirun adopt-pack`): 5 urimail:// routes mapped 1:1 to bindings.v2, validated, ready to project to MCP tools / A2A skills.",
+      "uriSchemes": [
+        "urimail"
+      ],
+      "routes": [
+        "urimail://account/query/status",
+        "urimail://account/inbox/query/unread",
+        "urimail://account/message/command/compose",
+        "urimail://account/message/command/send",
+        "urimail://account/message/command/publish-post"
+      ],
+      "useCases": [
+        "Address urimail:// capabilities as URIs in a flow.",
+        "Project Email operations to MCP tools / A2A skills.",
+        "Adopt the pack with one command, no code change."
+      ],
+      "examples": [
+        {
+          "title": "Email — first route",
+          "uri": "urimail://account/query/status",
+          "payload": {}
+        }
+      ],
+      "flowExample": [
+        "urimail://account/query/status",
+        "urimail://account/inbox/query/unread"
+      ],
+      "requires": [
+        "the tellmesh 'urimail' pack (GitHub) for real handlers; dispatch works simulated without it"
+      ],
+      "install": {
+        "mode": "planned",
+        "pipSpec": "urimail"
+      },
+      "adapterKinds": [
+        "local-function"
+      ],
+      "docsUrl": "https://docs.ifuri.com/adopt-as-uri.html",
+      "keywords": [
+        "urimail",
+        "email",
+        "tellmesh",
+        "capability pack",
+        "uri"
+      ],
+      "provenance": "community",
+      "publisher": {
+        "name": "tellmesh",
+        "url": "https://github.com/tellmesh",
+        "github": "https://github.com/tellmesh"
+      }
+    },
+    {
+      "id": "urioffice",
+      "name": "Office Documents",
+      "status": "planned",
+      "category": "Files",
+      "summary": "Office document mock/writer/LibreOffice automation for urisys-node.",
+      "description": "Office document mock/writer/LibreOffice automation for urisys-node. A tellmesh capability pack adopted into urirun via its manifest (`urirun adopt-pack`): 5 urioffice:// routes mapped 1:1 to bindings.v2, validated, ready to project to MCP tools / A2A skills.",
+      "uriSchemes": [
+        "urioffice"
+      ],
+      "routes": [
+        "urioffice://host/query/status",
+        "urioffice://host/document/command/open",
+        "urioffice://host/document/command/save",
+        "urioffice://host/document/command/export-pdf",
+        "urioffice://host/writer/command/render"
+      ],
+      "useCases": [
+        "Address urioffice:// capabilities as URIs in a flow.",
+        "Project Office Documents operations to MCP tools / A2A skills.",
+        "Adopt the pack with one command, no code change."
+      ],
+      "examples": [
+        {
+          "title": "Office Documents — first route",
+          "uri": "urioffice://host/query/status",
+          "payload": {}
+        }
+      ],
+      "flowExample": [
+        "urioffice://host/query/status",
+        "urioffice://host/document/command/open"
+      ],
+      "requires": [
+        "the tellmesh 'urioffice' pack (GitHub) for real handlers; dispatch works simulated without it"
+      ],
+      "install": {
+        "mode": "planned",
+        "pipSpec": "urioffice"
+      },
+      "adapterKinds": [
+        "local-function"
+      ],
+      "docsUrl": "https://docs.ifuri.com/adopt-as-uri.html",
+      "keywords": [
+        "urioffice",
+        "office documents",
+        "tellmesh",
+        "capability pack",
+        "uri"
+      ],
+      "provenance": "community",
+      "publisher": {
+        "name": "tellmesh",
+        "url": "https://github.com/tellmesh",
+        "github": "https://github.com/tellmesh"
+      }
+    },
+    {
+      "id": "vql",
+      "name": "Visual Query",
+      "status": "planned",
+      "category": "Data",
+      "summary": "Visual query language — UI detect/compare for urisys-node.",
+      "description": "Visual query language — UI detect/compare for urisys-node. A tellmesh capability pack adopted into urirun via its manifest (`urirun adopt-pack`): 2 vql:// routes mapped 1:1 to bindings.v2, validated, ready to project to MCP tools / A2A skills.",
+      "uriSchemes": [
+        "vql"
+      ],
+      "routes": [
+        "vql://host/ui/latest/query/detect",
+        "vql://host/ui/latest/query/compare"
+      ],
+      "useCases": [
+        "Address vql:// capabilities as URIs in a flow.",
+        "Project Visual Query operations to MCP tools / A2A skills.",
+        "Adopt the pack with one command, no code change."
+      ],
+      "examples": [
+        {
+          "title": "Visual Query — first route",
+          "uri": "vql://host/ui/latest/query/detect",
+          "payload": {}
+        }
+      ],
+      "flowExample": [
+        "vql://host/ui/latest/query/detect",
+        "vql://host/ui/latest/query/compare"
+      ],
+      "requires": [
+        "the tellmesh 'urivql' pack (GitHub) for real handlers; dispatch works simulated without it"
+      ],
+      "install": {
+        "mode": "planned",
+        "pipSpec": "urivql"
+      },
+      "adapterKinds": [
+        "local-function"
+      ],
+      "docsUrl": "https://docs.ifuri.com/adopt-as-uri.html",
+      "keywords": [
+        "vql",
+        "visual query",
+        "tellmesh",
+        "capability pack",
+        "uri"
+      ],
+      "provenance": "community",
+      "publisher": {
+        "name": "tellmesh",
+        "url": "https://github.com/tellmesh",
+        "github": "https://github.com/tellmesh"
+      }
+    },
+    {
+      "id": "webrtc",
+      "name": "WebRTC",
+      "status": "planned",
+      "category": "Media",
+      "summary": "WebRTC session — HTTP signaling inbox (node) and DataChannel URI envelopes; browser P2P via ifURI /api/webrtc/signal.",
+      "description": "WebRTC session — HTTP signaling inbox (node) and DataChannel URI envelopes; browser P2P via ifURI /api/webrtc/signal. A tellmesh capability pack adopted into urirun via its manifest (`urirun adopt-pack`): 4 webrtc:// routes mapped 1:1 to bindings.v2, validated, ready to project to MCP tools / A2A skills.",
+      "uriSchemes": [
+        "webrtc"
+      ],
+      "routes": [
+        "webrtc://local/session/session/command/start",
+        "webrtc://local/session/session/data/command/send",
+        "webrtc://local/session/session/signal/command/post",
+        "webrtc://local/session/session/signal/query/inbox"
+      ],
+      "useCases": [
+        "Address webrtc:// capabilities as URIs in a flow.",
+        "Project WebRTC operations to MCP tools / A2A skills.",
+        "Adopt the pack with one command, no code change."
+      ],
+      "examples": [
+        {
+          "title": "WebRTC — first route",
+          "uri": "webrtc://local/session/session/command/start",
+          "payload": {}
+        }
+      ],
+      "flowExample": [
+        "webrtc://local/session/session/command/start",
+        "webrtc://local/session/session/data/command/send"
+      ],
+      "requires": [
+        "the tellmesh 'uriwebrtc' pack (GitHub) for real handlers; dispatch works simulated without it"
+      ],
+      "install": {
+        "mode": "planned",
+        "pipSpec": "uriwebrtc"
+      },
+      "adapterKinds": [
+        "local-function"
+      ],
+      "docsUrl": "https://docs.ifuri.com/adopt-as-uri.html",
+      "keywords": [
+        "webrtc",
+        "webrtc",
+        "tellmesh",
+        "capability pack",
+        "uri"
+      ],
+      "provenance": "community",
+      "publisher": {
+        "name": "tellmesh",
+        "url": "https://github.com/tellmesh",
+        "github": "https://github.com/tellmesh"
       }
     }
   ]

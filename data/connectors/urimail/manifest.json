@@ -1,0 +1,58 @@
+{
+  "id": "urimail",
+  "name": "Email",
+  "status": "planned",
+  "category": "Messaging",
+  "summary": "Mail mock/mailpit/smtp automation for urisys-node.",
+  "description": "Mail mock/mailpit/smtp automation for urisys-node. A tellmesh capability pack adopted into urirun via its manifest (`urirun adopt-pack`): 5 urimail:// routes mapped 1:1 to bindings.v2, validated, ready to project to MCP tools / A2A skills.",
+  "uriSchemes": [
+    "urimail"
+  ],
+  "routes": [
+    "urimail://account/query/status",
+    "urimail://account/inbox/query/unread",
+    "urimail://account/message/command/compose",
+    "urimail://account/message/command/send",
+    "urimail://account/message/command/publish-post"
+  ],
+  "useCases": [
+    "Address urimail:// capabilities as URIs in a flow.",
+    "Project Email operations to MCP tools / A2A skills.",
+    "Adopt the pack with one command, no code change."
+  ],
+  "examples": [
+    {
+      "title": "Email \u2014 first route",
+      "uri": "urimail://account/query/status",
+      "payload": {}
+    }
+  ],
+  "flowExample": [
+    "urimail://account/query/status",
+    "urimail://account/inbox/query/unread"
+  ],
+  "requires": [
+    "the tellmesh 'urimail' pack (GitHub) for real handlers; dispatch works simulated without it"
+  ],
+  "install": {
+    "mode": "planned",
+    "pipSpec": "urimail"
+  },
+  "adapterKinds": [
+    "local-function"
+  ],
+  "docsUrl": "https://docs.ifuri.com/adopt-as-uri.html",
+  "keywords": [
+    "urimail",
+    "email",
+    "tellmesh",
+    "capability pack",
+    "uri"
+  ],
+  "provenance": "community",
+  "publisher": {
+    "name": "tellmesh",
+    "url": "https://github.com/tellmesh",
+    "github": "https://github.com/tellmesh"
+  }
+}

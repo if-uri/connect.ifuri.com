@@ -1,0 +1,55 @@
+{
+  "id": "vql",
+  "name": "Visual Query",
+  "status": "planned",
+  "category": "Data",
+  "summary": "Visual query language \u2014 UI detect/compare for urisys-node.",
+  "description": "Visual query language \u2014 UI detect/compare for urisys-node. A tellmesh capability pack adopted into urirun via its manifest (`urirun adopt-pack`): 2 vql:// routes mapped 1:1 to bindings.v2, validated, ready to project to MCP tools / A2A skills.",
+  "uriSchemes": [
+    "vql"
+  ],
+  "routes": [
+    "vql://host/ui/latest/query/detect",
+    "vql://host/ui/latest/query/compare"
+  ],
+  "useCases": [
+    "Address vql:// capabilities as URIs in a flow.",
+    "Project Visual Query operations to MCP tools / A2A skills.",
+    "Adopt the pack with one command, no code change."
+  ],
+  "examples": [
+    {
+      "title": "Visual Query \u2014 first route",
+      "uri": "vql://host/ui/latest/query/detect",
+      "payload": {}
+    }
+  ],
+  "flowExample": [
+    "vql://host/ui/latest/query/detect",
+    "vql://host/ui/latest/query/compare"
+  ],
+  "requires": [
+    "the tellmesh 'urivql' pack (GitHub) for real handlers; dispatch works simulated without it"
+  ],
+  "install": {
+    "mode": "planned",
+    "pipSpec": "urivql"
+  },
+  "adapterKinds": [
+    "local-function"
+  ],
+  "docsUrl": "https://docs.ifuri.com/adopt-as-uri.html",
+  "keywords": [
+    "vql",
+    "visual query",
+    "tellmesh",
+    "capability pack",
+    "uri"
+  ],
+  "provenance": "community",
+  "publisher": {
+    "name": "tellmesh",
+    "url": "https://github.com/tellmesh",
+    "github": "https://github.com/tellmesh"
+  }
+}

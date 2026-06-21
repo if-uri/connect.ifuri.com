@@ -1,0 +1,56 @@
+{
+  "id": "screen",
+  "name": "Screen Capture",
+  "status": "planned",
+  "category": "Vision",
+  "summary": "Screen capture \u2014 frame query, single capture, capture loop.",
+  "description": "Screen capture \u2014 frame query, single capture, capture loop. A tellmesh capability pack adopted into urirun via its manifest (`urirun adopt-pack`): 3 screen:// routes mapped 1:1 to bindings.v2, validated, ready to project to MCP tools / A2A skills.",
+  "uriSchemes": [
+    "screen"
+  ],
+  "routes": [
+    "screen://target/monitor/monitor/query/frame",
+    "screen://target/monitor/monitor/command/capture",
+    "screen://target/capture/command/loop"
+  ],
+  "useCases": [
+    "Address screen:// capabilities as URIs in a flow.",
+    "Project Screen Capture operations to MCP tools / A2A skills.",
+    "Adopt the pack with one command, no code change."
+  ],
+  "examples": [
+    {
+      "title": "Screen Capture \u2014 first route",
+      "uri": "screen://target/monitor/monitor/query/frame",
+      "payload": {}
+    }
+  ],
+  "flowExample": [
+    "screen://target/monitor/monitor/query/frame",
+    "screen://target/monitor/monitor/command/capture"
+  ],
+  "requires": [
+    "the tellmesh 'uriscreen' pack (GitHub) for real handlers; dispatch works simulated without it"
+  ],
+  "install": {
+    "mode": "planned",
+    "pipSpec": "uriscreen"
+  },
+  "adapterKinds": [
+    "local-function"
+  ],
+  "docsUrl": "https://docs.ifuri.com/adopt-as-uri.html",
+  "keywords": [
+    "screen",
+    "screen capture",
+    "tellmesh",
+    "capability pack",
+    "uri"
+  ],
+  "provenance": "community",
+  "publisher": {
+    "name": "tellmesh",
+    "url": "https://github.com/tellmesh",
+    "github": "https://github.com/tellmesh"
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "id": "him",
+  "name": "Human-in-the-Middle",
+  "status": "planned",
+  "category": "Agents",
+  "summary": "Human input mock (mouse/keyboard) for urisys-node.",
+  "description": "Human input mock (mouse/keyboard) for urisys-node. A tellmesh capability pack adopted into urirun via its manifest (`urirun adopt-pack`): 8 him:// routes mapped 1:1 to bindings.v2, validated, ready to project to MCP tools / A2A skills.",
+  "uriSchemes": [
+    "him"
+  ],
+  "routes": [
+    "him://host/mouse/query/status",
+    "him://host/mouse/command/move",
+    "him://host/mouse/command/click",
+    "him://host/mouse/command/scroll",
+    "him://host/keyboard/command/type",
+    "him://host/keyboard/command/type-text",
+    "him://host/keyboard/command/hotkey",
+    "him://host/keyboard/command/key"
+  ],
+  "useCases": [
+    "Address him:// capabilities as URIs in a flow.",
+    "Project Human-in-the-Middle operations to MCP tools / A2A skills.",
+    "Adopt the pack with one command, no code change."
+  ],
+  "examples": [
+    {
+      "title": "Human-in-the-Middle \u2014 first route",
+      "uri": "him://host/mouse/query/status",
+      "payload": {}
+    }
+  ],
+  "flowExample": [
+    "him://host/mouse/query/status",
+    "him://host/mouse/command/move"
+  ],
+  "requires": [
+    "the tellmesh 'urihim' pack (GitHub) for real handlers; dispatch works simulated without it"
+  ],
+  "install": {
+    "mode": "planned",
+    "pipSpec": "urihim"
+  },
+  "adapterKinds": [
+    "local-function"
+  ],
+  "docsUrl": "https://docs.ifuri.com/adopt-as-uri.html",
+  "keywords": [
+    "him",
+    "human-in-the-middle",
+    "tellmesh",
+    "capability pack",
+    "uri"
+  ],
+  "provenance": "community",
+  "publisher": {
+    "name": "tellmesh",
+    "url": "https://github.com/tellmesh",
+    "github": "https://github.com/tellmesh"
+  }
+}
