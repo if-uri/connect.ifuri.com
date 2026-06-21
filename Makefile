@@ -14,6 +14,10 @@ check-catalog: ## Verify generated catalog is up to date
 check-connectors: ## Reachability + version-pin checks for connector manifests
 	python3 scripts/check_connectors.py
 
+.PHONY: new-connector
+new-connector: ## Scaffold a connector package: make new-connector ID=weather-now [SCHEME=...]
+	bash scripts/new-connector.sh $(ID) $(SCHEME)
+
 .PHONY: test
 test: ## Run local smoke tests
 	bash tests/smoke.sh
