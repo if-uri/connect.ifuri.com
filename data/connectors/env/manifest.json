@@ -1,0 +1,62 @@
+{
+  "id": "env",
+  "name": "Environment",
+  "status": "planned",
+  "category": "System",
+  "summary": "Controlled env:// runtime configuration and secrets.",
+  "description": "Controlled env:// runtime configuration and secrets. A tellmesh capability pack adopted into urirun via its manifest (`urirun adopt-pack`): 9 env:// routes mapped 1:1 to bindings.v2, validated.",
+  "uriSchemes": [
+    "env"
+  ],
+  "routes": [
+    "env://runtime/query/health",
+    "env://runtime/query/list",
+    "env://runtime/config/query/startup",
+    "env://runtime/var/name/query/exists",
+    "env://runtime/var/name/query/value",
+    "env://runtime/secret/name/query/masked",
+    "env://runtime/secret/name/query/value",
+    "env://runtime/var/name/command/set",
+    "env://runtime/var/name/command/unset"
+  ],
+  "useCases": [
+    "Address env:// capabilities as URIs.",
+    "Project Environment to MCP/A2A.",
+    "Adopt with one command, no code change."
+  ],
+  "examples": [
+    {
+      "title": "Environment \u2014 first route",
+      "uri": "env://runtime/query/health",
+      "payload": {}
+    }
+  ],
+  "flowExample": [
+    "env://runtime/query/health",
+    "env://runtime/query/list"
+  ],
+  "requires": [
+    "the tellmesh 'urienv' pack (GitHub) for real handlers"
+  ],
+  "install": {
+    "mode": "planned",
+    "pipSpec": "urienv"
+  },
+  "adapterKinds": [
+    "local-function"
+  ],
+  "docsUrl": "https://docs.ifuri.com/adopt-as-uri.html",
+  "keywords": [
+    "env",
+    "environment",
+    "tellmesh",
+    "capability pack",
+    "uri"
+  ],
+  "provenance": "community",
+  "publisher": {
+    "name": "tellmesh",
+    "url": "https://github.com/tellmesh",
+    "github": "https://github.com/tellmesh"
+  }
+}
