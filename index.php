@@ -197,7 +197,8 @@ $jsonLd = [
       </nav>
     <?php endif; ?>
     <span><?php echo hub_h(hub_t('footerUpdated')); ?> <?php echo hub_h((string) ($catalog['updatedAt'] ?? 'unknown')); ?></span>
-  </footer>
+    <span>© 2026 <a href="https://ifuri.com">ifuri.com</a> / <a href="https://tom.sapletta.com">Tom Sapletta</a></span>
+</footer>
 
   <script>window.CONNECT_HUB_BASE = <?php echo json_encode(hub_base_url(), JSON_UNESCAPED_SLASHES); ?>;
 window.CONNECT_I18N = <?php echo json_encode(hub_js_i18n(), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE); ?>;</script>
