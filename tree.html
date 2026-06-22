@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>URI tree — connect.ifuri.com</title>
+<meta name="description" content="Browse connector URIs as a tree: scheme → host → path → uri. Filter with ?connectors=a,b,c.">
+<link rel="canonical" href="https://connect.ifuri.com/tree">
+<style>
+:root{--bg:#1E1B4B;--bg2:#191640;--text:#EEF2FF;--muted:#A5B4FC;--line:rgba(255,255,255,.14);--green:#34D399;--violet:#4F46E5;--card:rgba(255,255,255,.05)}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,var(--bg),var(--bg2));color:var(--text);font-family:Inter,ui-sans-serif,system-ui,Arial;line-height:1.5;min-height:100vh}
+.wrap{max-width:980px;margin:0 auto;padding:40px 22px 80px}
+a{color:var(--green);text-decoration:none}
+h1{font-size:clamp(26px,4vw,40px);margin:0 0 6px;letter-spacing:-.02em}
+.lead{color:#cdd6ee;margin:0 0 18px}
+.bar{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 24px}
+input{flex:1;min-width:220px;background:#0F172A;color:#E0E7FF;border:1px solid var(--line);border-radius:9px;padding:9px 12px;font-size:14px}
+.conn{border:1px solid var(--line);background:var(--card);border-radius:14px;padding:14px 16px;margin:12px 0}
+.conn>summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.conn>summary::-webkit-details-marker{display:none}
+.name{font-weight:800;font-size:17px}.cat{color:var(--muted);font-size:12px;border:1px solid var(--line);border-radius:999px;padding:2px 9px}
+.badge{font-size:11px;font-weight:700;color:#0B1020;background:var(--green);border-radius:6px;padding:1px 7px}
+.desc{color:var(--muted);font-size:13px;margin:6px 0 2px;width:100%}
+.tree{margin:10px 0 0;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px}
+details.node{margin-left:14px}details.node>summary{cursor:pointer;color:#cbd5e1}
+.scheme{color:var(--green);font-weight:700}
+.leaf{margin-left:28px;display:flex;align-items:center;gap:8px;padding:2px 0}
+.leaf code{color:#a5f3d0}.leaf .kind{font-size:10px;color:var(--muted);border:1px solid var(--line);border-radius:5px;padding:0 5px}
+.copy{cursor:pointer;background:rgba(255,255,255,.06);border:1px solid var(--line);color:#cdd6ee;border-radius:6px;font-size:11px;padding:1px 7px}
+.copy:hover{border-color:var(--green)}
+footer{max-width:980px;margin:0 auto;padding:24px;color:var(--muted);font-size:13px;border-top:1px solid var(--line)}
+.muted{color:var(--muted)}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <h1>URI tree</h1>
+  <p class="lead">Every connector's routes as a tree — <span class="muted">scheme → host → path → <code>uri</code></span>.
+    Filter with <code>?connectors=planfile,http-check,…</code> (the same selection the
+    <a href="/install">installer</a> takes).</p>
+  <div class="bar">
+    <input id="q" placeholder="filter by scheme, connector, category or path…">
+  </div>
+  <div id="out"><p class="muted">Loading the catalog…</p></div>
+</main>
+<footer>connect.ifuri.com · <a href="/">catalog</a> · <a href="/connectors.json">connectors.json</a> · <a href="https://docs.ifuri.com/adopt-as-uri.html">adopt as URI</a></footer>
+
+<script>
+const params = new URLSearchParams(location.search);
+const only = (params.get("connectors") || "").split(",").map(s => s.trim()).filter(Boolean);
+
+function nest(schemes, uri) {
+  const [scheme, rest] = uri.split("://");
+  const parts = rest.split("/");
+  let node = (schemes[scheme] = schemes[scheme] || {});
+  for (let i = 0; i < parts.length - 1; i++) node = (node[parts[i]] = node[parts[i]] || {});
+  node[parts[parts.length - 1]] = { __uri: uri };
+}
+function kindOf(uri){ const s=uri.split("://")[1].split("/"); return s.find(x=>["query","command","assertion"].includes(x))||""; }
+
+function renderNode(node, open) {
+  const wrap = document.createElement("div");
+  for (const [key, val] of Object.entries(node)) {
+    if (val && val.__uri) {
+      const leaf = document.createElement("div"); leaf.className = "leaf";
+      const code = document.createElement("code"); code.textContent = val.__uri;
+      const kind = document.createElement("span"); kind.className = "kind"; kind.textContent = kindOf(val.__uri);
+      const copy = document.createElement("button"); copy.className = "copy"; copy.textContent = "copy";
+      copy.onclick = () => { navigator.clipboard.writeText(val.__uri); copy.textContent = "copied"; setTimeout(()=>copy.textContent="copy",900); };
+      leaf.append(code, kind, copy); wrap.appendChild(leaf);
+    } else {
+      const d = document.createElement("details"); d.className = "node"; if (open) d.open = true;
+      const s = document.createElement("summary"); s.textContent = key; d.appendChild(s);
+      d.appendChild(renderNode(val, false)); wrap.appendChild(d);
+    }
+  }
+  return wrap;
+}
+
+function render(connectors, q) {
+  const out = document.getElementById("out"); out.textContent = "";
+  let shown = 0;
+  for (const c of connectors) {
+    if (only.length && !only.includes(c.id)) continue;
+    const schemes = {}; (c.routes || []).forEach(u => nest(schemes, u));
+    const hay = (c.id + " " + (c.name||"") + " " + (c.category||"") + " " + (c.uriSchemes||[]).join(" ") + " " + (c.routes||[]).join(" ")).toLowerCase();
+    if (q && !hay.includes(q)) continue;
+    shown++;
+    const det = document.createElement("details"); det.className = "conn"; det.open = !!q || only.length>0;
+    const sum = document.createElement("summary");
+    sum.innerHTML = `<span class="name">${c.name||c.id}</span><span class="cat">${c.category||""}</span>` +
+      (c.provenance==="verified" ? `<span class="badge">verified</span>` : "") +
+      `<span class="desc">${c.summary||""}</span>`;
+    det.appendChild(sum);
+    const tree = document.createElement("div"); tree.className = "tree";
+    for (const [scheme, node] of Object.entries(schemes)) {
+      const d = document.createElement("details"); d.className = "node"; d.open = true;
+      const s = document.createElement("summary"); s.innerHTML = `<span class="scheme">${scheme}://</span>`;
+      d.appendChild(s); d.appendChild(renderNode(node, true)); tree.appendChild(d);
+    }
+    det.appendChild(tree); out.appendChild(det);
+  }
+  if (!shown) out.innerHTML = '<p class="muted">No connectors match.</p>';
+}
+
+fetch("/connectors.json").then(r => r.json()).then(data => {
+  const list = Array.isArray(data) ? data : (data.connectors || Object.values(data));
+  render(list, "");
+  document.getElementById("q").addEventListener("input", e => render(list, e.target.value.trim().toLowerCase()));
+}).catch(() => { document.getElementById("out").innerHTML = '<p class="muted">Could not load /connectors.json.</p>'; });
+</script>
+<script src="https://ifuri.com/assets/ifuri-ecobar.js" defer></script>
+</body>
+</html>

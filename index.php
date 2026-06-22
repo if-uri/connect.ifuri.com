@@ -72,6 +72,7 @@ $jsonLd = [
       <nav>
         <a href="#connectors"><?php echo hub_h(hub_t('navConnectors')); ?></a>
         <a href="/categories"><?php echo hub_h(hub_t('navCategories')); ?></a>
+        <a href="/tree">URI tree</a>
         <a href="/submit"><?php echo hub_h(hub_t('navSubmit')); ?></a>
         <a href="https://github.com/if-uri/connect.ifuri.com">GitHub</a>
       </nav>
