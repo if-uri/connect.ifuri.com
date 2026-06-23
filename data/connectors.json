@@ -692,6 +692,158 @@
       }
     },
     {
+      "id": "base64",
+      "name": "Base64 (PHP)",
+      "status": "available",
+      "category": "Utilities",
+      "summary": "Encode and decode text with Base64 through codec:// URI commands.",
+      "description": "Base64 is a polyglot urirun connector written in PHP. It proves connectors are language-agnostic: the script emits a v2 bindings document and answers the codec:// route via an argv-template the urirun runtime invokes.",
+      "uriSchemes": [
+        "codec"
+      ],
+      "routes": [
+        "codec://host/text/query/base64"
+      ],
+      "useCases": [
+        "Encode or decode payloads inside a URI flow without a Python dependency.",
+        "Demonstrate that urirun connectors can be authored in PHP.",
+        "Project a PHP connector to MCP tools / A2A skills like any other connector."
+      ],
+      "examples": [
+        {
+          "title": "Encode text",
+          "uri": "codec://host/text/query/base64",
+          "payload": {
+            "mode": "encode",
+            "text": "hello"
+          }
+        },
+        {
+          "title": "Decode text",
+          "uri": "codec://host/text/query/base64",
+          "payload": {
+            "mode": "decode",
+            "text": "aGVsbG8="
+          }
+        }
+      ],
+      "flowExample": [
+        "codec://host/text/query/base64"
+      ],
+      "requires": [
+        "php>=8.1"
+      ],
+      "install": {
+        "mode": "urirun-extra",
+        "pipSpec": "urirun-connector-base64 @ git+https://github.com/if-uri/urirun-connector-base64.git@v0.1.0"
+      },
+      "adapterKinds": [
+        "argv-template"
+      ],
+      "docsUrl": "https://github.com/if-uri/urirun-connector-base64",
+      "keywords": [
+        "base64",
+        "codec",
+        "php",
+        "polyglot",
+        "connector"
+      ],
+      "provenance": "verified",
+      "publisher": {
+        "name": "if-uri",
+        "url": "https://ifuri.com",
+        "github": "https://github.com/if-uri"
+      }
+    },
+    {
+      "id": "camera",
+      "name": "Camera capture + OCR",
+      "status": "available",
+      "category": "Hardware",
+      "summary": "Turn a USB/built-in webcam into data over camera:// URIs: discover cameras, beep before scan, capture a still frame, describe what is in the photo, find and crop to the dominant object, OCR it, and run simple inspection/alert rules. Capture uses ffmpeg (OpenCV optional); scene understanding + object detection reuse the img2nl engine via urirun-connector-ocr (Pillow edge/stats fallback); OCR uses tesseract, upgrading to the richer OCR connector backends automatically.",
+      "description": "camera:// is the capture+understand layer on top of usb:// camera discovery. camera://host/devices/query/list lists cameras (product names + /dev/video* nodes via the usb connector). camera://host/photo/command/capture grabs one still frame and can emit a pre-scan beep so a human knows exactly when scanning happens. camera://host/photo/query/describe returns a natural-language description of what is in the photo — scene, dominant colours, detected objects/regions, barcodes — using the img2nl engine when available. camera://host/photo/query/analyze runs the full pipeline: capture (or reuse a given image), describe it, detect the dominant object (img2nl region detector, else Pillow edge density), crop to it ('dociąć do obiektu'), and OCR the crop — returning the photo, description, object bbox + crop path, and recognised text. camera://host/photo/query/inspect adds simple rule checks (required/forbidden text, min OCR length, object required, brightness range), returns structured alerts with optional beep_on_alert/fail_on_alert, and persists a verdict (inspection.json sidecar + optional JSONL audit_log) so alerting has a durable trail without a separate log connector. camera://host/photo/query/compare does change/motion detection — compare two files, a reference vs a fresh frame, or two frames captured interval_ms apart — returning a change ratio, a changed flag and the changed region, with optional beep_on_change/fail_on_change to trigger scan-on-motion or stop-on-change flows. camera://host/photo/query/ocr just returns the text. Dependency-light core (ffmpeg + Pillow + tesseract); img2nl/imgl and OpenCV are optional upgrades.",
+      "uriSchemes": [
+        "camera"
+      ],
+      "routes": [
+        "camera://host/devices/query/list",
+        "camera://host/photo/command/capture",
+        "camera://host/photo/query/describe",
+        "camera://host/photo/query/analyze",
+        "camera://host/photo/query/inspect",
+        "camera://host/photo/query/compare",
+        "camera://host/photo/query/ocr"
+      ],
+      "useCases": [
+        "Capture a webcam frame and OCR it.",
+        "Describe what is in a photo — scene, objects, barcodes.",
+        "Inspect a scanned item against rules and raise alerts.",
+        "Detect change/motion between two frames."
+      ],
+      "examples": [
+        {
+          "title": "Capture and analyse",
+          "uri": "camera://host/photo/query/analyze",
+          "payload": {
+            "device": "/dev/video0"
+          }
+        },
+        {
+          "title": "List cameras",
+          "uri": "camera://host/devices/query/list",
+          "payload": {}
+        }
+      ],
+      "requires": {
+        "system": [
+          "ffmpeg (capture)",
+          "tesseract (OCR)",
+          "linux /dev/video*"
+        ],
+        "python": [
+          "urirun",
+          "pillow"
+        ],
+        "optional": [
+          "urirun-connector-ocr (img2nl scene description + richer OCR)",
+          "opencv-python (alt capture)",
+          "urirun-connector-usb (named camera discovery)"
+        ]
+      },
+      "install": {
+        "mode": "urirun-extra",
+        "pipSpec": "urirun-connector-camera @ git+https://github.com/if-uri/urirun-connector-camera.git@v0.1.0"
+      },
+      "docsUrl": "https://github.com/if-uri/urirun-connector-camera",
+      "keywords": [
+        "camera",
+        "webcam",
+        "capture",
+        "photo",
+        "ocr",
+        "tesseract",
+        "ffmpeg",
+        "object-detection",
+        "scene-description",
+        "img2nl",
+        "crop",
+        "v4l2",
+        "usb",
+        "beep",
+        "inspection",
+        "alert",
+        "motion-detection",
+        "change-detection",
+        "audit"
+      ],
+      "provenance": "verified",
+      "publisher": {
+        "name": "if-uri",
+        "url": "https://ifuri.com",
+        "github": "https://github.com/if-uri"
+      }
+    },
+    {
       "id": "chat",
       "name": "Chat Bridge",
       "status": "planned",
@@ -744,6 +896,141 @@
         "name": "tellmesh",
         "url": "https://github.com/tellmesh",
         "github": "https://github.com/tellmesh"
+      }
+    },
+    {
+      "id": "doc",
+      "name": "Document text / OCR",
+      "status": "available",
+      "category": "Documents",
+      "summary": "Extract text from PDFs and images over doc:// URIs. Text-layer PDFs use pdftotext; scans/images fall back through an OCR chain (tesseract, RapidOCR/ONNX from wronai-img2nl, or an Ollama vision model from wronai-ocr). Degrades gracefully to pdftotext-only.",
+      "description": "doc:// turns document text extraction into a first-class URI instead of ad-hoc shell + pdftotext. doc://host/file/query/text returns the text of a PDF or image: a text-layer PDF goes through poppler pdftotext; a scan/image falls back to OCR, rasterising PDF pages (pdftoppm/pdfimages/magick) and running the first available engine — tesseract, then RapidOCR (the ONNX engine reused from wronai/img2nl, no system binary needed), then an Ollama vision model (reused from wronai/ocr). doc://host/file/query/ocr forces OCR; doc://host/engine/query/list reports which engines are present. Useful for classifying invoices and any scanned document over the mesh.",
+      "uriSchemes": [
+        "doc"
+      ],
+      "routes": [
+        "doc://host/file/query/text",
+        "doc://host/file/query/ocr",
+        "doc://host/engine/query/list"
+      ],
+      "useCases": [
+        "Extract the text layer of a PDF inside a flow.",
+        "OCR a scanned invoice or image that has no text layer.",
+        "Check which OCR engines are available on a node."
+      ],
+      "examples": [
+        {
+          "title": "Get document text",
+          "uri": "doc://host/file/query/text",
+          "payload": {
+            "path": "/docs/umowa.pdf"
+          }
+        },
+        {
+          "title": "Force OCR on a scan",
+          "uri": "doc://host/file/query/ocr",
+          "payload": {
+            "path": "/scans/faktura.png"
+          }
+        }
+      ],
+      "requires": {
+        "system": [
+          "pdftotext (poppler) recommended; pdftoppm/pdfimages/magick for OCR rasterisation"
+        ],
+        "python": [
+          "urirun"
+        ],
+        "optional": [
+          "rapidocr-onnxruntime or img2nl for no-tesseract OCR",
+          "tesseract",
+          "ollama"
+        ]
+      },
+      "install": {
+        "mode": "urirun-extra",
+        "pipSpec": "urirun-connector-doc @ git+https://github.com/if-uri/urirun-connector-doc.git@v0.1.0"
+      },
+      "docsUrl": "https://github.com/if-uri/urirun-connector-doc",
+      "keywords": [
+        "ocr",
+        "pdf",
+        "pdftotext",
+        "rapidocr",
+        "tesseract",
+        "invoice",
+        "document",
+        "text"
+      ],
+      "provenance": "verified",
+      "publisher": {
+        "name": "if-uri",
+        "url": "https://ifuri.com",
+        "github": "https://github.com/if-uri"
+      }
+    },
+    {
+      "id": "email",
+      "name": "Email",
+      "status": "available",
+      "category": "Communication",
+      "summary": "Read inbox, send mail, and extract local Thunderbird invoice attachments through email:// URI routes (IMAP + SMTP + local mbox).",
+      "description": "Email is an external urirun connector that exposes IMAP reads (inbox list, message read), SMTP send, and local Thunderbird mailbox extraction as email:// routes. The IMAP/SMTP routes touch a remote mail server, so they are gated by urirun execute policy. The local/thunderbird route reads mbox files from one profile or auto-discovered Thunderbird profile roots, extracts invoice-like attachments into monthly YYYY.MM folders, deduplicates attachment payloads, supports dry-run, and can write a JSON report. Credentials for remote routes come from the environment (EMAIL_IMAP_HOST/EMAIL_SMTP_HOST/EMAIL_USER/EMAIL_PASS), never the manifest.",
+      "uriSchemes": [
+        "email"
+      ],
+      "routes": [
+        "email://host/inbox/query/list",
+        "email://host/message/query/read",
+        "email://host/message/command/send",
+        "email://host/local/thunderbird/query/extract_invoices"
+      ],
+      "useCases": [
+        "List the inbox inside a flow.",
+        "Send a notification email.",
+        "Extract invoice attachments from local Thunderbird."
+      ],
+      "examples": [
+        {
+          "title": "List inbox",
+          "uri": "email://host/inbox/query/list",
+          "payload": {
+            "limit": 20
+          }
+        },
+        {
+          "title": "Send mail",
+          "uri": "email://host/message/command/send",
+          "payload": {
+            "to": "a@b.com",
+            "subject": "Hi",
+            "body": "..."
+          }
+        }
+      ],
+      "requires": [
+        "python>=3.10"
+      ],
+      "install": {
+        "mode": "urirun-extra",
+        "pipSpec": "urirun-connector-email @ git+https://github.com/if-uri/urirun-connector-email.git@v0.1.0"
+      },
+      "docsUrl": "https://github.com/if-uri/urirun-connector-email",
+      "keywords": [
+        "email",
+        "imap",
+        "smtp",
+        "thunderbird",
+        "invoice",
+        "mbox",
+        "communication",
+        "connector"
+      ],
+      "provenance": "verified",
+      "publisher": {
+        "name": "if-uri",
+        "url": "https://ifuri.com",
+        "github": "https://github.com/if-uri"
       }
     },
     {
@@ -809,6 +1096,125 @@
       }
     },
     {
+      "id": "flow-repair",
+      "name": "Flow Repair",
+      "status": "available",
+      "category": "AI",
+      "summary": "Generate a urirun flow (YAML) from natural language, execute it, and self-repair from failures via an LLM.",
+      "description": "Flow Repair is an external urirun connector that turns a natural-language goal into a urirun flow as YAML, validates every step URI against the registry action space, runs the steps under policy, and — when a step fails — feeds the structured error back to an LLM to obtain a corrected flow, then re-runs (up to `tries`). LLM model/provider selection is delegated to the `llm` connector (provider-prefixed models go through litellm; bare models hit Ollama). Steps execute only with `--execute` / `mode=execute`.",
+      "uriSchemes": [
+        "flow"
+      ],
+      "routes": [
+        "flow://host/repair/command/run"
+      ],
+      "useCases": [
+        "Generate a urirun flow (YAML) from natural language.",
+        "Execute a flow and self-repair from failures.",
+        "Iterate a flow until it passes."
+      ],
+      "examples": [
+        {
+          "title": "Repair and run a flow",
+          "uri": "flow://host/repair/command/run",
+          "payload": {
+            "goal": "check all sites and email me the failures"
+          }
+        }
+      ],
+      "requires": [
+        "python>=3.10"
+      ],
+      "install": {
+        "mode": "urirun-extra",
+        "pipSpec": "urirun-connector-flow-repair @ git+https://github.com/if-uri/urirun-connector-flow-repair.git@v0.1.0"
+      },
+      "docsUrl": "https://github.com/if-uri/urirun-connector-flow-repair",
+      "keywords": [
+        "llm",
+        "ai",
+        "flow",
+        "yaml",
+        "repair",
+        "agent",
+        "connector"
+      ],
+      "provenance": "verified",
+      "publisher": {
+        "name": "if-uri",
+        "url": "https://ifuri.com",
+        "github": "https://github.com/if-uri"
+      }
+    },
+    {
+      "id": "fs",
+      "name": "Filesystem duplicates",
+      "status": "available",
+      "category": "Filesystem",
+      "summary": "Find duplicate files in any folder over fs:// URIs. Exact byte duplicates by SHA-256 (stdlib) and near-duplicate IMAGES by perceptual hash (reusing wronai-img2nl analyze_fingerprint). A move command quarantines extras into _duplicates/, keeping the first of each group.",
+      "description": "fs:// turns duplicate detection into a first-class URI instead of ad-hoc shell + sha256sum. fs://host/duplicates/query/find scans a folder tree and returns groups of duplicate files: mode=sha256 finds byte-identical files of any type; mode=perceptual finds near-duplicate images by perceptual hash (phash/dhash/whash via the wronai/img2nl fingerprint engine, compared by Hamming distance within a threshold). fs://host/duplicates/command/move quarantines the extra copies (all but the first of each group) into <root>/_duplicates/<key>/, with a dry_run default. Built for the office flow — dedupe exported invoices and attachments.",
+      "uriSchemes": [
+        "fs"
+      ],
+      "routes": [
+        "fs://host/duplicates/query/find",
+        "fs://host/duplicates/command/move"
+      ],
+      "useCases": [
+        "Find byte-identical duplicate files in a folder tree.",
+        "Detect near-duplicate images by perceptual hash.",
+        "Quarantine the extra copies of exported invoices."
+      ],
+      "examples": [
+        {
+          "title": "Find duplicates",
+          "uri": "fs://host/duplicates/query/find",
+          "payload": {
+            "root": "/data/exports",
+            "mode": "sha256"
+          }
+        },
+        {
+          "title": "Move extra copies",
+          "uri": "fs://host/duplicates/command/move",
+          "payload": {
+            "root": "/data/exports",
+            "dry_run": true
+          }
+        }
+      ],
+      "requires": {
+        "system": [],
+        "python": [
+          "urirun"
+        ],
+        "optional": [
+          "pillow + imagehash (or img2nl) for perceptual image mode"
+        ]
+      },
+      "install": {
+        "mode": "urirun-extra",
+        "pipSpec": "urirun-connector-fs @ git+https://github.com/if-uri/urirun-connector-fs.git@v0.1.0"
+      },
+      "docsUrl": "https://github.com/if-uri/urirun-connector-fs",
+      "keywords": [
+        "duplicates",
+        "dedupe",
+        "sha256",
+        "perceptual-hash",
+        "phash",
+        "imagehash",
+        "filesystem",
+        "invoice"
+      ],
+      "provenance": "verified",
+      "publisher": {
+        "name": "if-uri",
+        "url": "https://ifuri.com",
+        "github": "https://github.com/if-uri"
+      }
+    },
+    {
       "id": "get-node",
       "name": "Get Node",
       "status": "planned",
@@ -858,6 +1264,123 @@
         "bootstrap",
         "provisioning",
         "health"
+      ],
+      "provenance": "verified",
+      "publisher": {
+        "name": "if-uri",
+        "url": "https://ifuri.com",
+        "github": "https://github.com/if-uri"
+      }
+    },
+    {
+      "id": "github",
+      "name": "GitHub",
+      "status": "available",
+      "category": "DevOps",
+      "summary": "Clone git repos and deploy them anywhere via bindings/registry over github:// URI routes.",
+      "description": "GitHub is an external urirun connector that bootstraps projects onto any machine over the URI contract: clone a repo, pull updates, pip install it, and emit its urirun_bindings() so the project can be compiled into a registry and served or host-deployed without logging into the box. Clones land under URIRUN_PROJECTS (default ~/.urirun-projects).",
+      "uriSchemes": [
+        "github"
+      ],
+      "routes": [
+        "github://host/repo/command/clone",
+        "github://host/package/command/install",
+        "github://host/repo/query/bindings"
+      ],
+      "useCases": [
+        "Clone a git repo over a URI in a flow.",
+        "Install a package straight from a GitHub repo.",
+        "Inspect a repo's urirun bindings/registry."
+      ],
+      "examples": [
+        {
+          "title": "Clone a repo",
+          "uri": "github://host/repo/command/clone",
+          "payload": {
+            "repo": "if-uri/urirun",
+            "dest": "/srv/urirun"
+          }
+        },
+        {
+          "title": "Read bindings",
+          "uri": "github://host/repo/query/bindings",
+          "payload": {
+            "repo": "if-uri/urirun-connector-llm"
+          }
+        }
+      ],
+      "requires": [
+        "python>=3.10",
+        "git"
+      ],
+      "install": {
+        "mode": "urirun-extra",
+        "pipSpec": "urirun-connector-github @ git+https://github.com/if-uri/urirun-connector-github.git@v0.1.0"
+      },
+      "docsUrl": "https://github.com/if-uri/urirun-connector-github",
+      "keywords": [
+        "git",
+        "github",
+        "clone",
+        "deploy",
+        "bootstrap",
+        "registry",
+        "connector"
+      ],
+      "provenance": "verified",
+      "publisher": {
+        "name": "if-uri",
+        "url": "https://ifuri.com",
+        "github": "https://github.com/if-uri"
+      }
+    },
+    {
+      "id": "hash",
+      "name": "Hash (Go)",
+      "status": "available",
+      "category": "Utilities",
+      "summary": "Compute SHA-256 digests of text through hash:// URI commands.",
+      "description": "Hash is a polyglot urirun connector written in Go. It proves connectors are language-agnostic: a single static binary emits a v2 bindings document and answers the hash:// route via an argv-template the urirun runtime invokes.",
+      "uriSchemes": [
+        "hash"
+      ],
+      "routes": [
+        "hash://host/text/query/sha256"
+      ],
+      "useCases": [
+        "Fingerprint payloads inside a URI flow without a Python dependency.",
+        "Demonstrate that urirun connectors can be authored in Go and shipped as one binary.",
+        "Project a Go connector to MCP tools / A2A skills like any other connector."
+      ],
+      "examples": [
+        {
+          "title": "SHA-256 of a string",
+          "uri": "hash://host/text/query/sha256",
+          "payload": {
+            "text": "hello"
+          }
+        }
+      ],
+      "flowExample": [
+        "hash://host/text/query/sha256"
+      ],
+      "requires": [
+        "go>=1.21"
+      ],
+      "install": {
+        "mode": "urirun-extra",
+        "pipSpec": "urirun-connector-hash @ git+https://github.com/if-uri/urirun-connector-hash.git@v0.1.0"
+      },
+      "adapterKinds": [
+        "argv-template"
+      ],
+      "docsUrl": "https://github.com/if-uri/urirun-connector-hash",
+      "keywords": [
+        "hash",
+        "sha256",
+        "go",
+        "polyglot",
+        "connector"
       ],
       "provenance": "verified",
       "publisher": {
@@ -981,6 +1504,176 @@
         "name": "tellmesh",
         "url": "https://github.com/tellmesh",
         "github": "https://github.com/tellmesh"
+      }
+    },
+    {
+      "id": "invoice",
+      "name": "Invoice field extraction",
+      "status": "available",
+      "category": "Accounting",
+      "summary": "Extract structured fields from invoices over invoice:// URIs — NIP, number, dates, net/VAT/gross, seller, currency. Regex tuned for Polish faktura (also EN), text via pdftotext, optional LLM (OpenRouter) fallback. A folder route batches a month of invoices into a CSV with net/VAT/gross totals.",
+      "description": "invoice:// turns invoice parsing into a first-class URI. invoice://host/file/query/parse returns structured fields {nip, number, issueDate, seller, net, vat, gross, currency} from one PDF/text — regex-first (text-layer PDFs via pdftotext), with an optional LLM pass (OpenRouter via litellm, use_llm=true) for layouts the regex misses. invoice://host/folder/query/audit parses every invoice under a folder into rows plus net/VAT/gross totals, optionally writing a CSV — for monthly accounting. Read-only over the invoice files. Pairs with doc:// (OCR for scans) and fs:// (dedupe) in the office flow.",
+      "uriSchemes": [
+        "invoice"
+      ],
+      "routes": [
+        "invoice://host/file/query/parse",
+        "invoice://host/folder/query/audit"
+      ],
+      "useCases": [
+        "Extract NIP, dates and net/VAT/gross from one invoice.",
+        "Audit a folder of invoices into rows plus monthly totals.",
+        "Feed parsed rows into a spreadsheet for accounting."
+      ],
+      "examples": [
+        {
+          "title": "Parse one invoice",
+          "uri": "invoice://host/file/query/parse",
+          "payload": {
+            "path": "/faktury/2026-06/FV-1.pdf"
+          }
+        },
+        {
+          "title": "Audit a folder",
+          "uri": "invoice://host/folder/query/audit",
+          "payload": {
+            "root": "/faktury/2026-06",
+            "csv": true
+          }
+        }
+      ],
+      "requires": {
+        "system": [
+          "pdftotext (poppler) for text-layer PDFs"
+        ],
+        "python": [
+          "urirun"
+        ],
+        "optional": [
+          "litellm + OPENROUTER_API_KEY for the LLM fallback",
+          "doc:// OCR for scanned invoices"
+        ]
+      },
+      "install": {
+        "mode": "urirun-extra",
+        "pipSpec": "urirun-connector-invoice @ git+https://github.com/if-uri/urirun-connector-invoice.git@v0.1.0"
+      },
+      "docsUrl": "https://github.com/if-uri/urirun-connector-invoice",
+      "keywords": [
+        "invoice",
+        "faktura",
+        "nip",
+        "vat",
+        "accounting",
+        "ksiegowosc",
+        "ocr",
+        "extraction"
+      ],
+      "provenance": "verified",
+      "publisher": {
+        "name": "if-uri",
+        "url": "https://ifuri.com",
+        "github": "https://github.com/if-uri"
+      }
+    },
+    {
+      "id": "ksef",
+      "name": "KSeF 2.0",
+      "status": "available",
+      "category": "Government / e-invoicing",
+      "summary": "Polish national e-invoicing (KSeF 2.0) as ksef:// routes: auth, send invoice, query, download.",
+      "description": "KSeF 2.0 reference connector. The HTTP surface is declarative (urirun fetch adapter, environments test/demo/prod). The ksef-token auth handshake (challenge -> RSA-OAEP(token|timestamp) -> poll -> redeem) and client-side crypto (AES-256-CBC + RSAES-OAEP, SHA-256 invoice hash) are the two imperative helpers. The access token is addressed by reference (getv://KSEF_ACCESS_TOKEN), never embedded. Smoke against the TEST environment with random NIPs.",
+      "uriSchemes": [
+        "ksef"
+      ],
+      "routes": [
+        "ksef://demo/auth/challenge",
+        "ksef://demo/cert/enroll",
+        "ksef://demo/cert/enrollment-data",
+        "ksef://demo/cert/limits",
+        "ksef://demo/invoice/{ksefNumber}",
+        "ksef://demo/invoices/query",
+        "ksef://demo/session/batch/open",
+        "ksef://demo/session/online/{ref}/send",
+        "ksef://demo/session/{ref}/close",
+        "ksef://demo/session/{ref}/failed",
+        "ksef://demo/session/{ref}/invoices",
+        "ksef://demo/session/{ref}/upo",
+        "ksef://demo/sessions/query/list",
+        "ksef://prod/auth/challenge",
+        "ksef://prod/cert/enroll",
+        "ksef://prod/cert/enrollment-data",
+        "ksef://prod/cert/limits",
+        "ksef://prod/invoice/{ksefNumber}",
+        "ksef://prod/invoices/query",
+        "ksef://prod/session/batch/open",
+        "ksef://prod/session/online/{ref}/send",
+        "ksef://prod/session/{ref}/close",
+        "ksef://prod/session/{ref}/failed",
+        "ksef://prod/session/{ref}/invoices",
+        "ksef://prod/session/{ref}/upo",
+        "ksef://prod/sessions/query/list",
+        "ksef://test/auth/challenge",
+        "ksef://test/cert/enroll",
+        "ksef://test/cert/enrollment-data",
+        "ksef://test/cert/limits",
+        "ksef://test/invoice/{ksefNumber}",
+        "ksef://test/invoices/query",
+        "ksef://test/session/batch/open",
+        "ksef://test/session/online/{ref}/send",
+        "ksef://test/session/{ref}/close",
+        "ksef://test/session/{ref}/failed",
+        "ksef://test/session/{ref}/invoices",
+        "ksef://test/session/{ref}/upo",
+        "ksef://test/sessions/query/list"
+      ],
+      "useCases": [
+        "Authenticate with a KSeF token and obtain a JWT access token.",
+        "Encrypt and send an FA(3) invoice in an online session, then poll acceptance/UPO.",
+        "Query accepted invoices and download by ksefNumber."
+      ],
+      "examples": [
+        {
+          "title": "Authenticate (challenge)",
+          "uri": "ksef://demo/auth/challenge",
+          "payload": {
+            "nip": "1234567890"
+          }
+        },
+        {
+          "title": "Query invoices",
+          "uri": "ksef://demo/invoices/query",
+          "payload": {
+            "dateFrom": "2026-06-01",
+            "dateTo": "2026-06-30"
+          }
+        }
+      ],
+      "requires": [
+        "python>=3.10",
+        "cryptography>=42"
+      ],
+      "install": {
+        "mode": "urirun-extra",
+        "pipSpec": "urirun-connector-ksef @ git+https://github.com/if-uri/urirun-connector-ksef.git@v0.1.0"
+      },
+      "adapterKinds": [
+        "fetch"
+      ],
+      "docsUrl": "https://github.com/if-uri/urirun-connector-ksef",
+      "keywords": [
+        "ksef",
+        "e-invoicing",
+        "faktury",
+        "government",
+        "poland",
+        "connector"
+      ],
+      "provenance": "verified",
+      "publisher": {
+        "name": "if-uri",
+        "url": "https://ifuri.com",
+        "github": "https://github.com/if-uri"
       }
     },
     {
@@ -1387,6 +2080,79 @@
       }
     },
     {
+      "id": "sheet",
+      "name": "Spreadsheet I/O (XLSX/CSV)",
+      "status": "available",
+      "category": "Accounting",
+      "summary": "Read and write XLSX/CSV over sheet:// URIs without libreoffice. CSV via stdlib (always works); XLSX via openpyxl (pure Python). Reads return {columns, rows}; writes take rows and pick CSV/XLSX from the extension, with an optional totals footer. Pairs with invoice://ksef:// to emit accountant-ready Excel.",
+      "description": "sheet:// makes spreadsheet I/O a first-class URI. sheet://host/file/query/read returns {columns, rows} from a .xlsx (any tab) or .csv — for ingesting bank statements and accounting exports. sheet://host/file/command/write writes a list of row dicts to .xlsx or .csv (chosen by extension), with an optional per-column SUM footer — for turning parsed invoice / KSeF VAT-register rows into an Excel an accountant opens. sheet://host/file/query/info lists sheets + dimensions. CSV needs no extra deps; XLSX needs openpyxl (pip).",
+      "uriSchemes": [
+        "sheet"
+      ],
+      "routes": [
+        "sheet://host/file/query/read",
+        "sheet://host/file/command/write",
+        "sheet://host/file/query/info"
+      ],
+      "useCases": [
+        "Read a bank statement or accounting export as columns + rows.",
+        "Write parsed invoice / VAT-register rows to an XLSX an accountant opens.",
+        "List the sheets and dimensions of a workbook."
+      ],
+      "examples": [
+        {
+          "title": "Read a sheet",
+          "uri": "sheet://host/file/query/read",
+          "payload": {
+            "path": "/data/wyciag.xlsx"
+          }
+        },
+        {
+          "title": "Write rows",
+          "uri": "sheet://host/file/command/write",
+          "payload": {
+            "path": "/out/rejestr-vat.xlsx",
+            "rows": [
+              {
+                "nip": "123",
+                "gross": 123.0
+              }
+            ]
+          }
+        }
+      ],
+      "requires": {
+        "system": [],
+        "python": [
+          "urirun"
+        ],
+        "optional": [
+          "openpyxl for .xlsx (CSV works without it)"
+        ]
+      },
+      "install": {
+        "mode": "urirun-extra",
+        "pipSpec": "urirun-connector-sheet @ git+https://github.com/if-uri/urirun-connector-sheet.git@v0.1.0"
+      },
+      "docsUrl": "https://github.com/if-uri/urirun-connector-sheet",
+      "keywords": [
+        "xlsx",
+        "csv",
+        "excel",
+        "openpyxl",
+        "spreadsheet",
+        "accounting",
+        "ksiegowosc",
+        "bank-statement"
+      ],
+      "provenance": "verified",
+      "publisher": {
+        "name": "if-uri",
+        "url": "https://ifuri.com",
+        "github": "https://github.com/if-uri"
+      }
+    },
+    {
       "id": "stepper",
       "name": "Stepper Motor",
       "status": "planned",
@@ -1616,6 +2382,136 @@
         "name": "tellmesh",
         "url": "https://github.com/tellmesh",
         "github": "https://github.com/tellmesh"
+      }
+    },
+    {
+      "id": "usb",
+      "name": "USB devices",
+      "status": "available",
+      "category": "Hardware",
+      "summary": "Enumerate and classify the USB devices plugged into a computer over usb:// URIs. Reads the kernel's sysfs view (no root, no extra deps), labels each device by USB class codes (camera/webcam, keyboard, mouse, audio, storage, hub, printer, bluetooth, serial, smart-card/security-key) and maps it to the /dev nodes it owns (/dev/video*, /dev/input/*, /dev/ttyUSB*, /dev/hidraw*).",
+      "description": "usb:// answers 'what is physically connected to this machine?' as a first-class URI instead of ad-hoc lsusb parsing. usb://host/devices/query/list returns every device with a friendly category, roles, vendor/product ids and the device nodes it exposes. usb://host/devices/query/find searches by name, vendor:product or category. usb://host/cameras/query/list returns only USB cameras with their /dev/video* capture nodes — the discovery layer the camera connector builds on. usb://host/input/query/list returns keyboards, mice and other HID gear with their /dev/input nodes. usb://host/devices/query/probe reports host support. Built on Linux sysfs (/sys/bus/usb/devices) and /sys/class/* node mapping; lsusb is used only to fill in nicer vendor/product names.",
+      "uriSchemes": [
+        "usb"
+      ],
+      "routes": [
+        "usb://host/devices/query/list",
+        "usb://host/devices/query/find",
+        "usb://host/cameras/query/list",
+        "usb://host/input/query/list",
+        "usb://host/devices/query/probe"
+      ],
+      "useCases": [
+        "List every USB device with a friendly category.",
+        "Find USB cameras and their /dev/video* nodes.",
+        "Enumerate keyboards and mice with their /dev/input nodes."
+      ],
+      "examples": [
+        {
+          "title": "List USB devices",
+          "uri": "usb://host/devices/query/list",
+          "payload": {}
+        },
+        {
+          "title": "Find by name",
+          "uri": "usb://host/devices/query/find",
+          "payload": {
+            "q": "webcam"
+          }
+        }
+      ],
+      "requires": {
+        "system": [
+          "linux sysfs (/sys/bus/usb)"
+        ],
+        "python": [
+          "urirun"
+        ],
+        "optional": [
+          "lsusb (nicer names)",
+          "pyusb"
+        ]
+      },
+      "install": {
+        "mode": "urirun-extra",
+        "pipSpec": "urirun-connector-usb @ git+https://github.com/if-uri/urirun-connector-usb.git@v0.1.0"
+      },
+      "docsUrl": "https://github.com/if-uri/urirun-connector-usb",
+      "keywords": [
+        "usb",
+        "devices",
+        "hardware",
+        "camera",
+        "webcam",
+        "keyboard",
+        "mouse",
+        "hid",
+        "lsusb",
+        "sysfs",
+        "v4l2",
+        "security-key",
+        "bluetooth"
+      ],
+      "provenance": "verified",
+      "publisher": {
+        "name": "if-uri",
+        "url": "https://ifuri.com",
+        "github": "https://github.com/if-uri"
+      }
+    },
+    {
+      "id": "uuid",
+      "name": "UUID (JavaScript)",
+      "status": "available",
+      "category": "Utilities",
+      "summary": "Generate UUID v4 identifiers through uuid:// URI commands.",
+      "description": "UUID is a polyglot urirun connector written in JavaScript (Node). It proves connectors are language-agnostic: it emits a v2 bindings document and answers the uuid:// route via an argv-template the urirun runtime invokes.",
+      "uriSchemes": [
+        "uuid"
+      ],
+      "routes": [
+        "uuid://host/id/query/v4"
+      ],
+      "useCases": [
+        "Mint correlation ids inside a URI flow without a Python dependency.",
+        "Demonstrate that urirun connectors can be authored in JavaScript.",
+        "Project a JS connector to MCP tools / A2A skills like any other connector."
+      ],
+      "examples": [
+        {
+          "title": "Generate two UUIDs",
+          "uri": "uuid://host/id/query/v4",
+          "payload": {
+            "count": 2
+          }
+        }
+      ],
+      "flowExample": [
+        "uuid://host/id/query/v4"
+      ],
+      "requires": [
+        "node>=18"
+      ],
+      "install": {
+        "mode": "urirun-extra",
+        "pipSpec": "urirun-connector-uuid @ git+https://github.com/if-uri/urirun-connector-uuid.git@v0.1.0"
+      },
+      "adapterKinds": [
+        "argv-template"
+      ],
+      "docsUrl": "https://github.com/if-uri/urirun-connector-uuid",
+      "keywords": [
+        "uuid",
+        "javascript",
+        "node",
+        "polyglot",
+        "connector"
+      ],
+      "provenance": "verified",
+      "publisher": {
+        "name": "if-uri",
+        "url": "https://ifuri.com",
+        "github": "https://github.com/if-uri"
       }
     },
     {

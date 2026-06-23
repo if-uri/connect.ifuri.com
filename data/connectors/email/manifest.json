@@ -1,0 +1,64 @@
+{
+  "id": "email",
+  "name": "Email",
+  "status": "available",
+  "category": "Communication",
+  "summary": "Read inbox, send mail, and extract local Thunderbird invoice attachments through email:// URI routes (IMAP + SMTP + local mbox).",
+  "description": "Email is an external urirun connector that exposes IMAP reads (inbox list, message read), SMTP send, and local Thunderbird mailbox extraction as email:// routes. The IMAP/SMTP routes touch a remote mail server, so they are gated by urirun execute policy. The local/thunderbird route reads mbox files from one profile or auto-discovered Thunderbird profile roots, extracts invoice-like attachments into monthly YYYY.MM folders, deduplicates attachment payloads, supports dry-run, and can write a JSON report. Credentials for remote routes come from the environment (EMAIL_IMAP_HOST/EMAIL_SMTP_HOST/EMAIL_USER/EMAIL_PASS), never the manifest.",
+  "uriSchemes": [
+    "email"
+  ],
+  "routes": [
+    "email://host/inbox/query/list",
+    "email://host/message/query/read",
+    "email://host/message/command/send",
+    "email://host/local/thunderbird/query/extract_invoices"
+  ],
+  "useCases": [
+    "List the inbox inside a flow.",
+    "Send a notification email.",
+    "Extract invoice attachments from local Thunderbird."
+  ],
+  "examples": [
+    {
+      "title": "List inbox",
+      "uri": "email://host/inbox/query/list",
+      "payload": {
+        "limit": 20
+      }
+    },
+    {
+      "title": "Send mail",
+      "uri": "email://host/message/command/send",
+      "payload": {
+        "to": "a@b.com",
+        "subject": "Hi",
+        "body": "..."
+      }
+    }
+  ],
+  "install": {
+    "mode": "urirun-extra",
+    "pipSpec": "urirun-connector-email @ git+https://github.com/if-uri/urirun-connector-email.git@v0.1.0"
+  },
+  "provenance": "verified",
+  "publisher": {
+    "name": "if-uri",
+    "url": "https://ifuri.com",
+    "github": "https://github.com/if-uri"
+  },
+  "docsUrl": "https://github.com/if-uri/urirun-connector-email",
+  "keywords": [
+    "email",
+    "imap",
+    "smtp",
+    "thunderbird",
+    "invoice",
+    "mbox",
+    "communication",
+    "connector"
+  ],
+  "requires": [
+    "python>=3.10"
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "id": "base64",
+  "name": "Base64 (PHP)",
+  "status": "available",
+  "category": "Utilities",
+  "summary": "Encode and decode text with Base64 through codec:// URI commands.",
+  "description": "Base64 is a polyglot urirun connector written in PHP. It proves connectors are language-agnostic: the script emits a v2 bindings document and answers the codec:// route via an argv-template the urirun runtime invokes.",
+  "uriSchemes": [
+    "codec"
+  ],
+  "routes": [
+    "codec://host/text/query/base64"
+  ],
+  "useCases": [
+    "Encode or decode payloads inside a URI flow without a Python dependency.",
+    "Demonstrate that urirun connectors can be authored in PHP.",
+    "Project a PHP connector to MCP tools / A2A skills like any other connector."
+  ],
+  "examples": [
+    {
+      "title": "Encode text",
+      "uri": "codec://host/text/query/base64",
+      "payload": {
+        "mode": "encode",
+        "text": "hello"
+      }
+    },
+    {
+      "title": "Decode text",
+      "uri": "codec://host/text/query/base64",
+      "payload": {
+        "mode": "decode",
+        "text": "aGVsbG8="
+      }
+    }
+  ],
+  "flowExample": [
+    "codec://host/text/query/base64"
+  ],
+  "requires": [
+    "php>=8.1"
+  ],
+  "adapterKinds": [
+    "argv-template"
+  ],
+  "install": {
+    "mode": "urirun-extra",
+    "pipSpec": "urirun-connector-base64 @ git+https://github.com/if-uri/urirun-connector-base64.git@v0.1.0"
+  },
+  "provenance": "verified",
+  "publisher": {
+    "name": "if-uri",
+    "url": "https://ifuri.com",
+    "github": "https://github.com/if-uri"
+  },
+  "docsUrl": "https://github.com/if-uri/urirun-connector-base64",
+  "language": "php",
+  "keywords": [
+    "base64",
+    "codec",
+    "php",
+    "polyglot",
+    "connector"
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "id": "uuid",
+  "name": "UUID (JavaScript)",
+  "status": "available",
+  "category": "Utilities",
+  "summary": "Generate UUID v4 identifiers through uuid:// URI commands.",
+  "description": "UUID is a polyglot urirun connector written in JavaScript (Node). It proves connectors are language-agnostic: it emits a v2 bindings document and answers the uuid:// route via an argv-template the urirun runtime invokes.",
+  "uriSchemes": [
+    "uuid"
+  ],
+  "routes": [
+    "uuid://host/id/query/v4"
+  ],
+  "useCases": [
+    "Mint correlation ids inside a URI flow without a Python dependency.",
+    "Demonstrate that urirun connectors can be authored in JavaScript.",
+    "Project a JS connector to MCP tools / A2A skills like any other connector."
+  ],
+  "examples": [
+    {
+      "title": "Generate two UUIDs",
+      "uri": "uuid://host/id/query/v4",
+      "payload": {
+        "count": 2
+      }
+    }
+  ],
+  "flowExample": [
+    "uuid://host/id/query/v4"
+  ],
+  "requires": [
+    "node>=18"
+  ],
+  "adapterKinds": [
+    "argv-template"
+  ],
+  "install": {
+    "mode": "urirun-extra",
+    "pipSpec": "urirun-connector-uuid @ git+https://github.com/if-uri/urirun-connector-uuid.git@v0.1.0"
+  },
+  "provenance": "verified",
+  "publisher": {
+    "name": "if-uri",
+    "url": "https://ifuri.com",
+    "github": "https://github.com/if-uri"
+  },
+  "docsUrl": "https://github.com/if-uri/urirun-connector-uuid",
+  "language": "javascript",
+  "keywords": [
+    "uuid",
+    "javascript",
+    "node",
+    "polyglot",
+    "connector"
+  ]
+}

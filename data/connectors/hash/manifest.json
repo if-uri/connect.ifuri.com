@@ -1,0 +1,56 @@
+{
+  "id": "hash",
+  "name": "Hash (Go)",
+  "status": "available",
+  "category": "Utilities",
+  "summary": "Compute SHA-256 digests of text through hash:// URI commands.",
+  "description": "Hash is a polyglot urirun connector written in Go. It proves connectors are language-agnostic: a single static binary emits a v2 bindings document and answers the hash:// route via an argv-template the urirun runtime invokes.",
+  "uriSchemes": [
+    "hash"
+  ],
+  "routes": [
+    "hash://host/text/query/sha256"
+  ],
+  "useCases": [
+    "Fingerprint payloads inside a URI flow without a Python dependency.",
+    "Demonstrate that urirun connectors can be authored in Go and shipped as one binary.",
+    "Project a Go connector to MCP tools / A2A skills like any other connector."
+  ],
+  "examples": [
+    {
+      "title": "SHA-256 of a string",
+      "uri": "hash://host/text/query/sha256",
+      "payload": {
+        "text": "hello"
+      }
+    }
+  ],
+  "flowExample": [
+    "hash://host/text/query/sha256"
+  ],
+  "requires": [
+    "go>=1.21"
+  ],
+  "adapterKinds": [
+    "argv-template"
+  ],
+  "install": {
+    "mode": "urirun-extra",
+    "pipSpec": "urirun-connector-hash @ git+https://github.com/if-uri/urirun-connector-hash.git@v0.1.0"
+  },
+  "provenance": "verified",
+  "publisher": {
+    "name": "if-uri",
+    "url": "https://ifuri.com",
+    "github": "https://github.com/if-uri"
+  },
+  "docsUrl": "https://github.com/if-uri/urirun-connector-hash",
+  "language": "go",
+  "keywords": [
+    "hash",
+    "sha256",
+    "go",
+    "polyglot",
+    "connector"
+  ]
+}
