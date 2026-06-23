@@ -665,7 +665,7 @@
             "flowExample": [],
             "install": {
                 "mode": "urirun-extra",
-                "pipSpec": "urirun-connector-email @ git+https://github.com/if-uri/urirun-connector-email.git@v0.1.0"
+                "pipSpec": "urirun-connector-email @ git+https://github.com/if-uri/urirun-connector-email.git@v0.3.0"
             },
             "docsUrl": "https://github.com/if-uri/urirun-connector-email",
             "hubUrl": "https://connect.ifuri.com/connectors/email",
