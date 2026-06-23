@@ -527,6 +527,7 @@
                 "camera://host/photo/query/analyze",
                 "camera://host/photo/query/inspect",
                 "camera://host/photo/query/compare",
+                "camera://host/photo/query/barcodes",
                 "camera://host/photo/query/ocr"
             ],
             "examples": [
