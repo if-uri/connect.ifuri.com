@@ -813,7 +813,7 @@
             },
             "install": {
                 "mode": "urirun-extra",
-                "pipSpec": "urirun-connector-camera @ git+https://github.com/if-uri/urirun-connector-camera.git@v0.1.0"
+                "pipSpec": "urirun-connector-camera @ git+https://github.com/if-uri/urirun-connector-camera.git"
             },
             "docsUrl": "https://github.com/if-uri/urirun-connector-camera",
             "keywords": [
