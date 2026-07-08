@@ -61,7 +61,15 @@
             }
           },
           "flowExample": { "type": "array", "items": { "type": "string" } },
-          "requires": { "type": "array", "items": { "type": "string" } },
+          "requires": {
+            "oneOf": [
+              { "type": "array", "items": { "type": "string" } },
+              { "type": "object", "additionalProperties": false, "properties": {
+                "system": { "type": "array", "items": { "type": "string" } },
+                "python": { "type": "array", "items": { "type": "string" } },
+                "optional": { "type": "array", "items": { "type": "string" } } } }
+            ]
+          },
           "install": {
             "type": "object",
             "required": ["mode"],
