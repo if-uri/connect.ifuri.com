@@ -1,0 +1,57 @@
+{
+  "id": "smart-crop",
+  "name": "Smart Crop",
+  "version": "0.1.0",
+  "status": "planned",
+  "category": "Vision",
+  "summary": "Detect useful regions and crop images automatically.",
+  "description": "Smart Crop is an if-uri urirun connector for detect useful regions and crop images automatically. It is represented in the public catalog so the connector can be discovered, versioned and linked to its repository while implementation details are completed.",
+  "uriSchemes": [
+    "smartcrop"
+  ],
+  "routes": [
+    "smartcrop://host/image/command/crop",
+    "smartcrop://host/image/query/regions"
+  ],
+  "useCases": [
+    "Discover Smart Crop capabilities from the connector catalog.",
+    "Plan flows that use smartcrop:// URI routes.",
+    "Install or track the connector from its GitHub repository."
+  ],
+  "examples": [
+    {
+      "title": "Check Smart Crop route",
+      "uri": "smartcrop://host/image/command/crop",
+      "payload": {}
+    }
+  ],
+  "requires": {
+    "system": [],
+    "python": [
+      "urirun"
+    ],
+    "optional": []
+  },
+  "install": {
+    "mode": "planned",
+    "pipSpec": "urirun-connector-smart-crop"
+  },
+  "adapterKinds": [
+    "command"
+  ],
+  "docsUrl": "https://github.com/if-uri/urirun-connector-smart-crop",
+  "keywords": [
+    "smart-crop",
+    "smartcrop",
+    "urirun",
+    "connector",
+    "smart",
+    "crop"
+  ],
+  "provenance": "verified",
+  "publisher": {
+    "name": "if-uri",
+    "url": "https://ifuri.com",
+    "github": "https://github.com/if-uri"
+  }
+}

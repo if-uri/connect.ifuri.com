@@ -1,0 +1,54 @@
+{
+  "id": "document",
+  "name": "Document",
+  "version": "0.1.0",
+  "status": "planned",
+  "category": "Documents",
+  "summary": "Read, convert and inspect document files through URI routes.",
+  "description": "Document is an if-uri urirun connector for read, convert and inspect document files through URI routes. It is represented in the public catalog so the connector can be discovered, versioned and linked to its repository while implementation details are completed.",
+  "uriSchemes": [
+    "document"
+  ],
+  "routes": [
+    "document://host/document/query/read",
+    "document://host/document/command/convert"
+  ],
+  "useCases": [
+    "Discover Document capabilities from the connector catalog.",
+    "Plan flows that use document:// URI routes.",
+    "Install or track the connector from its GitHub repository."
+  ],
+  "examples": [
+    {
+      "title": "Check Document route",
+      "uri": "document://host/document/query/read",
+      "payload": {}
+    }
+  ],
+  "requires": {
+    "system": [],
+    "python": [
+      "urirun"
+    ],
+    "optional": []
+  },
+  "install": {
+    "mode": "planned",
+    "pipSpec": "urirun-connector-document"
+  },
+  "adapterKinds": [
+    "command"
+  ],
+  "docsUrl": "https://github.com/if-uri/urirun-connector-document",
+  "keywords": [
+    "document",
+    "urirun",
+    "connector"
+  ],
+  "provenance": "verified",
+  "publisher": {
+    "name": "if-uri",
+    "url": "https://ifuri.com",
+    "github": "https://github.com/if-uri"
+  }
+}

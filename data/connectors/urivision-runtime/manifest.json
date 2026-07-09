@@ -1,0 +1,57 @@
+{
+  "id": "urivision-runtime",
+  "name": "Urivision Runtime",
+  "version": "0.1.0",
+  "status": "planned",
+  "category": "Vision",
+  "summary": "Manage the runtime layer for URI vision connectors.",
+  "description": "Urivision Runtime is an if-uri urirun connector for manage the runtime layer for URI vision connectors. It is represented in the public catalog so the connector can be discovered, versioned and linked to its repository while implementation details are completed.",
+  "uriSchemes": [
+    "vision"
+  ],
+  "routes": [
+    "vision://runtime/model/query/status",
+    "vision://runtime/model/command/load"
+  ],
+  "useCases": [
+    "Discover Urivision Runtime capabilities from the connector catalog.",
+    "Plan flows that use vision:// URI routes.",
+    "Install or track the connector from its GitHub repository."
+  ],
+  "examples": [
+    {
+      "title": "Check Urivision Runtime route",
+      "uri": "vision://runtime/model/query/status",
+      "payload": {}
+    }
+  ],
+  "requires": {
+    "system": [],
+    "python": [
+      "urirun"
+    ],
+    "optional": []
+  },
+  "install": {
+    "mode": "planned",
+    "pipSpec": "urirun-connector-urivision-runtime"
+  },
+  "adapterKinds": [
+    "command"
+  ],
+  "docsUrl": "https://github.com/if-uri/urirun-connector-urivision-runtime",
+  "keywords": [
+    "urivision-runtime",
+    "vision",
+    "urirun",
+    "connector",
+    "urivision",
+    "runtime"
+  ],
+  "provenance": "verified",
+  "publisher": {
+    "name": "if-uri",
+    "url": "https://ifuri.com",
+    "github": "https://github.com/if-uri"
+  }
+}

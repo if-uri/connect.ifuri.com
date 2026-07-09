@@ -3,8 +3,8 @@
   "name": "Screen Capture",
   "status": "planned",
   "category": "Vision",
-  "summary": "Screen capture \u2014 frame query, single capture, capture loop.",
-  "description": "Screen capture \u2014 frame query, single capture, capture loop. A tellmesh capability pack adopted into urirun via its manifest (`urirun adopt-pack`): 3 screen:// routes mapped 1:1 to bindings.v2, validated, ready to project to MCP tools / A2A skills.",
+  "summary": "Screen capture — frame query, single capture, capture loop.",
+  "description": "Screen capture — frame query, single capture, capture loop. A tellmesh capability pack adopted into urirun via its manifest (`urirun adopt-pack`): 3 screen:// routes mapped 1:1 to bindings.v2, validated, ready to project to MCP tools / A2A skills.",
   "uriSchemes": [
     "screen"
   ],
@@ -20,7 +20,7 @@
   ],
   "examples": [
     {
-      "title": "Screen Capture \u2014 first route",
+      "title": "Screen Capture — first route",
       "uri": "screen://target/monitor/monitor/query/frame",
       "payload": {}
     }
@@ -52,5 +52,6 @@
     "name": "tellmesh",
     "url": "https://github.com/tellmesh",
     "github": "https://github.com/tellmesh"
-  }
+  },
+  "version": "0.1.0"
 }

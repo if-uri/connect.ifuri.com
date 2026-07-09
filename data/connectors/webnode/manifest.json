@@ -1,0 +1,54 @@
+{
+  "id": "webnode",
+  "name": "Webnode",
+  "version": "0.1.0",
+  "status": "planned",
+  "category": "Web",
+  "summary": "Operate web node publishing/status workflows through URI routes.",
+  "description": "Webnode is an if-uri urirun connector for operate web node publishing/status workflows through URI routes. It is represented in the public catalog so the connector can be discovered, versioned and linked to its repository while implementation details are completed.",
+  "uriSchemes": [
+    "webnode"
+  ],
+  "routes": [
+    "webnode://host/page/query/status",
+    "webnode://host/page/command/publish"
+  ],
+  "useCases": [
+    "Discover Webnode capabilities from the connector catalog.",
+    "Plan flows that use webnode:// URI routes.",
+    "Install or track the connector from its GitHub repository."
+  ],
+  "examples": [
+    {
+      "title": "Check Webnode route",
+      "uri": "webnode://host/page/query/status",
+      "payload": {}
+    }
+  ],
+  "requires": {
+    "system": [],
+    "python": [
+      "urirun"
+    ],
+    "optional": []
+  },
+  "install": {
+    "mode": "planned",
+    "pipSpec": "urirun-connector-webnode"
+  },
+  "adapterKinds": [
+    "command"
+  ],
+  "docsUrl": "https://github.com/if-uri/urirun-connector-webnode",
+  "keywords": [
+    "webnode",
+    "urirun",
+    "connector"
+  ],
+  "provenance": "verified",
+  "publisher": {
+    "name": "if-uri",
+    "url": "https://ifuri.com",
+    "github": "https://github.com/if-uri"
+  }
+}

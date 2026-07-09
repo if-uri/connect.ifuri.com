@@ -64,5 +64,6 @@
     "optional": [
       "pillow + imagehash (or img2nl) for perceptual image mode"
     ]
-  }
+  },
+  "version": "0.1.0"
 }

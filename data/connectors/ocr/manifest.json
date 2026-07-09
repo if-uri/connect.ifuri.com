@@ -19,7 +19,7 @@
   ],
   "examples": [
     {
-      "title": "OCR \u2014 first route",
+      "title": "OCR — first route",
       "uri": "ocr://host/image/latest/query/text",
       "payload": {}
     }
@@ -51,5 +51,6 @@
     "name": "tellmesh",
     "url": "https://github.com/tellmesh",
     "github": "https://github.com/tellmesh"
-  }
+  },
+  "version": "0.1.0"
 }

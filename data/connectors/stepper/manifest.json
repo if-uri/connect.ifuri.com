@@ -24,7 +24,7 @@
   ],
   "examples": [
     {
-      "title": "Stepper Motor \u2014 first route",
+      "title": "Stepper Motor — first route",
       "uri": "stepper://device/axis/axis/query/status",
       "payload": {}
     }
@@ -56,5 +56,6 @@
     "name": "tellmesh",
     "url": "https://github.com/tellmesh",
     "github": "https://github.com/tellmesh"
-  }
+  },
+  "version": "0.1.0"
 }

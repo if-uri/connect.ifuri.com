@@ -26,7 +26,7 @@
   ],
   "examples": [
     {
-      "title": "Environment \u2014 first route",
+      "title": "Environment — first route",
       "uri": "env://runtime/query/health",
       "payload": {}
     }
@@ -58,5 +58,6 @@
     "name": "tellmesh",
     "url": "https://github.com/tellmesh",
     "github": "https://github.com/tellmesh"
-  }
+  },
+  "version": "0.1.0"
 }

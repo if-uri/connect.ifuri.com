@@ -1,0 +1,54 @@
+{
+  "id": "adb",
+  "name": "ADB",
+  "version": "0.1.0",
+  "status": "planned",
+  "category": "Hardware",
+  "summary": "Control Android Debug Bridge devices through URI routes.",
+  "description": "ADB is an if-uri urirun connector for control Android Debug Bridge devices through URI routes. It is represented in the public catalog so the connector can be discovered, versioned and linked to its repository while implementation details are completed.",
+  "uriSchemes": [
+    "adb"
+  ],
+  "routes": [
+    "adb://host/device/query/list",
+    "adb://host/shell/command/run"
+  ],
+  "useCases": [
+    "Discover ADB capabilities from the connector catalog.",
+    "Plan flows that use adb:// URI routes.",
+    "Install or track the connector from its GitHub repository."
+  ],
+  "examples": [
+    {
+      "title": "Check ADB route",
+      "uri": "adb://host/device/query/list",
+      "payload": {}
+    }
+  ],
+  "requires": {
+    "system": [],
+    "python": [
+      "urirun"
+    ],
+    "optional": []
+  },
+  "install": {
+    "mode": "planned",
+    "pipSpec": "urirun-connector-adb"
+  },
+  "adapterKinds": [
+    "command"
+  ],
+  "docsUrl": "https://github.com/if-uri/urirun-connector-adb",
+  "keywords": [
+    "adb",
+    "urirun",
+    "connector"
+  ],
+  "provenance": "verified",
+  "publisher": {
+    "name": "if-uri",
+    "url": "https://ifuri.com",
+    "github": "https://github.com/if-uri"
+  }
+}

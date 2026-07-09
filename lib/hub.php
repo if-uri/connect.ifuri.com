@@ -362,6 +362,7 @@ function hub_registry_entry(array $connector): array
         'id' => $connector['id'],
         'name' => $connector['name'],
         'status' => $connector['status'],
+        'version' => $connector['version'] ?? null,
         'category' => $connector['category'] ?? null,
         'summary' => $connector['summary'] ?? null,
         'description' => $connector['description'] ?? null,
@@ -410,6 +411,7 @@ function hub_search_index(): array
             'id' => $connectorId,
             'title' => $connector['name'] ?? $connectorId,
             'status' => $connector['status'] ?? null,
+            'version' => $connector['version'] ?? null,
             'category' => $connector['category'] ?? null,
             'summary' => $connector['summary'] ?? null,
             'uriSchemes' => $connector['uriSchemes'] ?? [],
@@ -461,6 +463,7 @@ function hub_connector_manifest_template(): array
         'id' => 'example-connector',
         'name' => 'Example Connector',
         'status' => 'planned',
+        'version' => '0.1.0',
         'category' => 'Automation',
         'summary' => 'Short connector summary with the main URI schemes and purpose.',
         'description' => 'Longer connector description explaining what system it integrates, what URI commands it exposes and when a user should install it.',
@@ -503,7 +506,7 @@ function hub_validation_error(string $field, string $message): array
 function hub_validate_connector_manifest(array $manifest, ?string $folderId = null): array
 {
     $errors = [];
-    $required = ['id', 'name', 'status', 'category', 'summary', 'description', 'uriSchemes', 'routes', 'install', 'provenance'];
+    $required = ['id', 'name', 'version', 'status', 'category', 'summary', 'description', 'uriSchemes', 'routes', 'install', 'provenance'];
     foreach ($required as $field) {
         if (!array_key_exists($field, $manifest) || $manifest[$field] === '' || $manifest[$field] === []) {
             $errors[] = hub_validation_error($field, "{$field} is required");
@@ -516,6 +519,10 @@ function hub_validate_connector_manifest(array $manifest, ?string $folderId = nu
     }
     if ($folderId !== null && $folderId !== '' && $id !== '' && $id !== $folderId) {
         $errors[] = hub_validation_error('id', "id must equal folder name {$folderId}");
+    }
+
+    if (isset($manifest['version']) && (!is_string($manifest['version']) || !preg_match('/^[0-9]+\.[0-9]+\.[0-9]+(?:[-+][0-9A-Za-z.-]+)?$/', $manifest['version']))) {
+        $errors[] = hub_validation_error('version', 'version must be a semantic version string like 0.1.0');
     }
 
     if (isset($manifest['status']) && !in_array($manifest['status'], ['available', 'planned'], true)) {
@@ -654,6 +661,7 @@ function hub_mcp_tools(): array
                     'connector' => $c['id'] ?? null,
                     'uri' => $route,
                     'status' => $c['status'] ?? null,
+                    'version' => $c['version'] ?? null,
                     'category' => $c['category'] ?? null,
                     'install' => $c['install'] ?? null,
                 ],

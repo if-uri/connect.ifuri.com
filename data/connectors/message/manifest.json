@@ -18,7 +18,7 @@
   ],
   "examples": [
     {
-      "title": "Messaging \u2014 first route",
+      "title": "Messaging — first route",
       "uri": "message://local/alert/command/send",
       "payload": {}
     }
@@ -49,5 +49,6 @@
     "name": "tellmesh",
     "url": "https://github.com/tellmesh",
     "github": "https://github.com/tellmesh"
-  }
+  },
+  "version": "0.1.0"
 }

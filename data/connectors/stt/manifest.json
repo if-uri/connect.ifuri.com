@@ -20,7 +20,7 @@
   ],
   "examples": [
     {
-      "title": "Speech to Text \u2014 first route",
+      "title": "Speech to Text — first route",
       "uri": "stt://local/session/session/command/start",
       "payload": {}
     }
@@ -52,5 +52,6 @@
     "name": "tellmesh",
     "url": "https://github.com/tellmesh",
     "github": "https://github.com/tellmesh"
-  }
+  },
+  "version": "0.1.0"
 }

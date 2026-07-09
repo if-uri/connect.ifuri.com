@@ -1,0 +1,54 @@
+{
+  "id": "adopt",
+  "name": "Adopt",
+  "version": "0.1.0",
+  "status": "planned",
+  "category": "Operations",
+  "summary": "Adopt or enroll urirun nodes into a managed host.",
+  "description": "Adopt is an if-uri urirun connector for adopt or enroll urirun nodes into a managed host. It is represented in the public catalog so the connector can be discovered, versioned and linked to its repository while implementation details are completed.",
+  "uriSchemes": [
+    "adopt"
+  ],
+  "routes": [
+    "adopt://host/node/command/enroll",
+    "adopt://host/node/query/status"
+  ],
+  "useCases": [
+    "Discover Adopt capabilities from the connector catalog.",
+    "Plan flows that use adopt:// URI routes.",
+    "Install or track the connector from its GitHub repository."
+  ],
+  "examples": [
+    {
+      "title": "Check Adopt route",
+      "uri": "adopt://host/node/command/enroll",
+      "payload": {}
+    }
+  ],
+  "requires": {
+    "system": [],
+    "python": [
+      "urirun"
+    ],
+    "optional": []
+  },
+  "install": {
+    "mode": "planned",
+    "pipSpec": "urirun-connector-adopt"
+  },
+  "adapterKinds": [
+    "command"
+  ],
+  "docsUrl": "https://github.com/if-uri/urirun-connector-adopt",
+  "keywords": [
+    "adopt",
+    "urirun",
+    "connector"
+  ],
+  "provenance": "verified",
+  "publisher": {
+    "name": "if-uri",
+    "url": "https://ifuri.com",
+    "github": "https://github.com/if-uri"
+  }
+}

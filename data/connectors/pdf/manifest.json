@@ -1,0 +1,73 @@
+{
+    "id":  "pdf",
+    "name":  "PDF",
+    "status":  "available",
+    "category":  "Documents",
+    "summary":  "Render markdown or HTML to PDF and read PDF page count/metadata through pdf:// URI routes. Headless, no GUI or office suite.",
+    "description":  "PDF is an external urirun connector that exposes headless PDF rendering as pdf:// routes. It renders markdown text/files (markdown -\u003e HTML -\u003e PDF) and HTML strings/files to PDF using weasyprint when available, falling back to reportlab for basic text output. A read-only query returns the page count and document metadata of an existing PDF via pypdf (or PyPDF2). All third-party imports are lazy, so the connector imports cleanly with none of the rendering libraries installed, and every handler returns a urirun envelope instead of raising.",
+    "useCases":  [
+                     "Render a generated markdown report to a shareable PDF inside a flow.",
+                     "Convert an HTML template to PDF headlessly.",
+                     "Inspect page count and metadata of an existing PDF."
+                 ],
+    "flowExample":  [
+                        "pdf://host/markdown/command/render",
+                        "pdf://host/html/command/render",
+                        "pdf://host/pdf/query/info"
+                    ],
+    "requires":  [
+                     "python\u003e=3.10"
+                 ],
+    "install":  {
+                    "mode":  "urirun-extra",
+                    "pipSpec":  "urirun-connector-pdf @ git+https://github.com/if-uri/urirun-connector-pdf.git"
+                },
+    "provenance":  "verified",
+    "publisher":  {
+                      "name":  "if-uri",
+                      "url":  "https://ifuri.com",
+                      "github":  "https://github.com/if-uri"
+                  },
+    "docsUrl":  "https://github.com/if-uri/urirun-connector-pdf",
+    "keywords":  [
+                     "pdf",
+                     "markdown",
+                     "html",
+                     "weasyprint",
+                     "reportlab",
+                     "pypdf",
+                     "render",
+                     "documents",
+                     "connector"
+                 ],
+    "uriSchemes":  [
+                       "pdf"
+                   ],
+    "routes":  [
+                   "pdf://host/markdown/command/render",
+                   "pdf://host/html/command/render",
+                   "pdf://host/pdf/query/info"
+               ],
+    "examples":  [
+                     {
+                         "title":  "Render markdown to PDF",
+                         "uri":  "pdf://host/markdown/command/render",
+                         "payload":  {
+                                         "markdown":  "# Hello\n\nWorld",
+                                         "out_path":  "/tmp/out.pdf",
+                                         "title":  "Hello"
+                                     }
+                     },
+                     {
+                         "title":  "PDF info",
+                         "uri":  "pdf://host/pdf/query/info",
+                         "payload":  {
+                                         "pdf_path":  "/tmp/out.pdf"
+                                     }
+                     }
+                 ],
+    "adapterKinds":  [
+                         "local-function"
+                     ],
+    "version":  "0.1.0"
+}

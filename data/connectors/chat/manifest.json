@@ -3,8 +3,8 @@
   "name": "Chat Bridge",
   "status": "planned",
   "category": "Messaging",
-  "summary": "Deprecated chat bridge \u2014 map transcript to URI and forward to urisys RDP stack.",
-  "description": "Deprecated chat bridge \u2014 map transcript to URI and forward to urisys RDP stack. A tellmesh capability pack adopted into urirun via its manifest (`urirun adopt-pack`): 2 chat:// routes mapped 1:1 to bindings.v2, validated, ready to project to MCP tools / A2A skills.",
+  "summary": "Deprecated chat bridge — map transcript to URI and forward to urisys RDP stack.",
+  "description": "Deprecated chat bridge — map transcript to URI and forward to urisys RDP stack. A tellmesh capability pack adopted into urirun via its manifest (`urirun adopt-pack`): 2 chat:// routes mapped 1:1 to bindings.v2, validated, ready to project to MCP tools / A2A skills.",
   "uriSchemes": [
     "chat"
   ],
@@ -19,7 +19,7 @@
   ],
   "examples": [
     {
-      "title": "Chat Bridge \u2014 first route",
+      "title": "Chat Bridge — first route",
       "uri": "chat://local/message/command/send",
       "payload": {}
     }
@@ -51,5 +51,6 @@
     "name": "tellmesh",
     "url": "https://github.com/tellmesh",
     "github": "https://github.com/tellmesh"
-  }
+  },
+  "version": "0.1.0"
 }

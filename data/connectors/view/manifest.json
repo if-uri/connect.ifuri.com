@@ -1,0 +1,54 @@
+{
+  "id": "view",
+  "name": "View",
+  "version": "0.1.0",
+  "status": "planned",
+  "category": "Viewer",
+  "summary": "Render or open resources in a URI-addressable viewer.",
+  "description": "View is an if-uri urirun connector for render or open resources in a URI-addressable viewer. It is represented in the public catalog so the connector can be discovered, versioned and linked to its repository while implementation details are completed.",
+  "uriSchemes": [
+    "view"
+  ],
+  "routes": [
+    "view://host/resource/query/render",
+    "view://host/resource/command/open"
+  ],
+  "useCases": [
+    "Discover View capabilities from the connector catalog.",
+    "Plan flows that use view:// URI routes.",
+    "Install or track the connector from its GitHub repository."
+  ],
+  "examples": [
+    {
+      "title": "Check View route",
+      "uri": "view://host/resource/query/render",
+      "payload": {}
+    }
+  ],
+  "requires": {
+    "system": [],
+    "python": [
+      "urirun"
+    ],
+    "optional": []
+  },
+  "install": {
+    "mode": "planned",
+    "pipSpec": "urirun-connector-view"
+  },
+  "adapterKinds": [
+    "command"
+  ],
+  "docsUrl": "https://github.com/if-uri/urirun-connector-view",
+  "keywords": [
+    "view",
+    "urirun",
+    "connector"
+  ],
+  "provenance": "verified",
+  "publisher": {
+    "name": "if-uri",
+    "url": "https://ifuri.com",
+    "github": "https://github.com/if-uri"
+  }
+}

@@ -25,7 +25,7 @@
   ],
   "examples": [
     {
-      "title": "Human-in-the-Middle \u2014 first route",
+      "title": "Human-in-the-Middle — first route",
       "uri": "him://host/mouse/query/status",
       "payload": {}
     }
@@ -57,5 +57,6 @@
     "name": "tellmesh",
     "url": "https://github.com/tellmesh",
     "github": "https://github.com/tellmesh"
-  }
+  },
+  "version": "0.1.0"
 }

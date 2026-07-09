@@ -1,0 +1,54 @@
+{
+  "id": "nodeadmin",
+  "name": "Nodeadmin",
+  "version": "0.1.0",
+  "status": "planned",
+  "category": "Operations",
+  "summary": "Administer urirun nodes through explicit URI routes.",
+  "description": "Nodeadmin is an if-uri urirun connector for administer urirun nodes through explicit URI routes. It is represented in the public catalog so the connector can be discovered, versioned and linked to its repository while implementation details are completed.",
+  "uriSchemes": [
+    "nodeadmin"
+  ],
+  "routes": [
+    "nodeadmin://host/node/query/status",
+    "nodeadmin://host/node/command/restart"
+  ],
+  "useCases": [
+    "Discover Nodeadmin capabilities from the connector catalog.",
+    "Plan flows that use nodeadmin:// URI routes.",
+    "Install or track the connector from its GitHub repository."
+  ],
+  "examples": [
+    {
+      "title": "Check Nodeadmin route",
+      "uri": "nodeadmin://host/node/query/status",
+      "payload": {}
+    }
+  ],
+  "requires": {
+    "system": [],
+    "python": [
+      "urirun"
+    ],
+    "optional": []
+  },
+  "install": {
+    "mode": "planned",
+    "pipSpec": "urirun-connector-nodeadmin"
+  },
+  "adapterKinds": [
+    "command"
+  ],
+  "docsUrl": "https://github.com/if-uri/urirun-connector-nodeadmin",
+  "keywords": [
+    "nodeadmin",
+    "urirun",
+    "connector"
+  ],
+  "provenance": "verified",
+  "publisher": {
+    "name": "if-uri",
+    "url": "https://ifuri.com",
+    "github": "https://github.com/if-uri"
+  }
+}

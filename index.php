@@ -115,6 +115,7 @@ $jsonLd = [
           $id = (string) $connector['id'];
           $status = (string) ($connector['status'] ?? 'planned');
           $provenance = (string) ($connector['provenance'] ?? 'community');
+          $connectorVersion = (string) ($connector['version'] ?? '0.1.0');
           $signed = hub_connector_verified($id);
           $disabled = $status !== 'available';
           $search = strtolower(trim($id . ' ' . (string) $connector['name'] . ' ' . (string) $connector['summary'] . ' ' . (string) ($connector['category'] ?? '') . ' ' . implode(' ', $connector['uriSchemes'] ?? []) . ' ' . implode(' ', $connector['routes'] ?? []) . ' ' . implode(' ', $connector['keywords'] ?? [])));
@@ -124,6 +125,7 @@ $jsonLd = [
             <input type="checkbox" class="connector-check" value="<?php echo hub_h($id); ?>" <?php echo $disabled ? 'disabled' : 'checked'; ?>>
             <span>
               <strong><?php echo hub_h((string) $connector['name']); ?></strong>
+              <em class="version">v<?php echo hub_h($connectorVersion); ?></em>
               <em class="status <?php echo hub_h($status); ?>"><?php echo hub_h($status === 'available' ? hub_t('statusAvailable') : ($status === 'planned' ? hub_t('statusPlanned') : $status)); ?></em>
               <em class="prov <?php echo hub_h($provenance); ?>" title="<?php echo hub_h($provenance === 'verified' ? hub_t('verifiedTitle') : hub_t('communityTitle')); ?>"><?php echo hub_h($provenance === 'verified' ? hub_t('verified') : hub_t('community')); ?></em>
               <?php if ($signed): ?><em class="prov verified" title="Manifest signed by a trusted publisher (Ed25519)">&#x1F512; signed</em><?php endif; ?>

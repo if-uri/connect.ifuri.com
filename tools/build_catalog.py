@@ -19,6 +19,7 @@ OUTPUT_PATH = ROOT / "data" / "connectors.json"
 CATALOG_FIELDS = [
     "id",
     "name",
+    "version",
     "status",
     "category",
     "summary",
@@ -43,6 +44,7 @@ CATALOG_FIELDS = [
 REQUIRED = {
     "id",
     "name",
+    "version",
     "status",
     "category",
     "summary",

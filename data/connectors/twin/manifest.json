@@ -1,0 +1,54 @@
+{
+  "id": "twin",
+  "name": "Twin",
+  "version": "0.1.0",
+  "status": "planned",
+  "category": "Digital Twin",
+  "summary": "Expose digital twin state and updates through URI routes.",
+  "description": "Twin is an if-uri urirun connector for expose digital twin state and updates through URI routes. It is represented in the public catalog so the connector can be discovered, versioned and linked to its repository while implementation details are completed.",
+  "uriSchemes": [
+    "twin"
+  ],
+  "routes": [
+    "twin://host/entity/query/state",
+    "twin://host/entity/command/update"
+  ],
+  "useCases": [
+    "Discover Twin capabilities from the connector catalog.",
+    "Plan flows that use twin:// URI routes.",
+    "Install or track the connector from its GitHub repository."
+  ],
+  "examples": [
+    {
+      "title": "Check Twin route",
+      "uri": "twin://host/entity/query/state",
+      "payload": {}
+    }
+  ],
+  "requires": {
+    "system": [],
+    "python": [
+      "urirun"
+    ],
+    "optional": []
+  },
+  "install": {
+    "mode": "planned",
+    "pipSpec": "urirun-connector-twin"
+  },
+  "adapterKinds": [
+    "command"
+  ],
+  "docsUrl": "https://github.com/if-uri/urirun-connector-twin",
+  "keywords": [
+    "twin",
+    "urirun",
+    "connector"
+  ],
+  "provenance": "verified",
+  "publisher": {
+    "name": "if-uri",
+    "url": "https://ifuri.com",
+    "github": "https://github.com/if-uri"
+  }
+}

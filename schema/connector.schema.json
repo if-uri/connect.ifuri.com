@@ -4,11 +4,12 @@
   "title": "ifuri connect — per-connector manifest (folder source of truth)",
   "description": "Schema for data/connectors/<id>/manifest.json. A superset of one connectors.json entry: every field below either maps 1:1 into the catalog entry or is a folder-only asset/provenance field resolved during aggregation. id MUST equal the folder name.",
   "type": "object",
-  "required": ["id", "name", "status", "category", "summary", "description", "uriSchemes", "routes", "install", "provenance"],
+  "required": ["id", "name", "version", "status", "category", "summary", "description", "uriSchemes", "routes", "install", "provenance"],
   "additionalProperties": false,
   "properties": {
     "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9._-]*$", "description": "Must equal the containing folder name." },
     "name": { "type": "string" },
+    "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?:[-+][0-9A-Za-z.-]+)?$", "description": "Connector package version from pyproject.toml when available." },
     "status": { "type": "string", "enum": ["available", "planned"] },
     "category": { "type": "string" },
     "summary": { "type": "string", "maxLength": 600 },

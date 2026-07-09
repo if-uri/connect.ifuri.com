@@ -1,0 +1,54 @@
+{
+  "id": "connectorgen",
+  "name": "Connectorgen",
+  "version": "0.1.0",
+  "status": "planned",
+  "category": "Developer Tools",
+  "summary": "Generate connector scaffolds and validate connector manifests.",
+  "description": "Connectorgen is an if-uri urirun connector for generate connector scaffolds and validate connector manifests. It is represented in the public catalog so the connector can be discovered, versioned and linked to its repository while implementation details are completed.",
+  "uriSchemes": [
+    "connectorgen"
+  ],
+  "routes": [
+    "connectorgen://host/connector/command/scaffold",
+    "connectorgen://host/manifest/query/validate"
+  ],
+  "useCases": [
+    "Discover Connectorgen capabilities from the connector catalog.",
+    "Plan flows that use connectorgen:// URI routes.",
+    "Install or track the connector from its GitHub repository."
+  ],
+  "examples": [
+    {
+      "title": "Check Connectorgen route",
+      "uri": "connectorgen://host/connector/command/scaffold",
+      "payload": {}
+    }
+  ],
+  "requires": {
+    "system": [],
+    "python": [
+      "urirun"
+    ],
+    "optional": []
+  },
+  "install": {
+    "mode": "planned",
+    "pipSpec": "urirun-connector-connectorgen"
+  },
+  "adapterKinds": [
+    "command"
+  ],
+  "docsUrl": "https://github.com/if-uri/urirun-connector-connectorgen",
+  "keywords": [
+    "connectorgen",
+    "urirun",
+    "connector"
+  ],
+  "provenance": "verified",
+  "publisher": {
+    "name": "if-uri",
+    "url": "https://ifuri.com",
+    "github": "https://github.com/if-uri"
+  }
+}

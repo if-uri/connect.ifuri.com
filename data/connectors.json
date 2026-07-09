@@ -34,6 +34,7 @@
     {
       "id": "planfile",
       "name": "Planfile Tasks",
+      "version": "0.1.1",
       "status": "available",
       "category": "Planning",
       "summary": "Plan, group and execute daily tasks through task:// and planfile:// URI commands.",
@@ -124,6 +125,7 @@
     {
       "id": "sqlite-context",
       "name": "SQLite Context Store",
+      "version": "0.1.1",
       "status": "available",
       "category": "Data",
       "summary": "Local data, artifacts, checks and logs over data://, artifact://, check:// and log://.",
@@ -223,6 +225,7 @@
     {
       "id": "domain-monitor",
       "name": "Domain Monitor",
+      "version": "0.2.1",
       "status": "available",
       "category": "Operations",
       "summary": "HTTP, DNS reads, screenshots, logs and daily domain checks through URI commands.",
@@ -311,6 +314,7 @@
     {
       "id": "http-check",
       "name": "HTTP Check",
+      "version": "0.1.5",
       "status": "available",
       "category": "Operations",
       "summary": "Check HTTP endpoints through httpcheck:// URI commands and a small Python CLI.",
@@ -367,6 +371,7 @@
     {
       "id": "time-tools",
       "name": "Time Tools",
+      "version": "0.1.2",
       "status": "available",
       "category": "Operations",
       "summary": "Expose current time and timezone checks through time:// URI commands.",
@@ -431,6 +436,7 @@
     {
       "id": "namecheap-dns",
       "name": "Namecheap DNS",
+      "version": "0.1.0",
       "status": "available",
       "category": "DNS",
       "summary": "Safe DNS query, plan, backup and apply flow for Namecheap host records.",
@@ -519,6 +525,7 @@
     {
       "id": "grpc-transport",
       "name": "gRPC Transport",
+      "version": "0.1.0",
       "status": "available",
       "category": "Transport",
       "summary": "Expose and call URI registries over gRPC for service-to-service communication.",
@@ -574,6 +581,7 @@
     {
       "id": "mqtt",
       "name": "MQTT Device Bridge",
+      "version": "0.1.0",
       "status": "planned",
       "category": "IoT",
       "summary": "Publish, subscribe and bridge firmware/backend/frontend device commands through MQTT URI routes.",
@@ -629,6 +637,7 @@
     {
       "id": "browser-control",
       "name": "Browser Control",
+      "version": "0.1.1",
       "status": "available",
       "category": "Automation",
       "summary": "Drive browser/noVNC actions through browser:// URI commands for demos and QA.",
@@ -692,8 +701,171 @@
       }
     },
     {
+      "id": "adb",
+      "name": "ADB",
+      "version": "0.1.0",
+      "status": "planned",
+      "category": "Hardware",
+      "summary": "Control Android Debug Bridge devices through URI routes.",
+      "description": "ADB is an if-uri urirun connector for control Android Debug Bridge devices through URI routes. It is represented in the public catalog so the connector can be discovered, versioned and linked to its repository while implementation details are completed.",
+      "uriSchemes": [
+        "adb"
+      ],
+      "routes": [
+        "adb://host/device/query/list",
+        "adb://host/shell/command/run"
+      ],
+      "useCases": [
+        "Discover ADB capabilities from the connector catalog.",
+        "Plan flows that use adb:// URI routes.",
+        "Install or track the connector from its GitHub repository."
+      ],
+      "examples": [
+        {
+          "title": "Check ADB route",
+          "uri": "adb://host/device/query/list",
+          "payload": {}
+        }
+      ],
+      "requires": {
+        "system": [],
+        "python": [
+          "urirun"
+        ],
+        "optional": []
+      },
+      "install": {
+        "mode": "planned",
+        "pipSpec": "urirun-connector-adb"
+      },
+      "adapterKinds": [
+        "command"
+      ],
+      "docsUrl": "https://github.com/if-uri/urirun-connector-adb",
+      "keywords": [
+        "adb",
+        "urirun",
+        "connector"
+      ],
+      "provenance": "verified",
+      "publisher": {
+        "name": "if-uri",
+        "url": "https://ifuri.com",
+        "github": "https://github.com/if-uri"
+      }
+    },
+    {
+      "id": "adopt",
+      "name": "Adopt",
+      "version": "0.1.0",
+      "status": "planned",
+      "category": "Operations",
+      "summary": "Adopt or enroll urirun nodes into a managed host.",
+      "description": "Adopt is an if-uri urirun connector for adopt or enroll urirun nodes into a managed host. It is represented in the public catalog so the connector can be discovered, versioned and linked to its repository while implementation details are completed.",
+      "uriSchemes": [
+        "adopt"
+      ],
+      "routes": [
+        "adopt://host/node/command/enroll",
+        "adopt://host/node/query/status"
+      ],
+      "useCases": [
+        "Discover Adopt capabilities from the connector catalog.",
+        "Plan flows that use adopt:// URI routes.",
+        "Install or track the connector from its GitHub repository."
+      ],
+      "examples": [
+        {
+          "title": "Check Adopt route",
+          "uri": "adopt://host/node/command/enroll",
+          "payload": {}
+        }
+      ],
+      "requires": {
+        "system": [],
+        "python": [
+          "urirun"
+        ],
+        "optional": []
+      },
+      "install": {
+        "mode": "planned",
+        "pipSpec": "urirun-connector-adopt"
+      },
+      "adapterKinds": [
+        "command"
+      ],
+      "docsUrl": "https://github.com/if-uri/urirun-connector-adopt",
+      "keywords": [
+        "adopt",
+        "urirun",
+        "connector"
+      ],
+      "provenance": "verified",
+      "publisher": {
+        "name": "if-uri",
+        "url": "https://ifuri.com",
+        "github": "https://github.com/if-uri"
+      }
+    },
+    {
+      "id": "agents",
+      "name": "Agents",
+      "version": "0.1.0",
+      "status": "planned",
+      "category": "Agents",
+      "summary": "Expose local agent discovery and execution through URI routes.",
+      "description": "Agents is an if-uri urirun connector for expose local agent discovery and execution through URI routes. It is represented in the public catalog so the connector can be discovered, versioned and linked to its repository while implementation details are completed.",
+      "uriSchemes": [
+        "agents"
+      ],
+      "routes": [
+        "agents://host/agent/query/list",
+        "agents://host/agent/command/run"
+      ],
+      "useCases": [
+        "Discover Agents capabilities from the connector catalog.",
+        "Plan flows that use agents:// URI routes.",
+        "Install or track the connector from its GitHub repository."
+      ],
+      "examples": [
+        {
+          "title": "Check Agents route",
+          "uri": "agents://host/agent/query/list",
+          "payload": {}
+        }
+      ],
+      "requires": {
+        "system": [],
+        "python": [
+          "urirun"
+        ],
+        "optional": []
+      },
+      "install": {
+        "mode": "planned",
+        "pipSpec": "urirun-connector-agents"
+      },
+      "adapterKinds": [
+        "command"
+      ],
+      "docsUrl": "https://github.com/if-uri/urirun-connector-agents",
+      "keywords": [
+        "agents",
+        "urirun",
+        "connector"
+      ],
+      "provenance": "verified",
+      "publisher": {
+        "name": "if-uri",
+        "url": "https://ifuri.com",
+        "github": "https://github.com/if-uri"
+      }
+    },
+    {
       "id": "base64",
       "name": "Base64 (PHP)",
+      "version": "0.1.0",
       "status": "available",
       "category": "Utilities",
       "summary": "Encode and decode text with Base64 through codec:// URI commands.",
@@ -756,8 +928,63 @@
       }
     },
     {
+      "id": "calendar",
+      "name": "Calendar",
+      "version": "0.1.0",
+      "status": "planned",
+      "category": "Productivity",
+      "summary": "Read and create calendar events through URI routes.",
+      "description": "Calendar is an if-uri urirun connector for read and create calendar events through URI routes. It is represented in the public catalog so the connector can be discovered, versioned and linked to its repository while implementation details are completed.",
+      "uriSchemes": [
+        "calendar"
+      ],
+      "routes": [
+        "calendar://host/events/query/list",
+        "calendar://host/event/command/create"
+      ],
+      "useCases": [
+        "Discover Calendar capabilities from the connector catalog.",
+        "Plan flows that use calendar:// URI routes.",
+        "Install or track the connector from its GitHub repository."
+      ],
+      "examples": [
+        {
+          "title": "Check Calendar route",
+          "uri": "calendar://host/events/query/list",
+          "payload": {}
+        }
+      ],
+      "requires": {
+        "system": [],
+        "python": [
+          "urirun"
+        ],
+        "optional": []
+      },
+      "install": {
+        "mode": "planned",
+        "pipSpec": "urirun-connector-calendar"
+      },
+      "adapterKinds": [
+        "command"
+      ],
+      "docsUrl": "https://github.com/if-uri/urirun-connector-calendar",
+      "keywords": [
+        "calendar",
+        "urirun",
+        "connector"
+      ],
+      "provenance": "verified",
+      "publisher": {
+        "name": "if-uri",
+        "url": "https://ifuri.com",
+        "github": "https://github.com/if-uri"
+      }
+    },
+    {
       "id": "camera",
       "name": "Camera capture + OCR",
+      "version": "0.1.0",
       "status": "available",
       "category": "Hardware",
       "summary": "Turn a USB/built-in webcam into data over camera:// URIs: discover cameras, beep before scan, capture a still frame, describe what is in the photo, find and crop to the dominant object, OCR it, and run simple inspection/alert rules. Capture uses ffmpeg (OpenCV optional); scene understanding + object detection reuse the img2nl engine via urirun-connector-ocr (Pillow edge/stats fallback); OCR uses tesseract, upgrading to the richer OCR connector backends automatically.",
@@ -845,8 +1072,65 @@
       }
     },
     {
+      "id": "camera-web",
+      "name": "Camera Web",
+      "version": "0.1.0",
+      "status": "planned",
+      "category": "Hardware",
+      "summary": "Capture frames and status from browser-accessible cameras.",
+      "description": "Camera Web is an if-uri urirun connector for capture frames and status from browser-accessible cameras. It is represented in the public catalog so the connector can be discovered, versioned and linked to its repository while implementation details are completed.",
+      "uriSchemes": [
+        "camera"
+      ],
+      "routes": [
+        "camera://web/frame/query/capture",
+        "camera://web/stream/query/status"
+      ],
+      "useCases": [
+        "Discover Camera Web capabilities from the connector catalog.",
+        "Plan flows that use camera:// URI routes.",
+        "Install or track the connector from its GitHub repository."
+      ],
+      "examples": [
+        {
+          "title": "Check Camera Web route",
+          "uri": "camera://web/frame/query/capture",
+          "payload": {}
+        }
+      ],
+      "requires": {
+        "system": [],
+        "python": [
+          "urirun"
+        ],
+        "optional": []
+      },
+      "install": {
+        "mode": "planned",
+        "pipSpec": "urirun-connector-camera-web"
+      },
+      "adapterKinds": [
+        "command"
+      ],
+      "docsUrl": "https://github.com/if-uri/urirun-connector-camera-web",
+      "keywords": [
+        "camera-web",
+        "camera",
+        "urirun",
+        "connector",
+        "web"
+      ],
+      "provenance": "verified",
+      "publisher": {
+        "name": "if-uri",
+        "url": "https://ifuri.com",
+        "github": "https://github.com/if-uri"
+      }
+    },
+    {
       "id": "chat",
       "name": "Chat Bridge",
+      "version": "0.1.0",
       "status": "planned",
       "category": "Messaging",
       "summary": "Deprecated chat bridge — map transcript to URI and forward to urisys RDP stack.",
@@ -900,8 +1184,63 @@
       }
     },
     {
+      "id": "connectorgen",
+      "name": "Connectorgen",
+      "version": "0.1.0",
+      "status": "planned",
+      "category": "Developer Tools",
+      "summary": "Generate connector scaffolds and validate connector manifests.",
+      "description": "Connectorgen is an if-uri urirun connector for generate connector scaffolds and validate connector manifests. It is represented in the public catalog so the connector can be discovered, versioned and linked to its repository while implementation details are completed.",
+      "uriSchemes": [
+        "connectorgen"
+      ],
+      "routes": [
+        "connectorgen://host/connector/command/scaffold",
+        "connectorgen://host/manifest/query/validate"
+      ],
+      "useCases": [
+        "Discover Connectorgen capabilities from the connector catalog.",
+        "Plan flows that use connectorgen:// URI routes.",
+        "Install or track the connector from its GitHub repository."
+      ],
+      "examples": [
+        {
+          "title": "Check Connectorgen route",
+          "uri": "connectorgen://host/connector/command/scaffold",
+          "payload": {}
+        }
+      ],
+      "requires": {
+        "system": [],
+        "python": [
+          "urirun"
+        ],
+        "optional": []
+      },
+      "install": {
+        "mode": "planned",
+        "pipSpec": "urirun-connector-connectorgen"
+      },
+      "adapterKinds": [
+        "command"
+      ],
+      "docsUrl": "https://github.com/if-uri/urirun-connector-connectorgen",
+      "keywords": [
+        "connectorgen",
+        "urirun",
+        "connector"
+      ],
+      "provenance": "verified",
+      "publisher": {
+        "name": "if-uri",
+        "url": "https://ifuri.com",
+        "github": "https://github.com/if-uri"
+      }
+    },
+    {
       "id": "doc",
       "name": "Document text / OCR",
+      "version": "0.1.0",
       "status": "available",
       "category": "Documents",
       "summary": "Extract text from PDFs and images over doc:// URIs. Text-layer PDFs use pdftotext; scans/images fall back through an OCR chain (tesseract, RapidOCR/ONNX from wronai-img2nl, or an Ollama vision model from wronai-ocr). Degrades gracefully to pdftotext-only.",
@@ -971,8 +1310,117 @@
       }
     },
     {
+      "id": "docid",
+      "name": "Docid",
+      "version": "0.1.0",
+      "status": "planned",
+      "category": "Documents",
+      "summary": "Identify and tag documents with stable document IDs.",
+      "description": "Docid is an if-uri urirun connector for identify and tag documents with stable document IDs. It is represented in the public catalog so the connector can be discovered, versioned and linked to its repository while implementation details are completed.",
+      "uriSchemes": [
+        "docid"
+      ],
+      "routes": [
+        "docid://host/document/query/identify",
+        "docid://host/document/command/tag"
+      ],
+      "useCases": [
+        "Discover Docid capabilities from the connector catalog.",
+        "Plan flows that use docid:// URI routes.",
+        "Install or track the connector from its GitHub repository."
+      ],
+      "examples": [
+        {
+          "title": "Check Docid route",
+          "uri": "docid://host/document/query/identify",
+          "payload": {}
+        }
+      ],
+      "requires": {
+        "system": [],
+        "python": [
+          "urirun"
+        ],
+        "optional": []
+      },
+      "install": {
+        "mode": "planned",
+        "pipSpec": "urirun-connector-docid"
+      },
+      "adapterKinds": [
+        "command"
+      ],
+      "docsUrl": "https://github.com/if-uri/urirun-connector-docid",
+      "keywords": [
+        "docid",
+        "urirun",
+        "connector"
+      ],
+      "provenance": "verified",
+      "publisher": {
+        "name": "if-uri",
+        "url": "https://ifuri.com",
+        "github": "https://github.com/if-uri"
+      }
+    },
+    {
+      "id": "document",
+      "name": "Document",
+      "version": "0.1.0",
+      "status": "planned",
+      "category": "Documents",
+      "summary": "Read, convert and inspect document files through URI routes.",
+      "description": "Document is an if-uri urirun connector for read, convert and inspect document files through URI routes. It is represented in the public catalog so the connector can be discovered, versioned and linked to its repository while implementation details are completed.",
+      "uriSchemes": [
+        "document"
+      ],
+      "routes": [
+        "document://host/document/query/read",
+        "document://host/document/command/convert"
+      ],
+      "useCases": [
+        "Discover Document capabilities from the connector catalog.",
+        "Plan flows that use document:// URI routes.",
+        "Install or track the connector from its GitHub repository."
+      ],
+      "examples": [
+        {
+          "title": "Check Document route",
+          "uri": "document://host/document/query/read",
+          "payload": {}
+        }
+      ],
+      "requires": {
+        "system": [],
+        "python": [
+          "urirun"
+        ],
+        "optional": []
+      },
+      "install": {
+        "mode": "planned",
+        "pipSpec": "urirun-connector-document"
+      },
+      "adapterKinds": [
+        "command"
+      ],
+      "docsUrl": "https://github.com/if-uri/urirun-connector-document",
+      "keywords": [
+        "document",
+        "urirun",
+        "connector"
+      ],
+      "provenance": "verified",
+      "publisher": {
+        "name": "if-uri",
+        "url": "https://ifuri.com",
+        "github": "https://github.com/if-uri"
+      }
+    },
+    {
       "id": "email",
       "name": "Email",
+      "version": "0.3.0",
       "status": "available",
       "category": "Communication",
       "summary": "Read inbox, send mail, and extract local Thunderbird invoice attachments through email:// URI routes (IMAP + SMTP + local mbox).",
@@ -1037,6 +1485,7 @@
     {
       "id": "env",
       "name": "Environment",
+      "version": "0.1.0",
       "status": "planned",
       "category": "System",
       "summary": "Controlled env:// runtime configuration and secrets.",
@@ -1099,6 +1548,7 @@
     {
       "id": "flow-repair",
       "name": "Flow Repair",
+      "version": "0.1.0",
       "status": "available",
       "category": "AI",
       "summary": "Generate a urirun flow (YAML) from natural language, execute it, and self-repair from failures via an LLM.",
@@ -1150,6 +1600,7 @@
     {
       "id": "fs",
       "name": "Filesystem duplicates",
+      "version": "0.1.0",
       "status": "available",
       "category": "Filesystem",
       "summary": "Find duplicate files in any folder over fs:// URIs. Exact byte duplicates by SHA-256 (stdlib) and near-duplicate IMAGES by perceptual hash (reusing wronai-img2nl analyze_fingerprint). A move command quarantines extras into _duplicates/, keeping the first of each group.",
@@ -1218,6 +1669,7 @@
     {
       "id": "get-node",
       "name": "Get Node",
+      "version": "0.1.0",
       "status": "planned",
       "category": "Operations",
       "summary": "Bootstrap and health-check urirun nodes from get.ifuri.com through node:// URI routes.",
@@ -1276,6 +1728,7 @@
     {
       "id": "github",
       "name": "GitHub",
+      "version": "0.1.0",
       "status": "available",
       "category": "DevOps",
       "summary": "Clone git repos and deploy them anywhere via bindings/registry over github:// URI routes.",
@@ -1338,6 +1791,7 @@
     {
       "id": "hash",
       "name": "Hash (Go)",
+      "version": "0.1.0",
       "status": "available",
       "category": "Utilities",
       "summary": "Compute SHA-256 digests of text through hash:// URI commands.",
@@ -1393,6 +1847,7 @@
     {
       "id": "him",
       "name": "Human-in-the-Middle",
+      "version": "0.1.0",
       "status": "planned",
       "category": "Agents",
       "summary": "Human input mock (mouse/keyboard) for urisys-node.",
@@ -1454,6 +1909,7 @@
     {
       "id": "img2nl",
       "name": "Screen to Language",
+      "version": "0.1.0",
       "status": "planned",
       "category": "Vision",
       "summary": "Screen capture + UI target detection via img2nl (KVM eyes).",
@@ -1510,6 +1966,7 @@
     {
       "id": "invoice",
       "name": "Invoice field extraction",
+      "version": "0.1.0",
       "status": "available",
       "category": "Accounting",
       "summary": "Extract structured fields from invoices over invoice:// URIs — NIP, number, dates, net/VAT/gross, seller, currency. Regex tuned for Polish faktura (also EN), text via pdftotext, optional LLM (OpenRouter) fallback. A folder route batches a month of invoices into a CSV with net/VAT/gross totals.",
@@ -1578,8 +2035,63 @@
       }
     },
     {
+      "id": "koru",
+      "name": "Koru",
+      "version": "0.1.0",
+      "status": "planned",
+      "category": "Integrations",
+      "summary": "Integrate Koru resources with URI-addressable status and sync routes.",
+      "description": "Koru is an if-uri urirun connector for integrate Koru resources with URI-addressable status and sync routes. It is represented in the public catalog so the connector can be discovered, versioned and linked to its repository while implementation details are completed.",
+      "uriSchemes": [
+        "koru"
+      ],
+      "routes": [
+        "koru://host/resource/query/status",
+        "koru://host/resource/command/sync"
+      ],
+      "useCases": [
+        "Discover Koru capabilities from the connector catalog.",
+        "Plan flows that use koru:// URI routes.",
+        "Install or track the connector from its GitHub repository."
+      ],
+      "examples": [
+        {
+          "title": "Check Koru route",
+          "uri": "koru://host/resource/query/status",
+          "payload": {}
+        }
+      ],
+      "requires": {
+        "system": [],
+        "python": [
+          "urirun"
+        ],
+        "optional": []
+      },
+      "install": {
+        "mode": "planned",
+        "pipSpec": "urirun-connector-koru"
+      },
+      "adapterKinds": [
+        "command"
+      ],
+      "docsUrl": "https://github.com/if-uri/urirun-connector-koru",
+      "keywords": [
+        "koru",
+        "urirun",
+        "connector"
+      ],
+      "provenance": "verified",
+      "publisher": {
+        "name": "if-uri",
+        "url": "https://ifuri.com",
+        "github": "https://github.com/if-uri"
+      }
+    },
+    {
       "id": "ksef",
       "name": "KSeF 2.0",
+      "version": "0.1.0",
       "status": "available",
       "category": "Government / e-invoicing",
       "summary": "Polish national e-invoicing (KSeF 2.0) as ksef:// routes: auth, send invoice, query, download.",
@@ -1680,6 +2192,7 @@
     {
       "id": "kvm",
       "name": "KVM Control",
+      "version": "0.3.1",
       "status": "planned",
       "category": "Remote",
       "summary": "Send keyboard/mouse input and capture the screen through kvm:// URI routes.",
@@ -1737,8 +2250,63 @@
       }
     },
     {
+      "id": "linkedin",
+      "name": "Linkedin",
+      "version": "0.1.0",
+      "status": "planned",
+      "category": "Social",
+      "summary": "Draft and inspect LinkedIn-oriented workflow artifacts through URI routes.",
+      "description": "Linkedin is an if-uri urirun connector for draft and inspect LinkedIn-oriented workflow artifacts through URI routes. It is represented in the public catalog so the connector can be discovered, versioned and linked to its repository while implementation details are completed.",
+      "uriSchemes": [
+        "linkedin"
+      ],
+      "routes": [
+        "linkedin://host/profile/query/read",
+        "linkedin://host/post/command/draft"
+      ],
+      "useCases": [
+        "Discover Linkedin capabilities from the connector catalog.",
+        "Plan flows that use linkedin:// URI routes.",
+        "Install or track the connector from its GitHub repository."
+      ],
+      "examples": [
+        {
+          "title": "Check Linkedin route",
+          "uri": "linkedin://host/profile/query/read",
+          "payload": {}
+        }
+      ],
+      "requires": {
+        "system": [],
+        "python": [
+          "urirun"
+        ],
+        "optional": []
+      },
+      "install": {
+        "mode": "planned",
+        "pipSpec": "urirun-connector-linkedin"
+      },
+      "adapterKinds": [
+        "command"
+      ],
+      "docsUrl": "https://github.com/if-uri/urirun-connector-linkedin",
+      "keywords": [
+        "linkedin",
+        "urirun",
+        "connector"
+      ],
+      "provenance": "verified",
+      "publisher": {
+        "name": "if-uri",
+        "url": "https://ifuri.com",
+        "github": "https://github.com/if-uri"
+      }
+    },
+    {
       "id": "llm",
       "name": "Local LLM",
+      "version": "0.1.0",
       "status": "planned",
       "category": "AI",
       "summary": "Run local LLM completions and list models through llm:// URI routes.",
@@ -1800,6 +2368,7 @@
     {
       "id": "mcp-filesystem",
       "name": "MCP Filesystem",
+      "version": "0.1.0",
       "status": "planned",
       "category": "Files",
       "summary": "Read, list and write files through fs:// URI routes backed by the MCP filesystem server.",
@@ -1861,6 +2430,7 @@
     {
       "id": "message",
       "name": "Messaging",
+      "version": "0.1.0",
       "status": "planned",
       "category": "Messaging",
       "summary": "Simple alert/message dispatch mock for lab and node.",
@@ -1912,8 +2482,117 @@
       }
     },
     {
+      "id": "netscan",
+      "name": "Netscan",
+      "version": "0.1.0",
+      "status": "planned",
+      "category": "Network",
+      "summary": "Scan local networks and list discovered devices.",
+      "description": "Netscan is an if-uri urirun connector for scan local networks and list discovered devices. It is represented in the public catalog so the connector can be discovered, versioned and linked to its repository while implementation details are completed.",
+      "uriSchemes": [
+        "netscan"
+      ],
+      "routes": [
+        "netscan://host/network/query/scan",
+        "netscan://host/device/query/list"
+      ],
+      "useCases": [
+        "Discover Netscan capabilities from the connector catalog.",
+        "Plan flows that use netscan:// URI routes.",
+        "Install or track the connector from its GitHub repository."
+      ],
+      "examples": [
+        {
+          "title": "Check Netscan route",
+          "uri": "netscan://host/network/query/scan",
+          "payload": {}
+        }
+      ],
+      "requires": {
+        "system": [],
+        "python": [
+          "urirun"
+        ],
+        "optional": []
+      },
+      "install": {
+        "mode": "planned",
+        "pipSpec": "urirun-connector-netscan"
+      },
+      "adapterKinds": [
+        "command"
+      ],
+      "docsUrl": "https://github.com/if-uri/urirun-connector-netscan",
+      "keywords": [
+        "netscan",
+        "urirun",
+        "connector"
+      ],
+      "provenance": "verified",
+      "publisher": {
+        "name": "if-uri",
+        "url": "https://ifuri.com",
+        "github": "https://github.com/if-uri"
+      }
+    },
+    {
+      "id": "nodeadmin",
+      "name": "Nodeadmin",
+      "version": "0.1.0",
+      "status": "planned",
+      "category": "Operations",
+      "summary": "Administer urirun nodes through explicit URI routes.",
+      "description": "Nodeadmin is an if-uri urirun connector for administer urirun nodes through explicit URI routes. It is represented in the public catalog so the connector can be discovered, versioned and linked to its repository while implementation details are completed.",
+      "uriSchemes": [
+        "nodeadmin"
+      ],
+      "routes": [
+        "nodeadmin://host/node/query/status",
+        "nodeadmin://host/node/command/restart"
+      ],
+      "useCases": [
+        "Discover Nodeadmin capabilities from the connector catalog.",
+        "Plan flows that use nodeadmin:// URI routes.",
+        "Install or track the connector from its GitHub repository."
+      ],
+      "examples": [
+        {
+          "title": "Check Nodeadmin route",
+          "uri": "nodeadmin://host/node/query/status",
+          "payload": {}
+        }
+      ],
+      "requires": {
+        "system": [],
+        "python": [
+          "urirun"
+        ],
+        "optional": []
+      },
+      "install": {
+        "mode": "planned",
+        "pipSpec": "urirun-connector-nodeadmin"
+      },
+      "adapterKinds": [
+        "command"
+      ],
+      "docsUrl": "https://github.com/if-uri/urirun-connector-nodeadmin",
+      "keywords": [
+        "nodeadmin",
+        "urirun",
+        "connector"
+      ],
+      "provenance": "verified",
+      "publisher": {
+        "name": "if-uri",
+        "url": "https://ifuri.com",
+        "github": "https://github.com/if-uri"
+      }
+    },
+    {
       "id": "ocr",
       "name": "OCR",
+      "version": "0.1.0",
       "status": "planned",
       "category": "Vision",
       "summary": "OCR text extraction from latest screenshot or image id (mock/tesseract).",
@@ -1967,8 +2646,82 @@
       }
     },
     {
+      "id": "pdf",
+      "name": "PDF",
+      "version": "0.1.0",
+      "status": "available",
+      "category": "Documents",
+      "summary": "Render markdown or HTML to PDF and read PDF page count/metadata through pdf:// URI routes. Headless, no GUI or office suite.",
+      "description": "PDF is an external urirun connector that exposes headless PDF rendering as pdf:// routes. It renders markdown text/files (markdown -> HTML -> PDF) and HTML strings/files to PDF using weasyprint when available, falling back to reportlab for basic text output. A read-only query returns the page count and document metadata of an existing PDF via pypdf (or PyPDF2). All third-party imports are lazy, so the connector imports cleanly with none of the rendering libraries installed, and every handler returns a urirun envelope instead of raising.",
+      "uriSchemes": [
+        "pdf"
+      ],
+      "routes": [
+        "pdf://host/markdown/command/render",
+        "pdf://host/html/command/render",
+        "pdf://host/pdf/query/info"
+      ],
+      "useCases": [
+        "Render a generated markdown report to a shareable PDF inside a flow.",
+        "Convert an HTML template to PDF headlessly.",
+        "Inspect page count and metadata of an existing PDF."
+      ],
+      "examples": [
+        {
+          "title": "Render markdown to PDF",
+          "uri": "pdf://host/markdown/command/render",
+          "payload": {
+            "markdown": "# Hello\n\nWorld",
+            "out_path": "/tmp/out.pdf",
+            "title": "Hello"
+          }
+        },
+        {
+          "title": "PDF info",
+          "uri": "pdf://host/pdf/query/info",
+          "payload": {
+            "pdf_path": "/tmp/out.pdf"
+          }
+        }
+      ],
+      "flowExample": [
+        "pdf://host/markdown/command/render",
+        "pdf://host/html/command/render",
+        "pdf://host/pdf/query/info"
+      ],
+      "requires": [
+        "python>=3.10"
+      ],
+      "install": {
+        "mode": "urirun-extra",
+        "pipSpec": "urirun-connector-pdf @ git+https://github.com/if-uri/urirun-connector-pdf.git"
+      },
+      "adapterKinds": [
+        "local-function"
+      ],
+      "docsUrl": "https://github.com/if-uri/urirun-connector-pdf",
+      "keywords": [
+        "pdf",
+        "markdown",
+        "html",
+        "weasyprint",
+        "reportlab",
+        "pypdf",
+        "render",
+        "documents",
+        "connector"
+      ],
+      "provenance": "verified",
+      "publisher": {
+        "name": "if-uri",
+        "url": "https://ifuri.com",
+        "github": "https://github.com/if-uri"
+      }
+    },
+    {
       "id": "rdp",
       "name": "RDP Desktop",
+      "version": "0.1.0",
       "status": "planned",
       "category": "Desktop",
       "summary": "RDP session and X11 display queries for urirdp-docker.",
@@ -2025,8 +2778,117 @@
       }
     },
     {
+      "id": "router",
+      "name": "Router",
+      "version": "0.1.0",
+      "status": "planned",
+      "category": "Routing",
+      "summary": "Resolve and dispatch URI routes through a connector router.",
+      "description": "Router is an if-uri urirun connector for resolve and dispatch URI routes through a connector router. It is represented in the public catalog so the connector can be discovered, versioned and linked to its repository while implementation details are completed.",
+      "uriSchemes": [
+        "router"
+      ],
+      "routes": [
+        "router://host/route/query/resolve",
+        "router://host/route/command/dispatch"
+      ],
+      "useCases": [
+        "Discover Router capabilities from the connector catalog.",
+        "Plan flows that use router:// URI routes.",
+        "Install or track the connector from its GitHub repository."
+      ],
+      "examples": [
+        {
+          "title": "Check Router route",
+          "uri": "router://host/route/query/resolve",
+          "payload": {}
+        }
+      ],
+      "requires": {
+        "system": [],
+        "python": [
+          "urirun"
+        ],
+        "optional": []
+      },
+      "install": {
+        "mode": "planned",
+        "pipSpec": "urirun-connector-router"
+      },
+      "adapterKinds": [
+        "command"
+      ],
+      "docsUrl": "https://github.com/if-uri/urirun-connector-router",
+      "keywords": [
+        "router",
+        "urirun",
+        "connector"
+      ],
+      "provenance": "verified",
+      "publisher": {
+        "name": "if-uri",
+        "url": "https://ifuri.com",
+        "github": "https://github.com/if-uri"
+      }
+    },
+    {
+      "id": "scanner",
+      "name": "Scanner",
+      "version": "0.1.0",
+      "status": "planned",
+      "category": "Hardware",
+      "summary": "List scanners and run document scans through URI routes.",
+      "description": "Scanner is an if-uri urirun connector for list scanners and run document scans through URI routes. It is represented in the public catalog so the connector can be discovered, versioned and linked to its repository while implementation details are completed.",
+      "uriSchemes": [
+        "scanner"
+      ],
+      "routes": [
+        "scanner://host/device/query/list",
+        "scanner://host/document/command/scan"
+      ],
+      "useCases": [
+        "Discover Scanner capabilities from the connector catalog.",
+        "Plan flows that use scanner:// URI routes.",
+        "Install or track the connector from its GitHub repository."
+      ],
+      "examples": [
+        {
+          "title": "Check Scanner route",
+          "uri": "scanner://host/device/query/list",
+          "payload": {}
+        }
+      ],
+      "requires": {
+        "system": [],
+        "python": [
+          "urirun"
+        ],
+        "optional": []
+      },
+      "install": {
+        "mode": "planned",
+        "pipSpec": "urirun-connector-scanner"
+      },
+      "adapterKinds": [
+        "command"
+      ],
+      "docsUrl": "https://github.com/if-uri/urirun-connector-scanner",
+      "keywords": [
+        "scanner",
+        "urirun",
+        "connector"
+      ],
+      "provenance": "verified",
+      "publisher": {
+        "name": "if-uri",
+        "url": "https://ifuri.com",
+        "github": "https://github.com/if-uri"
+      }
+    },
+    {
       "id": "screen",
       "name": "Screen Capture",
+      "version": "0.1.0",
       "status": "planned",
       "category": "Vision",
       "summary": "Screen capture — frame query, single capture, capture loop.",
@@ -2083,6 +2945,7 @@
     {
       "id": "sheet",
       "name": "Spreadsheet I/O (XLSX/CSV)",
+      "version": "0.1.0",
       "status": "available",
       "category": "Accounting",
       "summary": "Read and write XLSX/CSV over sheet:// URIs without libreoffice. CSV via stdlib (always works); XLSX via openpyxl (pure Python). Reads return {columns, rows}; writes take rows and pick CSV/XLSX from the extension, with an optional totals footer. Pairs with invoice://ksef:// to emit accountant-ready Excel.",
@@ -2154,8 +3017,66 @@
       }
     },
     {
+      "id": "smart-crop",
+      "name": "Smart Crop",
+      "version": "0.1.0",
+      "status": "planned",
+      "category": "Vision",
+      "summary": "Detect useful regions and crop images automatically.",
+      "description": "Smart Crop is an if-uri urirun connector for detect useful regions and crop images automatically. It is represented in the public catalog so the connector can be discovered, versioned and linked to its repository while implementation details are completed.",
+      "uriSchemes": [
+        "smartcrop"
+      ],
+      "routes": [
+        "smartcrop://host/image/command/crop",
+        "smartcrop://host/image/query/regions"
+      ],
+      "useCases": [
+        "Discover Smart Crop capabilities from the connector catalog.",
+        "Plan flows that use smartcrop:// URI routes.",
+        "Install or track the connector from its GitHub repository."
+      ],
+      "examples": [
+        {
+          "title": "Check Smart Crop route",
+          "uri": "smartcrop://host/image/command/crop",
+          "payload": {}
+        }
+      ],
+      "requires": {
+        "system": [],
+        "python": [
+          "urirun"
+        ],
+        "optional": []
+      },
+      "install": {
+        "mode": "planned",
+        "pipSpec": "urirun-connector-smart-crop"
+      },
+      "adapterKinds": [
+        "command"
+      ],
+      "docsUrl": "https://github.com/if-uri/urirun-connector-smart-crop",
+      "keywords": [
+        "smart-crop",
+        "smartcrop",
+        "urirun",
+        "connector",
+        "smart",
+        "crop"
+      ],
+      "provenance": "verified",
+      "publisher": {
+        "name": "if-uri",
+        "url": "https://ifuri.com",
+        "github": "https://github.com/if-uri"
+      }
+    },
+    {
       "id": "stepper",
       "name": "Stepper Motor",
+      "version": "0.1.0",
       "status": "planned",
       "category": "Devices",
       "summary": "Stepper motor URI pack (mock + rpi-gpio-step-dir drivers).",
@@ -2216,6 +3137,7 @@
     {
       "id": "stt",
       "name": "Speech to Text",
+      "version": "0.1.0",
       "status": "planned",
       "category": "Voice",
       "summary": "Speech-to-text pack (mock MVP; browser passthrough + audio transcribe).",
@@ -2270,8 +3192,117 @@
       }
     },
     {
+      "id": "twin",
+      "name": "Twin",
+      "version": "0.1.0",
+      "status": "planned",
+      "category": "Digital Twin",
+      "summary": "Expose digital twin state and updates through URI routes.",
+      "description": "Twin is an if-uri urirun connector for expose digital twin state and updates through URI routes. It is represented in the public catalog so the connector can be discovered, versioned and linked to its repository while implementation details are completed.",
+      "uriSchemes": [
+        "twin"
+      ],
+      "routes": [
+        "twin://host/entity/query/state",
+        "twin://host/entity/command/update"
+      ],
+      "useCases": [
+        "Discover Twin capabilities from the connector catalog.",
+        "Plan flows that use twin:// URI routes.",
+        "Install or track the connector from its GitHub repository."
+      ],
+      "examples": [
+        {
+          "title": "Check Twin route",
+          "uri": "twin://host/entity/query/state",
+          "payload": {}
+        }
+      ],
+      "requires": {
+        "system": [],
+        "python": [
+          "urirun"
+        ],
+        "optional": []
+      },
+      "install": {
+        "mode": "planned",
+        "pipSpec": "urirun-connector-twin"
+      },
+      "adapterKinds": [
+        "command"
+      ],
+      "docsUrl": "https://github.com/if-uri/urirun-connector-twin",
+      "keywords": [
+        "twin",
+        "urirun",
+        "connector"
+      ],
+      "provenance": "verified",
+      "publisher": {
+        "name": "if-uri",
+        "url": "https://ifuri.com",
+        "github": "https://github.com/if-uri"
+      }
+    },
+    {
+      "id": "urifix",
+      "name": "Urifix",
+      "version": "0.1.0",
+      "status": "planned",
+      "category": "Developer Tools",
+      "summary": "Diagnose and repair URI flow or route issues.",
+      "description": "Urifix is an if-uri urirun connector for diagnose and repair URI flow or route issues. It is represented in the public catalog so the connector can be discovered, versioned and linked to its repository while implementation details are completed.",
+      "uriSchemes": [
+        "urifix"
+      ],
+      "routes": [
+        "urifix://host/uri/query/diagnose",
+        "urifix://host/uri/command/repair"
+      ],
+      "useCases": [
+        "Discover Urifix capabilities from the connector catalog.",
+        "Plan flows that use urifix:// URI routes.",
+        "Install or track the connector from its GitHub repository."
+      ],
+      "examples": [
+        {
+          "title": "Check Urifix route",
+          "uri": "urifix://host/uri/query/diagnose",
+          "payload": {}
+        }
+      ],
+      "requires": {
+        "system": [],
+        "python": [
+          "urirun"
+        ],
+        "optional": []
+      },
+      "install": {
+        "mode": "planned",
+        "pipSpec": "urirun-connector-urifix"
+      },
+      "adapterKinds": [
+        "command"
+      ],
+      "docsUrl": "https://github.com/if-uri/urirun-connector-urifix",
+      "keywords": [
+        "urifix",
+        "urirun",
+        "connector"
+      ],
+      "provenance": "verified",
+      "publisher": {
+        "name": "if-uri",
+        "url": "https://ifuri.com",
+        "github": "https://github.com/if-uri"
+      }
+    },
+    {
       "id": "urimail",
       "name": "Email",
+      "version": "0.1.0",
       "status": "planned",
       "category": "Messaging",
       "summary": "Mail mock/mailpit/smtp automation for urisys-node.",
@@ -2330,6 +3361,7 @@
     {
       "id": "urioffice",
       "name": "Office Documents",
+      "version": "0.1.0",
       "status": "planned",
       "category": "Files",
       "summary": "Office document mock/writer/LibreOffice automation for urisys-node.",
@@ -2386,8 +3418,121 @@
       }
     },
     {
+      "id": "urivision",
+      "name": "Urivision",
+      "version": "0.1.0",
+      "status": "planned",
+      "category": "Vision",
+      "summary": "Analyze images and screens through URI vision routes.",
+      "description": "Urivision is an if-uri urirun connector for analyze images and screens through URI vision routes. It is represented in the public catalog so the connector can be discovered, versioned and linked to its repository while implementation details are completed.",
+      "uriSchemes": [
+        "vision"
+      ],
+      "routes": [
+        "vision://host/image/query/analyze",
+        "vision://host/screen/query/describe"
+      ],
+      "useCases": [
+        "Discover Urivision capabilities from the connector catalog.",
+        "Plan flows that use vision:// URI routes.",
+        "Install or track the connector from its GitHub repository."
+      ],
+      "examples": [
+        {
+          "title": "Check Urivision route",
+          "uri": "vision://host/image/query/analyze",
+          "payload": {}
+        }
+      ],
+      "requires": {
+        "system": [],
+        "python": [
+          "urirun"
+        ],
+        "optional": []
+      },
+      "install": {
+        "mode": "planned",
+        "pipSpec": "urirun-connector-urivision"
+      },
+      "adapterKinds": [
+        "command"
+      ],
+      "docsUrl": "https://github.com/if-uri/urirun-connector-urivision",
+      "keywords": [
+        "urivision",
+        "vision",
+        "urirun",
+        "connector"
+      ],
+      "provenance": "verified",
+      "publisher": {
+        "name": "if-uri",
+        "url": "https://ifuri.com",
+        "github": "https://github.com/if-uri"
+      }
+    },
+    {
+      "id": "urivision-runtime",
+      "name": "Urivision Runtime",
+      "version": "0.1.0",
+      "status": "planned",
+      "category": "Vision",
+      "summary": "Manage the runtime layer for URI vision connectors.",
+      "description": "Urivision Runtime is an if-uri urirun connector for manage the runtime layer for URI vision connectors. It is represented in the public catalog so the connector can be discovered, versioned and linked to its repository while implementation details are completed.",
+      "uriSchemes": [
+        "vision"
+      ],
+      "routes": [
+        "vision://runtime/model/query/status",
+        "vision://runtime/model/command/load"
+      ],
+      "useCases": [
+        "Discover Urivision Runtime capabilities from the connector catalog.",
+        "Plan flows that use vision:// URI routes.",
+        "Install or track the connector from its GitHub repository."
+      ],
+      "examples": [
+        {
+          "title": "Check Urivision Runtime route",
+          "uri": "vision://runtime/model/query/status",
+          "payload": {}
+        }
+      ],
+      "requires": {
+        "system": [],
+        "python": [
+          "urirun"
+        ],
+        "optional": []
+      },
+      "install": {
+        "mode": "planned",
+        "pipSpec": "urirun-connector-urivision-runtime"
+      },
+      "adapterKinds": [
+        "command"
+      ],
+      "docsUrl": "https://github.com/if-uri/urirun-connector-urivision-runtime",
+      "keywords": [
+        "urivision-runtime",
+        "vision",
+        "urirun",
+        "connector",
+        "urivision",
+        "runtime"
+      ],
+      "provenance": "verified",
+      "publisher": {
+        "name": "if-uri",
+        "url": "https://ifuri.com",
+        "github": "https://github.com/if-uri"
+      }
+    },
+    {
       "id": "usb",
       "name": "USB devices",
+      "version": "0.1.0",
       "status": "available",
       "category": "Hardware",
       "summary": "Enumerate and classify the USB devices plugged into a computer over usb:// URIs. Reads the kernel's sysfs view (no root, no extra deps), labels each device by USB class codes (camera/webcam, keyboard, mouse, audio, storage, hub, printer, bluetooth, serial, smart-card/security-key) and maps it to the /dev nodes it owns (/dev/video*, /dev/input/*, /dev/ttyUSB*, /dev/hidraw*).",
@@ -2463,6 +3608,7 @@
     {
       "id": "uuid",
       "name": "UUID (JavaScript)",
+      "version": "0.1.0",
       "status": "available",
       "category": "Utilities",
       "summary": "Generate UUID v4 identifiers through uuid:// URI commands.",
@@ -2516,8 +3662,117 @@
       }
     },
     {
+      "id": "vdisplay",
+      "name": "Vdisplay",
+      "version": "0.1.0",
+      "status": "planned",
+      "category": "Display",
+      "summary": "Manage virtual displays through URI routes.",
+      "description": "Vdisplay is an if-uri urirun connector for manage virtual displays through URI routes. It is represented in the public catalog so the connector can be discovered, versioned and linked to its repository while implementation details are completed.",
+      "uriSchemes": [
+        "vdisplay"
+      ],
+      "routes": [
+        "vdisplay://host/display/query/list",
+        "vdisplay://host/display/command/create"
+      ],
+      "useCases": [
+        "Discover Vdisplay capabilities from the connector catalog.",
+        "Plan flows that use vdisplay:// URI routes.",
+        "Install or track the connector from its GitHub repository."
+      ],
+      "examples": [
+        {
+          "title": "Check Vdisplay route",
+          "uri": "vdisplay://host/display/query/list",
+          "payload": {}
+        }
+      ],
+      "requires": {
+        "system": [],
+        "python": [
+          "urirun"
+        ],
+        "optional": []
+      },
+      "install": {
+        "mode": "planned",
+        "pipSpec": "urirun-connector-vdisplay"
+      },
+      "adapterKinds": [
+        "command"
+      ],
+      "docsUrl": "https://github.com/if-uri/urirun-connector-vdisplay",
+      "keywords": [
+        "vdisplay",
+        "urirun",
+        "connector"
+      ],
+      "provenance": "verified",
+      "publisher": {
+        "name": "if-uri",
+        "url": "https://ifuri.com",
+        "github": "https://github.com/if-uri"
+      }
+    },
+    {
+      "id": "view",
+      "name": "View",
+      "version": "0.1.0",
+      "status": "planned",
+      "category": "Viewer",
+      "summary": "Render or open resources in a URI-addressable viewer.",
+      "description": "View is an if-uri urirun connector for render or open resources in a URI-addressable viewer. It is represented in the public catalog so the connector can be discovered, versioned and linked to its repository while implementation details are completed.",
+      "uriSchemes": [
+        "view"
+      ],
+      "routes": [
+        "view://host/resource/query/render",
+        "view://host/resource/command/open"
+      ],
+      "useCases": [
+        "Discover View capabilities from the connector catalog.",
+        "Plan flows that use view:// URI routes.",
+        "Install or track the connector from its GitHub repository."
+      ],
+      "examples": [
+        {
+          "title": "Check View route",
+          "uri": "view://host/resource/query/render",
+          "payload": {}
+        }
+      ],
+      "requires": {
+        "system": [],
+        "python": [
+          "urirun"
+        ],
+        "optional": []
+      },
+      "install": {
+        "mode": "planned",
+        "pipSpec": "urirun-connector-view"
+      },
+      "adapterKinds": [
+        "command"
+      ],
+      "docsUrl": "https://github.com/if-uri/urirun-connector-view",
+      "keywords": [
+        "view",
+        "urirun",
+        "connector"
+      ],
+      "provenance": "verified",
+      "publisher": {
+        "name": "if-uri",
+        "url": "https://ifuri.com",
+        "github": "https://github.com/if-uri"
+      }
+    },
+    {
       "id": "vql",
       "name": "Visual Query",
+      "version": "0.1.0",
       "status": "planned",
       "category": "Data",
       "summary": "Visual query language — UI detect/compare for urisys-node.",
@@ -2571,8 +3826,63 @@
       }
     },
     {
+      "id": "webnode",
+      "name": "Webnode",
+      "version": "0.1.0",
+      "status": "planned",
+      "category": "Web",
+      "summary": "Operate web node publishing/status workflows through URI routes.",
+      "description": "Webnode is an if-uri urirun connector for operate web node publishing/status workflows through URI routes. It is represented in the public catalog so the connector can be discovered, versioned and linked to its repository while implementation details are completed.",
+      "uriSchemes": [
+        "webnode"
+      ],
+      "routes": [
+        "webnode://host/page/query/status",
+        "webnode://host/page/command/publish"
+      ],
+      "useCases": [
+        "Discover Webnode capabilities from the connector catalog.",
+        "Plan flows that use webnode:// URI routes.",
+        "Install or track the connector from its GitHub repository."
+      ],
+      "examples": [
+        {
+          "title": "Check Webnode route",
+          "uri": "webnode://host/page/query/status",
+          "payload": {}
+        }
+      ],
+      "requires": {
+        "system": [],
+        "python": [
+          "urirun"
+        ],
+        "optional": []
+      },
+      "install": {
+        "mode": "planned",
+        "pipSpec": "urirun-connector-webnode"
+      },
+      "adapterKinds": [
+        "command"
+      ],
+      "docsUrl": "https://github.com/if-uri/urirun-connector-webnode",
+      "keywords": [
+        "webnode",
+        "urirun",
+        "connector"
+      ],
+      "provenance": "verified",
+      "publisher": {
+        "name": "if-uri",
+        "url": "https://ifuri.com",
+        "github": "https://github.com/if-uri"
+      }
+    },
+    {
       "id": "webrtc",
       "name": "WebRTC",
+      "version": "0.1.0",
       "status": "planned",
       "category": "Media",
       "summary": "WebRTC session — HTTP signaling inbox (node) and DataChannel URI envelopes; browser P2P via ifURI /api/webrtc/signal.",
@@ -2625,6 +3935,60 @@
         "name": "tellmesh",
         "url": "https://github.com/tellmesh",
         "github": "https://github.com/tellmesh"
+      }
+    },
+    {
+      "id": "youtube",
+      "name": "Youtube",
+      "version": "0.1.0",
+      "status": "planned",
+      "category": "Media",
+      "summary": "Inspect and process YouTube video resources through URI routes.",
+      "description": "Youtube is an if-uri urirun connector for inspect and process YouTube video resources through URI routes. It is represented in the public catalog so the connector can be discovered, versioned and linked to its repository while implementation details are completed.",
+      "uriSchemes": [
+        "youtube"
+      ],
+      "routes": [
+        "youtube://host/video/query/info",
+        "youtube://host/video/command/download"
+      ],
+      "useCases": [
+        "Discover Youtube capabilities from the connector catalog.",
+        "Plan flows that use youtube:// URI routes.",
+        "Install or track the connector from its GitHub repository."
+      ],
+      "examples": [
+        {
+          "title": "Check Youtube route",
+          "uri": "youtube://host/video/query/info",
+          "payload": {}
+        }
+      ],
+      "requires": {
+        "system": [],
+        "python": [
+          "urirun"
+        ],
+        "optional": []
+      },
+      "install": {
+        "mode": "planned",
+        "pipSpec": "urirun-connector-youtube"
+      },
+      "adapterKinds": [
+        "command"
+      ],
+      "docsUrl": "https://github.com/if-uri/urirun-connector-youtube",
+      "keywords": [
+        "youtube",
+        "urirun",
+        "connector"
+      ],
+      "provenance": "verified",
+      "publisher": {
+        "name": "if-uri",
+        "url": "https://ifuri.com",
+        "github": "https://github.com/if-uri"
       }
     }
   ]

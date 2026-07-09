@@ -85,5 +85,6 @@
       "opencv-python (alt capture)",
       "urirun-connector-usb (named camera discovery)"
     ]
-  }
+  },
+  "version": "0.1.0"
 }

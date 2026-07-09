@@ -95,5 +95,6 @@
     "name": "if-uri",
     "url": "https://ifuri.com",
     "github": "https://github.com/if-uri"
-  }
+  },
+  "version": "0.1.1"
 }

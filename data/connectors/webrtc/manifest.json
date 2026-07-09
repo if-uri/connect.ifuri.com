@@ -3,8 +3,8 @@
   "name": "WebRTC",
   "status": "planned",
   "category": "Media",
-  "summary": "WebRTC session \u2014 HTTP signaling inbox (node) and DataChannel URI envelopes; browser P2P via ifURI /api/webrtc/signal.",
-  "description": "WebRTC session \u2014 HTTP signaling inbox (node) and DataChannel URI envelopes; browser P2P via ifURI /api/webrtc/signal. A tellmesh capability pack adopted into urirun via its manifest (`urirun adopt-pack`): 4 webrtc:// routes mapped 1:1 to bindings.v2, validated, ready to project to MCP tools / A2A skills.",
+  "summary": "WebRTC session — HTTP signaling inbox (node) and DataChannel URI envelopes; browser P2P via ifURI /api/webrtc/signal.",
+  "description": "WebRTC session — HTTP signaling inbox (node) and DataChannel URI envelopes; browser P2P via ifURI /api/webrtc/signal. A tellmesh capability pack adopted into urirun via its manifest (`urirun adopt-pack`): 4 webrtc:// routes mapped 1:1 to bindings.v2, validated, ready to project to MCP tools / A2A skills.",
   "uriSchemes": [
     "webrtc"
   ],
@@ -21,7 +21,7 @@
   ],
   "examples": [
     {
-      "title": "WebRTC \u2014 first route",
+      "title": "WebRTC — first route",
       "uri": "webrtc://local/session/session/command/start",
       "payload": {}
     }
@@ -53,5 +53,6 @@
     "name": "tellmesh",
     "url": "https://github.com/tellmesh",
     "github": "https://github.com/tellmesh"
-  }
+  },
+  "version": "0.1.0"
 }

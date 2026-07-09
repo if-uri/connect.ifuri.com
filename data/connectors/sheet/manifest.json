@@ -69,5 +69,6 @@
     "optional": [
       "openpyxl for .xlsx (CSV works without it)"
     ]
-  }
+  },
+  "version": "0.1.0"
 }

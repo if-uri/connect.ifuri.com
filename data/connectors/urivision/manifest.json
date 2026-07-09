@@ -1,0 +1,55 @@
+{
+  "id": "urivision",
+  "name": "Urivision",
+  "version": "0.1.0",
+  "status": "planned",
+  "category": "Vision",
+  "summary": "Analyze images and screens through URI vision routes.",
+  "description": "Urivision is an if-uri urirun connector for analyze images and screens through URI vision routes. It is represented in the public catalog so the connector can be discovered, versioned and linked to its repository while implementation details are completed.",
+  "uriSchemes": [
+    "vision"
+  ],
+  "routes": [
+    "vision://host/image/query/analyze",
+    "vision://host/screen/query/describe"
+  ],
+  "useCases": [
+    "Discover Urivision capabilities from the connector catalog.",
+    "Plan flows that use vision:// URI routes.",
+    "Install or track the connector from its GitHub repository."
+  ],
+  "examples": [
+    {
+      "title": "Check Urivision route",
+      "uri": "vision://host/image/query/analyze",
+      "payload": {}
+    }
+  ],
+  "requires": {
+    "system": [],
+    "python": [
+      "urirun"
+    ],
+    "optional": []
+  },
+  "install": {
+    "mode": "planned",
+    "pipSpec": "urirun-connector-urivision"
+  },
+  "adapterKinds": [
+    "command"
+  ],
+  "docsUrl": "https://github.com/if-uri/urirun-connector-urivision",
+  "keywords": [
+    "urivision",
+    "vision",
+    "urirun",
+    "connector"
+  ],
+  "provenance": "verified",
+  "publisher": {
+    "name": "if-uri",
+    "url": "https://ifuri.com",
+    "github": "https://github.com/if-uri"
+  }
+}

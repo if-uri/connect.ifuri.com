@@ -36,11 +36,12 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["id", "name", "status", "category", "summary", "description", "uriSchemes", "routes", "install"],
+        "required": ["id", "name", "version", "status", "category", "summary", "description", "uriSchemes", "routes", "install"],
         "additionalProperties": true,
         "properties": {
           "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9._-]*$" },
           "name": { "type": "string" },
+          "version": { "type": "string" },
           "status": { "type": "string", "enum": ["available", "planned"] },
           "category": { "type": "string" },
           "summary": { "type": "string" },

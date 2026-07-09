@@ -3,8 +3,8 @@
   "name": "Visual Query",
   "status": "planned",
   "category": "Data",
-  "summary": "Visual query language \u2014 UI detect/compare for urisys-node.",
-  "description": "Visual query language \u2014 UI detect/compare for urisys-node. A tellmesh capability pack adopted into urirun via its manifest (`urirun adopt-pack`): 2 vql:// routes mapped 1:1 to bindings.v2, validated, ready to project to MCP tools / A2A skills.",
+  "summary": "Visual query language — UI detect/compare for urisys-node.",
+  "description": "Visual query language — UI detect/compare for urisys-node. A tellmesh capability pack adopted into urirun via its manifest (`urirun adopt-pack`): 2 vql:// routes mapped 1:1 to bindings.v2, validated, ready to project to MCP tools / A2A skills.",
   "uriSchemes": [
     "vql"
   ],
@@ -19,7 +19,7 @@
   ],
   "examples": [
     {
-      "title": "Visual Query \u2014 first route",
+      "title": "Visual Query — first route",
       "uri": "vql://host/ui/latest/query/detect",
       "payload": {}
     }
@@ -51,5 +51,6 @@
     "name": "tellmesh",
     "url": "https://github.com/tellmesh",
     "github": "https://github.com/tellmesh"
-  }
+  },
+  "version": "0.1.0"
 }

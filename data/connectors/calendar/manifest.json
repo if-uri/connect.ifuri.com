@@ -1,0 +1,54 @@
+{
+  "id": "calendar",
+  "name": "Calendar",
+  "version": "0.1.0",
+  "status": "planned",
+  "category": "Productivity",
+  "summary": "Read and create calendar events through URI routes.",
+  "description": "Calendar is an if-uri urirun connector for read and create calendar events through URI routes. It is represented in the public catalog so the connector can be discovered, versioned and linked to its repository while implementation details are completed.",
+  "uriSchemes": [
+    "calendar"
+  ],
+  "routes": [
+    "calendar://host/events/query/list",
+    "calendar://host/event/command/create"
+  ],
+  "useCases": [
+    "Discover Calendar capabilities from the connector catalog.",
+    "Plan flows that use calendar:// URI routes.",
+    "Install or track the connector from its GitHub repository."
+  ],
+  "examples": [
+    {
+      "title": "Check Calendar route",
+      "uri": "calendar://host/events/query/list",
+      "payload": {}
+    }
+  ],
+  "requires": {
+    "system": [],
+    "python": [
+      "urirun"
+    ],
+    "optional": []
+  },
+  "install": {
+    "mode": "planned",
+    "pipSpec": "urirun-connector-calendar"
+  },
+  "adapterKinds": [
+    "command"
+  ],
+  "docsUrl": "https://github.com/if-uri/urirun-connector-calendar",
+  "keywords": [
+    "calendar",
+    "urirun",
+    "connector"
+  ],
+  "provenance": "verified",
+  "publisher": {
+    "name": "if-uri",
+    "url": "https://ifuri.com",
+    "github": "https://github.com/if-uri"
+  }
+}

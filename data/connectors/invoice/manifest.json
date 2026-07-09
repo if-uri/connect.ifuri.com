@@ -66,5 +66,6 @@
       "litellm + OPENROUTER_API_KEY for the LLM fallback",
       "doc:// OCR for scanned invoices"
     ]
-  }
+  },
+  "version": "0.1.0"
 }

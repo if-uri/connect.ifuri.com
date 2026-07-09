@@ -20,7 +20,7 @@
   ],
   "examples": [
     {
-      "title": "Screen to Language \u2014 first route",
+      "title": "Screen to Language — first route",
       "uri": "img2nl://host/screen/command/capture-click",
       "payload": {}
     }
@@ -52,5 +52,6 @@
     "name": "tellmesh",
     "url": "https://github.com/tellmesh",
     "github": "https://github.com/tellmesh"
-  }
+  },
+  "version": "0.1.0"
 }

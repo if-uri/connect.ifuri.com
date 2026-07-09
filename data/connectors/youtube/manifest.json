@@ -1,0 +1,54 @@
+{
+  "id": "youtube",
+  "name": "Youtube",
+  "version": "0.1.0",
+  "status": "planned",
+  "category": "Media",
+  "summary": "Inspect and process YouTube video resources through URI routes.",
+  "description": "Youtube is an if-uri urirun connector for inspect and process YouTube video resources through URI routes. It is represented in the public catalog so the connector can be discovered, versioned and linked to its repository while implementation details are completed.",
+  "uriSchemes": [
+    "youtube"
+  ],
+  "routes": [
+    "youtube://host/video/query/info",
+    "youtube://host/video/command/download"
+  ],
+  "useCases": [
+    "Discover Youtube capabilities from the connector catalog.",
+    "Plan flows that use youtube:// URI routes.",
+    "Install or track the connector from its GitHub repository."
+  ],
+  "examples": [
+    {
+      "title": "Check Youtube route",
+      "uri": "youtube://host/video/query/info",
+      "payload": {}
+    }
+  ],
+  "requires": {
+    "system": [],
+    "python": [
+      "urirun"
+    ],
+    "optional": []
+  },
+  "install": {
+    "mode": "planned",
+    "pipSpec": "urirun-connector-youtube"
+  },
+  "adapterKinds": [
+    "command"
+  ],
+  "docsUrl": "https://github.com/if-uri/urirun-connector-youtube",
+  "keywords": [
+    "youtube",
+    "urirun",
+    "connector"
+  ],
+  "provenance": "verified",
+  "publisher": {
+    "name": "if-uri",
+    "url": "https://ifuri.com",
+    "github": "https://github.com/if-uri"
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "id": "camera-web",
+  "name": "Camera Web",
+  "version": "0.1.0",
+  "status": "planned",
+  "category": "Hardware",
+  "summary": "Capture frames and status from browser-accessible cameras.",
+  "description": "Camera Web is an if-uri urirun connector for capture frames and status from browser-accessible cameras. It is represented in the public catalog so the connector can be discovered, versioned and linked to its repository while implementation details are completed.",
+  "uriSchemes": [
+    "camera"
+  ],
+  "routes": [
+    "camera://web/frame/query/capture",
+    "camera://web/stream/query/status"
+  ],
+  "useCases": [
+    "Discover Camera Web capabilities from the connector catalog.",
+    "Plan flows that use camera:// URI routes.",
+    "Install or track the connector from its GitHub repository."
+  ],
+  "examples": [
+    {
+      "title": "Check Camera Web route",
+      "uri": "camera://web/frame/query/capture",
+      "payload": {}
+    }
+  ],
+  "requires": {
+    "system": [],
+    "python": [
+      "urirun"
+    ],
+    "optional": []
+  },
+  "install": {
+    "mode": "planned",
+    "pipSpec": "urirun-connector-camera-web"
+  },
+  "adapterKinds": [
+    "command"
+  ],
+  "docsUrl": "https://github.com/if-uri/urirun-connector-camera-web",
+  "keywords": [
+    "camera-web",
+    "camera",
+    "urirun",
+    "connector",
+    "web"
+  ],
+  "provenance": "verified",
+  "publisher": {
+    "name": "if-uri",
+    "url": "https://ifuri.com",
+    "github": "https://github.com/if-uri"
+  }
+}

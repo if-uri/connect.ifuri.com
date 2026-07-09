@@ -1,0 +1,54 @@
+{
+  "id": "router",
+  "name": "Router",
+  "version": "0.1.0",
+  "status": "planned",
+  "category": "Routing",
+  "summary": "Resolve and dispatch URI routes through a connector router.",
+  "description": "Router is an if-uri urirun connector for resolve and dispatch URI routes through a connector router. It is represented in the public catalog so the connector can be discovered, versioned and linked to its repository while implementation details are completed.",
+  "uriSchemes": [
+    "router"
+  ],
+  "routes": [
+    "router://host/route/query/resolve",
+    "router://host/route/command/dispatch"
+  ],
+  "useCases": [
+    "Discover Router capabilities from the connector catalog.",
+    "Plan flows that use router:// URI routes.",
+    "Install or track the connector from its GitHub repository."
+  ],
+  "examples": [
+    {
+      "title": "Check Router route",
+      "uri": "router://host/route/query/resolve",
+      "payload": {}
+    }
+  ],
+  "requires": {
+    "system": [],
+    "python": [
+      "urirun"
+    ],
+    "optional": []
+  },
+  "install": {
+    "mode": "planned",
+    "pipSpec": "urirun-connector-router"
+  },
+  "adapterKinds": [
+    "command"
+  ],
+  "docsUrl": "https://github.com/if-uri/urirun-connector-router",
+  "keywords": [
+    "router",
+    "urirun",
+    "connector"
+  ],
+  "provenance": "verified",
+  "publisher": {
+    "name": "if-uri",
+    "url": "https://ifuri.com",
+    "github": "https://github.com/if-uri"
+  }
+}

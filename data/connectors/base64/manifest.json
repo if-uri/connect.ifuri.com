@@ -61,5 +61,6 @@
     "php",
     "polyglot",
     "connector"
-  ]
+  ],
+  "version": "0.1.0"
 }

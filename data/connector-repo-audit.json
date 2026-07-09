@@ -1,0 +1,1179 @@
+{
+  "generatedAt": "2026-07-09T11:56:34.489150+00:00",
+  "source": "local",
+  "repoCount": 51,
+  "manifestCount": 64,
+  "catalogCount": 64,
+  "missingManifest": [],
+  "missingCatalogEntry": [],
+  "manifestWithoutRepo": [
+    "chat",
+    "env",
+    "grpc-transport",
+    "him",
+    "img2nl",
+    "message",
+    "rdp",
+    "screen",
+    "stepper",
+    "stt",
+    "urimail",
+    "urioffice",
+    "webrtc"
+  ],
+  "missingVersionField": [],
+  "missingVersionFile": [
+    "adb",
+    "adopt",
+    "agents",
+    "calendar",
+    "camera",
+    "camera-web",
+    "connectorgen",
+    "doc",
+    "docid",
+    "document",
+    "email",
+    "fs",
+    "invoice",
+    "koru",
+    "ksef",
+    "linkedin",
+    "netscan",
+    "nodeadmin",
+    "ocr",
+    "pdf",
+    "sheet",
+    "smart-crop",
+    "twin",
+    "urifix",
+    "urivision",
+    "urivision-runtime",
+    "usb",
+    "vdisplay",
+    "view",
+    "vql",
+    "webnode",
+    "youtube"
+  ],
+  "emptyVersionFile": [],
+  "versionMismatch": [
+    "browser-control",
+    "camera",
+    "domain-monitor",
+    "email",
+    "http-check",
+    "kvm",
+    "llm",
+    "ocr",
+    "planfile",
+    "router",
+    "scanner",
+    "sqlite-context",
+    "time-tools"
+  ],
+  "missingGitTag": [
+    "get-node",
+    "http-check",
+    "kvm",
+    "llm",
+    "mcp-filesystem",
+    "mqtt",
+    "router",
+    "scanner"
+  ],
+  "ok": [
+    "base64",
+    "flow-repair",
+    "github",
+    "hash",
+    "namecheap-dns",
+    "uuid"
+  ],
+  "perConnector": [
+    {
+      "id": "adb",
+      "repoName": "urirun-connector-adb",
+      "repoPath": "C:\\Users\\Praca\\fork\\if-uri\\urirun-connector-adb",
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\adb\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.1.0",
+      "versionCatalog": "0.1.0",
+      "versionFile": null,
+      "versionPyproject": "0.1.0",
+      "expectedTag": null,
+      "tagPresent": null,
+      "issues": [
+        "missingVersionFile"
+      ]
+    },
+    {
+      "id": "adopt",
+      "repoName": "urirun-connector-adopt",
+      "repoPath": "C:\\Users\\Praca\\fork\\if-uri\\urirun-connector-adopt",
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\adopt\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.1.0",
+      "versionCatalog": "0.1.0",
+      "versionFile": null,
+      "versionPyproject": "0.1.0",
+      "expectedTag": null,
+      "tagPresent": null,
+      "issues": [
+        "missingVersionFile"
+      ]
+    },
+    {
+      "id": "agents",
+      "repoName": "urirun-connector-agents",
+      "repoPath": "C:\\Users\\Praca\\fork\\if-uri\\urirun-connector-agents",
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\agents\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.1.0",
+      "versionCatalog": "0.1.0",
+      "versionFile": null,
+      "versionPyproject": "0.1.0",
+      "expectedTag": null,
+      "tagPresent": null,
+      "issues": [
+        "missingVersionFile"
+      ]
+    },
+    {
+      "id": "base64",
+      "repoName": "urirun-connector-base64",
+      "repoPath": "C:\\Users\\Praca\\fork\\if-uri\\urirun-connector-base64",
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\base64\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.1.0",
+      "versionCatalog": "0.1.0",
+      "versionFile": "0.1.0",
+      "versionPyproject": null,
+      "expectedTag": "v0.1.0",
+      "tagPresent": true,
+      "issues": []
+    },
+    {
+      "id": "browser-control",
+      "repoName": "urirun-connector-browser-control",
+      "repoPath": "C:\\Users\\Praca\\fork\\if-uri\\urirun-connector-browser-control",
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\browser-control\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.1.1",
+      "versionCatalog": "0.1.1",
+      "versionFile": "0.1.0",
+      "versionPyproject": "0.1.1",
+      "expectedTag": "v0.1.0",
+      "tagPresent": true,
+      "issues": [
+        "versionMismatch"
+      ]
+    },
+    {
+      "id": "calendar",
+      "repoName": "urirun-connector-calendar",
+      "repoPath": "C:\\Users\\Praca\\fork\\if-uri\\urirun-connector-calendar",
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\calendar\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.1.0",
+      "versionCatalog": "0.1.0",
+      "versionFile": null,
+      "versionPyproject": "0.1.0",
+      "expectedTag": null,
+      "tagPresent": null,
+      "issues": [
+        "missingVersionFile"
+      ]
+    },
+    {
+      "id": "camera",
+      "repoName": "urirun-connector-camera",
+      "repoPath": "C:\\Users\\Praca\\fork\\if-uri\\urirun-connector-camera",
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\camera\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.1.0",
+      "versionCatalog": "0.1.0",
+      "versionFile": null,
+      "versionPyproject": "0.1.1",
+      "expectedTag": null,
+      "tagPresent": null,
+      "issues": [
+        "missingVersionFile",
+        "versionMismatch"
+      ]
+    },
+    {
+      "id": "camera-web",
+      "repoName": "urirun-connector-camera-web",
+      "repoPath": "C:\\Users\\Praca\\fork\\if-uri\\urirun-connector-camera-web",
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\camera-web\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.1.0",
+      "versionCatalog": "0.1.0",
+      "versionFile": null,
+      "versionPyproject": "0.1.0",
+      "expectedTag": null,
+      "tagPresent": null,
+      "issues": [
+        "missingVersionFile"
+      ]
+    },
+    {
+      "id": "chat",
+      "repoName": "urirun-connector-chat",
+      "repoPath": null,
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\chat\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.1.0",
+      "versionCatalog": "0.1.0",
+      "versionFile": null,
+      "versionPyproject": null,
+      "expectedTag": null,
+      "tagPresent": null,
+      "issues": [
+        "manifestWithoutRepo"
+      ]
+    },
+    {
+      "id": "connectorgen",
+      "repoName": "urirun-connector-connectorgen",
+      "repoPath": "C:\\Users\\Praca\\fork\\if-uri\\urirun-connector-connectorgen",
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\connectorgen\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.1.0",
+      "versionCatalog": "0.1.0",
+      "versionFile": null,
+      "versionPyproject": "0.1.0",
+      "expectedTag": null,
+      "tagPresent": null,
+      "issues": [
+        "missingVersionFile"
+      ]
+    },
+    {
+      "id": "doc",
+      "repoName": "urirun-connector-doc",
+      "repoPath": "C:\\Users\\Praca\\fork\\if-uri\\urirun-connector-doc",
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\doc\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.1.0",
+      "versionCatalog": "0.1.0",
+      "versionFile": null,
+      "versionPyproject": "0.1.0",
+      "expectedTag": null,
+      "tagPresent": null,
+      "issues": [
+        "missingVersionFile"
+      ]
+    },
+    {
+      "id": "docid",
+      "repoName": "urirun-connector-docid",
+      "repoPath": "C:\\Users\\Praca\\fork\\if-uri\\urirun-connector-docid",
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\docid\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.1.0",
+      "versionCatalog": "0.1.0",
+      "versionFile": null,
+      "versionPyproject": "0.1.0",
+      "expectedTag": null,
+      "tagPresent": null,
+      "issues": [
+        "missingVersionFile"
+      ]
+    },
+    {
+      "id": "document",
+      "repoName": "urirun-connector-document",
+      "repoPath": "C:\\Users\\Praca\\fork\\if-uri\\urirun-connector-document",
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\document\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.1.0",
+      "versionCatalog": "0.1.0",
+      "versionFile": null,
+      "versionPyproject": "0.1.0",
+      "expectedTag": null,
+      "tagPresent": null,
+      "issues": [
+        "missingVersionFile"
+      ]
+    },
+    {
+      "id": "domain-monitor",
+      "repoName": "urirun-connector-domain-monitor",
+      "repoPath": "C:\\Users\\Praca\\fork\\if-uri\\urirun-connector-domain-monitor",
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\domain-monitor\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.2.1",
+      "versionCatalog": "0.2.1",
+      "versionFile": "0.1.0",
+      "versionPyproject": "0.2.1",
+      "expectedTag": "v0.1.0",
+      "tagPresent": true,
+      "issues": [
+        "versionMismatch"
+      ]
+    },
+    {
+      "id": "email",
+      "repoName": "urirun-connector-email",
+      "repoPath": "C:\\Users\\Praca\\fork\\if-uri\\urirun-connector-email",
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\email\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.3.0",
+      "versionCatalog": "0.3.0",
+      "versionFile": null,
+      "versionPyproject": "0.1.0",
+      "expectedTag": null,
+      "tagPresent": null,
+      "issues": [
+        "missingVersionFile",
+        "versionMismatch"
+      ]
+    },
+    {
+      "id": "env",
+      "repoName": "urirun-connector-env",
+      "repoPath": null,
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\env\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.1.0",
+      "versionCatalog": "0.1.0",
+      "versionFile": null,
+      "versionPyproject": null,
+      "expectedTag": null,
+      "tagPresent": null,
+      "issues": [
+        "manifestWithoutRepo"
+      ]
+    },
+    {
+      "id": "flow-repair",
+      "repoName": "urirun-connector-flow-repair",
+      "repoPath": "C:\\Users\\Praca\\fork\\if-uri\\urirun-connector-flow-repair",
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\flow-repair\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.1.0",
+      "versionCatalog": "0.1.0",
+      "versionFile": "0.1.0",
+      "versionPyproject": "0.1.0",
+      "expectedTag": "v0.1.0",
+      "tagPresent": true,
+      "issues": []
+    },
+    {
+      "id": "fs",
+      "repoName": "urirun-connector-fs",
+      "repoPath": "C:\\Users\\Praca\\fork\\if-uri\\urirun-connector-fs",
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\fs\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.1.0",
+      "versionCatalog": "0.1.0",
+      "versionFile": null,
+      "versionPyproject": "0.1.0",
+      "expectedTag": null,
+      "tagPresent": null,
+      "issues": [
+        "missingVersionFile"
+      ]
+    },
+    {
+      "id": "get-node",
+      "repoName": "urirun-connector-get-node",
+      "repoPath": "C:\\Users\\Praca\\fork\\if-uri\\urirun-connector-get-node",
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\get-node\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.1.0",
+      "versionCatalog": "0.1.0",
+      "versionFile": "0.1.0",
+      "versionPyproject": "0.1.0",
+      "expectedTag": "v0.1.0",
+      "tagPresent": false,
+      "issues": [
+        "missingGitTag"
+      ]
+    },
+    {
+      "id": "github",
+      "repoName": "urirun-connector-github",
+      "repoPath": "C:\\Users\\Praca\\fork\\if-uri\\urirun-connector-github",
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\github\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.1.0",
+      "versionCatalog": "0.1.0",
+      "versionFile": "0.1.0",
+      "versionPyproject": "0.1.0",
+      "expectedTag": "v0.1.0",
+      "tagPresent": true,
+      "issues": []
+    },
+    {
+      "id": "grpc-transport",
+      "repoName": "urirun-connector-grpc-transport",
+      "repoPath": null,
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\grpc-transport\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.1.0",
+      "versionCatalog": "0.1.0",
+      "versionFile": null,
+      "versionPyproject": null,
+      "expectedTag": null,
+      "tagPresent": null,
+      "issues": [
+        "manifestWithoutRepo"
+      ]
+    },
+    {
+      "id": "hash",
+      "repoName": "urirun-connector-hash",
+      "repoPath": "C:\\Users\\Praca\\fork\\if-uri\\urirun-connector-hash",
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\hash\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.1.0",
+      "versionCatalog": "0.1.0",
+      "versionFile": "0.1.0",
+      "versionPyproject": null,
+      "expectedTag": "v0.1.0",
+      "tagPresent": true,
+      "issues": []
+    },
+    {
+      "id": "him",
+      "repoName": "urirun-connector-him",
+      "repoPath": null,
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\him\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.1.0",
+      "versionCatalog": "0.1.0",
+      "versionFile": null,
+      "versionPyproject": null,
+      "expectedTag": null,
+      "tagPresent": null,
+      "issues": [
+        "manifestWithoutRepo"
+      ]
+    },
+    {
+      "id": "http-check",
+      "repoName": "urirun-connector-http-check",
+      "repoPath": "C:\\Users\\Praca\\fork\\if-uri\\urirun-connector-http-check",
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\http-check\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.1.5",
+      "versionCatalog": "0.1.5",
+      "versionFile": "0.1.0",
+      "versionPyproject": "0.1.5",
+      "expectedTag": "v0.1.0",
+      "tagPresent": false,
+      "issues": [
+        "missingGitTag",
+        "versionMismatch"
+      ]
+    },
+    {
+      "id": "img2nl",
+      "repoName": "urirun-connector-img2nl",
+      "repoPath": null,
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\img2nl\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.1.0",
+      "versionCatalog": "0.1.0",
+      "versionFile": null,
+      "versionPyproject": null,
+      "expectedTag": null,
+      "tagPresent": null,
+      "issues": [
+        "manifestWithoutRepo"
+      ]
+    },
+    {
+      "id": "invoice",
+      "repoName": "urirun-connector-invoice",
+      "repoPath": "C:\\Users\\Praca\\fork\\if-uri\\urirun-connector-invoice",
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\invoice\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.1.0",
+      "versionCatalog": "0.1.0",
+      "versionFile": null,
+      "versionPyproject": "0.1.0",
+      "expectedTag": null,
+      "tagPresent": null,
+      "issues": [
+        "missingVersionFile"
+      ]
+    },
+    {
+      "id": "koru",
+      "repoName": "urirun-connector-koru",
+      "repoPath": "C:\\Users\\Praca\\fork\\if-uri\\urirun-connector-koru",
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\koru\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.1.0",
+      "versionCatalog": "0.1.0",
+      "versionFile": null,
+      "versionPyproject": "0.1.0",
+      "expectedTag": null,
+      "tagPresent": null,
+      "issues": [
+        "missingVersionFile"
+      ]
+    },
+    {
+      "id": "ksef",
+      "repoName": "urirun-connector-ksef",
+      "repoPath": "C:\\Users\\Praca\\fork\\if-uri\\urirun-connector-ksef",
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\ksef\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.1.0",
+      "versionCatalog": "0.1.0",
+      "versionFile": null,
+      "versionPyproject": "0.1.0",
+      "expectedTag": null,
+      "tagPresent": null,
+      "issues": [
+        "missingVersionFile"
+      ]
+    },
+    {
+      "id": "kvm",
+      "repoName": "urirun-connector-kvm",
+      "repoPath": "C:\\Users\\Praca\\fork\\if-uri\\urirun-connector-kvm",
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\kvm\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.3.1",
+      "versionCatalog": "0.3.1",
+      "versionFile": "0.3.0",
+      "versionPyproject": "0.3.1",
+      "expectedTag": "v0.3.0",
+      "tagPresent": false,
+      "issues": [
+        "missingGitTag",
+        "versionMismatch"
+      ]
+    },
+    {
+      "id": "linkedin",
+      "repoName": "urirun-connector-linkedin",
+      "repoPath": "C:\\Users\\Praca\\fork\\if-uri\\urirun-connector-linkedin",
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\linkedin\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.1.0",
+      "versionCatalog": "0.1.0",
+      "versionFile": null,
+      "versionPyproject": "0.1.0",
+      "expectedTag": null,
+      "tagPresent": null,
+      "issues": [
+        "missingVersionFile"
+      ]
+    },
+    {
+      "id": "llm",
+      "repoName": "urirun-connector-llm",
+      "repoPath": "C:\\Users\\Praca\\fork\\if-uri\\urirun-connector-llm",
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\llm\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.1.0",
+      "versionCatalog": "0.1.0",
+      "versionFile": "0.3.0",
+      "versionPyproject": "0.3.0",
+      "expectedTag": "v0.3.0",
+      "tagPresent": false,
+      "issues": [
+        "missingGitTag",
+        "versionMismatch"
+      ]
+    },
+    {
+      "id": "mcp-filesystem",
+      "repoName": "urirun-connector-mcp-filesystem",
+      "repoPath": "C:\\Users\\Praca\\fork\\if-uri\\urirun-connector-mcp-filesystem",
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\mcp-filesystem\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.1.0",
+      "versionCatalog": "0.1.0",
+      "versionFile": "0.1.0",
+      "versionPyproject": "0.1.0",
+      "expectedTag": "v0.1.0",
+      "tagPresent": false,
+      "issues": [
+        "missingGitTag"
+      ]
+    },
+    {
+      "id": "message",
+      "repoName": "urirun-connector-message",
+      "repoPath": null,
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\message\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.1.0",
+      "versionCatalog": "0.1.0",
+      "versionFile": null,
+      "versionPyproject": null,
+      "expectedTag": null,
+      "tagPresent": null,
+      "issues": [
+        "manifestWithoutRepo"
+      ]
+    },
+    {
+      "id": "mqtt",
+      "repoName": "urirun-connector-mqtt",
+      "repoPath": "C:\\Users\\Praca\\fork\\if-uri\\urirun-connector-mqtt",
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\mqtt\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.1.0",
+      "versionCatalog": "0.1.0",
+      "versionFile": "0.1.0",
+      "versionPyproject": "0.1.0",
+      "expectedTag": "v0.1.0",
+      "tagPresent": false,
+      "issues": [
+        "missingGitTag"
+      ]
+    },
+    {
+      "id": "namecheap-dns",
+      "repoName": "urirun-connector-namecheap-dns",
+      "repoPath": "C:\\Users\\Praca\\fork\\if-uri\\urirun-connector-namecheap-dns",
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\namecheap-dns\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.1.0",
+      "versionCatalog": "0.1.0",
+      "versionFile": "0.1.0",
+      "versionPyproject": "0.1.0",
+      "expectedTag": "v0.1.0",
+      "tagPresent": true,
+      "issues": []
+    },
+    {
+      "id": "netscan",
+      "repoName": "urirun-connector-netscan",
+      "repoPath": "C:\\Users\\Praca\\fork\\if-uri\\urirun-connector-netscan",
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\netscan\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.1.0",
+      "versionCatalog": "0.1.0",
+      "versionFile": null,
+      "versionPyproject": "0.1.0",
+      "expectedTag": null,
+      "tagPresent": null,
+      "issues": [
+        "missingVersionFile"
+      ]
+    },
+    {
+      "id": "nodeadmin",
+      "repoName": "urirun-connector-nodeadmin",
+      "repoPath": "C:\\Users\\Praca\\fork\\if-uri\\urirun-connector-nodeadmin",
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\nodeadmin\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.1.0",
+      "versionCatalog": "0.1.0",
+      "versionFile": null,
+      "versionPyproject": "0.1.0",
+      "expectedTag": null,
+      "tagPresent": null,
+      "issues": [
+        "missingVersionFile"
+      ]
+    },
+    {
+      "id": "ocr",
+      "repoName": "urirun-connector-ocr",
+      "repoPath": "C:\\Users\\Praca\\fork\\if-uri\\urirun-connector-ocr",
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\ocr\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.1.0",
+      "versionCatalog": "0.1.0",
+      "versionFile": null,
+      "versionPyproject": "0.1.1",
+      "expectedTag": null,
+      "tagPresent": null,
+      "issues": [
+        "missingVersionFile",
+        "versionMismatch"
+      ]
+    },
+    {
+      "id": "pdf",
+      "repoName": "urirun-connector-pdf",
+      "repoPath": "C:\\Users\\Praca\\fork\\if-uri\\urirun-connector-pdf",
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\pdf\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.1.0",
+      "versionCatalog": "0.1.0",
+      "versionFile": null,
+      "versionPyproject": "0.1.0",
+      "expectedTag": null,
+      "tagPresent": null,
+      "issues": [
+        "missingVersionFile"
+      ]
+    },
+    {
+      "id": "planfile",
+      "repoName": "urirun-connector-planfile",
+      "repoPath": "C:\\Users\\Praca\\fork\\if-uri\\urirun-connector-planfile",
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\planfile\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.1.1",
+      "versionCatalog": "0.1.1",
+      "versionFile": "0.1.0",
+      "versionPyproject": "0.1.1",
+      "expectedTag": "v0.1.0",
+      "tagPresent": true,
+      "issues": [
+        "versionMismatch"
+      ]
+    },
+    {
+      "id": "rdp",
+      "repoName": "urirun-connector-rdp",
+      "repoPath": null,
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\rdp\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.1.0",
+      "versionCatalog": "0.1.0",
+      "versionFile": null,
+      "versionPyproject": null,
+      "expectedTag": null,
+      "tagPresent": null,
+      "issues": [
+        "manifestWithoutRepo"
+      ]
+    },
+    {
+      "id": "router",
+      "repoName": "urirun-connector-router",
+      "repoPath": "C:\\Users\\Praca\\fork\\if-uri\\urirun-connector-router",
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\router\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.1.0",
+      "versionCatalog": "0.1.0",
+      "versionFile": "0.2.1",
+      "versionPyproject": "0.2.1",
+      "expectedTag": "v0.2.1",
+      "tagPresent": false,
+      "issues": [
+        "missingGitTag",
+        "versionMismatch"
+      ]
+    },
+    {
+      "id": "scanner",
+      "repoName": "urirun-connector-scanner",
+      "repoPath": "C:\\Users\\Praca\\fork\\if-uri\\urirun-connector-scanner",
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\scanner\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.1.0",
+      "versionCatalog": "0.1.0",
+      "versionFile": "0.1.4",
+      "versionPyproject": "0.1.4",
+      "expectedTag": "v0.1.4",
+      "tagPresent": false,
+      "issues": [
+        "missingGitTag",
+        "versionMismatch"
+      ]
+    },
+    {
+      "id": "screen",
+      "repoName": "urirun-connector-screen",
+      "repoPath": null,
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\screen\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.1.0",
+      "versionCatalog": "0.1.0",
+      "versionFile": null,
+      "versionPyproject": null,
+      "expectedTag": null,
+      "tagPresent": null,
+      "issues": [
+        "manifestWithoutRepo"
+      ]
+    },
+    {
+      "id": "sheet",
+      "repoName": "urirun-connector-sheet",
+      "repoPath": "C:\\Users\\Praca\\fork\\if-uri\\urirun-connector-sheet",
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\sheet\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.1.0",
+      "versionCatalog": "0.1.0",
+      "versionFile": null,
+      "versionPyproject": "0.1.0",
+      "expectedTag": null,
+      "tagPresent": null,
+      "issues": [
+        "missingVersionFile"
+      ]
+    },
+    {
+      "id": "smart-crop",
+      "repoName": "urirun-connector-smart-crop",
+      "repoPath": "C:\\Users\\Praca\\fork\\if-uri\\urirun-connector-smart-crop",
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\smart-crop\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.1.0",
+      "versionCatalog": "0.1.0",
+      "versionFile": null,
+      "versionPyproject": "0.1.0",
+      "expectedTag": null,
+      "tagPresent": null,
+      "issues": [
+        "missingVersionFile"
+      ]
+    },
+    {
+      "id": "sqlite-context",
+      "repoName": "urirun-connector-sqlite-context",
+      "repoPath": "C:\\Users\\Praca\\fork\\if-uri\\urirun-connector-sqlite-context",
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\sqlite-context\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.1.1",
+      "versionCatalog": "0.1.1",
+      "versionFile": "0.1.0",
+      "versionPyproject": "0.1.1",
+      "expectedTag": "v0.1.0",
+      "tagPresent": true,
+      "issues": [
+        "versionMismatch"
+      ]
+    },
+    {
+      "id": "stepper",
+      "repoName": "urirun-connector-stepper",
+      "repoPath": null,
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\stepper\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.1.0",
+      "versionCatalog": "0.1.0",
+      "versionFile": null,
+      "versionPyproject": null,
+      "expectedTag": null,
+      "tagPresent": null,
+      "issues": [
+        "manifestWithoutRepo"
+      ]
+    },
+    {
+      "id": "stt",
+      "repoName": "urirun-connector-stt",
+      "repoPath": null,
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\stt\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.1.0",
+      "versionCatalog": "0.1.0",
+      "versionFile": null,
+      "versionPyproject": null,
+      "expectedTag": null,
+      "tagPresent": null,
+      "issues": [
+        "manifestWithoutRepo"
+      ]
+    },
+    {
+      "id": "time-tools",
+      "repoName": "urirun-connector-time-tools",
+      "repoPath": "C:\\Users\\Praca\\fork\\if-uri\\urirun-connector-time-tools",
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\time-tools\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.1.2",
+      "versionCatalog": "0.1.2",
+      "versionFile": "0.1.0",
+      "versionPyproject": "0.1.2",
+      "expectedTag": "v0.1.0",
+      "tagPresent": true,
+      "issues": [
+        "versionMismatch"
+      ]
+    },
+    {
+      "id": "twin",
+      "repoName": "urirun-connector-twin",
+      "repoPath": "C:\\Users\\Praca\\fork\\if-uri\\urirun-connector-twin",
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\twin\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.1.0",
+      "versionCatalog": "0.1.0",
+      "versionFile": null,
+      "versionPyproject": "0.1.0",
+      "expectedTag": null,
+      "tagPresent": null,
+      "issues": [
+        "missingVersionFile"
+      ]
+    },
+    {
+      "id": "urifix",
+      "repoName": "urirun-connector-urifix",
+      "repoPath": "C:\\Users\\Praca\\fork\\if-uri\\urirun-connector-urifix",
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\urifix\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.1.0",
+      "versionCatalog": "0.1.0",
+      "versionFile": null,
+      "versionPyproject": "0.1.0",
+      "expectedTag": null,
+      "tagPresent": null,
+      "issues": [
+        "missingVersionFile"
+      ]
+    },
+    {
+      "id": "urimail",
+      "repoName": "urirun-connector-urimail",
+      "repoPath": null,
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\urimail\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.1.0",
+      "versionCatalog": "0.1.0",
+      "versionFile": null,
+      "versionPyproject": null,
+      "expectedTag": null,
+      "tagPresent": null,
+      "issues": [
+        "manifestWithoutRepo"
+      ]
+    },
+    {
+      "id": "urioffice",
+      "repoName": "urirun-connector-urioffice",
+      "repoPath": null,
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\urioffice\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.1.0",
+      "versionCatalog": "0.1.0",
+      "versionFile": null,
+      "versionPyproject": null,
+      "expectedTag": null,
+      "tagPresent": null,
+      "issues": [
+        "manifestWithoutRepo"
+      ]
+    },
+    {
+      "id": "urivision",
+      "repoName": "urirun-connector-urivision",
+      "repoPath": "C:\\Users\\Praca\\fork\\if-uri\\urirun-connector-urivision",
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\urivision\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.1.0",
+      "versionCatalog": "0.1.0",
+      "versionFile": null,
+      "versionPyproject": "0.1.0",
+      "expectedTag": null,
+      "tagPresent": null,
+      "issues": [
+        "missingVersionFile"
+      ]
+    },
+    {
+      "id": "urivision-runtime",
+      "repoName": "urirun-connector-urivision-runtime",
+      "repoPath": "C:\\Users\\Praca\\fork\\if-uri\\urirun-connector-urivision-runtime",
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\urivision-runtime\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.1.0",
+      "versionCatalog": "0.1.0",
+      "versionFile": null,
+      "versionPyproject": "0.1.0",
+      "expectedTag": null,
+      "tagPresent": null,
+      "issues": [
+        "missingVersionFile"
+      ]
+    },
+    {
+      "id": "usb",
+      "repoName": "urirun-connector-usb",
+      "repoPath": "C:\\Users\\Praca\\fork\\if-uri\\urirun-connector-usb",
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\usb\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.1.0",
+      "versionCatalog": "0.1.0",
+      "versionFile": null,
+      "versionPyproject": "0.1.0",
+      "expectedTag": null,
+      "tagPresent": null,
+      "issues": [
+        "missingVersionFile"
+      ]
+    },
+    {
+      "id": "uuid",
+      "repoName": "urirun-connector-uuid",
+      "repoPath": "C:\\Users\\Praca\\fork\\if-uri\\urirun-connector-uuid",
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\uuid\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.1.0",
+      "versionCatalog": "0.1.0",
+      "versionFile": "0.1.0",
+      "versionPyproject": null,
+      "expectedTag": "v0.1.0",
+      "tagPresent": true,
+      "issues": []
+    },
+    {
+      "id": "vdisplay",
+      "repoName": "urirun-connector-vdisplay",
+      "repoPath": "C:\\Users\\Praca\\fork\\if-uri\\urirun-connector-vdisplay",
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\vdisplay\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.1.0",
+      "versionCatalog": "0.1.0",
+      "versionFile": null,
+      "versionPyproject": "0.1.0",
+      "expectedTag": null,
+      "tagPresent": null,
+      "issues": [
+        "missingVersionFile"
+      ]
+    },
+    {
+      "id": "view",
+      "repoName": "urirun-connector-view",
+      "repoPath": "C:\\Users\\Praca\\fork\\if-uri\\urirun-connector-view",
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\view\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.1.0",
+      "versionCatalog": "0.1.0",
+      "versionFile": null,
+      "versionPyproject": "0.1.0",
+      "expectedTag": null,
+      "tagPresent": null,
+      "issues": [
+        "missingVersionFile"
+      ]
+    },
+    {
+      "id": "vql",
+      "repoName": "urirun-connector-vql",
+      "repoPath": "C:\\Users\\Praca\\fork\\if-uri\\urirun-connector-vql",
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\vql\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.1.0",
+      "versionCatalog": "0.1.0",
+      "versionFile": null,
+      "versionPyproject": "0.1.0",
+      "expectedTag": null,
+      "tagPresent": null,
+      "issues": [
+        "missingVersionFile"
+      ]
+    },
+    {
+      "id": "webnode",
+      "repoName": "urirun-connector-webnode",
+      "repoPath": "C:\\Users\\Praca\\fork\\if-uri\\urirun-connector-webnode",
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\webnode\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.1.0",
+      "versionCatalog": "0.1.0",
+      "versionFile": null,
+      "versionPyproject": "0.1.0",
+      "expectedTag": null,
+      "tagPresent": null,
+      "issues": [
+        "missingVersionFile"
+      ]
+    },
+    {
+      "id": "webrtc",
+      "repoName": "urirun-connector-webrtc",
+      "repoPath": null,
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\webrtc\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.1.0",
+      "versionCatalog": "0.1.0",
+      "versionFile": null,
+      "versionPyproject": null,
+      "expectedTag": null,
+      "tagPresent": null,
+      "issues": [
+        "manifestWithoutRepo"
+      ]
+    },
+    {
+      "id": "youtube",
+      "repoName": "urirun-connector-youtube",
+      "repoPath": "C:\\Users\\Praca\\fork\\if-uri\\urirun-connector-youtube",
+      "manifestPath": "C:\\Users\\Praca\\fork\\if-uri\\connect.ifuri.com\\data\\connectors\\youtube\\manifest.json",
+      "catalogPresent": true,
+      "manifestPresent": true,
+      "versionManifest": "0.1.0",
+      "versionCatalog": "0.1.0",
+      "versionFile": null,
+      "versionPyproject": "0.1.0",
+      "expectedTag": null,
+      "tagPresent": null,
+      "issues": [
+        "missingVersionFile"
+      ]
+    }
+  ]
+}

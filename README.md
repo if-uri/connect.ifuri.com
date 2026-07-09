@@ -25,6 +25,13 @@ python3 tools/build_catalog.py
 python3 tools/build_catalog.py --check
 ```
 
+Audit connector repositories, catalog entries and version/tag consistency:
+
+```bash
+python3 tools/audit_connector_repos.py
+python3 tools/audit_connector_repos.py --check --warn-missing-tags
+```
+
 Manifests and the generated catalog are validated against `schema/connector.schema.json`
 and `schema/connectors.schema.json`:
 
@@ -35,6 +42,7 @@ python3 scripts/validate_connectors.py   # needs python3-jsonschema; run in CI
 Contributor docs:
 
 - [`docs/CONNECTORS-ARCHITECTURE.md`](docs/CONNECTORS-ARCHITECTURE.md)
+- [`docs/CONNECTOR-REPO-AUDIT.md`](docs/CONNECTOR-REPO-AUDIT.md)
 - [`docs/SUBMIT-CONNECTOR.md`](docs/SUBMIT-CONNECTOR.md)
 - [`docs/PLESK.md`](docs/PLESK.md)
 - [`TODO.md`](TODO.md)

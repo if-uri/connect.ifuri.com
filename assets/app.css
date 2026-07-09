@@ -310,6 +310,21 @@ code {
   margin-top: 4px;
 }
 
+
+.version {
+  display: inline-flex;
+  min-height: 22px;
+  align-items: center;
+  padding: 0 7px;
+  margin-right: 6px;
+  border-radius: 999px;
+  background: rgba(52, 211, 153, 0.12);
+  color: var(--brand-accent);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 740;
+}
+
 .status {
   display: inline-flex;
   min-height: 22px;
