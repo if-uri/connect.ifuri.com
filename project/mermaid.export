@@ -1,0 +1,198 @@
+flowchart TD
+%% generated in 0.00s
+    subgraph assets__app
+        assets__app__checks["checks"]
+        assets__app__command["command"]
+        assets__app__copyInstall["copyInstall"]
+        assets__app__selectAvailable["selectAvailable"]
+        assets__app__hubBase["hubBase"]
+        assets__app__selectedIds["selectedIds"]
+        assets__app__installCommand["installCommand"]
+        assets__app__suffix["suffix"]
+        assets__app__refreshCommand["refreshCommand"]
+        assets__app__copyText["copyText"]
+        assets__app__input["input"]
+        assets__app__previous["previous"]
+        assets__app__button["button"]
+        assets__app__target["target"]
+        assets__app__search("search CC=11")
+        assets__app__cards("cards CC=11")
+        assets__app__count("count CC=11")
+        assets__app__noResults("noResults CC=11")
+        assets__app__filterConnectors("filterConnectors CC=11")
+        assets__app__term["term"]
+        assets__app__visible["visible"]
+        assets__app__ofWord["ofWord"]
+        assets__app__buttons["buttons"]
+        assets__app__panels["panels"]
+        assets__app__active["active"]
+        assets__app__builder{{builder CC=51}}
+        assets__app__form["form"]
+        assets__app__output["output"]
+        assets__app__folder["folder"]
+        assets__app__result["result"]
+        assets__app__template["template"]
+        assets__app__lineList["lineList"]
+        assets__app__escapeHtml["escapeHtml"]
+        assets__app__setField["setField"]
+        assets__app__field["field"]
+        assets__app__readManifest{{readManifest CC=19}}
+        assets__app__values["values"]
+        assets__app__pipValues["pipValues"]
+        assets__app__renderManifest["renderManifest"]
+        assets__app__manifest["manifest"]
+        assets__app__renderValidation["renderValidation"]
+        assets__app__i18n["i18n"]
+        assets__app__validText["validText"]
+        assets__app__errors["errors"]
+        assets__app__fixTemplate["fixTemplate"]
+        assets__app__fixText["fixText"]
+        assets__app__loadTemplate("loadTemplate CC=13")
+        assets__app__response["response"]
+        assets__app__payload["payload"]
+        assets__app__root["root"]
+        assets__app__saved["saved"]
+        assets__app__nav["nav"]
+        assets__app__isDark["isDark"]
+        assets__app__btn["btn"]
+        assets__app__render["render"]
+        assets__app__next["next"]
+    end
+    subgraph assets__ifuri_ecobar
+        assets__ifuri_ecobar__params["params"]
+        assets__ifuri_ecobar__lang["lang"]
+        assets__ifuri_ecobar__view["view"]
+        assets__ifuri_ecobar__host("host CC=9")
+        assets__ifuri_ecobar__curView("curView CC=9")
+        assets__ifuri_ecobar__isActive("isActive CC=9")
+        assets__ifuri_ecobar__esc["esc"]
+        assets__ifuri_ecobar__navHTML["navHTML"]
+        assets__ifuri_ecobar__label["label"]
+        assets__ifuri_ecobar__hostEl["hostEl"]
+        assets__ifuri_ecobar__sr["sr"]
+        assets__ifuri_ecobar__p["p"]
+    end
+    subgraph scripts__check_connectors
+        scripts__check_connectors__reachable["reachable"]
+        scripts__check_connectors__main{{main CC=20}}
+    end
+    subgraph scripts__connector_template
+        scripts__connector_template__pkg__cli__emit["emit"]
+        scripts__connector_template__pkg__cli__main["main"]
+        scripts__connector_template__pkg__core___json_resource["_json_resource"]
+        scripts__connector_template__pkg__core__connector_manifest["connector_manifest"]
+        scripts__connector_template__pkg__core__run_command["run_command"]
+        scripts__connector_template__pkg__core__urirun_bindings["urirun_bindings"]
+        scripts__connector_template__pkg__core__run["run"]
+    end
+    subgraph scripts__sign_manifest
+        scripts__sign_manifest__die_err["die_err"]
+        scripts__sign_manifest__arg_value["arg_value"]
+    end
+    subgraph scripts__validate_connectors
+        scripts__validate_connectors__load["load"]
+        scripts__validate_connectors__main("main CC=9")
+    end
+    subgraph tools__audit_connector_repos
+        tools__audit_connector_repos__run["run"]
+        tools__audit_connector_repos__load_json["load_json"]
+        tools__audit_connector_repos__connector_id["connector_id"]
+        tools__audit_connector_repos__is_connector_repo["is_connector_repo"]
+        tools__audit_connector_repos__gh_env["gh_env"]
+        tools__audit_connector_repos__run_gh["run_gh"]
+        tools__audit_connector_repos__has_gh["has_gh"]
+        tools__audit_connector_repos__discover_local_repos["discover_local_repos"]
+        tools__audit_connector_repos__discover_gh_repos("discover_gh_repos CC=9")
+        tools__audit_connector_repos__merge_repos["merge_repos"]
+        tools__audit_connector_repos__load_manifests["load_manifests"]
+        tools__audit_connector_repos__load_catalog_entries["load_catalog_entries"]
+        tools__audit_connector_repos__read_local_file["read_local_file"]
+        tools__audit_connector_repos__read_remote_file("read_remote_file CC=10")
+        tools__audit_connector_repos__read_repo_file["read_repo_file"]
+        tools__audit_connector_repos__pyproject_version["pyproject_version"]
+        tools__audit_connector_repos__local_tags["local_tags"]
+        tools__audit_connector_repos__remote_tag_present("remote_tag_present CC=9")
+        tools__audit_connector_repos__tag_present["tag_present"]
+        tools__audit_connector_repos__add_issue["add_issue"]
+        tools__audit_connector_repos__detail_for{{detail_for CC=23}}
+        tools__audit_connector_repos__summarize["summarize"]
+        tools__audit_connector_repos__build_report("build_report CC=8")
+        tools__audit_connector_repos__print_report["print_report"]
+        tools__audit_connector_repos__check_failed["check_failed"]
+        tools__audit_connector_repos__main["main"]
+    end
+    subgraph tools__build_catalog
+        tools__build_catalog__load_json["load_json"]
+        tools__build_catalog__validate_manifest{{validate_manifest CC=16}}
+        tools__build_catalog__public_connector["public_connector"]
+        tools__build_catalog__build_catalog("build_catalog CC=8")
+        tools__build_catalog__encode["encode"]
+        tools__build_catalog__main["main"]
+    end
+    assets__ifuri_ecobar__navHTML --> assets__ifuri_ecobar__esc
+    assets__ifuri_ecobar__navHTML --> assets__ifuri_ecobar__isActive
+    assets__app__installCommand --> assets__app__selectedIds
+    assets__app__refreshCommand --> assets__app__installCommand
+    assets__app__button --> assets__app__copyText
+    assets__app__builder --> assets__app__lineList
+    assets__app__readManifest --> assets__app__lineList
+    assets__app__renderManifest --> assets__app__readManifest
+    assets__app__manifest --> assets__app__renderValidation
+    assets__app__renderValidation --> assets__app__escapeHtml
+    assets__app__validText --> assets__app__escapeHtml
+    assets__app__loadTemplate --> assets__app__setField
+    assets__app__loadTemplate --> assets__app__renderManifest
+    assets__app__root --> assets__app__isDark
+    assets__app__saved --> assets__app__isDark
+    assets__app__nav --> assets__app__isDark
+    assets__app__btn --> assets__app__isDark
+    assets__app__render --> assets__app__isDark
+    scripts__validate_connectors__main --> scripts__validate_connectors__load
+    scripts__connector_template__pkg__cli__main --> scripts__connector_template__pkg__core__run
+    scripts__connector_template__pkg__cli__main --> scripts__connector_template__pkg__cli__emit
+    scripts__connector_template__pkg__cli__main --> scripts__connector_template__pkg__core__connector_manifest
+    scripts__connector_template__pkg__cli__main --> scripts__connector_template__pkg__core__urirun_bindings
+    scripts__connector_template__pkg__core__connector_manifest --> scripts__connector_template__pkg__core___json_resource
+    tools__build_catalog__build_catalog --> tools__build_catalog__load_json
+    tools__build_catalog__build_catalog --> tools__build_catalog__validate_manifest
+    tools__build_catalog__build_catalog --> tools__build_catalog__public_connector
+    tools__build_catalog__main --> tools__build_catalog__encode
+    tools__build_catalog__main --> tools__build_catalog__build_catalog
+    tools__audit_connector_repos__run_gh --> tools__audit_connector_repos__gh_env
+    tools__audit_connector_repos__discover_local_repos --> tools__audit_connector_repos__is_connector_repo
+    tools__audit_connector_repos__discover_local_repos --> tools__audit_connector_repos__connector_id
+    tools__audit_connector_repos__discover_gh_repos --> tools__audit_connector_repos__run_gh
+    tools__audit_connector_repos__discover_gh_repos --> tools__audit_connector_repos__has_gh
+    tools__audit_connector_repos__discover_gh_repos --> tools__audit_connector_repos__connector_id
+    tools__audit_connector_repos__discover_gh_repos --> tools__audit_connector_repos__is_connector_repo
+    tools__audit_connector_repos__load_manifests --> tools__audit_connector_repos__load_json
+    tools__audit_connector_repos__load_catalog_entries --> tools__audit_connector_repos__load_json
+    tools__audit_connector_repos__read_remote_file --> tools__audit_connector_repos__run_gh
+    tools__audit_connector_repos__read_remote_file --> tools__audit_connector_repos__has_gh
+    tools__audit_connector_repos__read_repo_file --> tools__audit_connector_repos__read_local_file
+    tools__audit_connector_repos__read_repo_file --> tools__audit_connector_repos__read_remote_file
+    tools__audit_connector_repos__pyproject_version --> tools__audit_connector_repos__read_repo_file
+    tools__audit_connector_repos__local_tags --> tools__audit_connector_repos__run
+    tools__audit_connector_repos__remote_tag_present --> tools__audit_connector_repos__run
+    tools__audit_connector_repos__remote_tag_present --> tools__audit_connector_repos__has_gh
+    tools__audit_connector_repos__remote_tag_present --> tools__audit_connector_repos__run_gh
+    tools__audit_connector_repos__tag_present --> tools__audit_connector_repos__local_tags
+    tools__audit_connector_repos__tag_present --> tools__audit_connector_repos__remote_tag_present
+    tools__audit_connector_repos__detail_for --> tools__audit_connector_repos__add_issue
+    tools__audit_connector_repos__detail_for --> tools__audit_connector_repos__read_repo_file
+    tools__audit_connector_repos__detail_for --> tools__audit_connector_repos__pyproject_version
+    tools__audit_connector_repos__build_report --> tools__audit_connector_repos__discover_local_repos
+    tools__audit_connector_repos__build_report --> tools__audit_connector_repos__merge_repos
+    tools__audit_connector_repos__build_report --> tools__audit_connector_repos__load_manifests
+    tools__audit_connector_repos__build_report --> tools__audit_connector_repos__load_catalog_entries
+    tools__audit_connector_repos__build_report --> tools__audit_connector_repos__discover_gh_repos
+    tools__audit_connector_repos__build_report --> tools__audit_connector_repos__detail_for
+    tools__audit_connector_repos__build_report --> tools__audit_connector_repos__summarize
+    tools__audit_connector_repos__main --> tools__audit_connector_repos__print_report
+    tools__audit_connector_repos__main --> tools__audit_connector_repos__build_report
+    tools__audit_connector_repos__main --> tools__audit_connector_repos__check_failed
+
+    classDef highCC fill:#ff6b6b,stroke:#c92a2a,color:#fff
+    classDef medCC fill:#ffd43b,stroke:#f08c00,color:#000
+    class assets__app__builder,assets__app__readManifest,scripts__check_connectors__main,tools__build_catalog__validate_manifest,tools__audit_connector_repos__detail_for highCC
+    class assets__ifuri_ecobar__host,assets__ifuri_ecobar__curView,assets__ifuri_ecobar__isActive,assets__app__search,assets__app__cards,assets__app__count,assets__app__noResults,assets__app__filterConnectors,assets__app__loadTemplate,scripts__validate_connectors__main,tools__build_catalog__build_catalog,tools__audit_connector_repos__discover_gh_repos,tools__audit_connector_repos__read_remote_file,tools__audit_connector_repos__remote_tag_present,tools__audit_connector_repos__build_report medCC

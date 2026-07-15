@@ -1,0 +1,143 @@
+# code2llm call graph | /home/tom/github/if-uri/connect.ifuri.com
+# generated in 0.02s
+# nodes: 60 | edges: 56 | modules: 7
+# CC̄=4.4
+
+HUBS[20]:
+  scripts.validate_connectors.main
+    CC=9  in:0  out:37  total:37
+  tools.audit_connector_repos.detail_for
+    CC=23  in:1  out:29  total:30
+  tools.audit_connector_repos.build_report
+    CC=8  in:1  out:26  total:27
+  tools.build_catalog.validate_manifest
+    CC=16  in:1  out:20  total:21
+  tools.audit_connector_repos.main
+    CC=5  in:0  out:18  total:18
+  tools.audit_connector_repos.print_report
+    CC=7  in:1  out:15  total:16
+  scripts.connector-template.pkg.cli.main
+    CC=5  in:0  out:15  total:15
+  tools.audit_connector_repos.read_remote_file
+    CC=10  in:1  out:13  total:14
+  tools.build_catalog.build_catalog
+    CC=8  in:1  out:13  total:14
+  tools.audit_connector_repos.remote_tag_present
+    CC=9  in:1  out:11  total:12
+  tools.build_catalog.main
+    CC=5  in:0  out:12  total:12
+  tools.audit_connector_repos.discover_gh_repos
+    CC=9  in:1  out:10  total:11
+  tools.audit_connector_repos.add_issue
+    CC=1  in:10  out:1  total:11
+  assets.app.renderValidation
+    CC=7  in:2  out:8  total:10
+  tools.audit_connector_repos.merge_repos
+    CC=4  in:1  out:9  total:10
+  tools.audit_connector_repos.discover_local_repos
+    CC=5  in:1  out:8  total:9
+  assets.app.copyText
+    CC=5  in:1  out:8  total:9
+  tools.audit_connector_repos.local_tags
+    CC=5  in:1  out:8  total:9
+  tools.audit_connector_repos.load_manifests
+    CC=3  in:1  out:7  total:8
+  assets.app.readManifest
+    CC=19  in:2  out:6  total:8
+
+MODULES:
+  assets.app  [20 funcs]
+    btn  CC=2  out:1
+    button  CC=4  out:1
+    copyText  CC=5  out:8
+    escapeHtml  CC=5  out:3
+    installCommand  CC=2  out:3
+    isDark  CC=2  out:0
+    lineList  CC=5  out:3
+    loadTemplate  CC=13  out:3
+    manifest  CC=2  out:5
+    nav  CC=2  out:1
+  assets.ifuri-ecobar  [3 funcs]
+    esc  CC=1  out:2
+    isActive  CC=9  out:1
+    navHTML  CC=3  out:4
+  scripts.connector-template.pkg.cli  [2 funcs]
+    emit  CC=1  out:2
+    main  CC=5  out:15
+  scripts.connector-template.pkg.core  [3 funcs]
+    _json_resource  CC=2  out:6
+    connector_manifest  CC=1  out:1
+    run  CC=1  out:0
+  scripts.validate_connectors  [2 funcs]
+    load  CC=1  out:3
+    main  CC=9  out:37
+  tools.audit_connector_repos  [24 funcs]
+    add_issue  CC=1  out:1
+    build_report  CC=8  out:26
+    connector_id  CC=1  out:1
+    detail_for  CC=23  out:29
+    discover_gh_repos  CC=9  out:10
+    discover_local_repos  CC=5  out:8
+    gh_env  CC=3  out:1
+    has_gh  CC=1  out:1
+    is_connector_repo  CC=2  out:1
+    load_catalog_entries  CC=4  out:5
+  tools.build_catalog  [6 funcs]
+    build_catalog  CC=8  out:13
+    encode  CC=1  out:1
+    load_json  CC=2  out:4
+    main  CC=5  out:12
+    public_connector  CC=3  out:0
+    validate_manifest  CC=16  out:20
+
+EDGES:
+  assets.ifuri-ecobar.navHTML → assets.ifuri-ecobar.esc
+  assets.ifuri-ecobar.navHTML → assets.ifuri-ecobar.isActive
+  assets.app.installCommand → assets.app.selectedIds
+  assets.app.refreshCommand → assets.app.installCommand
+  assets.app.button → assets.app.copyText
+  assets.app.readManifest → assets.app.lineList
+  assets.app.renderManifest → assets.app.readManifest
+  assets.app.manifest → assets.app.renderValidation
+  assets.app.renderValidation → assets.app.escapeHtml
+  assets.app.validText → assets.app.escapeHtml
+  assets.app.loadTemplate → assets.app.setField
+  assets.app.loadTemplate → assets.app.renderManifest
+  assets.app.root → assets.app.isDark
+  assets.app.saved → assets.app.isDark
+  assets.app.nav → assets.app.isDark
+  assets.app.btn → assets.app.isDark
+  assets.app.render → assets.app.isDark
+  scripts.validate_connectors.main → scripts.validate_connectors.load
+  scripts.connector-template.pkg.cli.main → scripts.connector-template.pkg.core.run
+  scripts.connector-template.pkg.cli.main → scripts.connector-template.pkg.cli.emit
+  scripts.connector-template.pkg.core.connector_manifest → scripts.connector-template.pkg.core._json_resource
+  tools.build_catalog.build_catalog → tools.build_catalog.load_json
+  tools.build_catalog.build_catalog → tools.build_catalog.validate_manifest
+  tools.build_catalog.build_catalog → tools.build_catalog.public_connector
+  tools.build_catalog.main → tools.build_catalog.encode
+  tools.build_catalog.main → tools.build_catalog.build_catalog
+  tools.audit_connector_repos.run_gh → tools.audit_connector_repos.gh_env
+  tools.audit_connector_repos.discover_local_repos → tools.audit_connector_repos.is_connector_repo
+  tools.audit_connector_repos.discover_local_repos → tools.audit_connector_repos.connector_id
+  tools.audit_connector_repos.discover_gh_repos → tools.audit_connector_repos.run_gh
+  tools.audit_connector_repos.discover_gh_repos → tools.audit_connector_repos.has_gh
+  tools.audit_connector_repos.discover_gh_repos → tools.audit_connector_repos.connector_id
+  tools.audit_connector_repos.discover_gh_repos → tools.audit_connector_repos.is_connector_repo
+  tools.audit_connector_repos.load_manifests → tools.audit_connector_repos.load_json
+  tools.audit_connector_repos.load_catalog_entries → tools.audit_connector_repos.load_json
+  tools.audit_connector_repos.read_remote_file → tools.audit_connector_repos.run_gh
+  tools.audit_connector_repos.read_remote_file → tools.audit_connector_repos.has_gh
+  tools.audit_connector_repos.read_repo_file → tools.audit_connector_repos.read_local_file
+  tools.audit_connector_repos.read_repo_file → tools.audit_connector_repos.read_remote_file
+  tools.audit_connector_repos.pyproject_version → tools.audit_connector_repos.read_repo_file
+  tools.audit_connector_repos.local_tags → tools.audit_connector_repos.run
+  tools.audit_connector_repos.remote_tag_present → tools.audit_connector_repos.run
+  tools.audit_connector_repos.remote_tag_present → tools.audit_connector_repos.has_gh
+  tools.audit_connector_repos.remote_tag_present → tools.audit_connector_repos.run_gh
+  tools.audit_connector_repos.tag_present → tools.audit_connector_repos.local_tags
+  tools.audit_connector_repos.tag_present → tools.audit_connector_repos.remote_tag_present
+  tools.audit_connector_repos.detail_for → tools.audit_connector_repos.add_issue
+  tools.audit_connector_repos.detail_for → tools.audit_connector_repos.read_repo_file
+  tools.audit_connector_repos.detail_for → tools.audit_connector_repos.pyproject_version
+  tools.audit_connector_repos.build_report → tools.audit_connector_repos.discover_local_repos

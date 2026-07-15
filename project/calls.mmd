@@ -1,0 +1,130 @@
+flowchart LR
+%% generated in 0.00s
+    subgraph assets__app
+        assets__app__setField["setField"]
+        assets__app__renderManifest["renderManifest"]
+        assets__app__validText["validText"]
+        assets__app__isDark["isDark"]
+        assets__app__lineList["lineList"]
+        assets__app__selectedIds["selectedIds"]
+        assets__app__refreshCommand["refreshCommand"]
+        assets__app__root["root"]
+        assets__app__render["render"]
+        assets__app__readManifest["readManifest"]
+        assets__app__nav["nav"]
+        assets__app__installCommand["installCommand"]
+        assets__app__renderValidation["renderValidation"]
+        assets__app__btn["btn"]
+        assets__app__button["button"]
+        assets__app__manifest["manifest"]
+        assets__app__copyText["copyText"]
+        assets__app__escapeHtml["escapeHtml"]
+        assets__app__saved["saved"]
+        assets__app__loadTemplate["loadTemplate"]
+    end
+    subgraph assets__ifuri_ecobar
+        assets__ifuri_ecobar__navHTML["navHTML"]
+        assets__ifuri_ecobar__isActive["isActive"]
+        assets__ifuri_ecobar__esc["esc"]
+    end
+    subgraph scripts__connector_template
+        scripts__connector_template__pkg__cli__emit["emit"]
+        scripts__connector_template__pkg__core__connector_manifest["connector_manifest"]
+        scripts__connector_template__pkg__cli__main["main"]
+        scripts__connector_template__pkg__core___json_resource["_json_resource"]
+        scripts__connector_template__pkg__core__run["run"]
+    end
+    subgraph scripts__validate_connectors
+        scripts__validate_connectors__load["load"]
+        scripts__validate_connectors__main["main"]
+    end
+    subgraph tools__audit_connector_repos
+        tools__audit_connector_repos__print_report["print_report"]
+        tools__audit_connector_repos__load_manifests["load_manifests"]
+        tools__audit_connector_repos__read_repo_file["read_repo_file"]
+        tools__audit_connector_repos__has_gh["has_gh"]
+        tools__audit_connector_repos__discover_gh_repos["discover_gh_repos"]
+        tools__audit_connector_repos__load_json["load_json"]
+        tools__audit_connector_repos__detail_for["detail_for"]
+        tools__audit_connector_repos__read_remote_file["read_remote_file"]
+        tools__audit_connector_repos__discover_local_repos["discover_local_repos"]
+        tools__audit_connector_repos__is_connector_repo["is_connector_repo"]
+        tools__audit_connector_repos__run_gh["run_gh"]
+        tools__audit_connector_repos__run["run"]
+        tools__audit_connector_repos__remote_tag_present["remote_tag_present"]
+        tools__audit_connector_repos__add_issue["add_issue"]
+        tools__audit_connector_repos__connector_id["connector_id"]
+        tools__audit_connector_repos__build_report["build_report"]
+        tools__audit_connector_repos__load_catalog_entries["load_catalog_entries"]
+        tools__audit_connector_repos__read_local_file["read_local_file"]
+        tools__audit_connector_repos__local_tags["local_tags"]
+        tools__audit_connector_repos__gh_env["gh_env"]
+        tools__audit_connector_repos__tag_present["tag_present"]
+        tools__audit_connector_repos__merge_repos["merge_repos"]
+        tools__audit_connector_repos__main["main"]
+        tools__audit_connector_repos__pyproject_version["pyproject_version"]
+    end
+    subgraph tools__build_catalog
+        tools__build_catalog__load_json["load_json"]
+        tools__build_catalog__validate_manifest["validate_manifest"]
+        tools__build_catalog__public_connector["public_connector"]
+        tools__build_catalog__main["main"]
+        tools__build_catalog__build_catalog["build_catalog"]
+        tools__build_catalog__encode["encode"]
+    end
+    assets__ifuri_ecobar__navHTML --> assets__ifuri_ecobar__esc
+    assets__ifuri_ecobar__navHTML --> assets__ifuri_ecobar__isActive
+    assets__app__installCommand --> assets__app__selectedIds
+    assets__app__refreshCommand --> assets__app__installCommand
+    assets__app__button --> assets__app__copyText
+    assets__app__readManifest --> assets__app__lineList
+    assets__app__renderManifest --> assets__app__readManifest
+    assets__app__manifest --> assets__app__renderValidation
+    assets__app__renderValidation --> assets__app__escapeHtml
+    assets__app__validText --> assets__app__escapeHtml
+    assets__app__loadTemplate --> assets__app__setField
+    assets__app__loadTemplate --> assets__app__renderManifest
+    assets__app__root --> assets__app__isDark
+    assets__app__saved --> assets__app__isDark
+    assets__app__nav --> assets__app__isDark
+    assets__app__btn --> assets__app__isDark
+    assets__app__render --> assets__app__isDark
+    scripts__validate_connectors__main --> scripts__validate_connectors__load
+    scripts__connector_template__pkg__cli__main --> scripts__connector_template__pkg__core__run
+    scripts__connector_template__pkg__cli__main --> scripts__connector_template__pkg__cli__emit
+    scripts__connector_template__pkg__core__connector_manifest --> scripts__connector_template__pkg__core___json_resource
+    tools__build_catalog__build_catalog --> tools__build_catalog__load_json
+    tools__build_catalog__build_catalog --> tools__build_catalog__validate_manifest
+    tools__build_catalog__build_catalog --> tools__build_catalog__public_connector
+    tools__build_catalog__main --> tools__build_catalog__encode
+    tools__build_catalog__main --> tools__build_catalog__build_catalog
+    tools__audit_connector_repos__run_gh --> tools__audit_connector_repos__gh_env
+    tools__audit_connector_repos__discover_local_repos --> tools__audit_connector_repos__is_connector_repo
+    tools__audit_connector_repos__discover_local_repos --> tools__audit_connector_repos__connector_id
+    tools__audit_connector_repos__discover_gh_repos --> tools__audit_connector_repos__run_gh
+    tools__audit_connector_repos__discover_gh_repos --> tools__audit_connector_repos__has_gh
+    tools__audit_connector_repos__discover_gh_repos --> tools__audit_connector_repos__connector_id
+    tools__audit_connector_repos__discover_gh_repos --> tools__audit_connector_repos__is_connector_repo
+    tools__audit_connector_repos__load_manifests --> tools__audit_connector_repos__load_json
+    tools__audit_connector_repos__load_catalog_entries --> tools__audit_connector_repos__load_json
+    tools__audit_connector_repos__read_remote_file --> tools__audit_connector_repos__run_gh
+    tools__audit_connector_repos__read_remote_file --> tools__audit_connector_repos__has_gh
+    tools__audit_connector_repos__read_repo_file --> tools__audit_connector_repos__read_local_file
+    tools__audit_connector_repos__read_repo_file --> tools__audit_connector_repos__read_remote_file
+    tools__audit_connector_repos__pyproject_version --> tools__audit_connector_repos__read_repo_file
+    tools__audit_connector_repos__local_tags --> tools__audit_connector_repos__run
+    tools__audit_connector_repos__remote_tag_present --> tools__audit_connector_repos__run
+    tools__audit_connector_repos__remote_tag_present --> tools__audit_connector_repos__has_gh
+    tools__audit_connector_repos__remote_tag_present --> tools__audit_connector_repos__run_gh
+    tools__audit_connector_repos__tag_present --> tools__audit_connector_repos__local_tags
+    tools__audit_connector_repos__tag_present --> tools__audit_connector_repos__remote_tag_present
+    tools__audit_connector_repos__detail_for --> tools__audit_connector_repos__add_issue
+    tools__audit_connector_repos__detail_for --> tools__audit_connector_repos__read_repo_file
+    tools__audit_connector_repos__detail_for --> tools__audit_connector_repos__pyproject_version
+    tools__audit_connector_repos__build_report --> tools__audit_connector_repos__discover_local_repos
+    tools__audit_connector_repos__build_report --> tools__audit_connector_repos__merge_repos
+    tools__audit_connector_repos__build_report --> tools__audit_connector_repos__load_manifests
+    tools__audit_connector_repos__build_report --> tools__audit_connector_repos__load_catalog_entries
+    tools__audit_connector_repos__build_report --> tools__audit_connector_repos__discover_gh_repos
+    tools__audit_connector_repos__build_report --> tools__audit_connector_repos__detail_for
+    tools__audit_connector_repos__main --> tools__audit_connector_repos__print_report

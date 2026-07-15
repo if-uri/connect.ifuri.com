@@ -1,0 +1,228 @@
+# code2llm | 103f 12056L | json:70,php:18,python:7,shell:4,javascript:2 | 2026-07-14
+# generated in 0.01s
+# CC̅=4.4 | critical:5/113 | dups:0 | cycles:0
+
+HEALTH[5]:
+  🟡 CC    builder CC=51 (limit:15)
+  🟡 CC    readManifest CC=19 (limit:15)
+  🟡 CC    main CC=20 (limit:15)
+  🟡 CC    validate_manifest CC=16 (limit:15)
+  🟡 CC    detail_for CC=23 (limit:15)
+
+REFACTOR[1]:
+  1. split 5 high-CC methods  (CC>15)
+
+PIPELINES[44]:
+  [1] Src [die_err]: die_err
+      PURITY: 100% pure
+  [2] Src [arg_value]: arg_value
+      PURITY: 100% pure
+  [3] Src [host]: host
+      PURITY: 100% pure
+  [4] Src [curView]: curView
+      PURITY: 100% pure
+  [5] Src [navHTML]: navHTML → esc
+      PURITY: 100% pure
+  [6] Src [hostEl]: hostEl
+      PURITY: 100% pure
+  [7] Src [sr]: sr
+      PURITY: 100% pure
+  [8] Src [checks]: checks
+      PURITY: 100% pure
+  [9] Src [command]: command
+      PURITY: 100% pure
+  [10] Src [copyInstall]: copyInstall
+      PURITY: 100% pure
+  [11] Src [selectAvailable]: selectAvailable
+      PURITY: 100% pure
+  [12] Src [hubBase]: hubBase
+      PURITY: 100% pure
+  [13] Src [suffix]: suffix
+      PURITY: 100% pure
+  [14] Src [refreshCommand]: refreshCommand → installCommand → selectedIds
+      PURITY: 100% pure
+  [15] Src [input]: input
+      PURITY: 100% pure
+  [16] Src [previous]: previous
+      PURITY: 100% pure
+  [17] Src [button]: button → copyText
+      PURITY: 100% pure
+  [18] Src [target]: target
+      PURITY: 100% pure
+  [19] Src [search]: search
+      PURITY: 100% pure
+  [20] Src [cards]: cards
+      PURITY: 100% pure
+  [21] Src [count]: count
+      PURITY: 100% pure
+  [22] Src [noResults]: noResults
+      PURITY: 100% pure
+  [23] Src [filterConnectors]: filterConnectors
+      PURITY: 100% pure
+  [24] Src [term]: term
+      PURITY: 100% pure
+  [25] Src [visible]: visible
+      PURITY: 100% pure
+  [26] Src [buttons]: buttons
+      PURITY: 100% pure
+  [27] Src [panels]: panels
+      PURITY: 100% pure
+  [28] Src [builder]: builder → lineList
+      PURITY: 100% pure
+  [29] Src [manifest]: manifest → renderValidation → escapeHtml
+      PURITY: 100% pure
+  [30] Src [validText]: validText → escapeHtml
+      PURITY: 100% pure
+  [31] Src [fixTemplate]: fixTemplate
+      PURITY: 100% pure
+  [32] Src [fixText]: fixText
+      PURITY: 100% pure
+  [33] Src [response]: response
+      PURITY: 100% pure
+  [34] Src [root]: root → isDark
+      PURITY: 100% pure
+  [35] Src [saved]: saved → isDark
+      PURITY: 100% pure
+  [36] Src [nav]: nav → isDark
+      PURITY: 100% pure
+  [37] Src [btn]: btn → isDark
+      PURITY: 100% pure
+  [38] Src [render]: render → isDark
+      PURITY: 100% pure
+  [39] Src [main]: main → load
+      PURITY: 100% pure
+  [40] Src [main]: main → run
+      PURITY: 100% pure
+  [41] Src [run_command]: run_command
+      PURITY: 100% pure
+  [42] Src [main]: main → reachable
+      PURITY: 100% pure
+  [43] Src [main]: main → encode
+      PURITY: 100% pure
+  [44] Src [main]: main → print_report
+      PURITY: 100% pure
+
+LAYERS:
+  tools/                          CC̄=4.9    ←in:0  →out:0
+  │ !! audit_connector_repos      459L  0C   26m  CC=23     ←0
+  │ !! build_catalog              171L  0C    6m  CC=16     ←0
+  │
+  assets/                         CC̄=4.3    ←in:0  →out:0
+  │ !! app.js                     268L  0C   56m  CC=51     ←0
+  │ ifuri-ecobar.js            108L  0C   12m  CC=9      ←0
+  │
+  scripts/                        CC̄=3.7    ←in:0  →out:0
+  │ !! check_connectors           117L  0C    2m  CC=20     ←0
+  │ sign-manifest.php           90L  0C    2m  CC=3      ←0
+  │ validate_connectors         59L  0C    2m  CC=9      ←0
+  │ core                        41L  0C    5m  CC=2      ←1
+  │ cli                         39L  0C    2m  CC=5      ←0
+  │ new-connector.sh            39L  0C    0m  CC=0.0    ←0
+  │ connector.manifest.json     27L  0C    0m  CC=0.0    ←0
+  │ Makefile                    18L  0C    0m  CC=0.0    ←0
+  │ deploy-plesk.sh             15L  0C    0m  CC=0.0    ←0
+  │ __init__                     6L  0C    0m  CC=0.0    ←0
+  │
+  ./                              CC̄=0.0    ←in:0  →out:0
+  │ connector.php              235L  0C    0m  CC=0.0    ←0
+  │ submit.php                 225L  0C    0m  CC=0.0    ←0
+  │ index.php                  211L  0C    0m  CC=0.0    ←0
+  │ categories.php             140L  0C    0m  CC=0.0    ←0
+  │ router.php                  74L  0C    0m  CC=0.0    ←0
+  │ project.sh                  66L  0C    0m  CC=0.0    ←0
+  │ 404.php                     61L  0C    0m  CC=0.0    ←0
+  │ Makefile                    53L  0C    0m  CC=0.0    ←0
+  │ llms.php                    52L  0C    0m  CC=0.0    ←0
+  │ sitemap.php                 34L  0C    0m  CC=0.0    ←0
+  │ install.php                  9L  0C    0m  CC=0.0    ←0
+  │ robots.php                   9L  0C    0m  CC=0.0    ←0
+  │ tree.sh                      4L  0C    0m  CC=0.0    ←0
+  │
+  schema/                         CC̄=0.0    ←in:0  →out:0
+  │ connector.schema.json      106L  0C    0m  CC=0.0    ←0
+  │ connectors.schema.json      90L  0C    0m  CC=0.0    ←0
+  │
+  api/                            CC̄=0.0    ←in:0  →out:0
+  │ validate_connector.php      69L  0C    0m  CC=0.0    ←0
+  │ connector.php               12L  0C    0m  CC=0.0    ←0
+  │ connectors.php               6L  0C    0m  CC=0.0    ←0
+  │ registry.php                 6L  0C    0m  CC=0.0    ←0
+  │ search.php                   6L  0C    0m  CC=0.0    ←0
+  │ mcp.php                      4L  0C    0m  CC=0.0    ←0
+  │ a2a.php                      4L  0C    0m  CC=0.0    ←0
+  │
+  data/                           CC̄=0.0    ←in:0  →out:0
+  │ !! connectors.json           3995L  0C    0m  CC=0.0    ←0
+  │ !! connector-repo-audit.json  1179L  0C    0m  CC=0.0    ←0
+  │ manifest.json              101L  0C    0m  CC=0.0    ←0
+  │ manifest.json              100L  0C    0m  CC=0.0    ←0
+  │ manifest.json               91L  0C    0m  CC=0.0    ←0
+  │ manifest.json               90L  0C    0m  CC=0.0    ←0
+  │ manifest.json               89L  0C    0m  CC=0.0    ←0
+  │ manifest.json               89L  0C    0m  CC=0.0    ←0
+  │ manifest.json               76L  0C    0m  CC=0.0    ←0
+  │ manifest.json               74L  0C    0m  CC=0.0    ←0
+  │ manifest.json               73L  0C    0m  CC=0.0    ←0
+  │ manifest.json               72L  0C    0m  CC=0.0    ←0
+  │ manifest.json               71L  0C    0m  CC=0.0    ←0
+  │ manifest.json               69L  0C    0m  CC=0.0    ←0
+  │ manifest.json               66L  0C    0m  CC=0.0    ←0
+  │ manifest.json               66L  0C    0m  CC=0.0    ←0
+  │ manifest.json               65L  0C    0m  CC=0.0    ←0
+  │ manifest.json               65L  0C    0m  CC=0.0    ←0
+  │ manifest.json               63L  0C    0m  CC=0.0    ←0
+  │ manifest.json               62L  0C    0m  CC=0.0    ←0
+  │ manifest.json               62L  0C    0m  CC=0.0    ←0
+  │ manifest.json               62L  0C    0m  CC=0.0    ←0
+  │ manifest.json               61L  0C    0m  CC=0.0    ←0
+  │ manifest.json               60L  0C    0m  CC=0.0    ←0
+  │ manifest.json               59L  0C    0m  CC=0.0    ←0
+  │ manifest.json               59L  0C    0m  CC=0.0    ←0
+  │ manifest.json               59L  0C    0m  CC=0.0    ←0
+  │ manifest.json               59L  0C    0m  CC=0.0    ←0
+  │ manifest.json               58L  0C    0m  CC=0.0    ←0
+  │ manifest.json               57L  0C    0m  CC=0.0    ←0
+  │ manifest.json               57L  0C    0m  CC=0.0    ←0
+  │ manifest.json               57L  0C    0m  CC=0.0    ←0
+  │ manifest.json               57L  0C    0m  CC=0.0    ←0
+  │ manifest.json               57L  0C    0m  CC=0.0    ←0
+  │ manifest.json               57L  0C    0m  CC=0.0    ←0
+  │ manifest.json               57L  0C    0m  CC=0.0    ←0
+  │ manifest.json               57L  0C    0m  CC=0.0    ←0
+  │ manifest.json               56L  0C    0m  CC=0.0    ←0
+  │ manifest.json               56L  0C    0m  CC=0.0    ←0
+  │ manifest.json               56L  0C    0m  CC=0.0    ←0
+  │ manifest.json               56L  0C    0m  CC=0.0    ←0
+  │ manifest.json               56L  0C    0m  CC=0.0    ←0
+  │ manifest.json               56L  0C    0m  CC=0.0    ←0
+  │ manifest.json               55L  0C    0m  CC=0.0    ←0
+  │ manifest.json               54L  0C    0m  CC=0.0    ←0
+  │ manifest.json               54L  0C    0m  CC=0.0    ←0
+  │ manifest.json               54L  0C    0m  CC=0.0    ←0
+  │ manifest.json               54L  0C    0m  CC=0.0    ←0
+  │ manifest.json               54L  0C    0m  CC=0.0    ←0
+  │ manifest.json               54L  0C    0m  CC=0.0    ←0
+  │ manifest.json               54L  0C    0m  CC=0.0    ←0
+  │ manifest.json               54L  0C    0m  CC=0.0    ←0
+  │ manifest.json               54L  0C    0m  CC=0.0    ←0
+  │ manifest.json               54L  0C    0m  CC=0.0    ←0
+  │ manifest.json               54L  0C    0m  CC=0.0    ←0
+  │ manifest.json               54L  0C    0m  CC=0.0    ←0
+  │ manifest.json               54L  0C    0m  CC=0.0    ←0
+  │ manifest.json               54L  0C    0m  CC=0.0    ←0
+  │ manifest.json               54L  0C    0m  CC=0.0    ←0
+  │ manifest.json               54L  0C    0m  CC=0.0    ←0
+  │ manifest.json               54L  0C    0m  CC=0.0    ←0
+  │ manifest.json               54L  0C    0m  CC=0.0    ←0
+  │ manifest.json               54L  0C    0m  CC=0.0    ←0
+  │ manifest.json               54L  0C    0m  CC=0.0    ←0
+  │ manifest.json               52L  0C    0m  CC=0.0    ←0
+  │ catalog.meta.json           44L  0C    0m  CC=0.0    ←0
+  │ publishers.json              5L  0C    0m  CC=0.0    ←0
+  │
+
+COUPLING: no cross-package imports detected
+
+EXTERNAL:
+  validation: run `vallm batch .` → validation.toon
+  duplication: run `redup scan .` → duplication.toon

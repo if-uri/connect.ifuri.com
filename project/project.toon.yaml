@@ -1,0 +1,52 @@
+# connect.ifuri.com | 113 func | 9f | 12056L | json | 2026-07-14
+# generated in 0.00s
+
+HEALTH:
+  CC̄=4.4  critical=12 (limit:10)  dup=0  cycles=0
+
+ALERTS[14]:
+  !!! cc_exceeded      builder = 51 (limit:15)
+  !!! high_fan_out     builder = 29 (limit:10)
+  !!! high_fan_out     main = 21 (limit:10)
+  !!  cc_exceeded      detail_for = 23 (limit:15)
+  !!  cc_exceeded      main = 20 (limit:15)
+  !!  high_fan_out     main = 19 (limit:10)
+  !!  high_fan_out     detail_for = 17 (limit:10)
+  !!  high_fan_out     build_report = 15 (limit:10)
+  !   cc_exceeded      readManifest = 19 (limit:15)
+  !   cc_exceeded      validate_manifest = 16 (limit:15)
+
+MODULES[103] (top by size):
+  M[data/connectors.json] 3995L C:0 F:0 CC↑0 D:0 (json)
+  M[data/connector-repo-audit.json] 1179L C:0 F:0 CC↑0 D:0 (json)
+  M[tools/audit_connector_repos.py] 459L C:0 F:26 CC↑23 D:0 (python)
+  M[assets/app.js] 268L C:0 F:56 CC↑51 D:0 (javascript)
+  M[connector.php] 235L C:0 F:0 CC↑0 D:0 (php)
+  M[submit.php] 225L C:0 F:0 CC↑0 D:0 (php)
+  M[index.php] 211L C:0 F:0 CC↑0 D:0 (php)
+  M[tools/build_catalog.py] 171L C:0 F:6 CC↑16 D:0 (python)
+  M[categories.php] 140L C:0 F:0 CC↑0 D:0 (php)
+  M[scripts/check_connectors.py] 117L C:0 F:2 CC↑20 D:0 (python)
+  M[assets/ifuri-ecobar.js] 108L C:0 F:12 CC↑9 D:0 (javascript)
+  M[schema/connector.schema.json] 106L C:0 F:0 CC↑0 D:0 (json)
+  M[data/connectors/ksef/manifest.json] 101L C:0 F:0 CC↑0 D:0 (json)
+  M[data/connectors/sqlite-context/manifest.json] 100L C:0 F:0 CC↑0 D:0 (json)
+  M[data/connectors/planfile/manifest.json] 91L C:0 F:0 CC↑0 D:0 (json)
+  LANGS: json:70/php:18/python:7/shell:4/javascript:2/other:2
+
+HOTSPOTS[9]:
+  ★ builder fan=29  // Orchestrates 29 calls
+  ★ main fan=21  // Orchestrates 21 calls
+  ★ main fan=19  // Orchestrates 19 calls
+  ★ detail_for fan=17  // Orchestrates 17 calls
+  ★ build_report fan=15  // Orchestrates 15 calls
+
+REFACTOR[10]:
+  [1] H/L Split builder (CC=51)
+  [2] H/H Split god module data/connector-repo-audit.json (1179L, 0 classes)
+  [3] H/H Split god module data/connectors.json (3995L, 0 classes)
+  [4] M/L Split readManifest (CC=19)
+  [5] M/L Split main (CC=20)
+
+EVOLUTION:
+  2026-07-14 CC̄=4.4 crit=12 12056L // Automated analysis

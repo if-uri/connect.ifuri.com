@@ -1,0 +1,728 @@
+project: /home/tom/github/if-uri/connect.ifuri.com
+generated_from: code2llm call graph analysis
+stats:
+  total_nodes: 60
+  total_edges: 56
+  modules_count: 7
+nodes:
+  tools.audit_connector_repos.print_report:
+    name: print_report
+    module: tools.audit_connector_repos
+    line: 393
+    cyclomatic_complexity: 7
+    calls_out: 15
+    calls_in: 1
+  tools.build_catalog.load_json:
+    name: load_json
+    module: tools.build_catalog
+    line: 68
+    cyclomatic_complexity: 2
+    calls_out: 4
+    calls_in: 2
+  tools.audit_connector_repos.load_manifests:
+    name: load_manifests
+    module: tools.audit_connector_repos
+    line: 171
+    cyclomatic_complexity: 3
+    calls_out: 7
+    calls_in: 1
+  scripts.connector-template.pkg.cli.emit:
+    name: emit
+    module: scripts.connector-template.pkg.cli
+    line: 13
+    cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 3
+  assets.app.setField:
+    name: setField
+    module: assets.app
+    line: 134
+    cyclomatic_complexity: 5
+    calls_out: 3
+    calls_in: 2
+  tools.audit_connector_repos.read_repo_file:
+    name: read_repo_file
+    module: tools.audit_connector_repos
+    line: 218
+    cyclomatic_complexity: 2
+    calls_out: 3
+    calls_in: 2
+  tools.build_catalog.validate_manifest:
+    name: validate_manifest
+    module: tools.build_catalog
+    line: 76
+    cyclomatic_complexity: 16
+    calls_out: 20
+    calls_in: 1
+  tools.audit_connector_repos.has_gh:
+    name: has_gh
+    module: tools.audit_connector_repos
+    line: 102
+    cyclomatic_complexity: 1
+    calls_out: 1
+    calls_in: 3
+  scripts.validate_connectors.load:
+    name: load
+    module: scripts.validate_connectors
+    line: 23
+    cyclomatic_complexity: 1
+    calls_out: 3
+    calls_in: 3
+  assets.app.renderManifest:
+    name: renderManifest
+    module: assets.app
+    line: 174
+    cyclomatic_complexity: 3
+    calls_out: 2
+    calls_in: 2
+  tools.audit_connector_repos.discover_gh_repos:
+    name: discover_gh_repos
+    module: tools.audit_connector_repos
+    line: 124
+    cyclomatic_complexity: 9
+    calls_out: 10
+    calls_in: 1
+  assets.app.validText:
+    name: validText
+    module: assets.app
+    line: 186
+    cyclomatic_complexity: 2
+    calls_out: 1
+    calls_in: 0
+  tools.audit_connector_repos.load_json:
+    name: load_json
+    module: tools.audit_connector_repos
+    line: 67
+    cyclomatic_complexity: 2
+    calls_out: 4
+    calls_in: 2
+  assets.app.isDark:
+    name: isDark
+    module: assets.app
+    line: 252
+    cyclomatic_complexity: 2
+    calls_out: 0
+    calls_in: 5
+  scripts.connector-template.pkg.core.connector_manifest:
+    name: connector_manifest
+    module: scripts.connector-template.pkg.core
+    line: 25
+    cyclomatic_complexity: 1
+    calls_out: 1
+    calls_in: 1
+  tools.audit_connector_repos.detail_for:
+    name: detail_for
+    module: tools.audit_connector_repos
+    line: 268
+    cyclomatic_complexity: 23
+    calls_out: 29
+    calls_in: 1
+  assets.app.lineList:
+    name: lineList
+    module: assets.app
+    line: 122
+    cyclomatic_complexity: 5
+    calls_out: 3
+    calls_in: 2
+  assets.app.selectedIds:
+    name: selectedIds
+    module: assets.app
+    line: 10
+    cyclomatic_complexity: 2
+    calls_out: 2
+    calls_in: 1
+  assets.app.refreshCommand:
+    name: refreshCommand
+    module: assets.app
+    line: 19
+    cyclomatic_complexity: 2
+    calls_out: 1
+    calls_in: 0
+  assets.app.root:
+    name: root
+    module: assets.app
+    line: 247
+    cyclomatic_complexity: 2
+    calls_out: 1
+    calls_in: 0
+  assets.ifuri-ecobar.navHTML:
+    name: navHTML
+    module: assets.ifuri-ecobar
+    line: 63
+    cyclomatic_complexity: 3
+    calls_out: 4
+    calls_in: 0
+  assets.app.render:
+    name: render
+    module: assets.app
+    line: 259
+    cyclomatic_complexity: 2
+    calls_out: 1
+    calls_in: 0
+  tools.audit_connector_repos.read_remote_file:
+    name: read_remote_file
+    module: tools.audit_connector_repos
+    line: 200
+    cyclomatic_complexity: 10
+    calls_out: 13
+    calls_in: 1
+  tools.audit_connector_repos.discover_local_repos:
+    name: discover_local_repos
+    module: tools.audit_connector_repos
+    line: 106
+    cyclomatic_complexity: 5
+    calls_out: 8
+    calls_in: 1
+  tools.audit_connector_repos.is_connector_repo:
+    name: is_connector_repo
+    module: tools.audit_connector_repos
+    line: 79
+    cyclomatic_complexity: 2
+    calls_out: 1
+    calls_in: 2
+  assets.app.readManifest:
+    name: readManifest
+    module: assets.app
+    line: 139
+    cyclomatic_complexity: 19
+    calls_out: 6
+    calls_in: 2
+  assets.app.nav:
+    name: nav
+    module: assets.app
+    line: 250
+    cyclomatic_complexity: 2
+    calls_out: 1
+    calls_in: 0
+  assets.app.installCommand:
+    name: installCommand
+    module: assets.app
+    line: 14
+    cyclomatic_complexity: 2
+    calls_out: 3
+    calls_in: 1
+  scripts.validate_connectors.main:
+    name: main
+    module: scripts.validate_connectors
+    line: 28
+    cyclomatic_complexity: 9
+    calls_out: 37
+    calls_in: 0
+  scripts.connector-template.pkg.cli.main:
+    name: main
+    module: scripts.connector-template.pkg.cli
+    line: 17
+    cyclomatic_complexity: 5
+    calls_out: 15
+    calls_in: 0
+  scripts.connector-template.pkg.core._json_resource:
+    name: _json_resource
+    module: scripts.connector-template.pkg.core
+    line: 17
+    cyclomatic_complexity: 2
+    calls_out: 6
+    calls_in: 1
+  assets.app.renderValidation:
+    name: renderValidation
+    module: assets.app
+    line: 181
+    cyclomatic_complexity: 7
+    calls_out: 8
+    calls_in: 2
+  assets.app.btn:
+    name: btn
+    module: assets.app
+    line: 255
+    cyclomatic_complexity: 2
+    calls_out: 1
+    calls_in: 0
+  assets.app.button:
+    name: button
+    module: assets.app
+    line: 65
+    cyclomatic_complexity: 4
+    calls_out: 1
+    calls_in: 0
+  tools.audit_connector_repos.run_gh:
+    name: run_gh
+    module: tools.audit_connector_repos
+    line: 90
+    cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 3
+  tools.audit_connector_repos.run:
+    name: run
+    module: tools.audit_connector_repos
+    line: 55
+    cyclomatic_complexity: 2
+    calls_out: 2
+    calls_in: 2
+  tools.build_catalog.public_connector:
+    name: public_connector
+    module: tools.build_catalog
+    line: 122
+    cyclomatic_complexity: 3
+    calls_out: 0
+    calls_in: 1
+  tools.audit_connector_repos.remote_tag_present:
+    name: remote_tag_present
+    module: tools.audit_connector_repos
+    line: 240
+    cyclomatic_complexity: 9
+    calls_out: 11
+    calls_in: 1
+  tools.audit_connector_repos.add_issue:
+    name: add_issue
+    module: tools.audit_connector_repos
+    line: 264
+    cyclomatic_complexity: 1
+    calls_out: 1
+    calls_in: 10
+  tools.build_catalog.main:
+    name: main
+    module: tools.build_catalog
+    line: 147
+    cyclomatic_complexity: 5
+    calls_out: 12
+    calls_in: 0
+  assets.app.manifest:
+    name: manifest
+    module: assets.app
+    line: 222
+    cyclomatic_complexity: 2
+    calls_out: 5
+    calls_in: 0
+  scripts.connector-template.pkg.core.run:
+    name: run
+    module: scripts.connector-template.pkg.core
+    line: 39
+    cyclomatic_complexity: 1
+    calls_out: 0
+    calls_in: 1
+  tools.audit_connector_repos.connector_id:
+    name: connector_id
+    module: tools.audit_connector_repos
+    line: 75
+    cyclomatic_complexity: 1
+    calls_out: 1
+    calls_in: 2
+  tools.audit_connector_repos.build_report:
+    name: build_report
+    module: tools.audit_connector_repos
+    line: 353
+    cyclomatic_complexity: 8
+    calls_out: 26
+    calls_in: 1
+  tools.audit_connector_repos.load_catalog_entries:
+    name: load_catalog_entries
+    module: tools.audit_connector_repos
+    line: 181
+    cyclomatic_complexity: 4
+    calls_out: 5
+    calls_in: 1
+  assets.ifuri-ecobar.isActive:
+    name: isActive
+    module: assets.ifuri-ecobar
+    line: 47
+    cyclomatic_complexity: 9
+    calls_out: 1
+    calls_in: 1
+  assets.app.copyText:
+    name: copyText
+    module: assets.app
+    line: 24
+    cyclomatic_complexity: 5
+    calls_out: 8
+    calls_in: 1
+  tools.build_catalog.build_catalog:
+    name: build_catalog
+    module: tools.build_catalog
+    line: 126
+    cyclomatic_complexity: 8
+    calls_out: 13
+    calls_in: 1
+  tools.audit_connector_repos.read_local_file:
+    name: read_local_file
+    module: tools.audit_connector_repos
+    line: 190
+    cyclomatic_complexity: 4
+    calls_out: 7
+    calls_in: 1
+  tools.build_catalog.encode:
+    name: encode
+    module: tools.build_catalog
+    line: 143
+    cyclomatic_complexity: 1
+    calls_out: 1
+    calls_in: 1
+  tools.audit_connector_repos.local_tags:
+    name: local_tags
+    module: tools.audit_connector_repos
+    line: 230
+    cyclomatic_complexity: 5
+    calls_out: 8
+    calls_in: 1
+  tools.audit_connector_repos.gh_env:
+    name: gh_env
+    module: tools.audit_connector_repos
+    line: 83
+    cyclomatic_complexity: 3
+    calls_out: 1
+    calls_in: 1
+  tools.audit_connector_repos.tag_present:
+    name: tag_present
+    module: tools.audit_connector_repos
+    line: 256
+    cyclomatic_complexity: 2
+    calls_out: 3
+    calls_in: 1
+  assets.app.escapeHtml:
+    name: escapeHtml
+    module: assets.app
+    line: 127
+    cyclomatic_complexity: 5
+    calls_out: 3
+    calls_in: 3
+  tools.audit_connector_repos.merge_repos:
+    name: merge_repos
+    module: tools.audit_connector_repos
+    line: 157
+    cyclomatic_complexity: 4
+    calls_out: 9
+    calls_in: 1
+  tools.audit_connector_repos.main:
+    name: main
+    module: tools.audit_connector_repos
+    line: 432
+    cyclomatic_complexity: 5
+    calls_out: 18
+    calls_in: 0
+  assets.ifuri-ecobar.esc:
+    name: esc
+    module: assets.ifuri-ecobar
+    line: 61
+    cyclomatic_complexity: 1
+    calls_out: 2
+    calls_in: 1
+  assets.app.saved:
+    name: saved
+    module: assets.app
+    line: 248
+    cyclomatic_complexity: 2
+    calls_out: 1
+    calls_in: 0
+  tools.audit_connector_repos.pyproject_version:
+    name: pyproject_version
+    module: tools.audit_connector_repos
+    line: 222
+    cyclomatic_complexity: 3
+    calls_out: 4
+    calls_in: 1
+  assets.app.loadTemplate:
+    name: loadTemplate
+    module: assets.app
+    line: 196
+    cyclomatic_complexity: 13
+    calls_out: 3
+    calls_in: 1
+edges:
+- caller: assets.ifuri-ecobar.navHTML
+  callee: assets.ifuri-ecobar.esc
+  call_type: resolved
+- caller: assets.ifuri-ecobar.navHTML
+  callee: assets.ifuri-ecobar.isActive
+  call_type: resolved
+- caller: assets.app.installCommand
+  callee: assets.app.selectedIds
+  call_type: resolved
+- caller: assets.app.refreshCommand
+  callee: assets.app.installCommand
+  call_type: resolved
+- caller: assets.app.button
+  callee: assets.app.copyText
+  call_type: resolved
+- caller: assets.app.readManifest
+  callee: assets.app.lineList
+  call_type: resolved
+- caller: assets.app.renderManifest
+  callee: assets.app.readManifest
+  call_type: resolved
+- caller: assets.app.manifest
+  callee: assets.app.renderValidation
+  call_type: resolved
+- caller: assets.app.renderValidation
+  callee: assets.app.escapeHtml
+  call_type: resolved
+- caller: assets.app.validText
+  callee: assets.app.escapeHtml
+  call_type: resolved
+- caller: assets.app.loadTemplate
+  callee: assets.app.setField
+  call_type: resolved
+- caller: assets.app.loadTemplate
+  callee: assets.app.renderManifest
+  call_type: resolved
+- caller: assets.app.root
+  callee: assets.app.isDark
+  call_type: resolved
+- caller: assets.app.saved
+  callee: assets.app.isDark
+  call_type: resolved
+- caller: assets.app.nav
+  callee: assets.app.isDark
+  call_type: resolved
+- caller: assets.app.btn
+  callee: assets.app.isDark
+  call_type: resolved
+- caller: assets.app.render
+  callee: assets.app.isDark
+  call_type: resolved
+- caller: scripts.validate_connectors.main
+  callee: scripts.validate_connectors.load
+  call_type: resolved
+- caller: scripts.connector-template.pkg.cli.main
+  callee: scripts.connector-template.pkg.core.run
+  call_type: resolved
+- caller: scripts.connector-template.pkg.cli.main
+  callee: scripts.connector-template.pkg.cli.emit
+  call_type: resolved
+- caller: scripts.connector-template.pkg.core.connector_manifest
+  callee: scripts.connector-template.pkg.core._json_resource
+  call_type: resolved
+- caller: tools.build_catalog.build_catalog
+  callee: tools.build_catalog.load_json
+  call_type: resolved
+- caller: tools.build_catalog.build_catalog
+  callee: tools.build_catalog.validate_manifest
+  call_type: resolved
+- caller: tools.build_catalog.build_catalog
+  callee: tools.build_catalog.public_connector
+  call_type: resolved
+- caller: tools.build_catalog.main
+  callee: tools.build_catalog.encode
+  call_type: resolved
+- caller: tools.build_catalog.main
+  callee: tools.build_catalog.build_catalog
+  call_type: resolved
+- caller: tools.audit_connector_repos.run_gh
+  callee: tools.audit_connector_repos.gh_env
+  call_type: resolved
+- caller: tools.audit_connector_repos.discover_local_repos
+  callee: tools.audit_connector_repos.is_connector_repo
+  call_type: resolved
+- caller: tools.audit_connector_repos.discover_local_repos
+  callee: tools.audit_connector_repos.connector_id
+  call_type: resolved
+- caller: tools.audit_connector_repos.discover_gh_repos
+  callee: tools.audit_connector_repos.run_gh
+  call_type: resolved
+- caller: tools.audit_connector_repos.discover_gh_repos
+  callee: tools.audit_connector_repos.has_gh
+  call_type: resolved
+- caller: tools.audit_connector_repos.discover_gh_repos
+  callee: tools.audit_connector_repos.connector_id
+  call_type: resolved
+- caller: tools.audit_connector_repos.discover_gh_repos
+  callee: tools.audit_connector_repos.is_connector_repo
+  call_type: resolved
+- caller: tools.audit_connector_repos.load_manifests
+  callee: tools.audit_connector_repos.load_json
+  call_type: resolved
+- caller: tools.audit_connector_repos.load_catalog_entries
+  callee: tools.audit_connector_repos.load_json
+  call_type: resolved
+- caller: tools.audit_connector_repos.read_remote_file
+  callee: tools.audit_connector_repos.run_gh
+  call_type: resolved
+- caller: tools.audit_connector_repos.read_remote_file
+  callee: tools.audit_connector_repos.has_gh
+  call_type: resolved
+- caller: tools.audit_connector_repos.read_repo_file
+  callee: tools.audit_connector_repos.read_local_file
+  call_type: resolved
+- caller: tools.audit_connector_repos.read_repo_file
+  callee: tools.audit_connector_repos.read_remote_file
+  call_type: resolved
+- caller: tools.audit_connector_repos.pyproject_version
+  callee: tools.audit_connector_repos.read_repo_file
+  call_type: resolved
+- caller: tools.audit_connector_repos.local_tags
+  callee: tools.audit_connector_repos.run
+  call_type: resolved
+- caller: tools.audit_connector_repos.remote_tag_present
+  callee: tools.audit_connector_repos.run
+  call_type: resolved
+- caller: tools.audit_connector_repos.remote_tag_present
+  callee: tools.audit_connector_repos.has_gh
+  call_type: resolved
+- caller: tools.audit_connector_repos.remote_tag_present
+  callee: tools.audit_connector_repos.run_gh
+  call_type: resolved
+- caller: tools.audit_connector_repos.tag_present
+  callee: tools.audit_connector_repos.local_tags
+  call_type: resolved
+- caller: tools.audit_connector_repos.tag_present
+  callee: tools.audit_connector_repos.remote_tag_present
+  call_type: resolved
+- caller: tools.audit_connector_repos.detail_for
+  callee: tools.audit_connector_repos.add_issue
+  call_type: resolved
+- caller: tools.audit_connector_repos.detail_for
+  callee: tools.audit_connector_repos.read_repo_file
+  call_type: resolved
+- caller: tools.audit_connector_repos.detail_for
+  callee: tools.audit_connector_repos.pyproject_version
+  call_type: resolved
+- caller: tools.audit_connector_repos.build_report
+  callee: tools.audit_connector_repos.discover_local_repos
+  call_type: resolved
+- caller: tools.audit_connector_repos.build_report
+  callee: tools.audit_connector_repos.merge_repos
+  call_type: resolved
+- caller: tools.audit_connector_repos.build_report
+  callee: tools.audit_connector_repos.load_manifests
+  call_type: resolved
+- caller: tools.audit_connector_repos.build_report
+  callee: tools.audit_connector_repos.load_catalog_entries
+  call_type: resolved
+- caller: tools.audit_connector_repos.build_report
+  callee: tools.audit_connector_repos.discover_gh_repos
+  call_type: resolved
+- caller: tools.audit_connector_repos.build_report
+  callee: tools.audit_connector_repos.detail_for
+  call_type: resolved
+- caller: tools.audit_connector_repos.main
+  callee: tools.audit_connector_repos.print_report
+  call_type: resolved
+modules:
+  assets.app:
+  - assets.app.btn
+  - assets.app.button
+  - assets.app.copyText
+  - assets.app.escapeHtml
+  - assets.app.installCommand
+  - assets.app.isDark
+  - assets.app.lineList
+  - assets.app.loadTemplate
+  - assets.app.manifest
+  - assets.app.nav
+  - assets.app.readManifest
+  - assets.app.refreshCommand
+  - assets.app.render
+  - assets.app.renderManifest
+  - assets.app.renderValidation
+  - assets.app.root
+  - assets.app.saved
+  - assets.app.selectedIds
+  - assets.app.setField
+  - assets.app.validText
+  assets.ifuri-ecobar:
+  - assets.ifuri-ecobar.esc
+  - assets.ifuri-ecobar.isActive
+  - assets.ifuri-ecobar.navHTML
+  scripts.connector-template.pkg.cli:
+  - scripts.connector-template.pkg.cli.emit
+  - scripts.connector-template.pkg.cli.main
+  scripts.connector-template.pkg.core:
+  - scripts.connector-template.pkg.core._json_resource
+  - scripts.connector-template.pkg.core.connector_manifest
+  - scripts.connector-template.pkg.core.run
+  scripts.validate_connectors:
+  - scripts.validate_connectors.load
+  - scripts.validate_connectors.main
+  tools.audit_connector_repos:
+  - tools.audit_connector_repos.add_issue
+  - tools.audit_connector_repos.build_report
+  - tools.audit_connector_repos.connector_id
+  - tools.audit_connector_repos.detail_for
+  - tools.audit_connector_repos.discover_gh_repos
+  - tools.audit_connector_repos.discover_local_repos
+  - tools.audit_connector_repos.gh_env
+  - tools.audit_connector_repos.has_gh
+  - tools.audit_connector_repos.is_connector_repo
+  - tools.audit_connector_repos.load_catalog_entries
+  - tools.audit_connector_repos.load_json
+  - tools.audit_connector_repos.load_manifests
+  - tools.audit_connector_repos.local_tags
+  - tools.audit_connector_repos.main
+  - tools.audit_connector_repos.merge_repos
+  - tools.audit_connector_repos.print_report
+  - tools.audit_connector_repos.pyproject_version
+  - tools.audit_connector_repos.read_local_file
+  - tools.audit_connector_repos.read_remote_file
+  - tools.audit_connector_repos.read_repo_file
+  - tools.audit_connector_repos.remote_tag_present
+  - tools.audit_connector_repos.run
+  - tools.audit_connector_repos.run_gh
+  - tools.audit_connector_repos.tag_present
+  tools.build_catalog:
+  - tools.build_catalog.build_catalog
+  - tools.build_catalog.encode
+  - tools.build_catalog.load_json
+  - tools.build_catalog.main
+  - tools.build_catalog.public_connector
+  - tools.build_catalog.validate_manifest
+entry_points:
+- assets.app.active
+- assets.app.btn
+- assets.app.builder
+- assets.app.button
+- assets.app.buttons
+- assets.app.cards
+- assets.app.checks
+- assets.app.command
+- assets.app.copyInstall
+- assets.app.count
+- assets.app.errors
+- assets.app.field
+- assets.app.filterConnectors
+- assets.app.fixTemplate
+- assets.app.fixText
+- assets.app.folder
+- assets.app.form
+- assets.app.hubBase
+- assets.app.i18n
+- assets.app.input
+- assets.app.manifest
+- assets.app.nav
+- assets.app.next
+- assets.app.noResults
+- assets.app.ofWord
+- assets.app.output
+- assets.app.panels
+- assets.app.payload
+- assets.app.pipValues
+- assets.app.previous
+- assets.app.refreshCommand
+- assets.app.render
+- assets.app.response
+- assets.app.result
+- assets.app.root
+- assets.app.saved
+- assets.app.search
+- assets.app.selectAvailable
+- assets.app.suffix
+- assets.app.target
+- assets.app.template
+- assets.app.term
+- assets.app.validText
+- assets.app.values
+- assets.app.visible
+- assets.ifuri-ecobar.curView
+- assets.ifuri-ecobar.host
+- assets.ifuri-ecobar.hostEl
+- assets.ifuri-ecobar.label
+- assets.ifuri-ecobar.lang
+- assets.ifuri-ecobar.navHTML
+- assets.ifuri-ecobar.p
+- assets.ifuri-ecobar.params
+- assets.ifuri-ecobar.sr
+- assets.ifuri-ecobar.view
+- scripts.check_connectors.main
+- scripts.connector-template.pkg.cli.main
+- scripts.connector-template.pkg.core.run_command
+- scripts.sign-manifest.arg_value
+- scripts.sign-manifest.die_err
+- scripts.validate_connectors.main
+- tools.audit_connector_repos.main
+- tools.build_catalog.main

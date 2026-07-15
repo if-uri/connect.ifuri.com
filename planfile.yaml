@@ -1,0 +1,695 @@
+name: Code Quality Improvement
+project_name: ''
+project_type: prefactoring
+domain: dev-tools
+goal: Improve code quality using prefact
+goals:
+- Fix all prefact-detected issues
+- Improve code maintainability
+- Ensure consistent code style
+quality_gates:
+- metric: Prefact Issues
+  threshold: '0'
+sprints:
+- id: sprint-1
+  name: Code Quality Improvements
+  duration: 2 weeks
+  objectives:
+  - Fix code quality issues
+  task_patterns:
+  - id: ticket-9a2a0b15
+    name: Fix relative-imports issues
+    description: Resolve 2 relative-imports issues in scripts/connector-template/pkg/__init__.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - scripts/connector-template/pkg/__init__.py
+    rule_id: relative-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-0c897afb
+    name: Fix import-optimization issues
+    description: Resolve 1 import-optimization issues in scripts/connector-template/pkg/__init__.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - scripts/connector-template/pkg/__init__.py
+    rule_id: import-optimization
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-14244e94
+    name: Fix no-relative-imports issues
+    description: Resolve 1 no-relative-imports issues in scripts/connector-template/pkg/__init__.py
+    task_type: bugfix
+    priority: critical
+    estimate: 1d
+    files:
+    - scripts/connector-template/pkg/__init__.py
+    rule_id: no-relative-imports
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-1ae6b75e
+    name: Fix ast-print-statements issues
+    description: Resolve 7 ast-print-statements issues in scripts/check_connectors.py
+    task_type: prefactor
+    priority: high
+    estimate: 2d
+    files:
+    - scripts/check_connectors.py
+    rule_id: ast-print-statements
+    count: 7
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-9597682d
+    name: Fix ast-missing-return-type issues
+    description: Resolve 2 ast-missing-return-type issues in scripts/check_connectors.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - scripts/check_connectors.py
+    rule_id: ast-missing-return-type
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-c1c252bf
+    name: Fix ruff-print-statements issues
+    description: Resolve 7 ruff-print-statements issues in scripts/check_connectors.py
+    task_type: prefactor
+    priority: high
+    estimate: 2d
+    files:
+    - scripts/check_connectors.py
+    rule_id: ruff-print-statements
+    count: 7
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-8db96da5
+    name: Fix smart-return-type issues
+    description: Resolve 2 smart-return-type issues in scripts/check_connectors.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - scripts/check_connectors.py
+    rule_id: smart-return-type
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-1962a78b
+    name: Fix string-concat-fstring issues
+    description: Resolve 2 string-concat-fstring issues in scripts/check_connectors.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - scripts/check_connectors.py
+    rule_id: string-concat-fstring
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-a428088f
+    name: Fix magic-numbers issues
+    description: Resolve 3 magic-numbers issues in scripts/check_connectors.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - scripts/check_connectors.py
+    rule_id: magic-numbers
+    count: 3
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-475a3528
+    name: Fix ai-boilerplate issues
+    description: Resolve 1 ai-boilerplate issues in scripts/check_connectors.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - scripts/check_connectors.py
+    rule_id: ai-boilerplate
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-50290cf1
+    name: Fix import-optimization issues
+    description: Resolve 2 import-optimization issues in scripts/check_connectors.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - scripts/check_connectors.py
+    rule_id: import-optimization
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-cfbf7f89
+    name: Fix ast-unused-imports issues
+    description: Resolve 3 ast-unused-imports issues in scripts/connector-template/pkg/core.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - scripts/connector-template/pkg/core.py
+    rule_id: ast-unused-imports
+    count: 3
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-63726133
+    name: Fix ast-sorted-imports issues
+    description: Resolve 1 ast-sorted-imports issues in scripts/connector-template/pkg/core.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - scripts/connector-template/pkg/core.py
+    rule_id: ast-sorted-imports
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-9895c99c
+    name: Fix import-optimization issues
+    description: Resolve 1 import-optimization issues in scripts/connector-template/pkg/core.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - scripts/connector-template/pkg/core.py
+    rule_id: import-optimization
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-e77aadcf
+    name: Fix relative-imports issues
+    description: Resolve 2 relative-imports issues in scripts/connector-template/pkg/cli.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - scripts/connector-template/pkg/cli.py
+    rule_id: relative-imports
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-fd486279
+    name: Fix ast-unused-imports issues
+    description: Resolve 3 ast-unused-imports issues in scripts/connector-template/pkg/cli.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - scripts/connector-template/pkg/cli.py
+    rule_id: ast-unused-imports
+    count: 3
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-f7c0afa5
+    name: Fix ast-print-statements issues
+    description: Resolve 1 ast-print-statements issues in scripts/connector-template/pkg/cli.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - scripts/connector-template/pkg/cli.py
+    rule_id: ast-print-statements
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-ff567739
+    name: Fix ruff-print-statements issues
+    description: Resolve 1 ruff-print-statements issues in scripts/connector-template/pkg/cli.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - scripts/connector-template/pkg/cli.py
+    rule_id: ruff-print-statements
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-fc013543
+    name: Fix ai-boilerplate issues
+    description: Resolve 1 ai-boilerplate issues in scripts/connector-template/pkg/cli.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - scripts/connector-template/pkg/cli.py
+    rule_id: ai-boilerplate
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-0c5cff9e
+    name: Fix import-optimization issues
+    description: Resolve 4 import-optimization issues in scripts/connector-template/pkg/cli.py
+    task_type: prefactor
+    priority: medium
+    estimate: 2d
+    files:
+    - scripts/connector-template/pkg/cli.py
+    rule_id: import-optimization
+    count: 4
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-74bd8373
+    name: Fix no-relative-imports issues
+    description: Resolve 1 no-relative-imports issues in scripts/connector-template/pkg/cli.py
+    task_type: bugfix
+    priority: critical
+    estimate: 1d
+    files:
+    - scripts/connector-template/pkg/cli.py
+    rule_id: no-relative-imports
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-27554c94
+    name: Fix ast-print-statements issues
+    description: Resolve 6 ast-print-statements issues in scripts/validate_connectors.py
+    task_type: prefactor
+    priority: high
+    estimate: 2d
+    files:
+    - scripts/validate_connectors.py
+    rule_id: ast-print-statements
+    count: 6
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-9cb6f4bb
+    name: Fix ast-missing-return-type issues
+    description: Resolve 1 ast-missing-return-type issues in scripts/validate_connectors.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - scripts/validate_connectors.py
+    rule_id: ast-missing-return-type
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-85bb37ae
+    name: Fix ruff-print-statements issues
+    description: Resolve 6 ruff-print-statements issues in scripts/validate_connectors.py
+    task_type: prefactor
+    priority: high
+    estimate: 2d
+    files:
+    - scripts/validate_connectors.py
+    rule_id: ruff-print-statements
+    count: 6
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-cc69b63e
+    name: Fix smart-return-type issues
+    description: Resolve 1 smart-return-type issues in scripts/validate_connectors.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - scripts/validate_connectors.py
+    rule_id: smart-return-type
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-72779074
+    name: Fix ai-boilerplate issues
+    description: Resolve 1 ai-boilerplate issues in scripts/validate_connectors.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - scripts/validate_connectors.py
+    rule_id: ai-boilerplate
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-38fb6b3b
+    name: Fix import-optimization issues
+    description: Resolve 1 import-optimization issues in scripts/validate_connectors.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - scripts/validate_connectors.py
+    rule_id: import-optimization
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-70e15952
+    name: Fix ast-unused-imports issues
+    description: Resolve 3 ast-unused-imports issues in tests/policy_test.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - tests/policy_test.py
+    rule_id: ast-unused-imports
+    count: 3
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-051333b4
+    name: Fix ast-sorted-imports issues
+    description: Resolve 1 ast-sorted-imports issues in tests/policy_test.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - tests/policy_test.py
+    rule_id: ast-sorted-imports
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-2804c524
+    name: Fix ast-print-statements issues
+    description: Resolve 4 ast-print-statements issues in tests/policy_test.py
+    task_type: prefactor
+    priority: medium
+    estimate: 2d
+    files:
+    - tests/policy_test.py
+    rule_id: ast-print-statements
+    count: 4
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-f97ef168
+    name: Fix ruff-print-statements issues
+    description: Resolve 4 ruff-print-statements issues in tests/policy_test.py
+    task_type: prefactor
+    priority: medium
+    estimate: 2d
+    files:
+    - tests/policy_test.py
+    rule_id: ruff-print-statements
+    count: 4
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-d3839eea
+    name: Fix ai-boilerplate issues
+    description: Resolve 1 ai-boilerplate issues in tests/policy_test.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - tests/policy_test.py
+    rule_id: ai-boilerplate
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-fe513d22
+    name: Fix import-optimization issues
+    description: Resolve 1 import-optimization issues in tests/policy_test.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - tests/policy_test.py
+    rule_id: import-optimization
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-f9354cd9
+    name: Fix ast-unused-imports issues
+    description: Resolve 3 ast-unused-imports issues in tools/build_catalog.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - tools/build_catalog.py
+    rule_id: ast-unused-imports
+    count: 3
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-9a2e14d9
+    name: Fix ast-sorted-imports issues
+    description: Resolve 1 ast-sorted-imports issues in tools/build_catalog.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - tools/build_catalog.py
+    rule_id: ast-sorted-imports
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-3aa28510
+    name: Fix ast-string-concat issues
+    description: Resolve 1 ast-string-concat issues in tools/build_catalog.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - tools/build_catalog.py
+    rule_id: ast-string-concat
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-1613965b
+    name: Fix ast-print-statements issues
+    description: Resolve 3 ast-print-statements issues in tools/build_catalog.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - tools/build_catalog.py
+    rule_id: ast-print-statements
+    count: 3
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-6ec41fdc
+    name: Fix ruff-print-statements issues
+    description: Resolve 3 ruff-print-statements issues in tools/build_catalog.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - tools/build_catalog.py
+    rule_id: ruff-print-statements
+    count: 3
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-01a33195
+    name: Fix ruff-sorted-imports issues
+    description: Resolve 1 ruff-sorted-imports issues in tools/build_catalog.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - tools/build_catalog.py
+    rule_id: ruff-sorted-imports
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-7e839902
+    name: Fix string-concat-fstring issues
+    description: Resolve 2 string-concat-fstring issues in tools/build_catalog.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - tools/build_catalog.py
+    rule_id: string-concat-fstring
+    count: 2
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-d76d966e
+    name: Fix ai-boilerplate issues
+    description: Resolve 1 ai-boilerplate issues in tools/build_catalog.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - tools/build_catalog.py
+    rule_id: ai-boilerplate
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-fd7a322f
+    name: Fix import-optimization issues
+    description: Resolve 1 import-optimization issues in tools/build_catalog.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - tools/build_catalog.py
+    rule_id: import-optimization
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-fef45dc6
+    name: Fix ast-unused-imports issues
+    description: Resolve 3 ast-unused-imports issues in tools/audit_connector_repos.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - tools/audit_connector_repos.py
+    rule_id: ast-unused-imports
+    count: 3
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-0ee9e3c3
+    name: Fix ast-sorted-imports issues
+    description: Resolve 1 ast-sorted-imports issues in tools/audit_connector_repos.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - tools/audit_connector_repos.py
+    rule_id: ast-sorted-imports
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-b2f1d07c
+    name: Fix ast-string-concat issues
+    description: Resolve 1 ast-string-concat issues in tools/audit_connector_repos.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - tools/audit_connector_repos.py
+    rule_id: ast-string-concat
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-7e2d9f84
+    name: Fix ast-print-statements issues
+    description: Resolve 14 ast-print-statements issues in tools/audit_connector_repos.py
+    task_type: prefactor
+    priority: high
+    estimate: 3d
+    files:
+    - tools/audit_connector_repos.py
+    rule_id: ast-print-statements
+    count: 14
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-bb0dbf6b
+    name: Fix ruff-print-statements issues
+    description: Resolve 14 ruff-print-statements issues in tools/audit_connector_repos.py
+    task_type: prefactor
+    priority: high
+    estimate: 3d
+    files:
+    - tools/audit_connector_repos.py
+    rule_id: ruff-print-statements
+    count: 14
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-c2973b5a
+    name: Fix ruff-sorted-imports issues
+    description: Resolve 1 ruff-sorted-imports issues in tools/audit_connector_repos.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - tools/audit_connector_repos.py
+    rule_id: ruff-sorted-imports
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-b95fd1fd
+    name: Fix string-concat-fstring issues
+    description: Resolve 4 string-concat-fstring issues in tools/audit_connector_repos.py
+    task_type: prefactor
+    priority: medium
+    estimate: 2d
+    files:
+    - tools/audit_connector_repos.py
+    rule_id: string-concat-fstring
+    count: 4
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-c95a7508
+    name: Fix magic-numbers issues
+    description: Resolve 6 magic-numbers issues in tools/audit_connector_repos.py
+    task_type: prefactor
+    priority: high
+    estimate: 2d
+    files:
+    - tools/audit_connector_repos.py
+    rule_id: magic-numbers
+    count: 6
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-0761b69c
+    name: Fix ai-boilerplate issues
+    description: Resolve 1 ai-boilerplate issues in tools/audit_connector_repos.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - tools/audit_connector_repos.py
+    rule_id: ai-boilerplate
+    count: 1
+    model_hints:
+      planning: balanced
+      implementation: balanced
+  - id: ticket-be730d05
+    name: Fix import-optimization issues
+    description: Resolve 3 import-optimization issues in tools/audit_connector_repos.py
+    task_type: prefactor
+    priority: medium
+    estimate: 1d
+    files:
+    - tools/audit_connector_repos.py
+    rule_id: import-optimization
+    count: 3
+    model_hints:
+      planning: balanced
+      implementation: balanced

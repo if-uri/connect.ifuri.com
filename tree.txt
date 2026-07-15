@@ -1,0 +1,217 @@
+.
+├── 404.php
+├── api
+│   ├── a2a.php
+│   ├── connector.php
+│   ├── connectors.php
+│   ├── mcp.php
+│   ├── registry.php
+│   ├── search.php
+│   └── validate_connector.php
+├── app.doql.less
+├── assets
+│   ├── app.css
+│   ├── app.js
+│   ├── favicon.ico
+│   ├── favicon.svg
+│   ├── ifuri-ecobar.js
+│   ├── ifuri-tokens.css
+│   ├── mark.svg
+│   └── social-card.svg
+├── categories.php
+├── CHANGELOG.md
+├── connector.php
+├── CONTRIBUTING.md
+├── data
+│   ├── catalog.meta.json
+│   ├── connector-repo-audit.json
+│   ├── connectors
+│   │   ├── adb
+│   │   │   └── manifest.json
+│   │   ├── adopt
+│   │   │   └── manifest.json
+│   │   ├── agents
+│   │   │   └── manifest.json
+│   │   ├── base64
+│   │   │   └── manifest.json
+│   │   ├── browser-control
+│   │   │   └── manifest.json
+│   │   ├── calendar
+│   │   │   └── manifest.json
+│   │   ├── camera
+│   │   │   └── manifest.json
+│   │   ├── camera-web
+│   │   │   └── manifest.json
+│   │   ├── chat
+│   │   │   └── manifest.json
+│   │   ├── connectorgen
+│   │   │   └── manifest.json
+│   │   ├── doc
+│   │   │   └── manifest.json
+│   │   ├── docid
+│   │   │   └── manifest.json
+│   │   ├── document
+│   │   │   └── manifest.json
+│   │   ├── domain-monitor
+│   │   │   └── manifest.json
+│   │   ├── email
+│   │   │   └── manifest.json
+│   │   ├── env
+│   │   │   └── manifest.json
+│   │   ├── flow-repair
+│   │   │   └── manifest.json
+│   │   ├── fs
+│   │   │   └── manifest.json
+│   │   ├── get-node
+│   │   │   └── manifest.json
+│   │   ├── github
+│   │   │   └── manifest.json
+│   │   ├── grpc-transport
+│   │   │   └── manifest.json
+│   │   ├── hash
+│   │   │   └── manifest.json
+│   │   ├── him
+│   │   │   └── manifest.json
+│   │   ├── http-check
+│   │   │   └── manifest.json
+│   │   ├── img2nl
+│   │   │   └── manifest.json
+│   │   ├── invoice
+│   │   │   └── manifest.json
+│   │   ├── koru
+│   │   │   └── manifest.json
+│   │   ├── ksef
+│   │   │   └── manifest.json
+│   │   ├── kvm
+│   │   │   └── manifest.json
+│   │   ├── linkedin
+│   │   │   └── manifest.json
+│   │   ├── llm
+│   │   │   └── manifest.json
+│   │   ├── mcp-filesystem
+│   │   │   └── manifest.json
+│   │   ├── message
+│   │   │   └── manifest.json
+│   │   ├── mqtt
+│   │   │   └── manifest.json
+│   │   ├── namecheap-dns
+│   │   │   └── manifest.json
+│   │   ├── netscan
+│   │   │   └── manifest.json
+│   │   ├── nodeadmin
+│   │   │   └── manifest.json
+│   │   ├── ocr
+│   │   │   └── manifest.json
+│   │   ├── pdf
+│   │   │   └── manifest.json
+│   │   ├── planfile
+│   │   │   └── manifest.json
+│   │   ├── rdp
+│   │   │   └── manifest.json
+│   │   ├── router
+│   │   │   └── manifest.json
+│   │   ├── scanner
+│   │   │   └── manifest.json
+│   │   ├── screen
+│   │   │   └── manifest.json
+│   │   ├── sheet
+│   │   │   └── manifest.json
+│   │   ├── smart-crop
+│   │   │   └── manifest.json
+│   │   ├── sqlite-context
+│   │   │   └── manifest.json
+│   │   ├── stepper
+│   │   │   └── manifest.json
+│   │   ├── stt
+│   │   │   └── manifest.json
+│   │   ├── time-tools
+│   │   │   └── manifest.json
+│   │   ├── twin
+│   │   │   └── manifest.json
+│   │   ├── urifix
+│   │   │   └── manifest.json
+│   │   ├── urimail
+│   │   │   └── manifest.json
+│   │   ├── urioffice
+│   │   │   └── manifest.json
+│   │   ├── urivision
+│   │   │   └── manifest.json
+│   │   ├── urivision-runtime
+│   │   │   └── manifest.json
+│   │   ├── usb
+│   │   │   └── manifest.json
+│   │   ├── uuid
+│   │   │   └── manifest.json
+│   │   ├── vdisplay
+│   │   │   └── manifest.json
+│   │   ├── view
+│   │   │   └── manifest.json
+│   │   ├── vql
+│   │   │   └── manifest.json
+│   │   ├── webnode
+│   │   │   └── manifest.json
+│   │   ├── webrtc
+│   │   │   └── manifest.json
+│   │   └── youtube
+│   │       └── manifest.json
+│   ├── connectors.json
+│   ├── publishers.json
+│   └── README.md
+├── index.php
+├── install.php
+├── lib
+│   ├── hub.php
+│   └── i18n.php
+├── LICENSE
+├── llms.php
+├── Makefile
+├── NOTICE
+├── planfile.yaml
+├── prefact.yaml
+├── project.sh
+├── README.md
+├── robots.php
+├── router.php
+├── schema
+│   ├── connector.schema.json
+│   └── connectors.schema.json
+├── scripts
+│   ├── check_connectors.py
+│   ├── connector-template
+│   │   ├── Makefile
+│   │   ├── pkg
+│   │   │   ├── cli.py
+│   │   │   ├── connector.manifest.json
+│   │   │   ├── core.py
+│   │   │   └── __init__.py
+│   │   ├── pyproject.toml.tmpl
+│   │   ├── README.md
+│   │   └── tests
+│   │       └── test_connector.py
+│   ├── deploy-plesk.sh
+│   ├── new-connector.sh
+│   ├── sign-manifest.php
+│   └── validate_connectors.py
+├── sitemap.php
+├── submit.php
+├── SUMD.md
+├── SUMR.md
+├── testql-scenarios
+├── tests
+│   ├── golden
+│   │   ├── connectors.json
+│   │   └── registry.json
+│   ├── policy_test.py
+│   ├── sign_test.php
+│   ├── smoke.sh
+│   └── snapshot_test.php
+├── TODO.md
+├── tools
+│   ├── audit_connector_repos.py
+│   └── build_catalog.py
+├── tree.html
+├── tree.sh
+├── tree.txt
+└── VERSION
+
+79 directories, 136 files

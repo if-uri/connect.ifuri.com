@@ -1,0 +1,33 @@
+# redup/duplication | 1 groups | 26f 2717L | 2026-07-14
+
+SUMMARY:
+  files_scanned: 26
+  total_lines:   2717
+  dup_groups:    1
+  dup_fragments: 2
+  saved_lines:   13
+  scan_ms:       112
+
+HOTSPOTS[1] (files with most duplication):
+  assets/app.js  dup=28L  groups=1  frags=2  (1.0%)
+
+DUPLICATES[1] (ranked by impact):
+  [F0001]   FUZZ  arrow_function  L=13 N=2 saved=13 sim=0.95
+      assets/app.js:96-108  (arrow_function)
+      assets/app.js:95-109  (arrow_function)
+
+REFACTOR[1] (ranked by priority):
+  [1] ○ extract_function   → assets/utils/arrow_function.py
+      WHY: 2 occurrences of 13-line block across 1 files — saves 13 lines
+      FILES: assets/app.js
+
+QUICK_WINS[1] (low risk, high savings — do first):
+  [1] extract_function   saved=13L  → assets/utils/arrow_function.py
+      FILES: app.js
+
+EFFORT_ESTIMATE (total ≈ 0.4h):
+  easy   arrow_function                      saved=13L  ~26min
+
+METRICS-TARGET:
+  dup_groups:  1 → 0
+  saved_lines: 13 lines recoverable

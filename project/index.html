@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<!-- generated in 0.00s -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>code2llm Analysis Results</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/yaml.min.js"></script>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --surface: #1e293b;
+            --surface-hover: #334155;
+            --border: #475569;
+            --text: #e2e8f0;
+            --text-muted: #94a3b8;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+            --success: #22c55e;
+            --warning: #eab308;
+            --error: #ef4444;
+        }
+
+        @media (prefers-color-scheme: light) {
+            :root {
+                --bg: #f8fafc;
+                --surface: #ffffff;
+                --surface-hover: #f1f5f9;
+                --border: #e2e8f0;
+                --text: #1e293b;
+                --text-muted: #64748b;
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: var(--surface);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .header {
+            padding: 1.25rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header h1 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .header p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+        }
+
+        .search {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .search input {
+            width: 100%;
+            padding: 0.5rem 0.75rem;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 0.375rem;
+            color: var(--text);
+            font-size: 0.875rem;
+            outline: none;
+        }
+
+        .search input:focus {
+            border-color: var(--accent);
+        }
+
+        .search input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .file-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0.5rem;
+        }
+
+        .file-group {
+            margin-bottom: 1rem;
+        }
+
+        .file-group-title {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            padding: 0.5rem 0.75rem;
+            font-weight: 600;
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.625rem 0.75rem;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            margin-bottom: 0.125rem;
+        }
+
+        .file-item:hover {
+            background: var(--surface-hover);
+        }
+
+        .file-item.active {
+            background: var(--accent);
+            color: white;
+        }
+
+        .file-item.active .file-meta {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .file-icon {
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        .file-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .file-name {
+            font-size: 0.875rem;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .file-meta {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .file-size {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            flex-shrink: 0;
+        }
+
+        /* Content */
+        .content {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .content-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            background: var(--surface);
+        }
+
+        .content-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .content-title h2 {
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+
+        .content-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding: 0.5rem 1rem;
+            background: var(--surface-hover);
+            color: var(--text);
+            text-decoration: none;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.15s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: var(--border);
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+        }
+
+        .content-body {
+            flex: 1;
+            overflow: auto;
+            padding: 1.5rem;
+        }
+
+        /* Welcome */
+        .welcome {
+            max-width: 800px;
+        }
+
+        .welcome h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .welcome p {
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .stat-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+        }
+
+        /* Content Display */
+        pre {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            overflow-x: auto;
+            font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+
+        code {
+            font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
+        }
+
+        .markdown-content {
+            line-height: 1.7;
+        }
+
+        .markdown-content h1,
+        .markdown-content h2,
+        .markdown-content h3 {
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .markdown-content h1 {
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.5rem;
+        }
+
+        .markdown-content p {
+            margin-bottom: 1rem;
+        }
+
+        .markdown-content code {
+            background: var(--surface);
+            padding: 0.125rem 0.375rem;
+            border-radius: 0.25rem;
+            font-size: 0.875em;
+        }
+
+        .markdown-content pre code {
+            background: transparent;
+            padding: 0;
+        }
+
+        .markdown-content ul,
+        .markdown-content ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .markdown-content li {
+            margin-bottom: 0.25rem;
+        }
+
+        .markdown-content blockquote {
+            border-left: 4px solid var(--accent);
+            padding-left: 1rem;
+            margin-left: 0;
+            color: var(--text-muted);
+        }
+
+        .markdown-content table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 1rem;
+        }
+
+        .markdown-content th,
+        .markdown-content td {
+            border: 1px solid var(--border);
+            padding: 0.5rem;
+            text-align: left;
+        }
+
+        .markdown-content th {
+            background: var(--surface);
+        }
+
+        .markdown-content img {
+            max-width: 100%;
+            border-radius: 0.5rem;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-muted);
+        }
+
+        /* Mermaid */
+        .mermaid-content {
+            background: var(--surface);
+            border-radius: 0.5rem;
+            padding: 1rem;
+        }
+
+        .mermaid-content pre {
+            background: transparent;
+            border: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        /* Image Preview */
+        .image-preview {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            background: var(--surface);
+            border-radius: 0.5rem;
+            padding: 1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                display: none;
+            }
+
+            .sidebar.open {
+                display: flex;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: 100;
+            }
+
+            .file-size {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="header">
+                <h1>🔍 code2llm</h1>
+                <p>Analysis Results Browser</p>
+            </div>
+            <div class="search">
+                <input type="text" id="search" placeholder="Search files..." oninput="filterFiles(this.value)">
+            </div>
+            <div class="file-list" id="fileList">
+                <!-- Files will be rendered here -->
+            </div>
+        </aside>
+
+        <main class="content">
+            <div class="content-header">
+                <div class="content-title">
+                    <span id="contentIcon">📁</span>
+                    <h2 id="contentTitle">Welcome</h2>
+                </div>
+                <div class="content-actions" id="contentActions">
+                    <!-- Actions will be rendered here -->
+                </div>
+            </div>
+            <div class="content-body" id="contentBody">
+                <div class="welcome">
+                    <h2>Analysis Results</h2>
+                    <p>Select a file from the sidebar to view its contents. This interface works on GitHub Pages without any server required.</p>  # noqa: E501
+                    <div class="stats-grid" id="statsGrid">
+                        <!-- Stats will be rendered here -->
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Initialize mermaid
+        mermaid.initialize({ startOnLoad: false, theme: 'dark' });
+
+        const files = [{"name": "calls.png", "rel_path": "calls.png", "path": "calls.png", "size": "192.1KB", "icon": "🖼️", "type": "image", "type_name": "Image", "content": "[Binary file]", "is_subdir": false}, {"name": "compact_flow.png", "rel_path": "compact_flow.png", "path": "compact_flow.png", "size": "16.7KB", "icon": "🖼️", "type": "image", "type_name": "Image", "content": "[Binary file]", "is_subdir": false}, {"name": "flow.png", "rel_path": "flow.png", "path": "flow.png", "size": "16.6KB", "icon": "🖼️", "type": "image", "type_name": "Image", "content": "[Binary file]", "is_subdir": false}, {"name": "README.md", "rel_path": "README.md", "path": "README.md", "size": "9.4KB", "icon": "📝", "type": "markdown", "type_name": "Markdown", "content": "# code2llm - Generated Analysis Files\n<!-- generated in 0.00s -->\n\nThis directory contains the complete analysis of your project generated by `code2llm`. Each file serves a specific purpose for understanding, refactoring, and documenting your codebase.  # noqa: E501\n\n## 📁 Generated Files Overview\n\nWhen you run `code2llm ./ -f all`, the following files are created:\n\n### 🎯 Core Analysis Files\n\n| File | Format | Purpose | Key Insights |\n|------|--------|---------|--------------|\n| `evolution.toon.yaml` | **YAML** | **📋 Refactoring queue** - Prioritized improvements | 0 refactoring actions needed |\n| `map.toon.yaml` | **YAML** | **🗺️ Structural map + project header** - Modules, imports, exports, signatures, stats, alerts, hotspots, trend | Project architecture overview |\n\n### 🤖 LLM-Ready Documentation\n\n| File | Format | Purpose | Use Case |\n|------|--------|---------|----------|\n| `prompt.txt` | **Text** | **📝 Ready-to-send prompt** - Lists all files with instructions | Attach to LLM conversation as context guide |\n| `context.md` | **Markdown** | **📖 LLM narrative** - Architecture summary | Paste into ChatGPT/Claude for code analysis |\n\n### 📊 Visualizations\n\n| File | Format | Purpose | Description |\n|------|--------|---------|-------------|\n| `flow.mmd` | **Mermaid** | **🔄 Control flow diagram** | Function call paths with complexity styling |\n| `calls.mmd` | **Mermaid** | **📞 Call graph** | Function dependencies (edges only) |\n| `compact_flow.mmd` | **Mermaid** | **📦 Module overview** | Aggregated module-level view |\n\n## 🚀 Quick Start Commands\n\n### Basic Analysis\n```bash\n# Quick health check (TOON format only)\ncode2llm ./ -f toon\n\n# Generate all formats (what created these files)\ncode2llm ./ -f all\n\n# LLM-ready context only\ncode2llm ./ -f context\n```\n\n### Performance Options\n```bash\n# Fast analysis for large projects\ncode2llm ./ -f toon --strategy quick\n\n# Memory-limited analysis\ncode2llm ./ -f all --max-memory 500\n\n# Skip PNG generation (faster)\ncode2llm ./ -f all --no-png\n```\n\n### Refactoring Focus\n```bash\n# Get refactoring recommendations\ncode2llm ./ -f evolution\n\n# Focus on specific code smells\ncode2llm ./ -f toon --refactor --smell god_function\n\n# Data flow analysis\ncode2llm ./ -f flow --data-flow\n```\n\n## 📖 Understanding Each File\n\n### `analysis.toon` - Health Diagnostics\n**Purpose**: Quick overview of code health issues\n**Key sections**:\n- **HEALTH**: Critical issues (🔴) and warnings (🟡)\n- **REFACTOR**: Prioritized refactoring actions\n- **COUPLING**: Module dependencies and potential cycles\n- **LAYERS**: Package complexity metrics\n- **FUNCTIONS**: High-complexity functions (CC ≥ 10)\n- **CLASSES**: Complex classes needing attention\n\n**Example usage**:\n```bash\n# View health issues\ncat analysis.toon | head -30\n\n# Check refactoring priorities\ngrep \"REFACTOR\" analysis.toon\n```\n\n### `evolution.toon.yaml` - Refactoring Queue\n**Purpose**: Step-by-step refactoring plan\n**Key sections**:\n- **NEXT**: Immediate actions to take\n- **RISKS**: Potential breaking changes\n- **METRICS-TARGET**: Success criteria\n\n**Example usage**:\n```bash\n# Get refactoring plan\ncat evolution.toon.yaml\n\n# Track progress\ngrep \"NEXT\" evolution.toon.yaml\n```\n\n### `flow.toon` - Legacy Data Flow Analysis\n**Purpose**: Understand data movement through the system (legacy / explicit opt-in)\n**Key sections**:\n- **PIPELINES**: Data processing chains\n- **CONTRACTS**: Function input/output contracts\n- **SIDE_EFFECTS**: Functions with external impacts\n\n**Example usage**:\n```bash\n# Find data pipelines\ngrep \"PIPELINES\" flow.toon\n\n# Identify side effects\ngrep \"SIDE_EFFECTS\" flow.toon\n```\n\n### `map.toon.yaml` - Structural Map + Project Header\n**Purpose**: High-level architecture overview plus compact project header\n**Key sections**:\n- **MODULES**: All modules with basic stats\n- **IMPORTS**: Dependency relationships\n- **EXPORTS**: Public API surface and signatures\n- **HEADER**: Stats, alerts, hotspots, evolution trend\n\n**Example usage**:\n```bash\n# See project structure\ncat map.toon.yaml | head -50\n\n# Find public APIs\ngrep \"SIGNATURES\" map.toon.yaml\n```\n\n### `project.toon.yaml` - Compact Analysis View\n**Purpose**: Compact module view generated from project.yaml data\n**Status**: Legacy view generated on demand from unified project.yaml\n\n**Example usage**:\n```bash\n# View compact project structure\ncat project.toon.yaml | head -30\n\n# Find largest files\ngrep -E \"^  .*[0-9]{3,}$\" project.toon.yaml | sort -t',' -k2 -n -r | head -10\n```\n\n### `prompt.txt` - Ready-to-Send LLM Prompt\n**Purpose**: Pre-formatted prompt listing all generated files for LLM conversation\n**Generation**: Written when `code2llm` runs with a source path and requests `-f all` (including `--no-chunk`) or `code2logic`  # noqa: E501\n**Contents**:\n- **Files section**: Lists all existing generated files with descriptions, including `project.toon.yaml` when generated by `-f all`  # noqa: E501\n- **Source files section**: Highlights important source files such as `cli_exports/orchestrator.py`\n- **Missing section**: Shows which files weren't generated (if any)\n- **Task section**: Refactoring brief with concrete execution instructions, not just analysis\n- **Priority Order section**: State-dependent refactoring priorities, starting with blockers and then architecture cleanup  # noqa: E501\n- **Requirements section**: Guidelines for suggested changes\n\n**Example usage**:\n```bash\n# View the prompt\ncat prompt.txt\n\n# Copy to clipboard and paste into ChatGPT/Claude\ncat prompt.txt | pbcopy  # macOS\ncat prompt.txt | xclip -sel clip  # Linux\n```\n\n### `context.md` - LLM Narrative\n**Purpose**: Ready-to-paste context for AI assistants\n**Key sections**:\n- **Overview**: Project statistics\n- **Architecture**: Module breakdown\n- **Entry Points**: Public interfaces\n- **Patterns**: Design patterns detected\n\n**Example usage**:\n```bash\n# Copy to clipboard for LLM\ncat context.md | pbcopy  # macOS\ncat context.md | xclip -sel clip  # Linux\n\n# Use with Claude/ChatGPT for code analysis\n```\n\n### Visualization Files (`*.mmd`, `*.png`)\n**Purpose**: Visual understanding of code structure\n**Files**:\n- `flow.mmd` - Detailed control flow with complexity colors\n- `calls.mmd` - Simple call graph\n- `compact_flow.mmd` - High-level module view\n- `*.png` - Pre-rendered images\n\n**Example usage**:\n```bash\n# View diagrams\nopen flow.png  # macOS\nxdg-open flow.png  # Linux\n\n# Edit in Mermaid Live Editor\n# Copy content of .mmd files to https://mermaid.live\n```\n\n## 🔍 Common Analysis Patterns\n\n### 1. Code Health Assessment\n```bash\n# Quick health check\ncode2llm ./ -f toon\ncat analysis.toon | grep -E \"(HEALTH|REFACTOR)\"\n```\n\n### 2. Refactoring Planning\n```bash\n# Get refactoring queue\ncode2llm ./ -f evolution\ncat evolution.toon.yaml\n\n# Focus on specific issues\ncode2llm ./ -f toon --refactor --smell god_function\n```\n\n### 3. LLM Assistance\n```bash\n# Generate context for AI\ncode2llm ./ -f context\ncat context.md\n\n# Use with Claude: \"Based on this context, help me refactor the god modules\"\n```\n\n### 4. Team Documentation\n```bash\n# Generate all docs for team\ncode2llm ./ -f all -o ./docs/\n\n# Create visual diagrams\nopen docs/flow.png\n```\n\n## 📊 Interpreting Metrics\n\n### Complexity Metrics (CC)\n- **🔴 Critical (≥5.0)**: Immediate refactoring needed\n- **🟠 High (3.0-4.9)**: Consider refactoring\n- **🟡 Medium (1.5-2.9)**: Monitor complexity\n- **🟢 Low (0.1-1.4)**: Acceptable\n- **⚪ Basic (0.0)**: Simple functions\n\n### Module Health\n- **GOD Module**: Too large (>500 lines, >20 methods)\n- **HUB**: High fan-out (calls many modules)\n- **FAN-IN**: High incoming dependencies\n- **CYCLES**: Circular dependencies\n\n### Data Flow Indicators\n- **PIPELINE**: Sequential data processing\n- **CONTRACT**: Clear input/output specification\n- **SIDE_EFFECT**: External state modification\n\n## 🛠️ Integration Examples\n\n### CI/CD Pipeline\n```bash\n#!/bin/bash\n# Analyze code quality in CI\ncode2llm ./ -f toon -o ./analysis\nif grep -q \"🔴 GOD\" ./analysis/analysis.toon; then\n    echo \"❌ God modules detected\"\n    exit 1\nfi\n```\n\n### Pre-commit Hook\n```bash\n#!/bin/sh\n# .git/hooks/pre-commit\ncode2llm ./ -f toon -o ./temp_analysis\nif grep -q \"🔴\" ./temp_analysis/analysis.toon; then\n    echo \"⚠️  Critical issues found. Review before committing.\"\nfi\nrm -rf ./temp_analysis\n```\n\n### Documentation Generation\n```bash\n# Generate docs for README\ncode2llm ./ -f context -o ./docs/\necho \"## Architecture\" >> README.md\ncat docs/context.md >> README.md\n```\n\n## 📚 Next Steps\n\n1. **Review `analysis.toon`** - Identify critical issues\n2. **Check `evolution.toon.yaml`** - Plan refactoring priorities\n3. **Use `context.md`** - Get LLM assistance for complex changes\n4. **Reference visualizations** - Understand system architecture\n5. **Track progress** - Re-run analysis after changes\n\n## 🔧 Advanced Usage\n\n### Custom Analysis\n```bash\n# Deep analysis with all insights\ncode2llm ./ -m hybrid -f all --max-depth 15 -v\n\n# Performance-optimized\ncode2llm ./ -m static -f toon --strategy quick\n\n# Refactoring-focused\ncode2llm ./ -f toon,evolution --refactor\n```\n\n### Output Customization\n```bash\n# Separate output directories\ncode2llm ./ -f all -o ./analysis-$(date +%Y%m%d)\n\n# Split YAML into multiple files\ncode2llm ./ -f yaml --split-output\n\n# Separate orphaned functions\ncode2llm ./ -f yaml --separate-orphans\n```\n\n---\n\n**Generated by**: `code2llm ./ -f all --readme`  \n**Analysis Date**: 2026-07-14  \n**Total Functions**: 113  \n**Total Classes**: 0  \n**Modules**: 103  \n\nFor more information about code2llm, visit: https://github.com/tom-sapletta/code2llm\n", "is_subdir": false}, {"name": "context.md", "rel_path": "context.md", "path": "context.md", "size": "8.6KB", "icon": "📝", "type": "markdown", "type_name": "Markdown", "content": "# System Architecture Analysis\n<!-- generated in 0.00s -->\n\n## Overview\n\n- **Project**: /home/tom/github/if-uri/connect.ifuri.com\n- **Primary Language**: json\n- **Languages**: json: 70, php: 18, python: 7, shell: 4, javascript: 2\n- **Analysis Mode**: static\n- **Total Functions**: 113\n- **Total Classes**: 0\n- **Modules**: 103\n- **Entry Points**: 63\n\n## Architecture by Module\n\n### assets.app\n- **Functions**: 60\n- **File**: `app.js`\n\n### tools.audit_connector_repos\n- **Functions**: 26\n- **File**: `audit_connector_repos.py`\n\n### assets.ifuri-ecobar\n- **Functions**: 12\n- **File**: `ifuri-ecobar.js`\n\n### tools.build_catalog\n- **Functions**: 6\n- **File**: `build_catalog.py`\n\n### scripts.connector-template.pkg.core\n- **Functions**: 5\n- **File**: `core.py`\n\n### scripts.sign-manifest\n- **Functions**: 2\n- **File**: `sign-manifest.php`\n\n### scripts.validate_connectors\n- **Functions**: 2\n- **File**: `validate_connectors.py`\n\n### scripts.connector-template.pkg.cli\n- **Functions**: 2\n- **File**: `cli.py`\n\n### scripts.check_connectors\n- **Functions**: 2\n- **File**: `check_connectors.py`\n\n## Key Entry Points\n\nMain execution flows into the system:\n\n### scripts.check_connectors.main\n- **Calls**: argparse.ArgumentParser, ap.add_argument, ap.add_argument, ap.add_argument, ap.parse_args, print, sorted, print\n\n### scripts.validate_connectors.main\n- **Calls**: Draft202012Validator, set, sorted, scripts.validate_connectors.load, sorted, sorted, sorted, print\n\n### assets.app.builder\n- **Calls**: assets.app.getElementById, assets.app.split, assets.app.map, assets.app.trim, assets.app.filter, assets.app.String, assets.app.replaceAll, assets.app.namedItem\n\n### tools.audit_connector_repos.main\n- **Calls**: argparse.ArgumentParser, parser.add_argument, parser.add_argument, parser.add_argument, parser.add_argument, parser.add_argument, parser.parse_args, args.output.parent.mkdir\n\n### scripts.connector-template.pkg.cli.main\n- **Calls**: argparse.ArgumentParser, parser.add_subparsers, sub.add_parser, r.add_argument, r.add_argument, sub.add_parser, sub.add_parser, parser.parse_args\n\n### tools.build_catalog.main\n- **Calls**: argparse.ArgumentParser, parser.add_argument, parser.parse_args, OUTPUT_PATH.write_text, print, tools.build_catalog.encode, tools.build_catalog.build_catalog, print\n\n### assets.app.search\n- **Calls**: assets.app.trim, assets.app.toLowerCase, assets.app.forEach, assets.app.includes, assets.app.toggle\n\n### assets.app.cards\n- **Calls**: assets.app.trim, assets.app.toLowerCase, assets.app.forEach, assets.app.includes, assets.app.toggle\n\n### assets.app.count\n- **Calls**: assets.app.trim, assets.app.toLowerCase, assets.app.forEach, assets.app.includes, assets.app.toggle\n\n### assets.app.noResults\n- **Calls**: assets.app.trim, assets.app.toLowerCase, assets.app.forEach, assets.app.includes, assets.app.toggle\n\n### assets.app.filterConnectors\n- **Calls**: assets.app.trim, assets.app.toLowerCase, assets.app.forEach, assets.app.includes, assets.app.toggle\n\n### assets.app.manifest\n- **Calls**: assets.app.fetch, assets.app.stringify, assets.app.json, assets.app.renderValidation, assets.app.String\n\n### assets.ifuri-ecobar.navHTML\n- **Calls**: assets.ifuri-ecobar.map, assets.ifuri-ecobar.esc, assets.ifuri-ecobar.isActive, assets.ifuri-ecobar.join\n\n### assets.app.buttons\n- **Calls**: assets.app.forEach, assets.app.addEventListener, assets.app.toggle, assets.app.setAttribute\n\n### assets.app.panels\n- **Calls**: assets.app.forEach, assets.app.addEventListener, assets.app.toggle, assets.app.setAttribute\n\n### assets.app.target\n- **Calls**: assets.app.forEach, assets.app.toggle, assets.app.setAttribute\n\n### assets.app.term\n- **Calls**: assets.app.forEach, assets.app.includes, assets.app.toggle\n\n### assets.app.visible\n- **Calls**: assets.app.forEach, assets.app.includes, assets.app.toggle\n\n### scripts.sign-manifest.die_err\n- **Calls**: scripts.sign-manifest.fwrite, scripts.sign-manifest.exit\n\n### scripts.sign-manifest.arg_value\n- **Calls**: scripts.sign-manifest.array_search, scripts.sign-manifest.isset\n\n### assets.app.checks\n- **Calls**: assets.app.filter, assets.app.map\n\n### assets.app.command\n- **Calls**: assets.app.filter, assets.app.map\n\n### assets.app.copyInstall\n- **Calls**: assets.app.filter, assets.app.map\n\n### assets.app.selectAvailable\n- **Calls**: assets.app.filter, assets.app.map\n\n### assets.app.hubBase\n- **Calls**: assets.app.filter, assets.app.map\n\n### assets.app.suffix\n- **Calls**: assets.app.encodeURIComponent, assets.app.join\n\n### assets.app.fixText\n- **Calls**: assets.app.replace, assets.app.String\n\n### assets.app.response\n- **Calls**: assets.app.fetch, assets.app.stringify\n\n### assets.ifuri-ecobar.host\n- **Calls**: assets.ifuri-ecobar.test\n\n### assets.ifuri-ecobar.curView\n- **Calls**: assets.ifuri-ecobar.test\n\n## Process Flows\n\nKey execution flows identified:\n\n### Flow 1: main\n```\nmain [scripts.check_connectors]\n```\n\n### Flow 2: builder\n```\nbuilder [assets.app]\n```\n\n### Flow 3: search\n```\nsearch [assets.app]\n```\n\n### Flow 4: cards\n```\ncards [assets.app]\n```\n\n### Flow 5: count\n```\ncount [assets.app]\n```\n\n### Flow 6: noResults\n```\nnoResults [assets.app]\n```\n\n### Flow 7: filterConnectors\n```\nfilterConnectors [assets.app]\n```\n\n### Flow 8: manifest\n```\nmanifest [assets.app]\n```\n\n### Flow 9: navHTML\n```\nnavHTML [assets.ifuri-ecobar]\n  └─> esc\n```\n\n### Flow 10: buttons\n```\nbuttons [assets.app]\n```\n\n## Data Transformation Functions\n\nKey functions that process and transform data:\n\n### tools.build_catalog.validate_manifest\n- **Output to**: sorted, set, ValueError, ValueError, ValueError\n\n### tools.build_catalog.encode\n- **Output to**: json.dumps\n\n## Public API Surface\n\nFunctions exposed as public API (no underscore prefix):\n\n- `scripts.check_connectors.main` - 43 calls\n- `scripts.validate_connectors.main` - 37 calls\n- `assets.app.builder` - 29 calls\n- `tools.audit_connector_repos.detail_for` - 29 calls\n- `tools.audit_connector_repos.build_report` - 26 calls\n- `tools.build_catalog.validate_manifest` - 20 calls\n- `tools.audit_connector_repos.main` - 18 calls\n- `scripts.connector-template.pkg.cli.main` - 15 calls\n- `tools.audit_connector_repos.print_report` - 15 calls\n- `tools.build_catalog.build_catalog` - 13 calls\n- `tools.audit_connector_repos.read_remote_file` - 13 calls\n- `tools.build_catalog.main` - 12 calls\n- `tools.audit_connector_repos.remote_tag_present` - 11 calls\n- `tools.audit_connector_repos.discover_gh_repos` - 10 calls\n- `tools.audit_connector_repos.merge_repos` - 9 calls\n- `assets.app.copyText` - 8 calls\n- `assets.app.renderValidation` - 8 calls\n- `tools.audit_connector_repos.discover_local_repos` - 8 calls\n- `tools.audit_connector_repos.local_tags` - 8 calls\n- `tools.audit_connector_repos.load_manifests` - 7 calls\n- `tools.audit_connector_repos.read_local_file` - 7 calls\n- `assets.app.readManifest` - 6 calls\n- `assets.app.search` - 5 calls\n- `assets.app.cards` - 5 calls\n- `assets.app.count` - 5 calls\n- `assets.app.noResults` - 5 calls\n- `assets.app.filterConnectors` - 5 calls\n- `assets.app.manifest` - 5 calls\n- `tools.audit_connector_repos.load_catalog_entries` - 5 calls\n- `assets.ifuri-ecobar.navHTML` - 4 calls\n- `assets.app.buttons` - 4 calls\n- `assets.app.panels` - 4 calls\n- `tools.build_catalog.load_json` - 4 calls\n- `tools.audit_connector_repos.load_json` - 4 calls\n- `tools.audit_connector_repos.pyproject_version` - 4 calls\n- `assets.app.installCommand` - 3 calls\n- `assets.app.target` - 3 calls\n- `assets.app.term` - 3 calls\n- `assets.app.visible` - 3 calls\n- `assets.app.lineList` - 3 calls\n\n## System Interactions\n\nHow components interact:\n\n```mermaid\ngraph TD\n    main --> ArgumentParser\n    main --> add_argument\n    main --> parse_args\n    main --> Draft202012Validator\n    main --> set\n    main --> sorted\n    main --> load\n    builder --> getElementById\n    builder --> split\n    builder --> map\n    builder --> trim\n    builder --> filter\n    main --> add_subparsers\n    main --> add_parser\n    main --> write_text\n    main --> print\n    search --> trim\n    search --> toLowerCase\n    search --> forEach\n    search --> includes\n    search --> toggle\n    cards --> trim\n    cards --> toLowerCase\n    cards --> forEach\n    cards --> includes\n    cards --> toggle\n    count --> trim\n    count --> toLowerCase\n    count --> forEach\n    count --> includes\n```\n\n## Reverse Engineering Guidelines\n\n1. **Entry Points**: Start analysis from the entry points listed above\n2. **Core Logic**: Focus on classes with many methods\n3. **Data Flow**: Follow data transformation functions\n4. **Process Flows**: Use the flow diagrams for execution paths\n5. **API Surface**: Public API functions reveal the interface\n\n## Context for LLM\n\nMaintain the identified architectural patterns and public API surface when suggesting changes.", "is_subdir": false}, {"name": "calls.mmd", "rel_path": "calls.mmd", "path": "calls.mmd", "size": "8.1KB", "icon": "📈", "type": "mermaid", "type_name": "Mermaid", "content": "flowchart LR\n%% generated in 0.00s\n    subgraph assets__app\n        assets__app__setField[&quot;setField&quot;]\n        assets__app__renderManifest[&quot;renderManifest&quot;]\n        assets__app__validText[&quot;validText&quot;]\n        assets__app__isDark[&quot;isDark&quot;]\n        assets__app__lineList[&quot;lineList&quot;]\n        assets__app__selectedIds[&quot;selectedIds&quot;]\n        assets__app__refreshCommand[&quot;refreshCommand&quot;]\n        assets__app__root[&quot;root&quot;]\n        assets__app__render[&quot;render&quot;]\n        assets__app__readManifest[&quot;readManifest&quot;]\n        assets__app__nav[&quot;nav&quot;]\n        assets__app__installCommand[&quot;installCommand&quot;]\n        assets__app__renderValidation[&quot;renderValidation&quot;]\n        assets__app__btn[&quot;btn&quot;]\n        assets__app__button[&quot;button&quot;]\n        assets__app__manifest[&quot;manifest&quot;]\n        assets__app__copyText[&quot;copyText&quot;]\n        assets__app__escapeHtml[&quot;escapeHtml&quot;]\n        assets__app__saved[&quot;saved&quot;]\n        assets__app__loadTemplate[&quot;loadTemplate&quot;]\n    end\n    subgraph assets__ifuri_ecobar\n        assets__ifuri_ecobar__navHTML[&quot;navHTML&quot;]\n        assets__ifuri_ecobar__isActive[&quot;isActive&quot;]\n        assets__ifuri_ecobar__esc[&quot;esc&quot;]\n    end\n    subgraph scripts__connector_template\n        scripts__connector_template__pkg__cli__emit[&quot;emit&quot;]\n        scripts__connector_template__pkg__core__connector_manifest[&quot;connector_manifest&quot;]\n        scripts__connector_template__pkg__cli__main[&quot;main&quot;]\n        scripts__connector_template__pkg__core___json_resource[&quot;_json_resource&quot;]\n        scripts__connector_template__pkg__core__run[&quot;run&quot;]\n    end\n    subgraph scripts__validate_connectors\n        scripts__validate_connectors__load[&quot;load&quot;]\n        scripts__validate_connectors__main[&quot;main&quot;]\n    end\n    subgraph tools__audit_connector_repos\n        tools__audit_connector_repos__print_report[&quot;print_report&quot;]\n        tools__audit_connector_repos__load_manifests[&quot;load_manifests&quot;]\n        tools__audit_connector_repos__read_repo_file[&quot;read_repo_file&quot;]\n        tools__audit_connector_repos__has_gh[&quot;has_gh&quot;]\n        tools__audit_connector_repos__discover_gh_repos[&quot;discover_gh_repos&quot;]\n        tools__audit_connector_repos__load_json[&quot;load_json&quot;]\n        tools__audit_connector_repos__detail_for[&quot;detail_for&quot;]\n        tools__audit_connector_repos__read_remote_file[&quot;read_remote_file&quot;]\n        tools__audit_connector_repos__discover_local_repos[&quot;discover_local_repos&quot;]\n        tools__audit_connector_repos__is_connector_repo[&quot;is_connector_repo&quot;]\n        tools__audit_connector_repos__run_gh[&quot;run_gh&quot;]\n        tools__audit_connector_repos__run[&quot;run&quot;]\n        tools__audit_connector_repos__remote_tag_present[&quot;remote_tag_present&quot;]\n        tools__audit_connector_repos__add_issue[&quot;add_issue&quot;]\n        tools__audit_connector_repos__connector_id[&quot;connector_id&quot;]\n        tools__audit_connector_repos__build_report[&quot;build_report&quot;]\n        tools__audit_connector_repos__load_catalog_entries[&quot;load_catalog_entries&quot;]\n        tools__audit_connector_repos__read_local_file[&quot;read_local_file&quot;]\n        tools__audit_connector_repos__local_tags[&quot;local_tags&quot;]\n        tools__audit_connector_repos__gh_env[&quot;gh_env&quot;]\n        tools__audit_connector_repos__tag_present[&quot;tag_present&quot;]\n        tools__audit_connector_repos__merge_repos[&quot;merge_repos&quot;]\n        tools__audit_connector_repos__main[&quot;main&quot;]\n        tools__audit_connector_repos__pyproject_version[&quot;pyproject_version&quot;]\n    end\n    subgraph tools__build_catalog\n        tools__build_catalog__load_json[&quot;load_json&quot;]\n        tools__build_catalog__validate_manifest[&quot;validate_manifest&quot;]\n        tools__build_catalog__public_connector[&quot;public_connector&quot;]\n        tools__build_catalog__main[&quot;main&quot;]\n        tools__build_catalog__build_catalog[&quot;build_catalog&quot;]\n        tools__build_catalog__encode[&quot;encode&quot;]\n    end\n    assets__ifuri_ecobar__navHTML --&gt; assets__ifuri_ecobar__esc\n    assets__ifuri_ecobar__navHTML --&gt; assets__ifuri_ecobar__isActive\n    assets__app__installCommand --&gt; assets__app__selectedIds\n    assets__app__refreshCommand --&gt; assets__app__installCommand\n    assets__app__button --&gt; assets__app__copyText\n    assets__app__readManifest --&gt; assets__app__lineList\n    assets__app__renderManifest --&gt; assets__app__readManifest\n    assets__app__manifest --&gt; assets__app__renderValidation\n    assets__app__renderValidation --&gt; assets__app__escapeHtml\n    assets__app__validText --&gt; assets__app__escapeHtml\n    assets__app__loadTemplate --&gt; assets__app__setField\n    assets__app__loadTemplate --&gt; assets__app__renderManifest\n    assets__app__root --&gt; assets__app__isDark\n    assets__app__saved --&gt; assets__app__isDark\n    assets__app__nav --&gt; assets__app__isDark\n    assets__app__btn --&gt; assets__app__isDark\n    assets__app__render --&gt; assets__app__isDark\n    scripts__validate_connectors__main --&gt; scripts__validate_connectors__load\n    scripts__connector_template__pkg__cli__main --&gt; scripts__connector_template__pkg__core__run\n    scripts__connector_template__pkg__cli__main --&gt; scripts__connector_template__pkg__cli__emit\n    scripts__connector_template__pkg__core__connector_manifest --&gt; scripts__connector_template__pkg__core___json_resource\n    tools__build_catalog__build_catalog --&gt; tools__build_catalog__load_json\n    tools__build_catalog__build_catalog --&gt; tools__build_catalog__validate_manifest\n    tools__build_catalog__build_catalog --&gt; tools__build_catalog__public_connector\n    tools__build_catalog__main --&gt; tools__build_catalog__encode\n    tools__build_catalog__main --&gt; tools__build_catalog__build_catalog\n    tools__audit_connector_repos__run_gh --&gt; tools__audit_connector_repos__gh_env\n    tools__audit_connector_repos__discover_local_repos --&gt; tools__audit_connector_repos__is_connector_repo\n    tools__audit_connector_repos__discover_local_repos --&gt; tools__audit_connector_repos__connector_id\n    tools__audit_connector_repos__discover_gh_repos --&gt; tools__audit_connector_repos__run_gh\n    tools__audit_connector_repos__discover_gh_repos --&gt; tools__audit_connector_repos__has_gh\n    tools__audit_connector_repos__discover_gh_repos --&gt; tools__audit_connector_repos__connector_id\n    tools__audit_connector_repos__discover_gh_repos --&gt; tools__audit_connector_repos__is_connector_repo\n    tools__audit_connector_repos__load_manifests --&gt; tools__audit_connector_repos__load_json\n    tools__audit_connector_repos__load_catalog_entries --&gt; tools__audit_connector_repos__load_json\n    tools__audit_connector_repos__read_remote_file --&gt; tools__audit_connector_repos__run_gh\n    tools__audit_connector_repos__read_remote_file --&gt; tools__audit_connector_repos__has_gh\n    tools__audit_connector_repos__read_repo_file --&gt; tools__audit_connector_repos__read_local_file\n    tools__audit_connector_repos__read_repo_file --&gt; tools__audit_connector_repos__read_remote_file\n    tools__audit_connector_repos__pyproject_version --&gt; tools__audit_connector_repos__read_repo_file\n    tools__audit_connector_repos__local_tags --&gt; tools__audit_connector_repos__run\n    tools__audit_connector_repos__remote_tag_present --&gt; tools__audit_connector_repos__run\n    tools__audit_connector_repos__remote_tag_present --&gt; tools__audit_connector_repos__has_gh\n    tools__audit_connector_repos__remote_tag_present --&gt; tools__audit_connector_repos__run_gh\n    tools__audit_connector_repos__tag_present --&gt; tools__audit_connector_repos__local_tags\n    tools__audit_connector_repos__tag_present --&gt; tools__audit_connector_repos__remote_tag_present\n    tools__audit_connector_repos__detail_for --&gt; tools__audit_connector_repos__add_issue\n    tools__audit_connector_repos__detail_for --&gt; tools__audit_connector_repos__read_repo_file\n    tools__audit_connector_repos__detail_for --&gt; tools__audit_connector_repos__pyproject_version\n    tools__audit_connector_repos__build_report --&gt; tools__audit_connector_repos__discover_local_repos\n    tools__audit_connector_repos__build_report --&gt; tools__audit_connector_repos__merge_repos\n    tools__audit_connector_repos__build_report --&gt; tools__audit_connector_repos__load_manifests\n    tools__audit_connector_repos__build_report --&gt; tools__audit_connector_repos__load_catalog_entries\n    tools__audit_connector_repos__build_report --&gt; tools__audit_connector_repos__discover_gh_repos\n    tools__audit_connector_repos__build_report --&gt; tools__audit_connector_repos__detail_for\n    tools__audit_connector_repos__main --&gt; tools__audit_connector_repos__print_report\n", "is_subdir": false}, {"name": "compact_flow.mmd", "rel_path": "compact_flow.mmd", "path": "compact_flow.mmd", "size": "560B", "icon": "📈", "type": "mermaid", "type_name": "Mermaid", "content": "flowchart TD\n%% generated in 0.00s\n    assets__app[&quot;assets.app&lt;br/&gt;56 funcs&quot;]\n    assets__ifuri_ecobar[&quot;assets.ifuri-ecobar&lt;br/&gt;12 funcs&quot;]\n    scripts__check_connectors[&quot;scripts.check_connectors&lt;br/&gt;2 funcs&quot;]\n    scripts__connector_template[&quot;scripts.connector-template&lt;br/&gt;7 funcs&quot;]\n    scripts__sign_manifest[&quot;scripts.sign-manifest&lt;br/&gt;2 funcs&quot;]\n    scripts__validate_connectors[&quot;scripts.validate_connectors&lt;br/&gt;2 funcs&quot;]\n    tools__audit_connector_repos[&quot;tools.audit_connector_repos&lt;br/&gt;26 funcs&quot;]\n    tools__build_catalog[&quot;tools.build_catalog&lt;br/&gt;6 funcs&quot;]\n", "is_subdir": false}, {"name": "flow.mmd", "rel_path": "flow.mmd", "path": "flow.mmd", "size": "1.1KB", "icon": "📈", "type": "mermaid", "type_name": "Mermaid", "content": "flowchart TD\n%% generated in 0.00s\n\n    %% Entry points (blue)\n    classDef entry fill:#4dabf7,stroke:#1971c2,color:#fff\n\n    subgraph Core\n        assets__ifuri_ecobar__params[&quot;params&quot;]\n        assets__ifuri_ecobar__lang[&quot;lang&quot;]\n        assets__ifuri_ecobar__view[&quot;view&quot;]\n        assets__ifuri_ecobar__host[&quot;host&quot;]\n        assets__ifuri_ecobar__curView[&quot;curView&quot;]\n        assets__ifuri_ecobar__navHTML[&quot;navHTML&quot;]\n        assets__ifuri_ecobar__label[&quot;label&quot;]\n        assets__ifuri_ecobar__hostEl[&quot;hostEl&quot;]\n        assets__ifuri_ecobar__sr[&quot;sr&quot;]\n        assets__ifuri_ecobar__p[&quot;p&quot;]\n        assets__app__checks[&quot;checks&quot;]\n        assets__app__command[&quot;command&quot;]\n        assets__app__copyInstall[&quot;copyInstall&quot;]\n        assets__app__selectAvailable[&quot;selectAvailable&quot;]\n        assets__app__hubBase[&quot;hubBase&quot;]\n        ...[&quot;+52 more&quot;]\n    end\n\n    class assets__ifuri_ecobar__params,assets__ifuri_ecobar__lang,assets__ifuri_ecobar__view,assets__ifuri_ecobar__host,assets__ifuri_ecobar__curView,assets__ifuri_ecobar__navHTML,assets__ifuri_ecobar__label,assets__ifuri_ecobar__hostEl,assets__ifuri_ecobar__sr,assets__ifuri_ecobar__p entry\n", "is_subdir": false}, {"name": "prompt.txt", "rel_path": "prompt.txt", "path": "prompt.txt", "size": "2.9KB", "icon": "📄", "type": "text", "type_name": "Text", "content": "You are an AI assistant helping me understand and improve a codebase.\n# generated in 0.00s\nUse the attached/generated files as the authoritative context.\nYour goal is to refactor the project based on these files, not just summarize it.\n\nwe are in project path: connect.ifuri.com\n\nFiles for analysis:\n\nNote: project/validation.toon.yaml and project/duplication.toon.yaml are generated by external tools (vallm and redup)\n- analysis.toon.yaml  (Health diagnostics - complexity metrics, god modules, coupling issues, refactoring priorities) [10KB]\n- map.toon.yaml  (Structural map - files, sizes, imports, exports, signatures, project header) [10KB]\n- evolution.toon.yaml  (Refactoring queue - ranked actions by impact/effort, risks, metrics targets, history) [2KB]\n- project.toon.yaml  (Compact project overview - generated from project.yaml data) [2KB]\n- context.md  (LLM narrative - architecture summary and project context) [8KB]\n\nMissing files (not generated in this run):\n- README.md\n\nTask:\n- Treat this prompt as a refactoring brief: identify the highest-priority changes and prepare concrete edits.\n- Use the file set to decide whether the first pass should focus on correctness, duplication, complexity reduction, or architecture cleanup.\n- If you can safely implement the refactor, do it; otherwise give an exact file-by-file change plan and test plan.\n- Use analysis.toon.yaml to locate high-CC functions and god modules that should be split first.\n- Keep module boundaries intact and update imports/exports according to map.toon.yaml.\n- Use evolution.toon.yaml as the execution backlog and work from the top-ranked items.\n- Keep project.toon.yaml aligned with the refactored architecture.\n\nPriority Order:\nP1 — Split or simplify the highest-CC / god modules identified in analysis.toon.yaml.\nP1 — Preserve module boundaries and update imports/exports according to map.toon.yaml.\nP2 — Keep the compact project overview in project.toon.yaml aligned with the refactor.\nP2 — Execute the highest-impact items from evolution.toon.yaml in order of benefit/risk.\n\nFocus Areas for Analysis:\n1. **Code Health Analysis** - Review complexity metrics, god modules, coupling issues from analysis.toon.yaml\n2. **Structural Map** - Use map.toon.yaml to inspect imports, exports, signatures, and the project header\n3. **Refactoring Priorities** - Examine ranked refactoring actions and risk assessment from evolution.toon.yaml\n4. **Project Overview** - Review the compact project overview from project.toon.yaml\n\nAnalysis Strategy:\n- Start with analysis.toon.yaml for health metrics, then map.toon.yaml for structure and signatures\n- Review evolution.toon.yaml for action priorities and next steps\n- Compare the compact project overview in project.toon.yaml with the main analysis files\n\nConstraints:\n- Prefer minimal, incremental changes.\n- Maintain full backward compatibility.\n- Base recommendations on concrete metrics from the provided files.\n- If uncertain, ask clarifying questions.\n", "is_subdir": false}, {"name": "mermaid.export", "rel_path": "mermaid.export", "path": "mermaid.export", "size": "11.9KB", "icon": "📄", "type": "unknown", "type_name": "EXPORT", "content": "[Binary file]", "is_subdir": false}, {"name": "analysis.toon.yaml", "rel_path": "analysis.toon.yaml", "path": "analysis.toon.yaml", "size": "10.1KB", "icon": "⚙️", "type": "yaml", "type_name": "YAML", "content": "# code2llm | 103f 12056L | json:70,php:18,python:7,shell:4,javascript:2 | 2026-07-14\n# generated in 0.01s\n# CC̅=4.4 | critical:5/113 | dups:0 | cycles:0\n\nHEALTH[5]:\n  🟡 CC    builder CC=51 (limit:15)\n  🟡 CC    readManifest CC=19 (limit:15)\n  🟡 CC    main CC=20 (limit:15)\n  🟡 CC    validate_manifest CC=16 (limit:15)\n  🟡 CC    detail_for CC=23 (limit:15)\n\nREFACTOR[1]:\n  1. split 5 high-CC methods  (CC&gt;15)\n\nPIPELINES[44]:\n  [1] Src [die_err]: die_err\n      PURITY: 100% pure\n  [2] Src [arg_value]: arg_value\n      PURITY: 100% pure\n  [3] Src [host]: host\n      PURITY: 100% pure\n  [4] Src [curView]: curView\n      PURITY: 100% pure\n  [5] Src [navHTML]: navHTML → esc\n      PURITY: 100% pure\n  [6] Src [hostEl]: hostEl\n      PURITY: 100% pure\n  [7] Src [sr]: sr\n      PURITY: 100% pure\n  [8] Src [checks]: checks\n      PURITY: 100% pure\n  [9] Src [command]: command\n      PURITY: 100% pure\n  [10] Src [copyInstall]: copyInstall\n      PURITY: 100% pure\n  [11] Src [selectAvailable]: selectAvailable\n      PURITY: 100% pure\n  [12] Src [hubBase]: hubBase\n      PURITY: 100% pure\n  [13] Src [suffix]: suffix\n      PURITY: 100% pure\n  [14] Src [refreshCommand]: refreshCommand → installCommand → selectedIds\n      PURITY: 100% pure\n  [15] Src [input]: input\n      PURITY: 100% pure\n  [16] Src [previous]: previous\n      PURITY: 100% pure\n  [17] Src [button]: button → copyText\n      PURITY: 100% pure\n  [18] Src [target]: target\n      PURITY: 100% pure\n  [19] Src [search]: search\n      PURITY: 100% pure\n  [20] Src [cards]: cards\n      PURITY: 100% pure\n  [21] Src [count]: count\n      PURITY: 100% pure\n  [22] Src [noResults]: noResults\n      PURITY: 100% pure\n  [23] Src [filterConnectors]: filterConnectors\n      PURITY: 100% pure\n  [24] Src [term]: term\n      PURITY: 100% pure\n  [25] Src [visible]: visible\n      PURITY: 100% pure\n  [26] Src [buttons]: buttons\n      PURITY: 100% pure\n  [27] Src [panels]: panels\n      PURITY: 100% pure\n  [28] Src [builder]: builder → lineList\n      PURITY: 100% pure\n  [29] Src [manifest]: manifest → renderValidation → escapeHtml\n      PURITY: 100% pure\n  [30] Src [validText]: validText → escapeHtml\n      PURITY: 100% pure\n  [31] Src [fixTemplate]: fixTemplate\n      PURITY: 100% pure\n  [32] Src [fixText]: fixText\n      PURITY: 100% pure\n  [33] Src [response]: response\n      PURITY: 100% pure\n  [34] Src [root]: root → isDark\n      PURITY: 100% pure\n  [35] Src [saved]: saved → isDark\n      PURITY: 100% pure\n  [36] Src [nav]: nav → isDark\n      PURITY: 100% pure\n  [37] Src [btn]: btn → isDark\n      PURITY: 100% pure\n  [38] Src [render]: render → isDark\n      PURITY: 100% pure\n  [39] Src [main]: main → load\n      PURITY: 100% pure\n  [40] Src [main]: main → run\n      PURITY: 100% pure\n  [41] Src [run_command]: run_command\n      PURITY: 100% pure\n  [42] Src [main]: main → reachable\n      PURITY: 100% pure\n  [43] Src [main]: main → encode\n      PURITY: 100% pure\n  [44] Src [main]: main → print_report\n      PURITY: 100% pure\n\nLAYERS:\n  tools/                          CC̄=4.9    ←in:0  →out:0\n  │ !! audit_connector_repos      459L  0C   26m  CC=23     ←0\n  │ !! build_catalog              171L  0C    6m  CC=16     ←0\n  │\n  assets/                         CC̄=4.3    ←in:0  →out:0\n  │ !! app.js                     268L  0C   56m  CC=51     ←0\n  │ ifuri-ecobar.js            108L  0C   12m  CC=9      ←0\n  │\n  scripts/                        CC̄=3.7    ←in:0  →out:0\n  │ !! check_connectors           117L  0C    2m  CC=20     ←0\n  │ sign-manifest.php           90L  0C    2m  CC=3      ←0\n  │ validate_connectors         59L  0C    2m  CC=9      ←0\n  │ core                        41L  0C    5m  CC=2      ←1\n  │ cli                         39L  0C    2m  CC=5      ←0\n  │ new-connector.sh            39L  0C    0m  CC=0.0    ←0\n  │ connector.manifest.json     27L  0C    0m  CC=0.0    ←0\n  │ Makefile                    18L  0C    0m  CC=0.0    ←0\n  │ deploy-plesk.sh             15L  0C    0m  CC=0.0    ←0\n  │ __init__                     6L  0C    0m  CC=0.0    ←0\n  │\n  ./                              CC̄=0.0    ←in:0  →out:0\n  │ connector.php              235L  0C    0m  CC=0.0    ←0\n  │ submit.php                 225L  0C    0m  CC=0.0    ←0\n  │ index.php                  211L  0C    0m  CC=0.0    ←0\n  │ categories.php             140L  0C    0m  CC=0.0    ←0\n  │ router.php                  74L  0C    0m  CC=0.0    ←0\n  │ project.sh                  66L  0C    0m  CC=0.0    ←0\n  │ 404.php                     61L  0C    0m  CC=0.0    ←0\n  │ Makefile                    53L  0C    0m  CC=0.0    ←0\n  │ llms.php                    52L  0C    0m  CC=0.0    ←0\n  │ sitemap.php                 34L  0C    0m  CC=0.0    ←0\n  │ install.php                  9L  0C    0m  CC=0.0    ←0\n  │ robots.php                   9L  0C    0m  CC=0.0    ←0\n  │ tree.sh                      4L  0C    0m  CC=0.0    ←0\n  │\n  schema/                         CC̄=0.0    ←in:0  →out:0\n  │ connector.schema.json      106L  0C    0m  CC=0.0    ←0\n  │ connectors.schema.json      90L  0C    0m  CC=0.0    ←0\n  │\n  api/                            CC̄=0.0    ←in:0  →out:0\n  │ validate_connector.php      69L  0C    0m  CC=0.0    ←0\n  │ connector.php               12L  0C    0m  CC=0.0    ←0\n  │ connectors.php               6L  0C    0m  CC=0.0    ←0\n  │ registry.php                 6L  0C    0m  CC=0.0    ←0\n  │ search.php                   6L  0C    0m  CC=0.0    ←0\n  │ mcp.php                      4L  0C    0m  CC=0.0    ←0\n  │ a2a.php                      4L  0C    0m  CC=0.0    ←0\n  │\n  data/                           CC̄=0.0    ←in:0  →out:0\n  │ !! connectors.json           3995L  0C    0m  CC=0.0    ←0\n  │ !! connector-repo-audit.json  1179L  0C    0m  CC=0.0    ←0\n  │ manifest.json              101L  0C    0m  CC=0.0    ←0\n  │ manifest.json              100L  0C    0m  CC=0.0    ←0\n  │ manifest.json               91L  0C    0m  CC=0.0    ←0\n  │ manifest.json               90L  0C    0m  CC=0.0    ←0\n  │ manifest.json               89L  0C    0m  CC=0.0    ←0\n  │ manifest.json               89L  0C    0m  CC=0.0    ←0\n  │ manifest.json               76L  0C    0m  CC=0.0    ←0\n  │ manifest.json               74L  0C    0m  CC=0.0    ←0\n  │ manifest.json               73L  0C    0m  CC=0.0    ←0\n  │ manifest.json               72L  0C    0m  CC=0.0    ←0\n  │ manifest.json               71L  0C    0m  CC=0.0    ←0\n  │ manifest.json               69L  0C    0m  CC=0.0    ←0\n  │ manifest.json               66L  0C    0m  CC=0.0    ←0\n  │ manifest.json               66L  0C    0m  CC=0.0    ←0\n  │ manifest.json               65L  0C    0m  CC=0.0    ←0\n  │ manifest.json               65L  0C    0m  CC=0.0    ←0\n  │ manifest.json               63L  0C    0m  CC=0.0    ←0\n  │ manifest.json               62L  0C    0m  CC=0.0    ←0\n  │ manifest.json               62L  0C    0m  CC=0.0    ←0\n  │ manifest.json               62L  0C    0m  CC=0.0    ←0\n  │ manifest.json               61L  0C    0m  CC=0.0    ←0\n  │ manifest.json               60L  0C    0m  CC=0.0    ←0\n  │ manifest.json               59L  0C    0m  CC=0.0    ←0\n  │ manifest.json               59L  0C    0m  CC=0.0    ←0\n  │ manifest.json               59L  0C    0m  CC=0.0    ←0\n  │ manifest.json               59L  0C    0m  CC=0.0    ←0\n  │ manifest.json               58L  0C    0m  CC=0.0    ←0\n  │ manifest.json               57L  0C    0m  CC=0.0    ←0\n  │ manifest.json               57L  0C    0m  CC=0.0    ←0\n  │ manifest.json               57L  0C    0m  CC=0.0    ←0\n  │ manifest.json               57L  0C    0m  CC=0.0    ←0\n  │ manifest.json               57L  0C    0m  CC=0.0    ←0\n  │ manifest.json               57L  0C    0m  CC=0.0    ←0\n  │ manifest.json               57L  0C    0m  CC=0.0    ←0\n  │ manifest.json               57L  0C    0m  CC=0.0    ←0\n  │ manifest.json               56L  0C    0m  CC=0.0    ←0\n  │ manifest.json               56L  0C    0m  CC=0.0    ←0\n  │ manifest.json               56L  0C    0m  CC=0.0    ←0\n  │ manifest.json               56L  0C    0m  CC=0.0    ←0\n  │ manifest.json               56L  0C    0m  CC=0.0    ←0\n  │ manifest.json               56L  0C    0m  CC=0.0    ←0\n  │ manifest.json               55L  0C    0m  CC=0.0    ←0\n  │ manifest.json               54L  0C    0m  CC=0.0    ←0\n  │ manifest.json               54L  0C    0m  CC=0.0    ←0\n  │ manifest.json               54L  0C    0m  CC=0.0    ←0\n  │ manifest.json               54L  0C    0m  CC=0.0    ←0\n  │ manifest.json               54L  0C    0m  CC=0.0    ←0\n  │ manifest.json               54L  0C    0m  CC=0.0    ←0\n  │ manifest.json               54L  0C    0m  CC=0.0    ←0\n  │ manifest.json               54L  0C    0m  CC=0.0    ←0\n  │ manifest.json               54L  0C    0m  CC=0.0    ←0\n  │ manifest.json               54L  0C    0m  CC=0.0    ←0\n  │ manifest.json               54L  0C    0m  CC=0.0    ←0\n  │ manifest.json               54L  0C    0m  CC=0.0    ←0\n  │ manifest.json               54L  0C    0m  CC=0.0    ←0\n  │ manifest.json               54L  0C    0m  CC=0.0    ←0\n  │ manifest.json               54L  0C    0m  CC=0.0    ←0\n  │ manifest.json               54L  0C    0m  CC=0.0    ←0\n  │ manifest.json               54L  0C    0m  CC=0.0    ←0\n  │ manifest.json               54L  0C    0m  CC=0.0    ←0\n  │ manifest.json               54L  0C    0m  CC=0.0    ←0\n  │ manifest.json               54L  0C    0m  CC=0.0    ←0\n  │ manifest.json               52L  0C    0m  CC=0.0    ←0\n  │ catalog.meta.json           44L  0C    0m  CC=0.0    ←0\n  │ publishers.json              5L  0C    0m  CC=0.0    ←0\n  │\n\nCOUPLING: no cross-package imports detected\n\nEXTERNAL:\n  validation: run `vallm batch .` → validation.toon\n  duplication: run `redup scan .` → duplication.toon\n", "is_subdir": false}, {"name": "calls.toon.yaml", "rel_path": "calls.toon.yaml", "path": "calls.toon.yaml", "size": "6.4KB", "icon": "⚙️", "type": "yaml", "type_name": "YAML", "content": "# code2llm call graph | /home/tom/github/if-uri/connect.ifuri.com\n# generated in 0.02s\n# nodes: 60 | edges: 56 | modules: 7\n# CC̄=4.4\n\nHUBS[20]:\n  scripts.validate_connectors.main\n    CC=9  in:0  out:37  total:37\n  tools.audit_connector_repos.detail_for\n    CC=23  in:1  out:29  total:30\n  tools.audit_connector_repos.build_report\n    CC=8  in:1  out:26  total:27\n  tools.build_catalog.validate_manifest\n    CC=16  in:1  out:20  total:21\n  tools.audit_connector_repos.main\n    CC=5  in:0  out:18  total:18\n  tools.audit_connector_repos.print_report\n    CC=7  in:1  out:15  total:16\n  scripts.connector-template.pkg.cli.main\n    CC=5  in:0  out:15  total:15\n  tools.audit_connector_repos.read_remote_file\n    CC=10  in:1  out:13  total:14\n  tools.build_catalog.build_catalog\n    CC=8  in:1  out:13  total:14\n  tools.audit_connector_repos.remote_tag_present\n    CC=9  in:1  out:11  total:12\n  tools.build_catalog.main\n    CC=5  in:0  out:12  total:12\n  tools.audit_connector_repos.discover_gh_repos\n    CC=9  in:1  out:10  total:11\n  tools.audit_connector_repos.add_issue\n    CC=1  in:10  out:1  total:11\n  assets.app.renderValidation\n    CC=7  in:2  out:8  total:10\n  tools.audit_connector_repos.merge_repos\n    CC=4  in:1  out:9  total:10\n  tools.audit_connector_repos.discover_local_repos\n    CC=5  in:1  out:8  total:9\n  assets.app.copyText\n    CC=5  in:1  out:8  total:9\n  tools.audit_connector_repos.local_tags\n    CC=5  in:1  out:8  total:9\n  tools.audit_connector_repos.load_manifests\n    CC=3  in:1  out:7  total:8\n  assets.app.readManifest\n    CC=19  in:2  out:6  total:8\n\nMODULES:\n  assets.app  [20 funcs]\n    btn  CC=2  out:1\n    button  CC=4  out:1\n    copyText  CC=5  out:8\n    escapeHtml  CC=5  out:3\n    installCommand  CC=2  out:3\n    isDark  CC=2  out:0\n    lineList  CC=5  out:3\n    loadTemplate  CC=13  out:3\n    manifest  CC=2  out:5\n    nav  CC=2  out:1\n  assets.ifuri-ecobar  [3 funcs]\n    esc  CC=1  out:2\n    isActive  CC=9  out:1\n    navHTML  CC=3  out:4\n  scripts.connector-template.pkg.cli  [2 funcs]\n    emit  CC=1  out:2\n    main  CC=5  out:15\n  scripts.connector-template.pkg.core  [3 funcs]\n    _json_resource  CC=2  out:6\n    connector_manifest  CC=1  out:1\n    run  CC=1  out:0\n  scripts.validate_connectors  [2 funcs]\n    load  CC=1  out:3\n    main  CC=9  out:37\n  tools.audit_connector_repos  [24 funcs]\n    add_issue  CC=1  out:1\n    build_report  CC=8  out:26\n    connector_id  CC=1  out:1\n    detail_for  CC=23  out:29\n    discover_gh_repos  CC=9  out:10\n    discover_local_repos  CC=5  out:8\n    gh_env  CC=3  out:1\n    has_gh  CC=1  out:1\n    is_connector_repo  CC=2  out:1\n    load_catalog_entries  CC=4  out:5\n  tools.build_catalog  [6 funcs]\n    build_catalog  CC=8  out:13\n    encode  CC=1  out:1\n    load_json  CC=2  out:4\n    main  CC=5  out:12\n    public_connector  CC=3  out:0\n    validate_manifest  CC=16  out:20\n\nEDGES:\n  assets.ifuri-ecobar.navHTML → assets.ifuri-ecobar.esc\n  assets.ifuri-ecobar.navHTML → assets.ifuri-ecobar.isActive\n  assets.app.installCommand → assets.app.selectedIds\n  assets.app.refreshCommand → assets.app.installCommand\n  assets.app.button → assets.app.copyText\n  assets.app.readManifest → assets.app.lineList\n  assets.app.renderManifest → assets.app.readManifest\n  assets.app.manifest → assets.app.renderValidation\n  assets.app.renderValidation → assets.app.escapeHtml\n  assets.app.validText → assets.app.escapeHtml\n  assets.app.loadTemplate → assets.app.setField\n  assets.app.loadTemplate → assets.app.renderManifest\n  assets.app.root → assets.app.isDark\n  assets.app.saved → assets.app.isDark\n  assets.app.nav → assets.app.isDark\n  assets.app.btn → assets.app.isDark\n  assets.app.render → assets.app.isDark\n  scripts.validate_connectors.main → scripts.validate_connectors.load\n  scripts.connector-template.pkg.cli.main → scripts.connector-template.pkg.core.run\n  scripts.connector-template.pkg.cli.main → scripts.connector-template.pkg.cli.emit\n  scripts.connector-template.pkg.core.connector_manifest → scripts.connector-template.pkg.core._json_resource\n  tools.build_catalog.build_catalog → tools.build_catalog.load_json\n  tools.build_catalog.build_catalog → tools.build_catalog.validate_manifest\n  tools.build_catalog.build_catalog → tools.build_catalog.public_connector\n  tools.build_catalog.main → tools.build_catalog.encode\n  tools.build_catalog.main → tools.build_catalog.build_catalog\n  tools.audit_connector_repos.run_gh → tools.audit_connector_repos.gh_env\n  tools.audit_connector_repos.discover_local_repos → tools.audit_connector_repos.is_connector_repo\n  tools.audit_connector_repos.discover_local_repos → tools.audit_connector_repos.connector_id\n  tools.audit_connector_repos.discover_gh_repos → tools.audit_connector_repos.run_gh\n  tools.audit_connector_repos.discover_gh_repos → tools.audit_connector_repos.has_gh\n  tools.audit_connector_repos.discover_gh_repos → tools.audit_connector_repos.connector_id\n  tools.audit_connector_repos.discover_gh_repos → tools.audit_connector_repos.is_connector_repo\n  tools.audit_connector_repos.load_manifests → tools.audit_connector_repos.load_json\n  tools.audit_connector_repos.load_catalog_entries → tools.audit_connector_repos.load_json\n  tools.audit_connector_repos.read_remote_file → tools.audit_connector_repos.run_gh\n  tools.audit_connector_repos.read_remote_file → tools.audit_connector_repos.has_gh\n  tools.audit_connector_repos.read_repo_file → tools.audit_connector_repos.read_local_file\n  tools.audit_connector_repos.read_repo_file → tools.audit_connector_repos.read_remote_file\n  tools.audit_connector_repos.pyproject_version → tools.audit_connector_repos.read_repo_file\n  tools.audit_connector_repos.local_tags → tools.audit_connector_repos.run\n  tools.audit_connector_repos.remote_tag_present → tools.audit_connector_repos.run\n  tools.audit_connector_repos.remote_tag_present → tools.audit_connector_repos.has_gh\n  tools.audit_connector_repos.remote_tag_present → tools.audit_connector_repos.run_gh\n  tools.audit_connector_repos.tag_present → tools.audit_connector_repos.local_tags\n  tools.audit_connector_repos.tag_present → tools.audit_connector_repos.remote_tag_present\n  tools.audit_connector_repos.detail_for → tools.audit_connector_repos.add_issue\n  tools.audit_connector_repos.detail_for → tools.audit_connector_repos.read_repo_file\n  tools.audit_connector_repos.detail_for → tools.audit_connector_repos.pyproject_version\n  tools.audit_connector_repos.build_report → tools.audit_connector_repos.discover_local_repos\n", "is_subdir": false}, {"name": "calls.yaml", "rel_path": "calls.yaml", "path": "calls.yaml", "size": "19.9KB", "icon": "⚙️", "type": "yaml", "type_name": "YAML", "content": "project: /home/tom/github/if-uri/connect.ifuri.com\ngenerated_from: code2llm call graph analysis\nstats:\n  total_nodes: 60\n  total_edges: 56\n  modules_count: 7\nnodes:\n  tools.audit_connector_repos.print_report:\n    name: print_report\n    module: tools.audit_connector_repos\n    line: 393\n    cyclomatic_complexity: 7\n    calls_out: 15\n    calls_in: 1\n  tools.build_catalog.load_json:\n    name: load_json\n    module: tools.build_catalog\n    line: 68\n    cyclomatic_complexity: 2\n    calls_out: 4\n    calls_in: 2\n  tools.audit_connector_repos.load_manifests:\n    name: load_manifests\n    module: tools.audit_connector_repos\n    line: 171\n    cyclomatic_complexity: 3\n    calls_out: 7\n    calls_in: 1\n  scripts.connector-template.pkg.cli.emit:\n    name: emit\n    module: scripts.connector-template.pkg.cli\n    line: 13\n    cyclomatic_complexity: 1\n    calls_out: 2\n    calls_in: 3\n  assets.app.setField:\n    name: setField\n    module: assets.app\n    line: 134\n    cyclomatic_complexity: 5\n    calls_out: 3\n    calls_in: 2\n  tools.audit_connector_repos.read_repo_file:\n    name: read_repo_file\n    module: tools.audit_connector_repos\n    line: 218\n    cyclomatic_complexity: 2\n    calls_out: 3\n    calls_in: 2\n  tools.build_catalog.validate_manifest:\n    name: validate_manifest\n    module: tools.build_catalog\n    line: 76\n    cyclomatic_complexity: 16\n    calls_out: 20\n    calls_in: 1\n  tools.audit_connector_repos.has_gh:\n    name: has_gh\n    module: tools.audit_connector_repos\n    line: 102\n    cyclomatic_complexity: 1\n    calls_out: 1\n    calls_in: 3\n  scripts.validate_connectors.load:\n    name: load\n    module: scripts.validate_connectors\n    line: 23\n    cyclomatic_complexity: 1\n    calls_out: 3\n    calls_in: 3\n  assets.app.renderManifest:\n    name: renderManifest\n    module: assets.app\n    line: 174\n    cyclomatic_complexity: 3\n    calls_out: 2\n    calls_in: 2\n  tools.audit_connector_repos.discover_gh_repos:\n    name: discover_gh_repos\n    module: tools.audit_connector_repos\n    line: 124\n    cyclomatic_complexity: 9\n    calls_out: 10\n    calls_in: 1\n  assets.app.validText:\n    name: validText\n    module: assets.app\n    line: 186\n    cyclomatic_complexity: 2\n    calls_out: 1\n    calls_in: 0\n  tools.audit_connector_repos.load_json:\n    name: load_json\n    module: tools.audit_connector_repos\n    line: 67\n    cyclomatic_complexity: 2\n    calls_out: 4\n    calls_in: 2\n  assets.app.isDark:\n    name: isDark\n    module: assets.app\n    line: 252\n    cyclomatic_complexity: 2\n    calls_out: 0\n    calls_in: 5\n  scripts.connector-template.pkg.core.connector_manifest:\n    name: connector_manifest\n    module: scripts.connector-template.pkg.core\n    line: 25\n    cyclomatic_complexity: 1\n    calls_out: 1\n    calls_in: 1\n  tools.audit_connector_repos.detail_for:\n    name: detail_for\n    module: tools.audit_connector_repos\n    line: 268\n    cyclomatic_complexity: 23\n    calls_out: 29\n    calls_in: 1\n  assets.app.lineList:\n    name: lineList\n    module: assets.app\n    line: 122\n    cyclomatic_complexity: 5\n    calls_out: 3\n    calls_in: 2\n  assets.app.selectedIds:\n    name: selectedIds\n    module: assets.app\n    line: 10\n    cyclomatic_complexity: 2\n    calls_out: 2\n    calls_in: 1\n  assets.app.refreshCommand:\n    name: refreshCommand\n    module: assets.app\n    line: 19\n    cyclomatic_complexity: 2\n    calls_out: 1\n    calls_in: 0\n  assets.app.root:\n    name: root\n    module: assets.app\n    line: 247\n    cyclomatic_complexity: 2\n    calls_out: 1\n    calls_in: 0\n  assets.ifuri-ecobar.navHTML:\n    name: navHTML\n    module: assets.ifuri-ecobar\n    line: 63\n    cyclomatic_complexity: 3\n    calls_out: 4\n    calls_in: 0\n  assets.app.render:\n    name: render\n    module: assets.app\n    line: 259\n    cyclomatic_complexity: 2\n    calls_out: 1\n    calls_in: 0\n  tools.audit_connector_repos.read_remote_file:\n    name: read_remote_file\n    module: tools.audit_connector_repos\n    line: 200\n    cyclomatic_complexity: 10\n    calls_out: 13\n    calls_in: 1\n  tools.audit_connector_repos.discover_local_repos:\n    name: discover_local_repos\n    module: tools.audit_connector_repos\n    line: 106\n    cyclomatic_complexity: 5\n    calls_out: 8\n    calls_in: 1\n  tools.audit_connector_repos.is_connector_repo:\n    name: is_connector_repo\n    module: tools.audit_connector_repos\n    line: 79\n    cyclomatic_complexity: 2\n    calls_out: 1\n    calls_in: 2\n  assets.app.readManifest:\n    name: readManifest\n    module: assets.app\n    line: 139\n    cyclomatic_complexity: 19\n    calls_out: 6\n    calls_in: 2\n  assets.app.nav:\n    name: nav\n    module: assets.app\n    line: 250\n    cyclomatic_complexity: 2\n    calls_out: 1\n    calls_in: 0\n  assets.app.installCommand:\n    name: installCommand\n    module: assets.app\n    line: 14\n    cyclomatic_complexity: 2\n    calls_out: 3\n    calls_in: 1\n  scripts.validate_connectors.main:\n    name: main\n    module: scripts.validate_connectors\n    line: 28\n    cyclomatic_complexity: 9\n    calls_out: 37\n    calls_in: 0\n  scripts.connector-template.pkg.cli.main:\n    name: main\n    module: scripts.connector-template.pkg.cli\n    line: 17\n    cyclomatic_complexity: 5\n    calls_out: 15\n    calls_in: 0\n  scripts.connector-template.pkg.core._json_resource:\n    name: _json_resource\n    module: scripts.connector-template.pkg.core\n    line: 17\n    cyclomatic_complexity: 2\n    calls_out: 6\n    calls_in: 1\n  assets.app.renderValidation:\n    name: renderValidation\n    module: assets.app\n    line: 181\n    cyclomatic_complexity: 7\n    calls_out: 8\n    calls_in: 2\n  assets.app.btn:\n    name: btn\n    module: assets.app\n    line: 255\n    cyclomatic_complexity: 2\n    calls_out: 1\n    calls_in: 0\n  assets.app.button:\n    name: button\n    module: assets.app\n    line: 65\n    cyclomatic_complexity: 4\n    calls_out: 1\n    calls_in: 0\n  tools.audit_connector_repos.run_gh:\n    name: run_gh\n    module: tools.audit_connector_repos\n    line: 90\n    cyclomatic_complexity: 1\n    calls_out: 2\n    calls_in: 3\n  tools.audit_connector_repos.run:\n    name: run\n    module: tools.audit_connector_repos\n    line: 55\n    cyclomatic_complexity: 2\n    calls_out: 2\n    calls_in: 2\n  tools.build_catalog.public_connector:\n    name: public_connector\n    module: tools.build_catalog\n    line: 122\n    cyclomatic_complexity: 3\n    calls_out: 0\n    calls_in: 1\n  tools.audit_connector_repos.remote_tag_present:\n    name: remote_tag_present\n    module: tools.audit_connector_repos\n    line: 240\n    cyclomatic_complexity: 9\n    calls_out: 11\n    calls_in: 1\n  tools.audit_connector_repos.add_issue:\n    name: add_issue\n    module: tools.audit_connector_repos\n    line: 264\n    cyclomatic_complexity: 1\n    calls_out: 1\n    calls_in: 10\n  tools.build_catalog.main:\n    name: main\n    module: tools.build_catalog\n    line: 147\n    cyclomatic_complexity: 5\n    calls_out: 12\n    calls_in: 0\n  assets.app.manifest:\n    name: manifest\n    module: assets.app\n    line: 222\n    cyclomatic_complexity: 2\n    calls_out: 5\n    calls_in: 0\n  scripts.connector-template.pkg.core.run:\n    name: run\n    module: scripts.connector-template.pkg.core\n    line: 39\n    cyclomatic_complexity: 1\n    calls_out: 0\n    calls_in: 1\n  tools.audit_connector_repos.connector_id:\n    name: connector_id\n    module: tools.audit_connector_repos\n    line: 75\n    cyclomatic_complexity: 1\n    calls_out: 1\n    calls_in: 2\n  tools.audit_connector_repos.build_report:\n    name: build_report\n    module: tools.audit_connector_repos\n    line: 353\n    cyclomatic_complexity: 8\n    calls_out: 26\n    calls_in: 1\n  tools.audit_connector_repos.load_catalog_entries:\n    name: load_catalog_entries\n    module: tools.audit_connector_repos\n    line: 181\n    cyclomatic_complexity: 4\n    calls_out: 5\n    calls_in: 1\n  assets.ifuri-ecobar.isActive:\n    name: isActive\n    module: assets.ifuri-ecobar\n    line: 47\n    cyclomatic_complexity: 9\n    calls_out: 1\n    calls_in: 1\n  assets.app.copyText:\n    name: copyText\n    module: assets.app\n    line: 24\n    cyclomatic_complexity: 5\n    calls_out: 8\n    calls_in: 1\n  tools.build_catalog.build_catalog:\n    name: build_catalog\n    module: tools.build_catalog\n    line: 126\n    cyclomatic_complexity: 8\n    calls_out: 13\n    calls_in: 1\n  tools.audit_connector_repos.read_local_file:\n    name: read_local_file\n    module: tools.audit_connector_repos\n    line: 190\n    cyclomatic_complexity: 4\n    calls_out: 7\n    calls_in: 1\n  tools.build_catalog.encode:\n    name: encode\n    module: tools.build_catalog\n    line: 143\n    cyclomatic_complexity: 1\n    calls_out: 1\n    calls_in: 1\n  tools.audit_connector_repos.local_tags:\n    name: local_tags\n    module: tools.audit_connector_repos\n    line: 230\n    cyclomatic_complexity: 5\n    calls_out: 8\n    calls_in: 1\n  tools.audit_connector_repos.gh_env:\n    name: gh_env\n    module: tools.audit_connector_repos\n    line: 83\n    cyclomatic_complexity: 3\n    calls_out: 1\n    calls_in: 1\n  tools.audit_connector_repos.tag_present:\n    name: tag_present\n    module: tools.audit_connector_repos\n    line: 256\n    cyclomatic_complexity: 2\n    calls_out: 3\n    calls_in: 1\n  assets.app.escapeHtml:\n    name: escapeHtml\n    module: assets.app\n    line: 127\n    cyclomatic_complexity: 5\n    calls_out: 3\n    calls_in: 3\n  tools.audit_connector_repos.merge_repos:\n    name: merge_repos\n    module: tools.audit_connector_repos\n    line: 157\n    cyclomatic_complexity: 4\n    calls_out: 9\n    calls_in: 1\n  tools.audit_connector_repos.main:\n    name: main\n    module: tools.audit_connector_repos\n    line: 432\n    cyclomatic_complexity: 5\n    calls_out: 18\n    calls_in: 0\n  assets.ifuri-ecobar.esc:\n    name: esc\n    module: assets.ifuri-ecobar\n    line: 61\n    cyclomatic_complexity: 1\n    calls_out: 2\n    calls_in: 1\n  assets.app.saved:\n    name: saved\n    module: assets.app\n    line: 248\n    cyclomatic_complexity: 2\n    calls_out: 1\n    calls_in: 0\n  tools.audit_connector_repos.pyproject_version:\n    name: pyproject_version\n    module: tools.audit_connector_repos\n    line: 222\n    cyclomatic_complexity: 3\n    calls_out: 4\n    calls_in: 1\n  assets.app.loadTemplate:\n    name: loadTemplate\n    module: assets.app\n    line: 196\n    cyclomatic_complexity: 13\n    calls_out: 3\n    calls_in: 1\nedges:\n- caller: assets.ifuri-ecobar.navHTML\n  callee: assets.ifuri-ecobar.esc\n  call_type: resolved\n- caller: assets.ifuri-ecobar.navHTML\n  callee: assets.ifuri-ecobar.isActive\n  call_type: resolved\n- caller: assets.app.installCommand\n  callee: assets.app.selectedIds\n  call_type: resolved\n- caller: assets.app.refreshCommand\n  callee: assets.app.installCommand\n  call_type: resolved\n- caller: assets.app.button\n  callee: assets.app.copyText\n  call_type: resolved\n- caller: assets.app.readManifest\n  callee: assets.app.lineList\n  call_type: resolved\n- caller: assets.app.renderManifest\n  callee: assets.app.readManifest\n  call_type: resolved\n- caller: assets.app.manifest\n  callee: assets.app.renderValidation\n  call_type: resolved\n- caller: assets.app.renderValidation\n  callee: assets.app.escapeHtml\n  call_type: resolved\n- caller: assets.app.validText\n  callee: assets.app.escapeHtml\n  call_type: resolved\n- caller: assets.app.loadTemplate\n  callee: assets.app.setField\n  call_type: resolved\n- caller: assets.app.loadTemplate\n  callee: assets.app.renderManifest\n  call_type: resolved\n- caller: assets.app.root\n  callee: assets.app.isDark\n  call_type: resolved\n- caller: assets.app.saved\n  callee: assets.app.isDark\n  call_type: resolved\n- caller: assets.app.nav\n  callee: assets.app.isDark\n  call_type: resolved\n- caller: assets.app.btn\n  callee: assets.app.isDark\n  call_type: resolved\n- caller: assets.app.render\n  callee: assets.app.isDark\n  call_type: resolved\n- caller: scripts.validate_connectors.main\n  callee: scripts.validate_connectors.load\n  call_type: resolved\n- caller: scripts.connector-template.pkg.cli.main\n  callee: scripts.connector-template.pkg.core.run\n  call_type: resolved\n- caller: scripts.connector-template.pkg.cli.main\n  callee: scripts.connector-template.pkg.cli.emit\n  call_type: resolved\n- caller: scripts.connector-template.pkg.core.connector_manifest\n  callee: scripts.connector-template.pkg.core._json_resource\n  call_type: resolved\n- caller: tools.build_catalog.build_catalog\n  callee: tools.build_catalog.load_json\n  call_type: resolved\n- caller: tools.build_catalog.build_catalog\n  callee: tools.build_catalog.validate_manifest\n  call_type: resolved\n- caller: tools.build_catalog.build_catalog\n  callee: tools.build_catalog.public_connector\n  call_type: resolved\n- caller: tools.build_catalog.main\n  callee: tools.build_catalog.encode\n  call_type: resolved\n- caller: tools.build_catalog.main\n  callee: tools.build_catalog.build_catalog\n  call_type: resolved\n- caller: tools.audit_connector_repos.run_gh\n  callee: tools.audit_connector_repos.gh_env\n  call_type: resolved\n- caller: tools.audit_connector_repos.discover_local_repos\n  callee: tools.audit_connector_repos.is_connector_repo\n  call_type: resolved\n- caller: tools.audit_connector_repos.discover_local_repos\n  callee: tools.audit_connector_repos.connector_id\n  call_type: resolved\n- caller: tools.audit_connector_repos.discover_gh_repos\n  callee: tools.audit_connector_repos.run_gh\n  call_type: resolved\n- caller: tools.audit_connector_repos.discover_gh_repos\n  callee: tools.audit_connector_repos.has_gh\n  call_type: resolved\n- caller: tools.audit_connector_repos.discover_gh_repos\n  callee: tools.audit_connector_repos.connector_id\n  call_type: resolved\n- caller: tools.audit_connector_repos.discover_gh_repos\n  callee: tools.audit_connector_repos.is_connector_repo\n  call_type: resolved\n- caller: tools.audit_connector_repos.load_manifests\n  callee: tools.audit_connector_repos.load_json\n  call_type: resolved\n- caller: tools.audit_connector_repos.load_catalog_entries\n  callee: tools.audit_connector_repos.load_json\n  call_type: resolved\n- caller: tools.audit_connector_repos.read_remote_file\n  callee: tools.audit_connector_repos.run_gh\n  call_type: resolved\n- caller: tools.audit_connector_repos.read_remote_file\n  callee: tools.audit_connector_repos.has_gh\n  call_type: resolved\n- caller: tools.audit_connector_repos.read_repo_file\n  callee: tools.audit_connector_repos.read_local_file\n  call_type: resolved\n- caller: tools.audit_connector_repos.read_repo_file\n  callee: tools.audit_connector_repos.read_remote_file\n  call_type: resolved\n- caller: tools.audit_connector_repos.pyproject_version\n  callee: tools.audit_connector_repos.read_repo_file\n  call_type: resolved\n- caller: tools.audit_connector_repos.local_tags\n  callee: tools.audit_connector_repos.run\n  call_type: resolved\n- caller: tools.audit_connector_repos.remote_tag_present\n  callee: tools.audit_connector_repos.run\n  call_type: resolved\n- caller: tools.audit_connector_repos.remote_tag_present\n  callee: tools.audit_connector_repos.has_gh\n  call_type: resolved\n- caller: tools.audit_connector_repos.remote_tag_present\n  callee: tools.audit_connector_repos.run_gh\n  call_type: resolved\n- caller: tools.audit_connector_repos.tag_present\n  callee: tools.audit_connector_repos.local_tags\n  call_type: resolved\n- caller: tools.audit_connector_repos.tag_present\n  callee: tools.audit_connector_repos.remote_tag_present\n  call_type: resolved\n- caller: tools.audit_connector_repos.detail_for\n  callee: tools.audit_connector_repos.add_issue\n  call_type: resolved\n- caller: tools.audit_connector_repos.detail_for\n  callee: tools.audit_connector_repos.read_repo_file\n  call_type: resolved\n- caller: tools.audit_connector_repos.detail_for\n  callee: tools.audit_connector_repos.pyproject_version\n  call_type: resolved\n- caller: tools.audit_connector_repos.build_report\n  callee: tools.audit_connector_repos.discover_local_repos\n  call_type: resolved\n- caller: tools.audit_connector_repos.build_report\n  callee: tools.audit_connector_repos.merge_repos\n  call_type: resolved\n- caller: tools.audit_connector_repos.build_report\n  callee: tools.audit_connector_repos.load_manifests\n  call_type: resolved\n- caller: tools.audit_connector_repos.build_report\n  callee: tools.audit_connector_repos.load_catalog_entries\n  call_type: resolved\n- caller: tools.audit_connector_repos.build_report\n  callee: tools.audit_connector_repos.discover_gh_repos\n  call_type: resolved\n- caller: tools.audit_connector_repos.build_report\n  callee: tools.audit_connector_repos.detail_for\n  call_type: resolved\n- caller: tools.audit_connector_repos.main\n  callee: tools.audit_connector_repos.print_report\n  call_type: resolved\nmodules:\n  assets.app:\n  - assets.app.btn\n  - assets.app.button\n  - assets.app.copyText\n  - assets.app.escapeHtml\n  - assets.app.installCommand\n  - assets.app.isDark\n  - assets.app.lineList\n  - assets.app.loadTemplate\n  - assets.app.manifest\n  - assets.app.nav\n  - assets.app.readManifest\n  - assets.app.refreshCommand\n  - assets.app.render\n  - assets.app.renderManifest\n  - assets.app.renderValidation\n  - assets.app.root\n  - assets.app.saved\n  - assets.app.selectedIds\n  - assets.app.setField\n  - assets.app.validText\n  assets.ifuri-ecobar:\n  - assets.ifuri-ecobar.esc\n  - assets.ifuri-ecobar.isActive\n  - assets.ifuri-ecobar.navHTML\n  scripts.connector-template.pkg.cli:\n  - scripts.connector-template.pkg.cli.emit\n  - scripts.connector-template.pkg.cli.main\n  scripts.connector-template.pkg.core:\n  - scripts.connector-template.pkg.core._json_resource\n  - scripts.connector-template.pkg.core.connector_manifest\n  - scripts.connector-template.pkg.core.run\n  scripts.validate_connectors:\n  - scripts.validate_connectors.load\n  - scripts.validate_connectors.main\n  tools.audit_connector_repos:\n  - tools.audit_connector_repos.add_issue\n  - tools.audit_connector_repos.build_report\n  - tools.audit_connector_repos.connector_id\n  - tools.audit_connector_repos.detail_for\n  - tools.audit_connector_repos.discover_gh_repos\n  - tools.audit_connector_repos.discover_local_repos\n  - tools.audit_connector_repos.gh_env\n  - tools.audit_connector_repos.has_gh\n  - tools.audit_connector_repos.is_connector_repo\n  - tools.audit_connector_repos.load_catalog_entries\n  - tools.audit_connector_repos.load_json\n  - tools.audit_connector_repos.load_manifests\n  - tools.audit_connector_repos.local_tags\n  - tools.audit_connector_repos.main\n  - tools.audit_connector_repos.merge_repos\n  - tools.audit_connector_repos.print_report\n  - tools.audit_connector_repos.pyproject_version\n  - tools.audit_connector_repos.read_local_file\n  - tools.audit_connector_repos.read_remote_file\n  - tools.audit_connector_repos.read_repo_file\n  - tools.audit_connector_repos.remote_tag_present\n  - tools.audit_connector_repos.run\n  - tools.audit_connector_repos.run_gh\n  - tools.audit_connector_repos.tag_present\n  tools.build_catalog:\n  - tools.build_catalog.build_catalog\n  - tools.build_catalog.encode\n  - tools.build_catalog.load_json\n  - tools.build_catalog.main\n  - tools.build_catalog.public_connector\n  - tools.build_catalog.validate_manifest\nentry_points:\n- assets.app.active\n- assets.app.btn\n- assets.app.builder\n- assets.app.button\n- assets.app.buttons\n- assets.app.cards\n- assets.app.checks\n- assets.app.command\n- assets.app.copyInstall\n- assets.app.count\n- assets.app.errors\n- assets.app.field\n- assets.app.filterConnectors\n- assets.app.fixTemplate\n- assets.app.fixText\n- assets.app.folder\n- assets.app.form\n- assets.app.hubBase\n- assets.app.i18n\n- assets.app.input\n- assets.app.manifest\n- assets.app.nav\n- assets.app.next\n- assets.app.noResults\n- assets.app.ofWord\n- assets.app.output\n- assets.app.panels\n- assets.app.payload\n- assets.app.pipValues\n- assets.app.previous\n- assets.app.refreshCommand\n- assets.app.render\n- assets.app.response\n- assets.app.result\n- assets.app.root\n- assets.app.saved\n- assets.app.search\n- assets.app.selectAvailable\n- assets.app.suffix\n- assets.app.target\n- assets.app.template\n- assets.app.term\n- assets.app.validText\n- assets.app.values\n- assets.app.visible\n- assets.ifuri-ecobar.curView\n- assets.ifuri-ecobar.host\n- assets.ifuri-ecobar.hostEl\n- assets.ifuri-ecobar.label\n- assets.ifuri-ecobar.lang\n- assets.ifuri-ecobar.navHTML\n- assets.ifuri-ecobar.p\n- assets.ifuri-ecobar.params\n- assets.ifuri-ecobar.sr\n- assets.ifuri-ecobar.view\n- scripts.check_connectors.main\n- scripts.connector-template.pkg.cli.main\n- scripts.connector-template.pkg.core.run_command\n- scripts.sign-manifest.arg_value\n- scripts.sign-manifest.die_err\n- scripts.validate_connectors.main\n- tools.audit_connector_repos.main\n- tools.build_catalog.main\n", "is_subdir": false}, {"name": "evolution.toon.yaml", "rel_path": "evolution.toon.yaml", "path": "evolution.toon.yaml", "size": "2.2KB", "icon": "⚙️", "type": "yaml", "type_name": "YAML", "content": "# code2llm/evolution | 100 func | 4f | 2026-07-14\n# generated in 0.00s\n\nNEXT[6] (ranked by impact):\n  [1] !! SPLIT-FUNC      builder  CC=51  fan=29\n      WHY: CC=51 exceeds 15\n      EFFORT: ~1h  IMPACT: 1479\n\n  [2] !  SPLIT-FUNC      detail_for  CC=23  fan=17\n      WHY: CC=23 exceeds 15\n      EFFORT: ~1h  IMPACT: 391\n\n  [3] !  SPLIT-FUNC      readManifest  CC=19  fan=6\n      WHY: CC=19 exceeds 15\n      EFFORT: ~1h  IMPACT: 114\n\n  [4] !  SPLIT-FUNC      validate_manifest  CC=16  fan=7\n      WHY: CC=16 exceeds 15\n      EFFORT: ~1h  IMPACT: 112\n\n  [5] !! SPLIT           data/connectors.json\n      WHY: 3995L, 0 classes, max CC=0\n      EFFORT: ~4h  IMPACT: 0\n\n  [6] !! SPLIT           data/connector-repo-audit.json\n      WHY: 1179L, 0 classes, max CC=0\n      EFFORT: ~4h  IMPACT: 0\n\n\nRISKS[2]:\n  ⚠ Splitting data/connectors.json may break 0 import paths\n  ⚠ Splitting data/connector-repo-audit.json may break 0 import paths\n\nMETRICS-TARGET:\n  CC̄:          4.5 → ≤3.1\n  max-CC:      51 → ≤20\n  god-modules: 2 → 0\n  high-CC(≥15): 4 → ≤2\n  hub-types:   0 → ≤0\n\nPATTERNS (language parser shared logic):\n  _extract_declarations() in base.py — unified extraction for:\n    - TypeScript: interfaces, types, classes, functions, arrow funcs\n    - PHP: namespaces, traits, classes, functions, includes\n    - Ruby: modules, classes, methods, requires\n    - C++: classes, structs, functions, #includes\n    - C#: classes, interfaces, methods, usings\n    - Java: classes, interfaces, methods, imports\n    - Go: packages, functions, structs\n    - Rust: modules, functions, traits, use statements\n\n  Shared regex patterns per language:\n    - import: language-specific import/require/using patterns\n    - class: class/struct/trait declarations with inheritance\n    - function: function/method signatures with visibility\n    - brace_tracking: for C-family languages ({ })\n    - end_keyword_tracking: for Ruby (module/class/def...end)\n\n  Benefits:\n    - Consistent extraction logic across all languages\n    - Reduced code duplication (~70% reduction in parser LOC)\n    - Easier maintenance: fix once, apply everywhere\n    - Standardized FunctionInfo/ClassInfo models\n\nHISTORY:\n  (first run — no previous data)\n", "is_subdir": false}, {"name": "map.toon.yaml", "rel_path": "map.toon.yaml", "path": "map.toon.yaml", "size": "10.8KB", "icon": "⚙️", "type": "yaml", "type_name": "YAML", "content": "# connect.ifuri.com | 103f 12056L | shell:4,php:18,json:70,javascript:2,python:7 | 2026-07-14\n# generated in 0.01s\n# stats: 113 func | 0 cls | 103 mod | CC̄=4.4 | critical:5 | cycles:0\n# alerts[5]: CC builder=51; fan-out builder=29; fan-out main=21; CC detail_for=23; CC main=20\n# hotspots[5]: builder fan=29; main fan=21; main fan=19; detail_for fan=17; build_report fan=15\n# evolution: baseline\n# Keys: M=modules, D=details, i=imports, e=exports, c=classes, f=functions, m=methods\nM[103]:\n  404.php,61\n  Makefile,53\n  api/a2a.php,4\n  api/connector.php,12\n  api/connectors.php,6\n  api/mcp.php,4\n  api/registry.php,6\n  api/search.php,6\n  api/validate_connector.php,69\n  assets/app.js,268\n  assets/ifuri-ecobar.js,108\n  categories.php,140\n  connector.php,235\n  data/catalog.meta.json,44\n  data/connector-repo-audit.json,1179\n  data/connectors.json,3995\n  data/connectors/adb/manifest.json,54\n  data/connectors/adopt/manifest.json,54\n  data/connectors/agents/manifest.json,54\n  data/connectors/base64/manifest.json,66\n  data/connectors/browser-control/manifest.json,66\n  data/connectors/calendar/manifest.json,54\n  data/connectors/camera-web/manifest.json,56\n  data/connectors/camera/manifest.json,90\n  data/connectors/chat/manifest.json,56\n  data/connectors/connectorgen/manifest.json,54\n  data/connectors/doc/manifest.json,72\n  data/connectors/docid/manifest.json,54\n  data/connectors/document/manifest.json,54\n  data/connectors/domain-monitor/manifest.json,89\n  data/connectors/email/manifest.json,65\n  data/connectors/flow-repair/manifest.json,52\n  data/connectors/fs/manifest.json,69\n  data/connectors/get-node/manifest.json,59\n  data/connectors/github/manifest.json,63\n  data/connectors/grpc-transport/manifest.json,56\n  data/connectors/hash/manifest.json,57\n  data/connectors/him/manifest.json,62\n  data/connectors/http-check/manifest.json,57\n  data/connectors/img2nl/manifest.json,57\n  data/connectors/invoice/manifest.json,71\n  data/connectors/koru/manifest.json,54\n  data/connectors/ksef/manifest.json,101\n  data/connectors/kvm/manifest.json,60\n  data/connectors/linkedin/manifest.json,54\n  data/connectors/llm/manifest.json,62\n  data/connectors/mcp-filesystem/manifest.json,62\n  data/connectors/message/manifest.json,54\n  data/connectors/mqtt/manifest.json,56\n  data/connectors/namecheap-dns/manifest.json,89\n  data/connectors/netscan/manifest.json,54\n  data/connectors/nodeadmin/manifest.json,54\n  data/connectors/ocr/manifest.json,56\n  data/connectors/pdf/manifest.json,73\n  data/connectors/planfile/manifest.json,91\n  data/connectors/rdp/manifest.json,59\n  data/connectors/router/manifest.json,54\n  data/connectors/scanner/manifest.json,54\n  data/connectors/screen/manifest.json,57\n  data/connectors/sheet/manifest.json,74\n  data/connectors/smart-crop/manifest.json,57\n  data/connectors/sqlite-context/manifest.json,100\n  data/connectors/stepper/manifest.json,61\n  data/connectors/stt/manifest.json,57\n  data/connectors/time-tools/manifest.json,65\n  data/connectors/twin/manifest.json,54\n  data/connectors/urifix/manifest.json,54\n  data/connectors/urimail/manifest.json,59\n  data/connectors/urioffice/manifest.json,59\n  data/connectors/urivision-runtime/manifest.json,57\n  data/connectors/urivision/manifest.json,55\n  data/connectors/usb/manifest.json,76\n  data/connectors/uuid/manifest.json,57\n  data/connectors/vdisplay/manifest.json,54\n  data/connectors/view/manifest.json,54\n  data/connectors/vql/manifest.json,56\n  data/connectors/webnode/manifest.json,54\n  data/connectors/webrtc/manifest.json,58\n  data/connectors/youtube/manifest.json,54\n  data/publishers.json,5\n  index.php,211\n  install.php,9\n  llms.php,52\n  project.sh,66\n  robots.php,9\n  router.php,74\n  schema/connector.schema.json,106\n  schema/connectors.schema.json,90\n  scripts/check_connectors.py,117\n  scripts/connector-template/Makefile,18\n  scripts/connector-template/pkg/__init__.py,6\n  scripts/connector-template/pkg/cli.py,39\n  scripts/connector-template/pkg/connector.manifest.json,27\n  scripts/connector-template/pkg/core.py,41\n  scripts/deploy-plesk.sh,15\n  scripts/new-connector.sh,39\n  scripts/sign-manifest.php,90\n  scripts/validate_connectors.py,59\n  sitemap.php,34\n  submit.php,225\n  tools/audit_connector_repos.py,459\n  tools/build_catalog.py,171\n  tree.sh,4\nD:\n  assets/app.js:\n    e: checks,command,copyInstall,selectAvailable,hubBase,selectedIds,installCommand,suffix,refreshCommand,copyText,input,previous,button,button,target,search,cards,count,noResults,filterConnectors,term,visible,ofWord,buttons,panels,target,active,active,builder,form,output,folder,result,template,lineList,escapeHtml,setField,field,readManifest,values,pipValues,renderManifest,manifest,renderValidation,i18n,validText,errors,fixTemplate,fixText,loadTemplate,manifest,response,payload,root,saved,nav,isDark,btn,render,next\n    checks()\n    command()\n    copyInstall()\n    selectAvailable()\n    hubBase()\n    selectedIds()\n    installCommand()\n    suffix()\n    refreshCommand()\n    copyText()\n    input()\n    previous()\n    button()\n    button()\n    target()\n    search()\n    cards()\n    count()\n    noResults()\n    filterConnectors()\n    term()\n    visible()\n    ofWord()\n    buttons()\n    panels()\n    target()\n    active()\n    active()\n    builder()\n    form()\n    output()\n    folder()\n    result()\n    template()\n    lineList()\n    escapeHtml()\n    setField()\n    field()\n    readManifest()\n    values()\n    pipValues()\n    renderManifest()\n    manifest()\n    renderValidation()\n    i18n()\n    validText()\n    errors()\n    fixTemplate()\n    fixText()\n    loadTemplate()\n    manifest()\n    response()\n    payload()\n    root()\n    saved()\n    nav()\n    isDark()\n    btn()\n    render()\n    next()\n  tools/audit_connector_repos.py:\n    e: run,load_json,connector_id,is_connector_repo,gh_env,run_gh,has_gh,discover_local_repos,discover_gh_repos,merge_repos,load_manifests,load_catalog_entries,read_local_file,read_remote_file,read_repo_file,pyproject_version,local_tags,remote_tag_present,tag_present,add_issue,detail_for,summarize,build_report,print_report,check_failed,main\n    run(cmd)\n    load_json(path)\n    connector_id(repo_name)\n    is_connector_repo(name)\n    gh_env()\n    run_gh(cmd)\n    has_gh()\n    discover_local_repos(org_dir)\n    discover_gh_repos()\n    merge_repos(local;gh)\n    load_manifests()\n    load_catalog_entries()\n    read_local_file(repo;name)\n    read_remote_file(repo;name)\n    read_repo_file(repo;name)\n    pyproject_version(repo)\n    local_tags(repo)\n    remote_tag_present(repo;expected_tag)\n    tag_present(repo;expected_tag)\n    add_issue(detail;issue)\n    detail_for(cid;repo;manifest;catalog_entry)\n    summarize(details;issue)\n    build_report(args)\n    print_report(report)\n    check_failed(report)\n    main()\n  scripts/check_connectors.py:\n    e: reachable,main\n    reachable(url;timeout)\n    main()\n  tools/build_catalog.py:\n    e: load_json,validate_manifest,public_connector,build_catalog,encode,main\n    load_json(path)\n    validate_manifest(path;manifest)\n    public_connector(manifest)\n    build_catalog()\n    encode(data)\n    main()\n  assets/ifuri-ecobar.js:\n    e: params,lang,view,host,curView,isActive,esc,navHTML,label,hostEl,sr,p\n    params()\n    lang()\n    view()\n    host()\n    curView()\n    isActive()\n    esc()\n    navHTML()\n    label()\n    hostEl()\n    sr()\n    p()\n  scripts/validate_connectors.py:\n    e: load,main\n    load(rel)\n    main()\n  scripts/connector-template/pkg/cli.py:\n    e: emit,main\n    emit(payload)\n    main(argv)\n  scripts/sign-manifest.php:\n    e: die_err,arg_value\n    die_err()\n    arg_value()\n  scripts/connector-template/pkg/core.py:\n    e: _json_resource,connector_manifest,run_command,urirun_bindings,run\n    _json_resource(name)\n    connector_manifest()\n    run_command(target;timeout)\n    urirun_bindings()\n    run(target;timeout)\n  Makefile:\n  tree.sh:\n  install.php:\n  project.sh:\n  categories.php:\n  schema/connector.schema.json:\n  router.php:\n  robots.php:\n  llms.php:\n  404.php:\n  submit.php:\n  schema/connectors.schema.json:\n  scripts/deploy-plesk.sh:\n  scripts/connector-template/Makefile:\n  api/connectors.php:\n  index.php:\n  sitemap.php:\n  connector.php:\n  api/registry.php:\n  api/mcp.php:\n  scripts/new-connector.sh:\n  api/search.php:\n  api/connector.php:\n  api/a2a.php:\n  data/catalog.meta.json:\n  data/connectors/grpc-transport/manifest.json:\n  data/connectors/base64/manifest.json:\n  scripts/connector-template/pkg/connector.manifest.json:\n  data/connectors/ksef/manifest.json:\n  data/connector-repo-audit.json:\n  data/connectors/flow-repair/manifest.json:\n  data/connectors.json:\n  data/connectors/img2nl/manifest.json:\n  data/connectors/ocr/manifest.json:\n  data/publishers.json:\n  data/connectors/http-check/manifest.json:\n  data/connectors/vql/manifest.json:\n  data/connectors/webrtc/manifest.json:\n  data/connectors/linkedin/manifest.json:\n  data/connectors/pdf/manifest.json:\n  data/connectors/doc/manifest.json:\n  data/connectors/sheet/manifest.json:\n  data/connectors/namecheap-dns/manifest.json:\n  data/connectors/docid/manifest.json:\n  data/connectors/browser-control/manifest.json:\n  data/connectors/connectorgen/manifest.json:\n  data/connectors/scanner/manifest.json:\n  data/connectors/planfile/manifest.json:\n  api/validate_connector.php:\n  data/connectors/get-node/manifest.json:\n  data/connectors/llm/manifest.json:\n  data/connectors/usb/manifest.json:\n  data/connectors/adb/manifest.json:\n  data/connectors/urivision/manifest.json:\n  data/connectors/calendar/manifest.json:\n  data/connectors/twin/manifest.json:\n  data/connectors/view/manifest.json:\n  data/connectors/urivision-runtime/manifest.json:\n  data/connectors/stt/manifest.json:\n  data/connectors/smart-crop/manifest.json:\n  data/connectors/hash/manifest.json:\n  data/connectors/camera-web/manifest.json:\n  data/connectors/fs/manifest.json:\n  data/connectors/urifix/manifest.json:\n  data/connectors/github/manifest.json:\n  data/connectors/screen/manifest.json:\n  data/connectors/message/manifest.json:\n  data/connectors/mcp-filesystem/manifest.json:\n  data/connectors/chat/manifest.json:\n  data/connectors/uuid/manifest.json:\n  data/connectors/nodeadmin/manifest.json:\n  data/connectors/urioffice/manifest.json:\n  data/connectors/adopt/manifest.json:\n  data/connectors/domain-monitor/manifest.json:\n  data/connectors/camera/manifest.json:\n  data/connectors/invoice/manifest.json:\n  data/connectors/rdp/manifest.json:\n  data/connectors/vdisplay/manifest.json:\n  data/connectors/email/manifest.json:\n  data/connectors/document/manifest.json:\n  data/connectors/agents/manifest.json:\n  data/connectors/time-tools/manifest.json:\n  data/connectors/mqtt/manifest.json:\n  data/connectors/sqlite-context/manifest.json:\n  data/connectors/webnode/manifest.json:\n  data/connectors/router/manifest.json:\n  data/connectors/him/manifest.json:\n  data/connectors/stepper/manifest.json:\n  data/connectors/koru/manifest.json:\n  data/connectors/urimail/manifest.json:\n  data/connectors/netscan/manifest.json:\n  data/connectors/youtube/manifest.json:\n  data/connectors/kvm/manifest.json:\n  scripts/connector-template/pkg/__init__.py:\n", "is_subdir": false}, {"name": "planfile-tickets.yaml", "rel_path": "planfile-tickets.yaml", "path": "planfile-tickets.yaml", "size": "6.9KB", "icon": "⚙️", "type": "yaml", "type_name": "YAML", "content": "source: code2llm\n# generated in 0.01s\nschema: code2llm.planfile_tickets.v1\nproject_root: /home/tom/github/if-uri/connect.ifuri.com\ntickets:\n- signal: code2llm_cc\n  title: 'Reduce cyclomatic complexity: assets.app.builder (CC=51)'\n  description: 'code2llm reports `assets.app.builder` at `assets/app.js:114` with\n    cyclomatic complexity 51 (limit 15).\n\n\n    Extract smaller functions, flatten conditionals, or split strategy branches. Re-run\n    code2llm after the change and keep tests green.'\n  priority: high\n  labels:\n  - llm-ready\n  - code2llm\n  - complexity\n  - refactor\n  files:\n  - assets/app.js\n  dedupe_key: code2llm:cc:assets/app.js:assets.app.builder\n- signal: code2llm_cc\n  title: 'Reduce cyclomatic complexity: assets.app.readManifest (CC=19)'\n  description: 'code2llm reports `assets.app.readManifest` at `assets/app.js:139`\n    with cyclomatic complexity 19 (limit 15).\n\n\n    Extract smaller functions, flatten conditionals, or split strategy branches. Re-run\n    code2llm after the change and keep tests green.'\n  priority: normal\n  labels:\n  - llm-ready\n  - code2llm\n  - complexity\n  - refactor\n  files:\n  - assets/app.js\n  dedupe_key: code2llm:cc:assets/app.js:assets.app.readManifest\n- signal: code2llm_cc\n  title: 'Reduce cyclomatic complexity: scripts.check_connectors.main (CC=20)'\n  description: 'code2llm reports `scripts.check_connectors.main` at `scripts/check_connectors.py:42`\n    with cyclomatic complexity 20 (limit 15).\n\n\n    Extract smaller functions, flatten conditionals, or split strategy branches. Re-run\n    code2llm after the change and keep tests green.'\n  priority: normal\n  labels:\n  - llm-ready\n  - code2llm\n  - complexity\n  - refactor\n  files:\n  - scripts/check_connectors.py\n  dedupe_key: code2llm:cc:scripts/check_connectors.py:scripts.check_connectors.main\n- signal: code2llm_cc\n  title: 'Reduce cyclomatic complexity: tools.audit_connector_repos.detail_for (CC=23)'\n  description: 'code2llm reports `tools.audit_connector_repos.detail_for` at `tools/audit_connector_repos.py:268`\n    with cyclomatic complexity 23 (limit 15).\n\n\n    Extract smaller functions, flatten conditionals, or split strategy branches. Re-run\n    code2llm after the change and keep tests green.'\n  priority: normal\n  labels:\n  - llm-ready\n  - code2llm\n  - complexity\n  - refactor\n  files:\n  - tools/audit_connector_repos.py\n  dedupe_key: code2llm:cc:tools/audit_connector_repos.py:tools.audit_connector_repos.detail_for\n- signal: code2llm_cc\n  title: 'Reduce cyclomatic complexity: tools.build_catalog.validate_manifest (CC=16)'\n  description: 'code2llm reports `tools.build_catalog.validate_manifest` at `tools/build_catalog.py:76`\n    with cyclomatic complexity 16 (limit 15).\n\n\n    Extract smaller functions, flatten conditionals, or split strategy branches. Re-run\n    code2llm after the change and keep tests green.'\n  priority: normal\n  labels:\n  - llm-ready\n  - code2llm\n  - complexity\n  - refactor\n  files:\n  - tools/build_catalog.py\n  dedupe_key: code2llm:cc:tools/build_catalog.py:tools.build_catalog.validate_manifest\n- signal: code2llm_smell_god_function\n  title: 'Address code smell: God Function: build_catalog'\n  description: 'code2llm reports `God Function: build_catalog` in `tools/build_catalog.py:126`.\n\n\n    Function ''build_catalog'' is oversized: CC=8, fan-out=10, mutations=9.\n\n\n    Make the smallest refactor that removes the smell and run local tests.'\n  priority: normal\n  labels:\n  - llm-ready\n  - code2llm\n  - code-smell\n  - god-function\n  files:\n  - tools/build_catalog.py\n  dedupe_key: 'code2llm:smell:god_function:tools/build_catalog.py:126:God Function:\n    build_catalog'\n- signal: code2llm_smell_god_function\n  title: 'Address code smell: God Function: build_report'\n  description: 'code2llm reports `God Function: build_report` in `tools/audit_connector_repos.py:353`.\n\n\n    Function ''build_report'' is oversized: CC=8, fan-out=15, mutations=11.\n\n\n    Make the smallest refactor that removes the smell and run local tests.'\n  priority: normal\n  labels:\n  - llm-ready\n  - code2llm\n  - code-smell\n  - god-function\n  files:\n  - tools/audit_connector_repos.py\n  dedupe_key: 'code2llm:smell:god_function:tools/audit_connector_repos.py:353:God\n    Function: build_report'\n- signal: code2llm_smell_god_function\n  title: 'Address code smell: God Function: loadTemplate'\n  description: 'code2llm reports `God Function: loadTemplate` in `assets/app.js:196`.\n\n\n    Function ''loadTemplate'' is oversized: CC=13, fan-out=3, mutations=0.\n\n\n    Make the smallest refactor that removes the smell and run local tests.'\n  priority: normal\n  labels:\n  - llm-ready\n  - code2llm\n  - code-smell\n  - god-function\n  files:\n  - assets/app.js\n  dedupe_key: 'code2llm:smell:god_function:assets/app.js:196:God Function: loadTemplate'\n- signal: code2llm_smell_god_function\n  title: 'Address code smell: God Function: main'\n  description: 'code2llm reports `God Function: main` in `scripts/validate_connectors.py:28`.\n\n\n    Function ''main'' is oversized: CC=9, fan-out=19, mutations=13.\n\n\n    Make the smallest refactor that removes the smell and run local tests.'\n  priority: normal\n  labels:\n  - llm-ready\n  - code2llm\n  - code-smell\n  - god-function\n  files:\n  - scripts/validate_connectors.py\n  dedupe_key: 'code2llm:smell:god_function:scripts/validate_connectors.py:28:God Function:\n    main'\n- signal: code2llm_smell_god_function\n  title: 'Address code smell: God Function: main'\n  description: 'code2llm reports `God Function: main` in `scripts/connector-template/pkg/cli.py:17`.\n\n\n    Function ''main'' is oversized: CC=5, fan-out=10, mutations=11.\n\n\n    Make the smallest refactor that removes the smell and run local tests.'\n  priority: normal\n  labels:\n  - llm-ready\n  - code2llm\n  - code-smell\n  - god-function\n  files:\n  - scripts/connector-template/pkg/cli.py\n  dedupe_key: 'code2llm:smell:god_function:scripts/connector-template/pkg/cli.py:17:God\n    Function: main'\n- signal: code2llm_smell_god_function\n  title: 'Address code smell: God Function: main'\n  description: 'code2llm reports `God Function: main` in `tools/audit_connector_repos.py:432`.\n\n\n    Function ''main'' is oversized: CC=5, fan-out=12, mutations=8.\n\n\n    Make the smallest refactor that removes the smell and run local tests.'\n  priority: normal\n  labels:\n  - llm-ready\n  - code2llm\n  - code-smell\n  - god-function\n  files:\n  - tools/audit_connector_repos.py\n  dedupe_key: 'code2llm:smell:god_function:tools/audit_connector_repos.py:432:God\n    Function: main'\n- signal: code2llm_smell_god_function\n  title: 'Address code smell: God Module: assets.app'\n  description: 'code2llm reports `God Module: assets.app` in `assets/app.js:1`.\n\n\n    Module ''assets.app'' is too large (60 functions, 0 classes). Consider splitting\n    into sub-modules.\n\n\n    Make the smallest refactor that removes the smell and run local tests.'\n  priority: normal\n  labels:\n  - llm-ready\n  - code2llm\n  - code-smell\n  - god-function\n  files:\n  - assets/app.js\n  dedupe_key: 'code2llm:smell:god_function:assets/app.js:1:God Module: assets.app'\napplied: []\nskipped: []\n", "is_subdir": false}, {"name": "project.toon.yaml", "rel_path": "project.toon.yaml", "path": "project.toon.yaml", "size": "2.2KB", "icon": "⚙️", "type": "yaml", "type_name": "YAML", "content": "# connect.ifuri.com | 113 func | 9f | 12056L | json | 2026-07-14\n# generated in 0.00s\n\nHEALTH:\n  CC̄=4.4  critical=12 (limit:10)  dup=0  cycles=0\n\nALERTS[14]:\n  !!! cc_exceeded      builder = 51 (limit:15)\n  !!! high_fan_out     builder = 29 (limit:10)\n  !!! high_fan_out     main = 21 (limit:10)\n  !!  cc_exceeded      detail_for = 23 (limit:15)\n  !!  cc_exceeded      main = 20 (limit:15)\n  !!  high_fan_out     main = 19 (limit:10)\n  !!  high_fan_out     detail_for = 17 (limit:10)\n  !!  high_fan_out     build_report = 15 (limit:10)\n  !   cc_exceeded      readManifest = 19 (limit:15)\n  !   cc_exceeded      validate_manifest = 16 (limit:15)\n\nMODULES[103] (top by size):\n  M[data/connectors.json] 3995L C:0 F:0 CC↑0 D:0 (json)\n  M[data/connector-repo-audit.json] 1179L C:0 F:0 CC↑0 D:0 (json)\n  M[tools/audit_connector_repos.py] 459L C:0 F:26 CC↑23 D:0 (python)\n  M[assets/app.js] 268L C:0 F:56 CC↑51 D:0 (javascript)\n  M[connector.php] 235L C:0 F:0 CC↑0 D:0 (php)\n  M[submit.php] 225L C:0 F:0 CC↑0 D:0 (php)\n  M[index.php] 211L C:0 F:0 CC↑0 D:0 (php)\n  M[tools/build_catalog.py] 171L C:0 F:6 CC↑16 D:0 (python)\n  M[categories.php] 140L C:0 F:0 CC↑0 D:0 (php)\n  M[scripts/check_connectors.py] 117L C:0 F:2 CC↑20 D:0 (python)\n  M[assets/ifuri-ecobar.js] 108L C:0 F:12 CC↑9 D:0 (javascript)\n  M[schema/connector.schema.json] 106L C:0 F:0 CC↑0 D:0 (json)\n  M[data/connectors/ksef/manifest.json] 101L C:0 F:0 CC↑0 D:0 (json)\n  M[data/connectors/sqlite-context/manifest.json] 100L C:0 F:0 CC↑0 D:0 (json)\n  M[data/connectors/planfile/manifest.json] 91L C:0 F:0 CC↑0 D:0 (json)\n  LANGS: json:70/php:18/python:7/shell:4/javascript:2/other:2\n\nHOTSPOTS[9]:\n  ★ builder fan=29  // Orchestrates 29 calls\n  ★ main fan=21  // Orchestrates 21 calls\n  ★ main fan=19  // Orchestrates 19 calls\n  ★ detail_for fan=17  // Orchestrates 17 calls\n  ★ build_report fan=15  // Orchestrates 15 calls\n\nREFACTOR[10]:\n  [1] H/L Split builder (CC=51)\n  [2] H/H Split god module data/connector-repo-audit.json (1179L, 0 classes)\n  [3] H/H Split god module data/connectors.json (3995L, 0 classes)\n  [4] M/L Split readManifest (CC=19)\n  [5] M/L Split main (CC=20)\n\nEVOLUTION:\n  2026-07-14 CC̄=4.4 crit=12 12056L // Automated analysis\n", "is_subdir": false}];
+        let currentFile = null;
+
+        function renderFileList(filter = '') {
+            const list = document.getElementById('fileList');
+            const filtered = files.filter(f =>
+                f.name.toLowerCase().includes(filter.toLowerCase()) ||
+                f.path.toLowerCase().includes(filter.toLowerCase())
+            );
+
+            if (filtered.length === 0) {
+                list.innerHTML = '<div class="empty-state">No files found</div>';
+                return;
+            }
+
+            // Group by type
+            const groups = {};
+            for (const file of filtered) {
+                const type = file.type_name;
+                if (!groups[type]) groups[type] = [];
+                groups[type].push(file);
+            }
+
+            let html = '';
+            for (const [typeName, groupFiles] of Object.entries(groups)) {
+                html += `
+                    <div class="file-group">
+                        <div class="file-group-title">${typeName} Files (${groupFiles.length})</div>
+                        ${groupFiles.map(f => `
+                            <div class="file-item ${currentFile?.name === f.name ? 'active' : ''}"
+                                 onclick="selectFile('${f.name}')">
+                                <span class="file-icon">${f.icon}</span>
+                                <div class="file-info">
+                                    <div class="file-name">${f.name}</div>
+                                    <div class="file-meta">${f.path}</div>
+                                </div>
+                                <span class="file-size">${f.size}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+
+            list.innerHTML = html;
+        }
+
+        function selectFile(name) {
+            const file = files.find(f => f.name === name);
+            if (!file) return;
+
+            currentFile = file;
+
+            document.getElementById('contentIcon').textContent = file.icon;
+            document.getElementById('contentTitle').textContent = file.name;
+
+            // Actions
+            const actions = document.getElementById('contentActions');
+            actions.innerHTML = `
+                <a href="${file.rel_path}" download class="btn">⬇ Download</a>
+                <a href="${file.rel_path}" target="_blank" class="btn btn-primary">↗ Open Raw</a>
+            `;
+
+            // Content
+            const body = document.getElementById('contentBody');
+            if (file.type === 'markdown') {
+                // Render markdown as HTML using marked.js
+                body.innerHTML = `<div class="markdown-content">${marked.parse(file.content)}</div>`;
+            } else if (file.type === 'html') {
+                // For HTML files, show in iframe for safety
+                body.innerHTML = `<iframe src="${file.rel_path}" style="width:100%;height:100%;border:none;border-radius:0.5rem;"></iframe>`;  # noqa: E501
+            } else if (file.type === 'image') {
+                // For images, display the actual image
+                body.innerHTML = `<div class="image-preview"><img src="${file.rel_path}" alt="${file.name}" style="max-width:100%;max-height:100%;object-fit:contain;border-radius:0.5rem;"></div>`;  # noqa: E501
+            } else if (file.type === 'mermaid') {
+                // Render mermaid diagram
+                const diagramId = 'mermaid-diagram-' + Date.now();
+                body.innerHTML = `<div class="mermaid-content"><pre class="mermaid" id="${diagramId}">${file.content}</pre></div>`;  # noqa: E501
+                // Initialize mermaid on the new element
+                setTimeout(() => {
+                    mermaid.init(undefined, document.getElementById(diagramId));
+                }, 0);
+            } else if (file.type === 'json') {
+                try {
+                    const json = JSON.parse(file.content.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&'));  # noqa: E501
+                    const formatted = JSON.stringify(json, null, 2);
+                    body.innerHTML = `<pre><code class="language-json">${formatted.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</code></pre>`;  # noqa: E501
+                    hljs.highlightElement(body.querySelector('code'));
+                } catch {
+                    body.innerHTML = `<pre>${file.content}</pre>`;
+                }
+            } else if (file.type === 'yaml') {
+                // YAML with syntax highlighting
+                body.innerHTML = `<pre><code class="language-yaml">${file.content.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</code></pre>`;  # noqa: E501
+                hljs.highlightElement(body.querySelector('code'));
+            } else if (file.type === 'toon') {
+                // TOON with simple highlighting (use ini as closest match for key: value format)
+                body.innerHTML = `<pre><code class="language-ini">${file.content.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</code></pre>`;  # noqa: E501
+                hljs.highlightElement(body.querySelector('code'));
+            } else if (file.type === 'code') {
+                // Code files with auto-highlighting
+                body.innerHTML = `<pre><code>${file.content.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</code></pre>`;  # noqa: E501
+                hljs.highlightElement(body.querySelector('code'));
+            } else {
+                body.innerHTML = `<pre>${file.content}</pre>`;
+            }
+
+            renderFileList(document.getElementById('search').value);
+        }
+
+        function filterFiles(query) {
+            renderFileList(query);
+        }
+
+        function renderStats() {
+            const stats = {};
+            for (const f of files) {
+                stats[f.type_name] = (stats[f.type_name] || 0) + 1;
+            }
+
+            const grid = document.getElementById('statsGrid');
+            grid.innerHTML = Object.entries(stats)
+                .sort((a, b) => b[1] - a[1])
+                .map(([type, count]) => `
+                    <div class="stat-card">
+                        <div class="stat-value">${count}</div>
+                        <div class="stat-label">${type}</div>
+                    </div>
+                `).join('');
+        }
+
+        // Initialize
+        renderStats();
+        renderFileList();
+
+        // Select first file if available
+        if (files.length > 0) {
+            selectFile(files[0].name);
+        }
+    </script>
+</body>
+</html>

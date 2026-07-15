@@ -1,0 +1,72 @@
+// LESS format — define @variables here as needed
+
+app {
+  name: connect.ifuri.com;
+  version: 0.1.0;
+}
+
+workflow[name="build-catalog"] {
+  trigger: manual;
+  step-1: run cmd=python3 tools/build_catalog.py;
+}
+
+workflow[name="check-catalog"] {
+  trigger: manual;
+  step-1: run cmd=python3 tools/build_catalog.py --check;
+}
+
+workflow[name="check-connectors"] {
+  trigger: manual;
+  step-1: run cmd=python3 scripts/check_connectors.py;
+}
+
+workflow[name="new-connector"] {
+  trigger: manual;
+  step-1: run cmd=bash scripts/new-connector.sh $(ID) $(SCHEME);
+}
+
+workflow[name="test"] {
+  trigger: manual;
+  step-1: run cmd=bash tests/smoke.sh;
+}
+
+workflow[name="public-smoke"] {
+  trigger: manual;
+  step-1: run cmd=CONNECT_HUB_BASE=https://connect.ifuri.com bash tests/smoke.sh;
+}
+
+workflow[name="serve"] {
+  trigger: manual;
+  step-1: run cmd=php -S 127.0.0.1:8099 router.php;
+}
+
+workflow[name="deploy"] {
+  trigger: manual;
+  step-1: run cmd=bash scripts/deploy-plesk.sh;
+}
+
+workflow[name="version"] {
+  trigger: manual;
+  step-1: run cmd=echo $(VERSION);
+}
+
+workflow[name="push"] {
+  trigger: manual;
+  step-1: run cmd=level="$(or $(LEVEL),patch)"; \;
+  step-2: run cmd=cur=$$(cat VERSION 2>/dev/null || echo 0.0.0); \;
+  step-3: run cmd=new=$$(awk -F. -v l="$$level" '{ if(l=="major") print $$1+1".0.0"; else if(l=="minor") print $$1"."$$2+1".0"; else print $$1"."$$2"."$$3+1 }' VERSION); \;
+  step-4: run cmd=echo "$$new" > VERSION; \;
+  step-5: run cmd=git add VERSION; \;
+  step-6: run cmd=git commit -m "release: v$$new"; \;
+  step-7: run cmd=git tag -a "v$$new" -m "v$$new"; \;
+  step-8: run cmd=git push && git push --tags; \;
+  step-9: run cmd=echo "released v$$new (was v$$cur); deploy carries VERSION -> footer shows it";
+}
+
+deploy {
+  target: makefile;
+}
+
+environment[name="local"] {
+  runtime: python;
+}
