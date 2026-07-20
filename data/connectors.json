@@ -863,6 +863,144 @@
       }
     },
     {
+      "id": "allegro",
+      "name": "Allegro",
+      "version": "0.1.0",
+      "status": "planned",
+      "category": "Marketplace operations",
+      "summary": "Planned Allegro connector for offer, order and publication-error monitoring when a seller needs direct marketplace control outside BaseLinker.",
+      "description": "Added as a planned connector because Marketing identifies direct marketplace control as a high-value fallback when a seller does not use BaseLinker or needs marketplace-native diagnostics. Allegro documents an API for exchanging information with external software such as warehouse or accounting systems and uses OAuth flows. Build should start only after a customer validates the direct-Allegro use case and required scopes.",
+      "uriSchemes": [
+        "allegro"
+      ],
+      "routes": [
+        "allegro://host/auth/query/status",
+        "allegro://host/orders/query/events",
+        "allegro://host/offers/query/list",
+        "allegro://host/offer/command/update-stock",
+        "allegro://host/offer/command/update-price",
+        "allegro://host/doctor/query/report"
+      ],
+      "useCases": [
+        "Validate publication errors and offer status directly in Allegro.",
+        "Read order events for sellers who do not use BaseLinker.",
+        "Dry-run stock or price changes before writing to live offers."
+      ],
+      "examples": [
+        {
+          "title": "Check OAuth readiness",
+          "uri": "allegro://host/auth/query/status",
+          "payload": {}
+        },
+        {
+          "title": "List order events",
+          "uri": "allegro://host/orders/query/events",
+          "payload": {
+            "from": "2026-07-01T00:00:00Z"
+          }
+        }
+      ],
+      "flowExample": [
+        "allegro://host/orders/query/events",
+        "work://host/lease/command/claim-next",
+        "email://host/message/command/send"
+      ],
+      "requires": [
+        "python>=3.10",
+        "Allegro OAuth application",
+        "seller consent and scoped access token"
+      ],
+      "install": {
+        "mode": "planned"
+      },
+      "adapterKinds": [
+        "http-api"
+      ],
+      "docsUrl": "https://developer.allegro.pl/tutorials/uwierzytelnianie-i-autoryzacja-zlq9e75GdIR",
+      "keywords": [
+        "allegro",
+        "marketplace",
+        "orders",
+        "offers",
+        "oauth",
+        "stock",
+        "prices"
+      ],
+      "provenance": "verified",
+      "publisher": {
+        "name": "if-uri",
+        "url": "https://ifuri.com",
+        "github": "https://github.com/urirun-connectors"
+      }
+    },
+    {
+      "id": "apaczka",
+      "name": "Apaczka",
+      "version": "0.1.0",
+      "status": "planned",
+      "category": "Shipping / logistics",
+      "summary": "Planned Apaczka connector for multi-carrier order shipment, label and tracking operations.",
+      "description": "Added because Marketing lists marketplace -> courier as a repeatable pilot. Apaczka publishes Web API v2 for integrating external systems to send shipments without logging into the panel, with endpoints for order lists, details, waybills, pricing, sending, cancellation and tracking history. This connector is a good second courier option after InPost when the customer uses a broker instead of a single carrier.",
+      "uriSchemes": [
+        "apaczka"
+      ],
+      "routes": [
+        "apaczka://host/auth/query/status",
+        "apaczka://host/order/query/list",
+        "apaczka://host/order/query/details",
+        "apaczka://host/order/command/send",
+        "apaczka://host/order/command/cancel",
+        "apaczka://host/label/query/waybill",
+        "apaczka://host/tracking/query/history",
+        "apaczka://host/doctor/query/report"
+      ],
+      "useCases": [
+        "Prepare courier shipment after marketplace order validation.",
+        "Fetch waybill and tracking history for customer support.",
+        "Dry-run shipment payload before sending to the broker API."
+      ],
+      "examples": [
+        {
+          "title": "Query tracking history",
+          "uri": "apaczka://host/tracking/query/history",
+          "payload": {
+            "waybill": "TEST123"
+          }
+        }
+      ],
+      "flowExample": [
+        "baselinker://host/orders/query/list",
+        "apaczka://host/order/command/send",
+        "email://host/message/command/send"
+      ],
+      "requires": [
+        "python>=3.10",
+        "Apaczka Web API v2 account",
+        "signature credentials"
+      ],
+      "install": {
+        "mode": "planned"
+      },
+      "adapterKinds": [
+        "http-api"
+      ],
+      "docsUrl": "https://panel.apaczka.pl/dokumentacja_api_v2.php",
+      "keywords": [
+        "apaczka",
+        "courier",
+        "shipping",
+        "waybill",
+        "tracking",
+        "fulfillment"
+      ],
+      "provenance": "verified",
+      "publisher": {
+        "name": "if-uri",
+        "url": "https://ifuri.com",
+        "github": "https://github.com/urirun-connectors"
+      }
+    },
+    {
       "id": "base64",
       "name": "Base64 (PHP)",
       "version": "0.1.0",
@@ -925,6 +1063,95 @@
         "name": "if-uri",
         "url": "https://ifuri.com",
         "github": "https://github.com/if-uri"
+      }
+    },
+    {
+      "id": "baselinker",
+      "name": "BaseLinker",
+      "version": "0.1.0",
+      "status": "available",
+      "category": "Marketplace operations",
+      "summary": "Read BaseLinker orders and inventory, then dry-run stock or price corrections for marketplace ERP/WMS pilots.",
+      "description": "Added because Marketing identified marketplace -> ERP/WMS synchronization as the fastest monetization path: sellers need order, stock and price checks across marketplace, warehouse and accounting flows. BaseLinker has an official JSON API with X-BLToken authentication, documented order/inventory/stock/price methods and a 100 requests/minute limit. This connector is available for dry-run pilots and CI-verified, but not production-certified until tested on a customer or official test account.",
+      "uriSchemes": [
+        "baselinker"
+      ],
+      "routes": [
+        "baselinker://host/doctor/query/report",
+        "baselinker://host/orders/query/list",
+        "baselinker://host/inventory/query/products",
+        "baselinker://host/inventory/query/stock",
+        "baselinker://host/inventory/command/stock-update",
+        "baselinker://host/inventory/command/prices-update",
+        "baselinker://host/api/query/request"
+      ],
+      "useCases": [
+        "Pilot: compare BaseLinker stock with ERP/WMS/CSV export and generate a dry-run correction plan.",
+        "Pilot: download confirmed orders and prepare audited handoff to ERP or accounting.",
+        "Why this connector: existing commerce panels synchronize data, but urirun adds URI-level audit, dry-run, approval flow and alert composition with other connectors."
+      ],
+      "examples": [
+        {
+          "title": "Read connector readiness without exposing token",
+          "uri": "baselinker://host/doctor/query/report",
+          "payload": {}
+        },
+        {
+          "title": "List confirmed orders from a timestamp",
+          "uri": "baselinker://host/orders/query/list",
+          "payload": {
+            "date_confirmed_from": 1721000000,
+            "get_unconfirmed_orders": false
+          }
+        },
+        {
+          "title": "Dry-run stock correction",
+          "uri": "baselinker://host/inventory/command/stock-update",
+          "payload": {
+            "inventory_id": 307,
+            "products": {
+              "2685": {
+                "bl_206": 5
+              }
+            }
+          }
+        }
+      ],
+      "flowExample": [
+        "baselinker://host/orders/query/list",
+        "baselinker://host/inventory/query/stock",
+        "sheet://host/table/query/read",
+        "work://host/lease/command/claim-next",
+        "twilio://host/call/command/create"
+      ],
+      "requires": [
+        "python>=3.10",
+        "BASELINKER_API_TOKEN or BASELINKER_API_TOKEN_FILE"
+      ],
+      "install": {
+        "mode": "urirun-extra",
+        "pipSpec": "urirun-connector-baselinker @ git+https://github.com/urirun-connectors/urirun-connector-baselinker.git@0d40e598ae8f26a91dae587aecc04fb974ec1298"
+      },
+      "adapterKinds": [
+        "http-api"
+      ],
+      "docsUrl": "https://github.com/urirun-connectors/urirun-connector-baselinker/blob/feat/baselinker-connector/docs/BUSINESS_CASE.md",
+      "keywords": [
+        "baselinker",
+        "base.com",
+        "marketplace",
+        "orders",
+        "inventory",
+        "stock",
+        "prices",
+        "erp",
+        "wms"
+      ],
+      "provenance": "verified",
+      "publisher": {
+        "name": "if-uri",
+        "url": "https://ifuri.com",
+        "github": "https://github.com/urirun-connectors"
       }
     },
     {
@@ -1181,6 +1408,70 @@
         "name": "tellmesh",
         "url": "https://github.com/tellmesh",
         "github": "https://github.com/tellmesh"
+      }
+    },
+    {
+      "id": "comarch-optima",
+      "name": "Comarch ERP Optima Bridge",
+      "version": "0.1.0",
+      "status": "planned",
+      "category": "ERP",
+      "summary": "Planned Comarch ERP Optima connector for ERP/accounting handoff where customers can expose a supported API or local bridge.",
+      "description": "Added because Marketing identifies marketplace -> ERP/accounting and invoice completeness checks as monetizable. Public Comarch materials show API and integration surfaces around Optima/OCR/BPM, but a generic, public Optima REST API for stock/order writes is not confirmed here. Therefore this connector is planned with VALIDATE FIRST: first confirm customer deployment model, partner API access and whether a local bridge is required.",
+      "uriSchemes": [
+        "optima"
+      ],
+      "routes": [
+        "optima://host/doctor/query/report",
+        "optima://host/products/query/list",
+        "optima://host/stock/query/list",
+        "optima://host/invoices/query/list",
+        "optima://host/order/command/create-draft"
+      ],
+      "useCases": [
+        "Check whether marketplace orders have corresponding accounting documents.",
+        "Compare Optima stock/product data with BaseLinker inventory.",
+        "Use a customer-approved bridge rather than assuming a universal cloud API."
+      ],
+      "examples": [
+        {
+          "title": "Check bridge readiness",
+          "uri": "optima://host/doctor/query/report",
+          "payload": {}
+        }
+      ],
+      "flowExample": [
+        "baselinker://host/orders/query/list",
+        "optima://host/invoices/query/list",
+        "ksef://demo/invoices/query"
+      ],
+      "requires": [
+        "python>=3.10",
+        "customer-specific Optima API/bridge access",
+        "technical operator credentials"
+      ],
+      "install": {
+        "mode": "planned"
+      },
+      "adapterKinds": [
+        "http-api",
+        "local-function"
+      ],
+      "docsUrl": "https://pomoc.comarch.pl/optima/pl/2026/dokumentacja/comarch-ocr-api-instrukcja-uzytkownika/?print=print",
+      "keywords": [
+        "comarch",
+        "optima",
+        "erp",
+        "accounting",
+        "invoices",
+        "stock",
+        "bridge"
+      ],
+      "provenance": "verified",
+      "publisher": {
+        "name": "if-uri",
+        "url": "https://ifuri.com",
+        "github": "https://github.com/urirun-connectors"
       }
     },
     {
@@ -1483,6 +1774,78 @@
       }
     },
     {
+      "id": "enova365",
+      "name": "enova365 WebAPI",
+      "version": "0.1.0",
+      "status": "planned",
+      "category": "ERP",
+      "summary": "Planned enova365 WebAPI connector for ERP stock, document and contractor synchronization pilots.",
+      "description": "Added because Marketing identifies marketplace -> ERP and price/stock synchronization as P1 monetization. enova365 documents WebAPI as a REST interface with JWT authorization, Swagger documentation, dynamic controllers and multi-database support. This connector should focus on read-only stock/product/customer queries first, then dry-run document creation after customer validation.",
+      "uriSchemes": [
+        "enova365"
+      ],
+      "routes": [
+        "enova365://host/auth/query/status",
+        "enova365://host/products/query/list",
+        "enova365://host/stock/query/list",
+        "enova365://host/contractors/query/list",
+        "enova365://host/document/command/create-sales-order",
+        "enova365://host/doctor/query/report"
+      ],
+      "useCases": [
+        "Compare ERP stock with BaseLinker marketplace stock.",
+        "Prepare a sales-order payload from marketplace order data.",
+        "Use customer-specific WebAPI controllers without hardcoding one ERP database layout."
+      ],
+      "examples": [
+        {
+          "title": "Check JWT/API readiness",
+          "uri": "enova365://host/auth/query/status",
+          "payload": {}
+        },
+        {
+          "title": "List stock by SKU",
+          "uri": "enova365://host/stock/query/list",
+          "payload": {
+            "sku": "SKU-001"
+          }
+        }
+      ],
+      "flowExample": [
+        "baselinker://host/inventory/query/stock",
+        "enova365://host/stock/query/list",
+        "work://host/lease/command/claim-next"
+      ],
+      "requires": [
+        "python>=3.10",
+        "enova365 WebAPI module",
+        "JWT/API credentials",
+        "customer-specific controller map"
+      ],
+      "install": {
+        "mode": "planned"
+      },
+      "adapterKinds": [
+        "http-api"
+      ],
+      "docsUrl": "https://enova.pl/moduly-systemu/integracje/webapi/",
+      "keywords": [
+        "enova365",
+        "erp",
+        "webapi",
+        "jwt",
+        "stock",
+        "orders",
+        "contractors"
+      ],
+      "provenance": "verified",
+      "publisher": {
+        "name": "if-uri",
+        "url": "https://ifuri.com",
+        "github": "https://github.com/urirun-connectors"
+      }
+    },
+    {
       "id": "env",
       "name": "Environment",
       "version": "0.1.0",
@@ -1543,6 +1906,73 @@
         "name": "tellmesh",
         "url": "https://github.com/tellmesh",
         "github": "https://github.com/tellmesh"
+      }
+    },
+    {
+      "id": "fakturownia",
+      "name": "Fakturownia",
+      "version": "0.1.0",
+      "status": "planned",
+      "category": "Accounting / invoicing",
+      "summary": "Planned Fakturownia connector for invoice, client, product and warehouse-document operations in e-commerce accounting pilots.",
+      "description": "Added because Marketing identifies marketplace -> accounting as a repeatable pilot. Fakturownia documents an open API for invoices, products/services, clients, warehouse documents, payments, categories and warehouses, using API token authentication. This connector can provide a lighter accounting pilot than ERP connectors when the customer already uses Fakturownia.",
+      "uriSchemes": [
+        "fakturownia"
+      ],
+      "routes": [
+        "fakturownia://host/auth/query/status",
+        "fakturownia://host/invoices/query/list",
+        "fakturownia://host/invoice/query/pdf",
+        "fakturownia://host/clients/query/list",
+        "fakturownia://host/products/query/list",
+        "fakturownia://host/invoice/command/create-draft",
+        "fakturownia://host/doctor/query/report"
+      ],
+      "useCases": [
+        "Check if marketplace orders that require invoices have documents in Fakturownia.",
+        "Read products and clients for reconciliation against marketplace orders.",
+        "Prepare invoice drafts with dry-run before write."
+      ],
+      "examples": [
+        {
+          "title": "List invoices for this month",
+          "uri": "fakturownia://host/invoices/query/list",
+          "payload": {
+            "period": "this_month",
+            "page": 1
+          }
+        }
+      ],
+      "flowExample": [
+        "baselinker://host/orders/query/list",
+        "fakturownia://host/invoices/query/list",
+        "email://host/message/command/send"
+      ],
+      "requires": [
+        "python>=3.10",
+        "Fakturownia domain",
+        "API token"
+      ],
+      "install": {
+        "mode": "planned"
+      },
+      "adapterKinds": [
+        "http-api"
+      ],
+      "docsUrl": "https://app.fakturownia.pl/api",
+      "keywords": [
+        "fakturownia",
+        "invoices",
+        "accounting",
+        "clients",
+        "products",
+        "warehouses"
+      ],
+      "provenance": "verified",
+      "publisher": {
+        "name": "if-uri",
+        "url": "https://ifuri.com",
+        "github": "https://github.com/urirun-connectors"
       }
     },
     {
@@ -1961,6 +2391,77 @@
         "name": "tellmesh",
         "url": "https://github.com/tellmesh",
         "github": "https://github.com/tellmesh"
+      }
+    },
+    {
+      "id": "inpost",
+      "name": "InPost Shipping / ShipX",
+      "version": "0.1.0",
+      "status": "planned",
+      "category": "Shipping / logistics",
+      "summary": "Planned InPost connector for shipment creation, tracking and label retrieval in marketplace fulfillment pilots.",
+      "description": "Added because Marketing maps marketplace -> courier and fulfillment as a concrete monetization path after order synchronization. InPost documents Shipping/ShipX APIs for creating shipments, retrieving shipment details, labels and tracking, with OAuth-based access. This connector should be implemented after a pilot customer confirms courier workflow scope and provides an organization account.",
+      "uriSchemes": [
+        "inpost"
+      ],
+      "routes": [
+        "inpost://host/auth/query/status",
+        "inpost://host/shipment/command/create",
+        "inpost://host/shipment/query/status",
+        "inpost://host/shipment/query/label",
+        "inpost://host/points/query/search",
+        "inpost://host/doctor/query/report"
+      ],
+      "useCases": [
+        "Create a shipment after a BaseLinker order is validated.",
+        "Download a label and attach it to an audited fulfillment task.",
+        "Alert operators when tracking status stalls or shipment creation fails."
+      ],
+      "examples": [
+        {
+          "title": "Check InPost auth readiness",
+          "uri": "inpost://host/auth/query/status",
+          "payload": {}
+        },
+        {
+          "title": "Query shipment status",
+          "uri": "inpost://host/shipment/query/status",
+          "payload": {
+            "tracking_number": "123456789012345678901234"
+          }
+        }
+      ],
+      "flowExample": [
+        "baselinker://host/orders/query/list",
+        "inpost://host/shipment/command/create",
+        "work://host/lease/command/claim-next"
+      ],
+      "requires": [
+        "python>=3.10",
+        "InPost organization account",
+        "OAuth credentials"
+      ],
+      "install": {
+        "mode": "planned"
+      },
+      "adapterKinds": [
+        "http-api"
+      ],
+      "docsUrl": "https://developers.inpost-group.com/shipping",
+      "keywords": [
+        "inpost",
+        "shipx",
+        "shipping",
+        "courier",
+        "labels",
+        "tracking",
+        "fulfillment"
+      ],
+      "provenance": "verified",
+      "publisher": {
+        "name": "if-uri",
+        "url": "https://ifuri.com",
+        "github": "https://github.com/urirun-connectors"
       }
     },
     {
@@ -3192,6 +3693,74 @@
       }
     },
     {
+      "id": "subiekt-nexo",
+      "name": "Subiekt nexo / InsERT Sfera Bridge",
+      "version": "0.1.0",
+      "status": "planned",
+      "category": "ERP",
+      "summary": "Planned Subiekt nexo connector via a local Sfera/SQL bridge for Polish marketplace ERP pilots.",
+      "description": "Added because Marketing repeatedly points to marketplace -> ERP synchronization and Subiekt is a likely Polish SMB ERP target. Unlike BaseLinker or enova365 WebAPI, this connector needs validation first: practical integrations often require a local bridge around InsERT Sfera libraries or read-only SQL access, not a simple public SaaS token. The planned connector should therefore start as a local bridge contract, not a direct cloud API promise.",
+      "uriSchemes": [
+        "subiekt"
+      ],
+      "routes": [
+        "subiekt://host/doctor/query/report",
+        "subiekt://host/products/query/list",
+        "subiekt://host/stock/query/list",
+        "subiekt://host/customers/query/list",
+        "subiekt://host/order/command/create-draft"
+      ],
+      "useCases": [
+        "Read Subiekt stock and compare it with BaseLinker inventory.",
+        "Create a draft sales order from a marketplace order after operator approval.",
+        "Offer a local-first path for customers whose ERP data cannot leave the organization."
+      ],
+      "examples": [
+        {
+          "title": "Read product stock by symbol",
+          "uri": "subiekt://host/stock/query/list",
+          "payload": {
+            "symbol": "SKU-001"
+          }
+        }
+      ],
+      "flowExample": [
+        "baselinker://host/orders/query/list",
+        "subiekt://host/stock/query/list",
+        "planfile://host/dsl/command/run"
+      ],
+      "requires": [
+        "python>=3.10",
+        "customer-hosted bridge service",
+        "InsERT Sfera or read-only SQL access",
+        "technical operator credentials"
+      ],
+      "install": {
+        "mode": "planned"
+      },
+      "adapterKinds": [
+        "http-api",
+        "local-function"
+      ],
+      "docsUrl": "https://forum.insert.com.pl/index.php?/topic/102966-api-insert-nexo-pro-integracja-subiekt-nexo-pro-gestor-nexo-pro-pod-n8n-chat-gpt-itp-czy-si%C4%99-da-to-dobrze-tanio-po%C5%82%C4%85czy%C4%87/",
+      "keywords": [
+        "subiekt",
+        "insert",
+        "nexo",
+        "sfera",
+        "erp",
+        "stock",
+        "orders",
+        "local-first"
+      ],
+      "provenance": "verified",
+      "publisher": {
+        "name": "if-uri",
+        "url": "https://ifuri.com",
+        "github": "https://github.com/urirun-connectors"
+      }
+    },
+    {
       "id": "twin",
       "name": "Twin",
       "version": "0.1.0",
@@ -3935,6 +4504,74 @@
         "name": "tellmesh",
         "url": "https://github.com/tellmesh",
         "github": "https://github.com/tellmesh"
+      }
+    },
+    {
+      "id": "wfirma",
+      "name": "wFirma.pl",
+      "version": "0.1.0",
+      "status": "planned",
+      "category": "Accounting / invoicing",
+      "summary": "Planned wFirma connector for invoice, contractor, goods and warehouse-document checks in marketplace accounting pilots.",
+      "description": "Added because Marketing lists marketplace -> accounting as a concrete offer: verify that confirmed marketplace orders have invoices and KSeF traces. wFirma publishes API documentation with API key and OAuth options, modules such as invoices, contractors, goods, warehouses, warehouse_documents and KSeF-related workflows. This connector should start read-only and dry-run invoice draft creation.",
+      "uriSchemes": [
+        "wfirma"
+      ],
+      "routes": [
+        "wfirma://host/auth/query/status",
+        "wfirma://host/invoices/query/list",
+        "wfirma://host/invoice/query/show",
+        "wfirma://host/contractors/query/list",
+        "wfirma://host/goods/query/list",
+        "wfirma://host/invoice/command/create-draft",
+        "wfirma://host/doctor/query/report"
+      ],
+      "useCases": [
+        "Verify invoice coverage for BaseLinker confirmed orders.",
+        "Read contractors/goods to prepare accounting handoff.",
+        "Create invoice drafts only after approval."
+      ],
+      "examples": [
+        {
+          "title": "Find invoices for a period",
+          "uri": "wfirma://host/invoices/query/list",
+          "payload": {
+            "date_from": "2026-07-01",
+            "date_to": "2026-07-31"
+          }
+        }
+      ],
+      "flowExample": [
+        "baselinker://host/orders/query/list",
+        "wfirma://host/invoices/query/list",
+        "ksef://demo/invoices/query"
+      ],
+      "requires": [
+        "python>=3.10",
+        "wFirma API key headers or OAuth credentials",
+        "verified company for OAuth 2.0 application where required"
+      ],
+      "install": {
+        "mode": "planned"
+      },
+      "adapterKinds": [
+        "http-api"
+      ],
+      "docsUrl": "https://doc.wfirma.pl/",
+      "keywords": [
+        "wfirma",
+        "accounting",
+        "invoices",
+        "ksef",
+        "contractors",
+        "goods",
+        "warehouses"
+      ],
+      "provenance": "verified",
+      "publisher": {
+        "name": "if-uri",
+        "url": "https://ifuri.com",
+        "github": "https://github.com/urirun-connectors"
       }
     },
     {

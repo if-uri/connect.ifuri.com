@@ -1,0 +1,35 @@
+{
+  "id": "inpost",
+  "name": "InPost Shipping / ShipX",
+  "version": "0.1.0",
+  "status": "planned",
+  "category": "Shipping / logistics",
+  "summary": "Planned InPost connector for shipment creation, tracking and label retrieval in marketplace fulfillment pilots.",
+  "description": "Added because Marketing maps marketplace -> courier and fulfillment as a concrete monetization path after order synchronization. InPost documents Shipping/ShipX APIs for creating shipments, retrieving shipment details, labels and tracking, with OAuth-based access. This connector should be implemented after a pilot customer confirms courier workflow scope and provides an organization account.",
+  "uriSchemes": ["inpost"],
+  "routes": [
+    "inpost://host/auth/query/status",
+    "inpost://host/shipment/command/create",
+    "inpost://host/shipment/query/status",
+    "inpost://host/shipment/query/label",
+    "inpost://host/points/query/search",
+    "inpost://host/doctor/query/report"
+  ],
+  "useCases": [
+    "Create a shipment after a BaseLinker order is validated.",
+    "Download a label and attach it to an audited fulfillment task.",
+    "Alert operators when tracking status stalls or shipment creation fails."
+  ],
+  "examples": [
+    {"title": "Check InPost auth readiness", "uri": "inpost://host/auth/query/status", "payload": {}},
+    {"title": "Query shipment status", "uri": "inpost://host/shipment/query/status", "payload": {"tracking_number": "123456789012345678901234"}}
+  ],
+  "flowExample": ["baselinker://host/orders/query/list", "inpost://host/shipment/command/create", "work://host/lease/command/claim-next"],
+  "requires": ["python>=3.10", "InPost organization account", "OAuth credentials"],
+  "adapterKinds": ["http-api"],
+  "install": {"mode": "planned"},
+  "provenance": "verified",
+  "publisher": {"name": "if-uri", "url": "https://ifuri.com", "github": "https://github.com/urirun-connectors"},
+  "docsUrl": "https://developers.inpost-group.com/shipping",
+  "keywords": ["inpost", "shipx", "shipping", "courier", "labels", "tracking", "fulfillment"]
+}

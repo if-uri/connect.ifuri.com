@@ -1,0 +1,43 @@
+{
+  "id": "baselinker",
+  "name": "BaseLinker",
+  "version": "0.1.0",
+  "status": "available",
+  "category": "Marketplace operations",
+  "summary": "Read BaseLinker orders and inventory, then dry-run stock or price corrections for marketplace ERP/WMS pilots.",
+  "description": "Added because Marketing identified marketplace -> ERP/WMS synchronization as the fastest monetization path: sellers need order, stock and price checks across marketplace, warehouse and accounting flows. BaseLinker has an official JSON API with X-BLToken authentication, documented order/inventory/stock/price methods and a 100 requests/minute limit. This connector is available for dry-run pilots and CI-verified, but not production-certified until tested on a customer or official test account.",
+  "uriSchemes": ["baselinker"],
+  "routes": [
+    "baselinker://host/doctor/query/report",
+    "baselinker://host/orders/query/list",
+    "baselinker://host/inventory/query/products",
+    "baselinker://host/inventory/query/stock",
+    "baselinker://host/inventory/command/stock-update",
+    "baselinker://host/inventory/command/prices-update",
+    "baselinker://host/api/query/request"
+  ],
+  "useCases": [
+    "Pilot: compare BaseLinker stock with ERP/WMS/CSV export and generate a dry-run correction plan.",
+    "Pilot: download confirmed orders and prepare audited handoff to ERP or accounting.",
+    "Why this connector: existing commerce panels synchronize data, but urirun adds URI-level audit, dry-run, approval flow and alert composition with other connectors."
+  ],
+  "examples": [
+    {"title": "Read connector readiness without exposing token", "uri": "baselinker://host/doctor/query/report", "payload": {}},
+    {"title": "List confirmed orders from a timestamp", "uri": "baselinker://host/orders/query/list", "payload": {"date_confirmed_from": 1721000000, "get_unconfirmed_orders": false}},
+    {"title": "Dry-run stock correction", "uri": "baselinker://host/inventory/command/stock-update", "payload": {"inventory_id": 307, "products": {"2685": {"bl_206": 5}}}}
+  ],
+  "flowExample": [
+    "baselinker://host/orders/query/list",
+    "baselinker://host/inventory/query/stock",
+    "sheet://host/table/query/read",
+    "work://host/lease/command/claim-next",
+    "twilio://host/call/command/create"
+  ],
+  "requires": ["python>=3.10", "BASELINKER_API_TOKEN or BASELINKER_API_TOKEN_FILE"],
+  "adapterKinds": ["http-api"],
+  "install": {"mode": "urirun-extra", "pipSpec": "urirun-connector-baselinker @ git+https://github.com/urirun-connectors/urirun-connector-baselinker.git@0d40e598ae8f26a91dae587aecc04fb974ec1298"},
+  "provenance": "verified",
+  "publisher": {"name": "if-uri", "url": "https://ifuri.com", "github": "https://github.com/urirun-connectors"},
+  "docsUrl": "https://github.com/urirun-connectors/urirun-connector-baselinker/blob/feat/baselinker-connector/docs/BUSINESS_CASE.md",
+  "keywords": ["baselinker", "base.com", "marketplace", "orders", "inventory", "stock", "prices", "erp", "wms"]
+}

@@ -1,0 +1,36 @@
+{
+  "id": "apaczka",
+  "name": "Apaczka",
+  "version": "0.1.0",
+  "status": "planned",
+  "category": "Shipping / logistics",
+  "summary": "Planned Apaczka connector for multi-carrier order shipment, label and tracking operations.",
+  "description": "Added because Marketing lists marketplace -> courier as a repeatable pilot. Apaczka publishes Web API v2 for integrating external systems to send shipments without logging into the panel, with endpoints for order lists, details, waybills, pricing, sending, cancellation and tracking history. This connector is a good second courier option after InPost when the customer uses a broker instead of a single carrier.",
+  "uriSchemes": ["apaczka"],
+  "routes": [
+    "apaczka://host/auth/query/status",
+    "apaczka://host/order/query/list",
+    "apaczka://host/order/query/details",
+    "apaczka://host/order/command/send",
+    "apaczka://host/order/command/cancel",
+    "apaczka://host/label/query/waybill",
+    "apaczka://host/tracking/query/history",
+    "apaczka://host/doctor/query/report"
+  ],
+  "useCases": [
+    "Prepare courier shipment after marketplace order validation.",
+    "Fetch waybill and tracking history for customer support.",
+    "Dry-run shipment payload before sending to the broker API."
+  ],
+  "examples": [
+    {"title": "Query tracking history", "uri": "apaczka://host/tracking/query/history", "payload": {"waybill": "TEST123"}}
+  ],
+  "flowExample": ["baselinker://host/orders/query/list", "apaczka://host/order/command/send", "email://host/message/command/send"],
+  "requires": ["python>=3.10", "Apaczka Web API v2 account", "signature credentials"],
+  "adapterKinds": ["http-api"],
+  "install": {"mode": "planned"},
+  "provenance": "verified",
+  "publisher": {"name": "if-uri", "url": "https://ifuri.com", "github": "https://github.com/urirun-connectors"},
+  "docsUrl": "https://panel.apaczka.pl/dokumentacja_api_v2.php",
+  "keywords": ["apaczka", "courier", "shipping", "waybill", "tracking", "fulfillment"]
+}

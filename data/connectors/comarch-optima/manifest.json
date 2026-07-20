@@ -1,0 +1,33 @@
+{
+  "id": "comarch-optima",
+  "name": "Comarch ERP Optima Bridge",
+  "version": "0.1.0",
+  "status": "planned",
+  "category": "ERP",
+  "summary": "Planned Comarch ERP Optima connector for ERP/accounting handoff where customers can expose a supported API or local bridge.",
+  "description": "Added because Marketing identifies marketplace -> ERP/accounting and invoice completeness checks as monetizable. Public Comarch materials show API and integration surfaces around Optima/OCR/BPM, but a generic, public Optima REST API for stock/order writes is not confirmed here. Therefore this connector is planned with VALIDATE FIRST: first confirm customer deployment model, partner API access and whether a local bridge is required.",
+  "uriSchemes": ["optima"],
+  "routes": [
+    "optima://host/doctor/query/report",
+    "optima://host/products/query/list",
+    "optima://host/stock/query/list",
+    "optima://host/invoices/query/list",
+    "optima://host/order/command/create-draft"
+  ],
+  "useCases": [
+    "Check whether marketplace orders have corresponding accounting documents.",
+    "Compare Optima stock/product data with BaseLinker inventory.",
+    "Use a customer-approved bridge rather than assuming a universal cloud API."
+  ],
+  "examples": [
+    {"title": "Check bridge readiness", "uri": "optima://host/doctor/query/report", "payload": {}}
+  ],
+  "flowExample": ["baselinker://host/orders/query/list", "optima://host/invoices/query/list", "ksef://demo/invoices/query"],
+  "requires": ["python>=3.10", "customer-specific Optima API/bridge access", "technical operator credentials"],
+  "adapterKinds": ["http-api", "local-function"],
+  "install": {"mode": "planned"},
+  "provenance": "verified",
+  "publisher": {"name": "if-uri", "url": "https://ifuri.com", "github": "https://github.com/urirun-connectors"},
+  "docsUrl": "https://pomoc.comarch.pl/optima/pl/2026/dokumentacja/comarch-ocr-api-instrukcja-uzytkownika/?print=print",
+  "keywords": ["comarch", "optima", "erp", "accounting", "invoices", "stock", "bridge"]
+}

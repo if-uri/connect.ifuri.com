@@ -1,0 +1,35 @@
+{
+  "id": "allegro",
+  "name": "Allegro",
+  "version": "0.1.0",
+  "status": "planned",
+  "category": "Marketplace operations",
+  "summary": "Planned Allegro connector for offer, order and publication-error monitoring when a seller needs direct marketplace control outside BaseLinker.",
+  "description": "Added as a planned connector because Marketing identifies direct marketplace control as a high-value fallback when a seller does not use BaseLinker or needs marketplace-native diagnostics. Allegro documents an API for exchanging information with external software such as warehouse or accounting systems and uses OAuth flows. Build should start only after a customer validates the direct-Allegro use case and required scopes.",
+  "uriSchemes": ["allegro"],
+  "routes": [
+    "allegro://host/auth/query/status",
+    "allegro://host/orders/query/events",
+    "allegro://host/offers/query/list",
+    "allegro://host/offer/command/update-stock",
+    "allegro://host/offer/command/update-price",
+    "allegro://host/doctor/query/report"
+  ],
+  "useCases": [
+    "Validate publication errors and offer status directly in Allegro.",
+    "Read order events for sellers who do not use BaseLinker.",
+    "Dry-run stock or price changes before writing to live offers."
+  ],
+  "examples": [
+    {"title": "Check OAuth readiness", "uri": "allegro://host/auth/query/status", "payload": {}},
+    {"title": "List order events", "uri": "allegro://host/orders/query/events", "payload": {"from": "2026-07-01T00:00:00Z"}}
+  ],
+  "flowExample": ["allegro://host/orders/query/events", "work://host/lease/command/claim-next", "email://host/message/command/send"],
+  "requires": ["python>=3.10", "Allegro OAuth application", "seller consent and scoped access token"],
+  "adapterKinds": ["http-api"],
+  "install": {"mode": "planned"},
+  "provenance": "verified",
+  "publisher": {"name": "if-uri", "url": "https://ifuri.com", "github": "https://github.com/urirun-connectors"},
+  "docsUrl": "https://developer.allegro.pl/tutorials/uwierzytelnianie-i-autoryzacja-zlq9e75GdIR",
+  "keywords": ["allegro", "marketplace", "orders", "offers", "oauth", "stock", "prices"]
+}

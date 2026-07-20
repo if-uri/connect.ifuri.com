@@ -1,0 +1,35 @@
+{
+  "id": "wfirma",
+  "name": "wFirma.pl",
+  "version": "0.1.0",
+  "status": "planned",
+  "category": "Accounting / invoicing",
+  "summary": "Planned wFirma connector for invoice, contractor, goods and warehouse-document checks in marketplace accounting pilots.",
+  "description": "Added because Marketing lists marketplace -> accounting as a concrete offer: verify that confirmed marketplace orders have invoices and KSeF traces. wFirma publishes API documentation with API key and OAuth options, modules such as invoices, contractors, goods, warehouses, warehouse_documents and KSeF-related workflows. This connector should start read-only and dry-run invoice draft creation.",
+  "uriSchemes": ["wfirma"],
+  "routes": [
+    "wfirma://host/auth/query/status",
+    "wfirma://host/invoices/query/list",
+    "wfirma://host/invoice/query/show",
+    "wfirma://host/contractors/query/list",
+    "wfirma://host/goods/query/list",
+    "wfirma://host/invoice/command/create-draft",
+    "wfirma://host/doctor/query/report"
+  ],
+  "useCases": [
+    "Verify invoice coverage for BaseLinker confirmed orders.",
+    "Read contractors/goods to prepare accounting handoff.",
+    "Create invoice drafts only after approval."
+  ],
+  "examples": [
+    {"title": "Find invoices for a period", "uri": "wfirma://host/invoices/query/list", "payload": {"date_from": "2026-07-01", "date_to": "2026-07-31"}}
+  ],
+  "flowExample": ["baselinker://host/orders/query/list", "wfirma://host/invoices/query/list", "ksef://demo/invoices/query"],
+  "requires": ["python>=3.10", "wFirma API key headers or OAuth credentials", "verified company for OAuth 2.0 application where required"],
+  "adapterKinds": ["http-api"],
+  "install": {"mode": "planned"},
+  "provenance": "verified",
+  "publisher": {"name": "if-uri", "url": "https://ifuri.com", "github": "https://github.com/urirun-connectors"},
+  "docsUrl": "https://doc.wfirma.pl/",
+  "keywords": ["wfirma", "accounting", "invoices", "ksef", "contractors", "goods", "warehouses"]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "fakturownia",
+  "name": "Fakturownia",
+  "version": "0.1.0",
+  "status": "planned",
+  "category": "Accounting / invoicing",
+  "summary": "Planned Fakturownia connector for invoice, client, product and warehouse-document operations in e-commerce accounting pilots.",
+  "description": "Added because Marketing identifies marketplace -> accounting as a repeatable pilot. Fakturownia documents an open API for invoices, products/services, clients, warehouse documents, payments, categories and warehouses, using API token authentication. This connector can provide a lighter accounting pilot than ERP connectors when the customer already uses Fakturownia.",
+  "uriSchemes": ["fakturownia"],
+  "routes": [
+    "fakturownia://host/auth/query/status",
+    "fakturownia://host/invoices/query/list",
+    "fakturownia://host/invoice/query/pdf",
+    "fakturownia://host/clients/query/list",
+    "fakturownia://host/products/query/list",
+    "fakturownia://host/invoice/command/create-draft",
+    "fakturownia://host/doctor/query/report"
+  ],
+  "useCases": [
+    "Check if marketplace orders that require invoices have documents in Fakturownia.",
+    "Read products and clients for reconciliation against marketplace orders.",
+    "Prepare invoice drafts with dry-run before write."
+  ],
+  "examples": [
+    {"title": "List invoices for this month", "uri": "fakturownia://host/invoices/query/list", "payload": {"period": "this_month", "page": 1}}
+  ],
+  "flowExample": ["baselinker://host/orders/query/list", "fakturownia://host/invoices/query/list", "email://host/message/command/send"],
+  "requires": ["python>=3.10", "Fakturownia domain", "API token"],
+  "adapterKinds": ["http-api"],
+  "install": {"mode": "planned"},
+  "provenance": "verified",
+  "publisher": {"name": "if-uri", "url": "https://ifuri.com", "github": "https://github.com/urirun-connectors"},
+  "docsUrl": "https://app.fakturownia.pl/api",
+  "keywords": ["fakturownia", "invoices", "accounting", "clients", "products", "warehouses"]
+}

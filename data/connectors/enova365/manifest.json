@@ -1,0 +1,35 @@
+{
+  "id": "enova365",
+  "name": "enova365 WebAPI",
+  "version": "0.1.0",
+  "status": "planned",
+  "category": "ERP",
+  "summary": "Planned enova365 WebAPI connector for ERP stock, document and contractor synchronization pilots.",
+  "description": "Added because Marketing identifies marketplace -> ERP and price/stock synchronization as P1 monetization. enova365 documents WebAPI as a REST interface with JWT authorization, Swagger documentation, dynamic controllers and multi-database support. This connector should focus on read-only stock/product/customer queries first, then dry-run document creation after customer validation.",
+  "uriSchemes": ["enova365"],
+  "routes": [
+    "enova365://host/auth/query/status",
+    "enova365://host/products/query/list",
+    "enova365://host/stock/query/list",
+    "enova365://host/contractors/query/list",
+    "enova365://host/document/command/create-sales-order",
+    "enova365://host/doctor/query/report"
+  ],
+  "useCases": [
+    "Compare ERP stock with BaseLinker marketplace stock.",
+    "Prepare a sales-order payload from marketplace order data.",
+    "Use customer-specific WebAPI controllers without hardcoding one ERP database layout."
+  ],
+  "examples": [
+    {"title": "Check JWT/API readiness", "uri": "enova365://host/auth/query/status", "payload": {}},
+    {"title": "List stock by SKU", "uri": "enova365://host/stock/query/list", "payload": {"sku": "SKU-001"}}
+  ],
+  "flowExample": ["baselinker://host/inventory/query/stock", "enova365://host/stock/query/list", "work://host/lease/command/claim-next"],
+  "requires": ["python>=3.10", "enova365 WebAPI module", "JWT/API credentials", "customer-specific controller map"],
+  "adapterKinds": ["http-api"],
+  "install": {"mode": "planned"},
+  "provenance": "verified",
+  "publisher": {"name": "if-uri", "url": "https://ifuri.com", "github": "https://github.com/urirun-connectors"},
+  "docsUrl": "https://enova.pl/moduly-systemu/integracje/webapi/",
+  "keywords": ["enova365", "erp", "webapi", "jwt", "stock", "orders", "contractors"]
+}

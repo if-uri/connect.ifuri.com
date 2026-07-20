@@ -6,6 +6,7 @@
             "id": "planfile",
             "name": "Planfile Tasks",
             "status": "available",
+            "version": "0.1.1",
             "category": "Planning",
             "summary": "Plan, group and execute daily tasks through task:// and planfile:// URI commands.",
             "description": "Planfile Tasks is an external urirun connector package that turns a local planfile project into URI-addressable work items. It owns ticket list, create, status and DSL routes, generates bindings from decorators, compiles into a normal urirun registry, and projects to MCP tools / A2A skills for host workflows.",
@@ -73,6 +74,7 @@
             "id": "sqlite-context",
             "name": "SQLite Context Store",
             "status": "available",
+            "version": "0.1.1",
             "category": "Data",
             "summary": "Local data, artifacts, checks and logs over data://, artifact://, check:// and log://.",
             "description": "SQLite Context Store is an external urirun connector package that gives the host a small durable memory for records, artifacts, checks and logs. It generates bindings from decorators, compiles into a normal urirun registry, and projects to MCP tools / A2A skills for host workflows that need to remember what was checked, imported, generated or changed.",
@@ -149,6 +151,7 @@
             "id": "domain-monitor",
             "name": "Domain Monitor",
             "status": "available",
+            "version": "0.2.1",
             "category": "Operations",
             "summary": "HTTP, DNS reads, screenshots, logs and daily domain checks through URI commands.",
             "description": "Domain Monitor is an external urirun connector package for recurring website operations. It generates bindings from decorators, checks HTTP and DNS state, writes logs, stores screenshot metadata and exposes daily check flows through the same URI registry used by MCP and A2A. Provider-specific DNS mutations live in dedicated connectors such as Namecheap DNS.",
@@ -214,6 +217,7 @@
             "id": "http-check",
             "name": "HTTP Check",
             "status": "available",
+            "version": "0.1.5",
             "category": "Operations",
             "summary": "Check HTTP endpoints through httpcheck:// URI commands and a small Python CLI.",
             "description": "HTTP Check is a minimal external urirun connector package. It verifies that a URL responds, optionally checks an expected status code, and returns structured JSON for host workflows, smoke tests and daily operations.",
@@ -249,6 +253,7 @@
             "id": "time-tools",
             "name": "Time Tools",
             "status": "available",
+            "version": "0.1.2",
             "category": "Operations",
             "summary": "Expose current time and timezone checks through time:// URI commands.",
             "description": "Time Tools is a minimal external urirun connector package. It declares time:// routes with @connector.command, returns structured JSON, and can be projected to MCP tools / A2A skills.",
@@ -292,6 +297,7 @@
             "id": "namecheap-dns",
             "name": "Namecheap DNS",
             "status": "available",
+            "version": "0.1.0",
             "category": "DNS",
             "summary": "Safe DNS query, plan, backup and apply flow for Namecheap host records.",
             "description": "Namecheap DNS is a dedicated connector package for Namecheap host-record operations. Workflows can query current records, render expected records, plan changes, back up the current host set and apply a reviewed DNS update without hard-coding SDK calls in the host app.",
@@ -353,6 +359,7 @@
             "id": "grpc-transport",
             "name": "gRPC Transport",
             "status": "available",
+            "version": "0.1.0",
             "category": "Transport",
             "summary": "Expose and call URI registries over gRPC for service-to-service communication.",
             "description": "gRPC Transport is a transport connector for exposing URI registries between services. It keeps the same URI binding contract while switching the network transport to gRPC.",
@@ -390,6 +397,7 @@
             "id": "mqtt",
             "name": "MQTT Device Bridge",
             "status": "planned",
+            "version": "0.1.0",
             "category": "IoT",
             "summary": "Publish, subscribe and bridge firmware/backend/frontend device commands through MQTT URI routes.",
             "description": "MQTT Device Bridge will map device, firmware, backend and frontend actions to shared URI routes. The goal is to control firmware and read telemetry without a separate SDK per layer.",
@@ -427,6 +435,7 @@
             "id": "browser-control",
             "name": "Browser Control",
             "status": "available",
+            "version": "0.1.1",
             "category": "Automation",
             "summary": "Drive browser/noVNC actions through browser:// URI commands for demos and QA.",
             "description": "Browser Control exposes browser actions as URI commands. By default it is safe and does not open the physical host browser; set BROWSER_CONTROL_ENDPOINT or URI_SERVICE_MAP to forward commands to a noVNC or urirun node.",
@@ -468,9 +477,195 @@
             "verified": false
         },
         {
+            "id": "adb",
+            "name": "ADB",
+            "status": "planned",
+            "version": "0.1.0",
+            "category": "Hardware",
+            "summary": "Control Android Debug Bridge devices through URI routes.",
+            "description": "ADB is an if-uri urirun connector for control Android Debug Bridge devices through URI routes. It is represented in the public catalog so the connector can be discovered, versioned and linked to its repository while implementation details are completed.",
+            "uriSchemes": [
+                "adb"
+            ],
+            "routes": [
+                "adb://host/device/query/list",
+                "adb://host/shell/command/run"
+            ],
+            "examples": [
+                {
+                    "title": "Check ADB route",
+                    "uri": "adb://host/device/query/list",
+                    "payload": []
+                }
+            ],
+            "flowExample": [],
+            "install": {
+                "mode": "planned",
+                "pipSpec": "urirun-connector-adb"
+            },
+            "docsUrl": "https://github.com/if-uri/urirun-connector-adb",
+            "hubUrl": "https://connect.ifuri.com/connectors/adb",
+            "manifestUrl": "https://connect.ifuri.com/connectors/adb.json",
+            "verified": false
+        },
+        {
+            "id": "adopt",
+            "name": "Adopt",
+            "status": "planned",
+            "version": "0.1.0",
+            "category": "Operations",
+            "summary": "Adopt or enroll urirun nodes into a managed host.",
+            "description": "Adopt is an if-uri urirun connector for adopt or enroll urirun nodes into a managed host. It is represented in the public catalog so the connector can be discovered, versioned and linked to its repository while implementation details are completed.",
+            "uriSchemes": [
+                "adopt"
+            ],
+            "routes": [
+                "adopt://host/node/command/enroll",
+                "adopt://host/node/query/status"
+            ],
+            "examples": [
+                {
+                    "title": "Check Adopt route",
+                    "uri": "adopt://host/node/command/enroll",
+                    "payload": []
+                }
+            ],
+            "flowExample": [],
+            "install": {
+                "mode": "planned",
+                "pipSpec": "urirun-connector-adopt"
+            },
+            "docsUrl": "https://github.com/if-uri/urirun-connector-adopt",
+            "hubUrl": "https://connect.ifuri.com/connectors/adopt",
+            "manifestUrl": "https://connect.ifuri.com/connectors/adopt.json",
+            "verified": false
+        },
+        {
+            "id": "agents",
+            "name": "Agents",
+            "status": "planned",
+            "version": "0.1.0",
+            "category": "Agents",
+            "summary": "Expose local agent discovery and execution through URI routes.",
+            "description": "Agents is an if-uri urirun connector for expose local agent discovery and execution through URI routes. It is represented in the public catalog so the connector can be discovered, versioned and linked to its repository while implementation details are completed.",
+            "uriSchemes": [
+                "agents"
+            ],
+            "routes": [
+                "agents://host/agent/query/list",
+                "agents://host/agent/command/run"
+            ],
+            "examples": [
+                {
+                    "title": "Check Agents route",
+                    "uri": "agents://host/agent/query/list",
+                    "payload": []
+                }
+            ],
+            "flowExample": [],
+            "install": {
+                "mode": "planned",
+                "pipSpec": "urirun-connector-agents"
+            },
+            "docsUrl": "https://github.com/if-uri/urirun-connector-agents",
+            "hubUrl": "https://connect.ifuri.com/connectors/agents",
+            "manifestUrl": "https://connect.ifuri.com/connectors/agents.json",
+            "verified": false
+        },
+        {
+            "id": "allegro",
+            "name": "Allegro",
+            "status": "planned",
+            "version": "0.1.0",
+            "category": "Marketplace operations",
+            "summary": "Planned Allegro connector for offer, order and publication-error monitoring when a seller needs direct marketplace control outside BaseLinker.",
+            "description": "Added as a planned connector because Marketing identifies direct marketplace control as a high-value fallback when a seller does not use BaseLinker or needs marketplace-native diagnostics. Allegro documents an API for exchanging information with external software such as warehouse or accounting systems and uses OAuth flows. Build should start only after a customer validates the direct-Allegro use case and required scopes.",
+            "uriSchemes": [
+                "allegro"
+            ],
+            "routes": [
+                "allegro://host/auth/query/status",
+                "allegro://host/orders/query/events",
+                "allegro://host/offers/query/list",
+                "allegro://host/offer/command/update-stock",
+                "allegro://host/offer/command/update-price",
+                "allegro://host/doctor/query/report"
+            ],
+            "examples": [
+                {
+                    "title": "Check OAuth readiness",
+                    "uri": "allegro://host/auth/query/status",
+                    "payload": []
+                },
+                {
+                    "title": "List order events",
+                    "uri": "allegro://host/orders/query/events",
+                    "payload": {
+                        "from": "2026-07-01T00:00:00Z"
+                    }
+                }
+            ],
+            "flowExample": [
+                "allegro://host/orders/query/events",
+                "work://host/lease/command/claim-next",
+                "email://host/message/command/send"
+            ],
+            "install": {
+                "mode": "planned"
+            },
+            "docsUrl": "https://developer.allegro.pl/tutorials/uwierzytelnianie-i-autoryzacja-zlq9e75GdIR",
+            "hubUrl": "https://connect.ifuri.com/connectors/allegro",
+            "manifestUrl": "https://connect.ifuri.com/connectors/allegro.json",
+            "verified": false
+        },
+        {
+            "id": "apaczka",
+            "name": "Apaczka",
+            "status": "planned",
+            "version": "0.1.0",
+            "category": "Shipping / logistics",
+            "summary": "Planned Apaczka connector for multi-carrier order shipment, label and tracking operations.",
+            "description": "Added because Marketing lists marketplace -> courier as a repeatable pilot. Apaczka publishes Web API v2 for integrating external systems to send shipments without logging into the panel, with endpoints for order lists, details, waybills, pricing, sending, cancellation and tracking history. This connector is a good second courier option after InPost when the customer uses a broker instead of a single carrier.",
+            "uriSchemes": [
+                "apaczka"
+            ],
+            "routes": [
+                "apaczka://host/auth/query/status",
+                "apaczka://host/order/query/list",
+                "apaczka://host/order/query/details",
+                "apaczka://host/order/command/send",
+                "apaczka://host/order/command/cancel",
+                "apaczka://host/label/query/waybill",
+                "apaczka://host/tracking/query/history",
+                "apaczka://host/doctor/query/report"
+            ],
+            "examples": [
+                {
+                    "title": "Query tracking history",
+                    "uri": "apaczka://host/tracking/query/history",
+                    "payload": {
+                        "waybill": "TEST123"
+                    }
+                }
+            ],
+            "flowExample": [
+                "baselinker://host/orders/query/list",
+                "apaczka://host/order/command/send",
+                "email://host/message/command/send"
+            ],
+            "install": {
+                "mode": "planned"
+            },
+            "docsUrl": "https://panel.apaczka.pl/dokumentacja_api_v2.php",
+            "hubUrl": "https://connect.ifuri.com/connectors/apaczka",
+            "manifestUrl": "https://connect.ifuri.com/connectors/apaczka.json",
+            "verified": false
+        },
+        {
             "id": "base64",
             "name": "Base64 (PHP)",
             "status": "available",
+            "version": "0.1.0",
             "category": "Utilities",
             "summary": "Encode and decode text with Base64 through codec:// URI commands.",
             "description": "Base64 is a polyglot urirun connector written in PHP. It proves connectors are language-agnostic: the script emits a v2 bindings document and answers the codec:// route via an argv-template the urirun runtime invokes.",
@@ -511,9 +706,105 @@
             "verified": false
         },
         {
+            "id": "baselinker",
+            "name": "BaseLinker",
+            "status": "available",
+            "version": "0.1.0",
+            "category": "Marketplace operations",
+            "summary": "Read BaseLinker orders and inventory, then dry-run stock or price corrections for marketplace ERP/WMS pilots.",
+            "description": "Added because Marketing identified marketplace -> ERP/WMS synchronization as the fastest monetization path: sellers need order, stock and price checks across marketplace, warehouse and accounting flows. BaseLinker has an official JSON API with X-BLToken authentication, documented order/inventory/stock/price methods and a 100 requests/minute limit. This connector is available for dry-run pilots and CI-verified, but not production-certified until tested on a customer or official test account.",
+            "uriSchemes": [
+                "baselinker"
+            ],
+            "routes": [
+                "baselinker://host/doctor/query/report",
+                "baselinker://host/orders/query/list",
+                "baselinker://host/inventory/query/products",
+                "baselinker://host/inventory/query/stock",
+                "baselinker://host/inventory/command/stock-update",
+                "baselinker://host/inventory/command/prices-update",
+                "baselinker://host/api/query/request"
+            ],
+            "examples": [
+                {
+                    "title": "Read connector readiness without exposing token",
+                    "uri": "baselinker://host/doctor/query/report",
+                    "payload": []
+                },
+                {
+                    "title": "List confirmed orders from a timestamp",
+                    "uri": "baselinker://host/orders/query/list",
+                    "payload": {
+                        "date_confirmed_from": 1721000000,
+                        "get_unconfirmed_orders": false
+                    }
+                },
+                {
+                    "title": "Dry-run stock correction",
+                    "uri": "baselinker://host/inventory/command/stock-update",
+                    "payload": {
+                        "inventory_id": 307,
+                        "products": {
+                            "2685": {
+                                "bl_206": 5
+                            }
+                        }
+                    }
+                }
+            ],
+            "flowExample": [
+                "baselinker://host/orders/query/list",
+                "baselinker://host/inventory/query/stock",
+                "sheet://host/table/query/read",
+                "work://host/lease/command/claim-next",
+                "twilio://host/call/command/create"
+            ],
+            "install": {
+                "mode": "urirun-extra",
+                "pipSpec": "urirun-connector-baselinker @ git+https://github.com/urirun-connectors/urirun-connector-baselinker.git@0d40e598ae8f26a91dae587aecc04fb974ec1298"
+            },
+            "docsUrl": "https://github.com/urirun-connectors/urirun-connector-baselinker/blob/feat/baselinker-connector/docs/BUSINESS_CASE.md",
+            "hubUrl": "https://connect.ifuri.com/connectors/baselinker",
+            "manifestUrl": "https://connect.ifuri.com/connectors/baselinker.json",
+            "verified": false
+        },
+        {
+            "id": "calendar",
+            "name": "Calendar",
+            "status": "planned",
+            "version": "0.1.0",
+            "category": "Productivity",
+            "summary": "Read and create calendar events through URI routes.",
+            "description": "Calendar is an if-uri urirun connector for read and create calendar events through URI routes. It is represented in the public catalog so the connector can be discovered, versioned and linked to its repository while implementation details are completed.",
+            "uriSchemes": [
+                "calendar"
+            ],
+            "routes": [
+                "calendar://host/events/query/list",
+                "calendar://host/event/command/create"
+            ],
+            "examples": [
+                {
+                    "title": "Check Calendar route",
+                    "uri": "calendar://host/events/query/list",
+                    "payload": []
+                }
+            ],
+            "flowExample": [],
+            "install": {
+                "mode": "planned",
+                "pipSpec": "urirun-connector-calendar"
+            },
+            "docsUrl": "https://github.com/if-uri/urirun-connector-calendar",
+            "hubUrl": "https://connect.ifuri.com/connectors/calendar",
+            "manifestUrl": "https://connect.ifuri.com/connectors/calendar.json",
+            "verified": false
+        },
+        {
             "id": "camera",
             "name": "Camera capture + OCR",
             "status": "available",
+            "version": "0.1.0",
             "category": "Hardware",
             "summary": "Turn a USB/built-in webcam into data over camera:// URIs: discover cameras, beep before scan, capture a still frame, describe what is in the photo, find and crop to the dominant object, OCR it, and run simple inspection/alert rules. Capture uses ffmpeg (OpenCV optional); scene understanding + object detection reuse the img2nl engine via urirun-connector-ocr (Pillow edge/stats fallback); OCR uses tesseract, upgrading to the richer OCR connector backends automatically.",
             "description": "camera:// is the capture+understand layer on top of usb:// camera discovery. camera://host/devices/query/list lists cameras (product names + /dev/video* nodes via the usb connector). camera://host/photo/command/capture grabs one still frame and can emit a pre-scan beep so a human knows exactly when scanning happens. camera://host/photo/query/describe returns a natural-language description of what is in the photo — scene, dominant colours, detected objects/regions, barcodes — using the img2nl engine when available. camera://host/photo/query/analyze runs the full pipeline: capture (or reuse a given image), describe it, detect the dominant object (img2nl region detector, else Pillow edge density), crop to it ('dociąć do obiektu'), and OCR the crop — returning the photo, description, object bbox + crop path, and recognised text. camera://host/photo/query/inspect adds simple rule checks (required/forbidden text, min OCR length, object required, brightness range), returns structured alerts with optional beep_on_alert/fail_on_alert, and persists a verdict (inspection.json sidecar + optional JSONL audit_log) so alerting has a durable trail without a separate log connector. camera://host/photo/query/compare does change/motion detection — compare two files, a reference vs a fresh frame, or two frames captured interval_ms apart — returning a change ratio, a changed flag and the changed region, with optional beep_on_change/fail_on_change to trigger scan-on-motion or stop-on-change flows. camera://host/photo/query/ocr just returns the text. Dependency-light core (ffmpeg + Pillow + tesseract); img2nl/imgl and OpenCV are optional upgrades.",
@@ -555,9 +846,42 @@
             "verified": false
         },
         {
+            "id": "camera-web",
+            "name": "Camera Web",
+            "status": "planned",
+            "version": "0.1.0",
+            "category": "Hardware",
+            "summary": "Capture frames and status from browser-accessible cameras.",
+            "description": "Camera Web is an if-uri urirun connector for capture frames and status from browser-accessible cameras. It is represented in the public catalog so the connector can be discovered, versioned and linked to its repository while implementation details are completed.",
+            "uriSchemes": [
+                "camera"
+            ],
+            "routes": [
+                "camera://web/frame/query/capture",
+                "camera://web/stream/query/status"
+            ],
+            "examples": [
+                {
+                    "title": "Check Camera Web route",
+                    "uri": "camera://web/frame/query/capture",
+                    "payload": []
+                }
+            ],
+            "flowExample": [],
+            "install": {
+                "mode": "planned",
+                "pipSpec": "urirun-connector-camera-web"
+            },
+            "docsUrl": "https://github.com/if-uri/urirun-connector-camera-web",
+            "hubUrl": "https://connect.ifuri.com/connectors/camera-web",
+            "manifestUrl": "https://connect.ifuri.com/connectors/camera-web.json",
+            "verified": false
+        },
+        {
             "id": "chat",
             "name": "Chat Bridge",
             "status": "planned",
+            "version": "0.1.0",
             "category": "Messaging",
             "summary": "Deprecated chat bridge — map transcript to URI and forward to urisys RDP stack.",
             "description": "Deprecated chat bridge — map transcript to URI and forward to urisys RDP stack. A tellmesh capability pack adopted into urirun via its manifest (`urirun adopt-pack`): 2 chat:// routes mapped 1:1 to bindings.v2, validated, ready to project to MCP tools / A2A skills.",
@@ -589,9 +913,80 @@
             "verified": false
         },
         {
+            "id": "comarch-optima",
+            "name": "Comarch ERP Optima Bridge",
+            "status": "planned",
+            "version": "0.1.0",
+            "category": "ERP",
+            "summary": "Planned Comarch ERP Optima connector for ERP/accounting handoff where customers can expose a supported API or local bridge.",
+            "description": "Added because Marketing identifies marketplace -> ERP/accounting and invoice completeness checks as monetizable. Public Comarch materials show API and integration surfaces around Optima/OCR/BPM, but a generic, public Optima REST API for stock/order writes is not confirmed here. Therefore this connector is planned with VALIDATE FIRST: first confirm customer deployment model, partner API access and whether a local bridge is required.",
+            "uriSchemes": [
+                "optima"
+            ],
+            "routes": [
+                "optima://host/doctor/query/report",
+                "optima://host/products/query/list",
+                "optima://host/stock/query/list",
+                "optima://host/invoices/query/list",
+                "optima://host/order/command/create-draft"
+            ],
+            "examples": [
+                {
+                    "title": "Check bridge readiness",
+                    "uri": "optima://host/doctor/query/report",
+                    "payload": []
+                }
+            ],
+            "flowExample": [
+                "baselinker://host/orders/query/list",
+                "optima://host/invoices/query/list",
+                "ksef://demo/invoices/query"
+            ],
+            "install": {
+                "mode": "planned"
+            },
+            "docsUrl": "https://pomoc.comarch.pl/optima/pl/2026/dokumentacja/comarch-ocr-api-instrukcja-uzytkownika/?print=print",
+            "hubUrl": "https://connect.ifuri.com/connectors/comarch-optima",
+            "manifestUrl": "https://connect.ifuri.com/connectors/comarch-optima.json",
+            "verified": false
+        },
+        {
+            "id": "connectorgen",
+            "name": "Connectorgen",
+            "status": "planned",
+            "version": "0.1.0",
+            "category": "Developer Tools",
+            "summary": "Generate connector scaffolds and validate connector manifests.",
+            "description": "Connectorgen is an if-uri urirun connector for generate connector scaffolds and validate connector manifests. It is represented in the public catalog so the connector can be discovered, versioned and linked to its repository while implementation details are completed.",
+            "uriSchemes": [
+                "connectorgen"
+            ],
+            "routes": [
+                "connectorgen://host/connector/command/scaffold",
+                "connectorgen://host/manifest/query/validate"
+            ],
+            "examples": [
+                {
+                    "title": "Check Connectorgen route",
+                    "uri": "connectorgen://host/connector/command/scaffold",
+                    "payload": []
+                }
+            ],
+            "flowExample": [],
+            "install": {
+                "mode": "planned",
+                "pipSpec": "urirun-connector-connectorgen"
+            },
+            "docsUrl": "https://github.com/if-uri/urirun-connector-connectorgen",
+            "hubUrl": "https://connect.ifuri.com/connectors/connectorgen",
+            "manifestUrl": "https://connect.ifuri.com/connectors/connectorgen.json",
+            "verified": false
+        },
+        {
             "id": "doc",
             "name": "Document text / OCR",
             "status": "available",
+            "version": "0.1.0",
             "category": "Documents",
             "summary": "Extract text from PDFs and images over doc:// URIs. Text-layer PDFs use pdftotext; scans/images fall back through an OCR chain (tesseract, RapidOCR/ONNX from wronai-img2nl, or an Ollama vision model from wronai-ocr). Degrades gracefully to pdftotext-only.",
             "description": "doc:// turns document text extraction into a first-class URI instead of ad-hoc shell + pdftotext. doc://host/file/query/text returns the text of a PDF or image: a text-layer PDF goes through poppler pdftotext; a scan/image falls back to OCR, rasterising PDF pages (pdftoppm/pdfimages/magick) and running the first available engine — tesseract, then RapidOCR (the ONNX engine reused from wronai/img2nl, no system binary needed), then an Ollama vision model (reused from wronai/ocr). doc://host/file/query/ocr forces OCR; doc://host/engine/query/list reports which engines are present. Useful for classifying invoices and any scanned document over the mesh.",
@@ -630,9 +1025,74 @@
             "verified": false
         },
         {
+            "id": "docid",
+            "name": "Docid",
+            "status": "planned",
+            "version": "0.1.0",
+            "category": "Documents",
+            "summary": "Identify and tag documents with stable document IDs.",
+            "description": "Docid is an if-uri urirun connector for identify and tag documents with stable document IDs. It is represented in the public catalog so the connector can be discovered, versioned and linked to its repository while implementation details are completed.",
+            "uriSchemes": [
+                "docid"
+            ],
+            "routes": [
+                "docid://host/document/query/identify",
+                "docid://host/document/command/tag"
+            ],
+            "examples": [
+                {
+                    "title": "Check Docid route",
+                    "uri": "docid://host/document/query/identify",
+                    "payload": []
+                }
+            ],
+            "flowExample": [],
+            "install": {
+                "mode": "planned",
+                "pipSpec": "urirun-connector-docid"
+            },
+            "docsUrl": "https://github.com/if-uri/urirun-connector-docid",
+            "hubUrl": "https://connect.ifuri.com/connectors/docid",
+            "manifestUrl": "https://connect.ifuri.com/connectors/docid.json",
+            "verified": false
+        },
+        {
+            "id": "document",
+            "name": "Document",
+            "status": "planned",
+            "version": "0.1.0",
+            "category": "Documents",
+            "summary": "Read, convert and inspect document files through URI routes.",
+            "description": "Document is an if-uri urirun connector for read, convert and inspect document files through URI routes. It is represented in the public catalog so the connector can be discovered, versioned and linked to its repository while implementation details are completed.",
+            "uriSchemes": [
+                "document"
+            ],
+            "routes": [
+                "document://host/document/query/read",
+                "document://host/document/command/convert"
+            ],
+            "examples": [
+                {
+                    "title": "Check Document route",
+                    "uri": "document://host/document/query/read",
+                    "payload": []
+                }
+            ],
+            "flowExample": [],
+            "install": {
+                "mode": "planned",
+                "pipSpec": "urirun-connector-document"
+            },
+            "docsUrl": "https://github.com/if-uri/urirun-connector-document",
+            "hubUrl": "https://connect.ifuri.com/connectors/document",
+            "manifestUrl": "https://connect.ifuri.com/connectors/document.json",
+            "verified": false
+        },
+        {
             "id": "email",
             "name": "Email",
             "status": "available",
+            "version": "0.3.0",
             "category": "Communication",
             "summary": "Read inbox, send mail, and extract local Thunderbird invoice attachments through email:// URI routes (IMAP + SMTP + local mbox).",
             "description": "Email is an external urirun connector that exposes IMAP reads (inbox list, message read), SMTP send, and local Thunderbird mailbox extraction as email:// routes. The IMAP/SMTP routes touch a remote mail server, so they are gated by urirun execute policy. The local/thunderbird route reads mbox files from one profile or auto-discovered Thunderbird profile roots, extracts invoice-like attachments into monthly YYYY.MM folders, deduplicates attachment payloads, supports dry-run, and can write a JSON report. Credentials for remote routes come from the environment (EMAIL_IMAP_HOST/EMAIL_SMTP_HOST/EMAIL_USER/EMAIL_PASS), never the manifest.",
@@ -674,9 +1134,56 @@
             "verified": false
         },
         {
+            "id": "enova365",
+            "name": "enova365 WebAPI",
+            "status": "planned",
+            "version": "0.1.0",
+            "category": "ERP",
+            "summary": "Planned enova365 WebAPI connector for ERP stock, document and contractor synchronization pilots.",
+            "description": "Added because Marketing identifies marketplace -> ERP and price/stock synchronization as P1 monetization. enova365 documents WebAPI as a REST interface with JWT authorization, Swagger documentation, dynamic controllers and multi-database support. This connector should focus on read-only stock/product/customer queries first, then dry-run document creation after customer validation.",
+            "uriSchemes": [
+                "enova365"
+            ],
+            "routes": [
+                "enova365://host/auth/query/status",
+                "enova365://host/products/query/list",
+                "enova365://host/stock/query/list",
+                "enova365://host/contractors/query/list",
+                "enova365://host/document/command/create-sales-order",
+                "enova365://host/doctor/query/report"
+            ],
+            "examples": [
+                {
+                    "title": "Check JWT/API readiness",
+                    "uri": "enova365://host/auth/query/status",
+                    "payload": []
+                },
+                {
+                    "title": "List stock by SKU",
+                    "uri": "enova365://host/stock/query/list",
+                    "payload": {
+                        "sku": "SKU-001"
+                    }
+                }
+            ],
+            "flowExample": [
+                "baselinker://host/inventory/query/stock",
+                "enova365://host/stock/query/list",
+                "work://host/lease/command/claim-next"
+            ],
+            "install": {
+                "mode": "planned"
+            },
+            "docsUrl": "https://enova.pl/moduly-systemu/integracje/webapi/",
+            "hubUrl": "https://connect.ifuri.com/connectors/enova365",
+            "manifestUrl": "https://connect.ifuri.com/connectors/enova365.json",
+            "verified": false
+        },
+        {
             "id": "env",
             "name": "Environment",
             "status": "planned",
+            "version": "0.1.0",
             "category": "System",
             "summary": "Controlled env:// runtime configuration and secrets.",
             "description": "Controlled env:// runtime configuration and secrets. A tellmesh capability pack adopted into urirun via its manifest (`urirun adopt-pack`): 9 env:// routes mapped 1:1 to bindings.v2, validated.",
@@ -715,9 +1222,53 @@
             "verified": false
         },
         {
+            "id": "fakturownia",
+            "name": "Fakturownia",
+            "status": "planned",
+            "version": "0.1.0",
+            "category": "Accounting / invoicing",
+            "summary": "Planned Fakturownia connector for invoice, client, product and warehouse-document operations in e-commerce accounting pilots.",
+            "description": "Added because Marketing identifies marketplace -> accounting as a repeatable pilot. Fakturownia documents an open API for invoices, products/services, clients, warehouse documents, payments, categories and warehouses, using API token authentication. This connector can provide a lighter accounting pilot than ERP connectors when the customer already uses Fakturownia.",
+            "uriSchemes": [
+                "fakturownia"
+            ],
+            "routes": [
+                "fakturownia://host/auth/query/status",
+                "fakturownia://host/invoices/query/list",
+                "fakturownia://host/invoice/query/pdf",
+                "fakturownia://host/clients/query/list",
+                "fakturownia://host/products/query/list",
+                "fakturownia://host/invoice/command/create-draft",
+                "fakturownia://host/doctor/query/report"
+            ],
+            "examples": [
+                {
+                    "title": "List invoices for this month",
+                    "uri": "fakturownia://host/invoices/query/list",
+                    "payload": {
+                        "period": "this_month",
+                        "page": 1
+                    }
+                }
+            ],
+            "flowExample": [
+                "baselinker://host/orders/query/list",
+                "fakturownia://host/invoices/query/list",
+                "email://host/message/command/send"
+            ],
+            "install": {
+                "mode": "planned"
+            },
+            "docsUrl": "https://app.fakturownia.pl/api",
+            "hubUrl": "https://connect.ifuri.com/connectors/fakturownia",
+            "manifestUrl": "https://connect.ifuri.com/connectors/fakturownia.json",
+            "verified": false
+        },
+        {
             "id": "flow-repair",
             "name": "Flow Repair",
             "status": "available",
+            "version": "0.1.0",
             "category": "AI",
             "summary": "Generate a urirun flow (YAML) from natural language, execute it, and self-repair from failures via an LLM.",
             "description": "Flow Repair is an external urirun connector that turns a natural-language goal into a urirun flow as YAML, validates every step URI against the registry action space, runs the steps under policy, and — when a step fails — feeds the structured error back to an LLM to obtain a corrected flow, then re-runs (up to `tries`). LLM model/provider selection is delegated to the `llm` connector (provider-prefixed models go through litellm; bare models hit Ollama). Steps execute only with `--execute` / `mode=execute`.",
@@ -750,6 +1301,7 @@
             "id": "fs",
             "name": "Filesystem duplicates",
             "status": "available",
+            "version": "0.1.0",
             "category": "Filesystem",
             "summary": "Find duplicate files in any folder over fs:// URIs. Exact byte duplicates by SHA-256 (stdlib) and near-duplicate IMAGES by perceptual hash (reusing wronai-img2nl analyze_fingerprint). A move command quarantines extras into _duplicates/, keeping the first of each group.",
             "description": "fs:// turns duplicate detection into a first-class URI instead of ad-hoc shell + sha256sum. fs://host/duplicates/query/find scans a folder tree and returns groups of duplicate files: mode=sha256 finds byte-identical files of any type; mode=perceptual finds near-duplicate images by perceptual hash (phash/dhash/whash via the wronai/img2nl fingerprint engine, compared by Hamming distance within a threshold). fs://host/duplicates/command/move quarantines the extra copies (all but the first of each group) into <root>/_duplicates/<key>/, with a dry_run default. Built for the office flow — dedupe exported invoices and attachments.",
@@ -792,6 +1344,7 @@
             "id": "get-node",
             "name": "Get Node",
             "status": "planned",
+            "version": "0.1.0",
             "category": "Operations",
             "summary": "Bootstrap and health-check urirun nodes from get.ifuri.com through node:// URI routes.",
             "description": "Get Node wraps the get.ifuri.com installer so flows can fetch the node bootstrap script and check a node's health over node:// routes — a programmatic path to stand up and verify urirun nodes across a LAN.",
@@ -807,7 +1360,7 @@
                     "title": "Check a node's health",
                     "uri": "node://host/runtime/query/health",
                     "payload": {
-                        "endpoint": "http://192.168.1.20:8765"
+                        "endpoint": "http://192.0.2.20:8765"
                     }
                 }
             ],
@@ -828,6 +1381,7 @@
             "id": "github",
             "name": "GitHub",
             "status": "available",
+            "version": "0.1.0",
             "category": "DevOps",
             "summary": "Clone git repos and deploy them anywhere via bindings/registry over github:// URI routes.",
             "description": "GitHub is an external urirun connector that bootstraps projects onto any machine over the URI contract: clone a repo, pull updates, pip install it, and emit its urirun_bindings() so the project can be compiled into a registry and served or host-deployed without logging into the box. Clones land under URIRUN_PROJECTS (default ~/.urirun-projects).",
@@ -870,6 +1424,7 @@
             "id": "hash",
             "name": "Hash (Go)",
             "status": "available",
+            "version": "0.1.0",
             "category": "Utilities",
             "summary": "Compute SHA-256 digests of text through hash:// URI commands.",
             "description": "Hash is a polyglot urirun connector written in Go. It proves connectors are language-agnostic: a single static binary emits a v2 bindings document and answers the hash:// route via an argv-template the urirun runtime invokes.",
@@ -904,6 +1459,7 @@
             "id": "him",
             "name": "Human-in-the-Middle",
             "status": "planned",
+            "version": "0.1.0",
             "category": "Agents",
             "summary": "Human input mock (mouse/keyboard) for urisys-node.",
             "description": "Human input mock (mouse/keyboard) for urisys-node. A tellmesh capability pack adopted into urirun via its manifest (`urirun adopt-pack`): 8 him:// routes mapped 1:1 to bindings.v2, validated, ready to project to MCP tools / A2A skills.",
@@ -944,6 +1500,7 @@
             "id": "img2nl",
             "name": "Screen to Language",
             "status": "planned",
+            "version": "0.1.0",
             "category": "Vision",
             "summary": "Screen capture + UI target detection via img2nl (KVM eyes).",
             "description": "Screen capture + UI target detection via img2nl (KVM eyes). A tellmesh capability pack adopted into urirun via its manifest (`urirun adopt-pack`): 3 img2nl:// routes mapped 1:1 to bindings.v2, validated, ready to project to MCP tools / A2A skills.",
@@ -976,9 +1533,56 @@
             "verified": false
         },
         {
+            "id": "inpost",
+            "name": "InPost Shipping / ShipX",
+            "status": "planned",
+            "version": "0.1.0",
+            "category": "Shipping / logistics",
+            "summary": "Planned InPost connector for shipment creation, tracking and label retrieval in marketplace fulfillment pilots.",
+            "description": "Added because Marketing maps marketplace -> courier and fulfillment as a concrete monetization path after order synchronization. InPost documents Shipping/ShipX APIs for creating shipments, retrieving shipment details, labels and tracking, with OAuth-based access. This connector should be implemented after a pilot customer confirms courier workflow scope and provides an organization account.",
+            "uriSchemes": [
+                "inpost"
+            ],
+            "routes": [
+                "inpost://host/auth/query/status",
+                "inpost://host/shipment/command/create",
+                "inpost://host/shipment/query/status",
+                "inpost://host/shipment/query/label",
+                "inpost://host/points/query/search",
+                "inpost://host/doctor/query/report"
+            ],
+            "examples": [
+                {
+                    "title": "Check InPost auth readiness",
+                    "uri": "inpost://host/auth/query/status",
+                    "payload": []
+                },
+                {
+                    "title": "Query shipment status",
+                    "uri": "inpost://host/shipment/query/status",
+                    "payload": {
+                        "tracking_number": "123456789012345678901234"
+                    }
+                }
+            ],
+            "flowExample": [
+                "baselinker://host/orders/query/list",
+                "inpost://host/shipment/command/create",
+                "work://host/lease/command/claim-next"
+            ],
+            "install": {
+                "mode": "planned"
+            },
+            "docsUrl": "https://developers.inpost-group.com/shipping",
+            "hubUrl": "https://connect.ifuri.com/connectors/inpost",
+            "manifestUrl": "https://connect.ifuri.com/connectors/inpost.json",
+            "verified": false
+        },
+        {
             "id": "invoice",
             "name": "Invoice field extraction",
             "status": "available",
+            "version": "0.1.0",
             "category": "Accounting",
             "summary": "Extract structured fields from invoices over invoice:// URIs — NIP, number, dates, net/VAT/gross, seller, currency. Regex tuned for Polish faktura (also EN), text via pdftotext, optional LLM (OpenRouter) fallback. A folder route batches a month of invoices into a CSV with net/VAT/gross totals.",
             "description": "invoice:// turns invoice parsing into a first-class URI. invoice://host/file/query/parse returns structured fields {nip, number, issueDate, seller, net, vat, gross, currency} from one PDF/text — regex-first (text-layer PDFs via pdftotext), with an optional LLM pass (OpenRouter via litellm, use_llm=true) for layouts the regex misses. invoice://host/folder/query/audit parses every invoice under a folder into rows plus net/VAT/gross totals, optionally writing a CSV — for monthly accounting. Read-only over the invoice files. Pairs with doc:// (OCR for scans) and fs:// (dedupe) in the office flow.",
@@ -1017,9 +1621,42 @@
             "verified": false
         },
         {
+            "id": "koru",
+            "name": "Koru",
+            "status": "planned",
+            "version": "0.1.0",
+            "category": "Integrations",
+            "summary": "Integrate Koru resources with URI-addressable status and sync routes.",
+            "description": "Koru is an if-uri urirun connector for integrate Koru resources with URI-addressable status and sync routes. It is represented in the public catalog so the connector can be discovered, versioned and linked to its repository while implementation details are completed.",
+            "uriSchemes": [
+                "koru"
+            ],
+            "routes": [
+                "koru://host/resource/query/status",
+                "koru://host/resource/command/sync"
+            ],
+            "examples": [
+                {
+                    "title": "Check Koru route",
+                    "uri": "koru://host/resource/query/status",
+                    "payload": []
+                }
+            ],
+            "flowExample": [],
+            "install": {
+                "mode": "planned",
+                "pipSpec": "urirun-connector-koru"
+            },
+            "docsUrl": "https://github.com/if-uri/urirun-connector-koru",
+            "hubUrl": "https://connect.ifuri.com/connectors/koru",
+            "manifestUrl": "https://connect.ifuri.com/connectors/koru.json",
+            "verified": false
+        },
+        {
             "id": "ksef",
             "name": "KSeF 2.0",
             "status": "available",
+            "version": "0.1.0",
             "category": "Government / e-invoicing",
             "summary": "Polish national e-invoicing (KSeF 2.0) as ksef:// routes: auth, send invoice, query, download.",
             "description": "KSeF 2.0 reference connector. The HTTP surface is declarative (urirun fetch adapter, environments test/demo/prod). The ksef-token auth handshake (challenge -> RSA-OAEP(token|timestamp) -> poll -> redeem) and client-side crypto (AES-256-CBC + RSAES-OAEP, SHA-256 invoice hash) are the two imperative helpers. The access token is addressed by reference (getv://KSEF_ACCESS_TOKEN), never embedded. Smoke against the TEST environment with random NIPs.",
@@ -1098,6 +1735,7 @@
             "id": "kvm",
             "name": "KVM Control",
             "status": "planned",
+            "version": "0.3.1",
             "category": "Remote",
             "summary": "Send keyboard/mouse input and capture the screen through kvm:// URI routes.",
             "description": "KVM Control maps remote keyboard, mouse and screen-capture actions to kvm:// routes so a host can drive another machine over the URI contract, gated by policy. Intended for lab automation and assisted remote control, not unattended access.",
@@ -1132,9 +1770,42 @@
             "verified": false
         },
         {
+            "id": "linkedin",
+            "name": "Linkedin",
+            "status": "planned",
+            "version": "0.1.0",
+            "category": "Social",
+            "summary": "Draft and inspect LinkedIn-oriented workflow artifacts through URI routes.",
+            "description": "Linkedin is an if-uri urirun connector for draft and inspect LinkedIn-oriented workflow artifacts through URI routes. It is represented in the public catalog so the connector can be discovered, versioned and linked to its repository while implementation details are completed.",
+            "uriSchemes": [
+                "linkedin"
+            ],
+            "routes": [
+                "linkedin://host/profile/query/read",
+                "linkedin://host/post/command/draft"
+            ],
+            "examples": [
+                {
+                    "title": "Check Linkedin route",
+                    "uri": "linkedin://host/profile/query/read",
+                    "payload": []
+                }
+            ],
+            "flowExample": [],
+            "install": {
+                "mode": "planned",
+                "pipSpec": "urirun-connector-linkedin"
+            },
+            "docsUrl": "https://github.com/if-uri/urirun-connector-linkedin",
+            "hubUrl": "https://connect.ifuri.com/connectors/linkedin",
+            "manifestUrl": "https://connect.ifuri.com/connectors/linkedin.json",
+            "verified": false
+        },
+        {
             "id": "llm",
             "name": "Local LLM",
             "status": "planned",
+            "version": "0.1.0",
             "category": "AI",
             "summary": "Run local LLM completions and list models through llm:// URI routes.",
             "description": "Local LLM bridges a self-hosted model runtime (Ollama, llama.cpp or vLLM) into llm:// routes, so flows and agents can request completions and list models with the same URI contract — and project them to MCP tools / A2A skills, keeping inference on-device.",
@@ -1173,6 +1844,7 @@
             "id": "mcp-filesystem",
             "name": "MCP Filesystem",
             "status": "planned",
+            "version": "0.1.0",
             "category": "Files",
             "summary": "Read, list and write files through fs:// URI routes backed by the MCP filesystem server.",
             "description": "MCP Filesystem bridges the Model Context Protocol filesystem server (@modelcontextprotocol/server-filesystem) into urirun fs:// routes, so flows and agents can read, list and write files under an allowlisted root with the same URI contract — and project them to MCP tools / A2A skills.",
@@ -1210,6 +1882,7 @@
             "id": "message",
             "name": "Messaging",
             "status": "planned",
+            "version": "0.1.0",
             "category": "Messaging",
             "summary": "Simple alert/message dispatch mock for lab and node.",
             "description": "Simple alert/message dispatch mock for lab and node. A tellmesh capability pack adopted into urirun via its manifest (`urirun adopt-pack`): 1 message:// routes mapped 1:1 to bindings.v2, validated, ready to project to MCP tools / A2A skills.",
@@ -1239,9 +1912,74 @@
             "verified": false
         },
         {
+            "id": "netscan",
+            "name": "Netscan",
+            "status": "planned",
+            "version": "0.1.0",
+            "category": "Network",
+            "summary": "Scan local networks and list discovered devices.",
+            "description": "Netscan is an if-uri urirun connector for scan local networks and list discovered devices. It is represented in the public catalog so the connector can be discovered, versioned and linked to its repository while implementation details are completed.",
+            "uriSchemes": [
+                "netscan"
+            ],
+            "routes": [
+                "netscan://host/network/query/scan",
+                "netscan://host/device/query/list"
+            ],
+            "examples": [
+                {
+                    "title": "Check Netscan route",
+                    "uri": "netscan://host/network/query/scan",
+                    "payload": []
+                }
+            ],
+            "flowExample": [],
+            "install": {
+                "mode": "planned",
+                "pipSpec": "urirun-connector-netscan"
+            },
+            "docsUrl": "https://github.com/if-uri/urirun-connector-netscan",
+            "hubUrl": "https://connect.ifuri.com/connectors/netscan",
+            "manifestUrl": "https://connect.ifuri.com/connectors/netscan.json",
+            "verified": false
+        },
+        {
+            "id": "nodeadmin",
+            "name": "Nodeadmin",
+            "status": "planned",
+            "version": "0.1.0",
+            "category": "Operations",
+            "summary": "Administer urirun nodes through explicit URI routes.",
+            "description": "Nodeadmin is an if-uri urirun connector for administer urirun nodes through explicit URI routes. It is represented in the public catalog so the connector can be discovered, versioned and linked to its repository while implementation details are completed.",
+            "uriSchemes": [
+                "nodeadmin"
+            ],
+            "routes": [
+                "nodeadmin://host/node/query/status",
+                "nodeadmin://host/node/command/restart"
+            ],
+            "examples": [
+                {
+                    "title": "Check Nodeadmin route",
+                    "uri": "nodeadmin://host/node/query/status",
+                    "payload": []
+                }
+            ],
+            "flowExample": [],
+            "install": {
+                "mode": "planned",
+                "pipSpec": "urirun-connector-nodeadmin"
+            },
+            "docsUrl": "https://github.com/if-uri/urirun-connector-nodeadmin",
+            "hubUrl": "https://connect.ifuri.com/connectors/nodeadmin",
+            "manifestUrl": "https://connect.ifuri.com/connectors/nodeadmin.json",
+            "verified": false
+        },
+        {
             "id": "ocr",
             "name": "OCR",
             "status": "planned",
+            "version": "0.1.0",
             "category": "Vision",
             "summary": "OCR text extraction from latest screenshot or image id (mock/tesseract).",
             "description": "OCR text extraction from latest screenshot or image id (mock/tesseract). A tellmesh capability pack adopted into urirun via its manifest (`urirun adopt-pack`): 2 ocr:// routes mapped 1:1 to bindings.v2, validated, ready to project to MCP tools / A2A skills.",
@@ -1273,9 +2011,58 @@
             "verified": false
         },
         {
+            "id": "pdf",
+            "name": "PDF",
+            "status": "available",
+            "version": "0.1.0",
+            "category": "Documents",
+            "summary": "Render markdown or HTML to PDF and read PDF page count/metadata through pdf:// URI routes. Headless, no GUI or office suite.",
+            "description": "PDF is an external urirun connector that exposes headless PDF rendering as pdf:// routes. It renders markdown text/files (markdown -> HTML -> PDF) and HTML strings/files to PDF using weasyprint when available, falling back to reportlab for basic text output. A read-only query returns the page count and document metadata of an existing PDF via pypdf (or PyPDF2). All third-party imports are lazy, so the connector imports cleanly with none of the rendering libraries installed, and every handler returns a urirun envelope instead of raising.",
+            "uriSchemes": [
+                "pdf"
+            ],
+            "routes": [
+                "pdf://host/markdown/command/render",
+                "pdf://host/html/command/render",
+                "pdf://host/pdf/query/info"
+            ],
+            "examples": [
+                {
+                    "title": "Render markdown to PDF",
+                    "uri": "pdf://host/markdown/command/render",
+                    "payload": {
+                        "markdown": "# Hello\n\nWorld",
+                        "out_path": "/tmp/out.pdf",
+                        "title": "Hello"
+                    }
+                },
+                {
+                    "title": "PDF info",
+                    "uri": "pdf://host/pdf/query/info",
+                    "payload": {
+                        "pdf_path": "/tmp/out.pdf"
+                    }
+                }
+            ],
+            "flowExample": [
+                "pdf://host/markdown/command/render",
+                "pdf://host/html/command/render",
+                "pdf://host/pdf/query/info"
+            ],
+            "install": {
+                "mode": "urirun-extra",
+                "pipSpec": "urirun-connector-pdf @ git+https://github.com/if-uri/urirun-connector-pdf.git"
+            },
+            "docsUrl": "https://github.com/if-uri/urirun-connector-pdf",
+            "hubUrl": "https://connect.ifuri.com/connectors/pdf",
+            "manifestUrl": "https://connect.ifuri.com/connectors/pdf.json",
+            "verified": false
+        },
+        {
             "id": "rdp",
             "name": "RDP Desktop",
             "status": "planned",
+            "version": "0.1.0",
             "category": "Desktop",
             "summary": "RDP session and X11 display queries for urirdp-docker.",
             "description": "RDP session and X11 display queries for urirdp-docker. A tellmesh capability pack adopted into urirun via its manifest (`urirun adopt-pack`): 5 rdp:// routes mapped 1:1 to bindings.v2, validated, ready to project to MCP tools / A2A skills.",
@@ -1310,9 +2097,74 @@
             "verified": false
         },
         {
+            "id": "router",
+            "name": "Router",
+            "status": "planned",
+            "version": "0.1.0",
+            "category": "Routing",
+            "summary": "Resolve and dispatch URI routes through a connector router.",
+            "description": "Router is an if-uri urirun connector for resolve and dispatch URI routes through a connector router. It is represented in the public catalog so the connector can be discovered, versioned and linked to its repository while implementation details are completed.",
+            "uriSchemes": [
+                "router"
+            ],
+            "routes": [
+                "router://host/route/query/resolve",
+                "router://host/route/command/dispatch"
+            ],
+            "examples": [
+                {
+                    "title": "Check Router route",
+                    "uri": "router://host/route/query/resolve",
+                    "payload": []
+                }
+            ],
+            "flowExample": [],
+            "install": {
+                "mode": "planned",
+                "pipSpec": "urirun-connector-router"
+            },
+            "docsUrl": "https://github.com/if-uri/urirun-connector-router",
+            "hubUrl": "https://connect.ifuri.com/connectors/router",
+            "manifestUrl": "https://connect.ifuri.com/connectors/router.json",
+            "verified": false
+        },
+        {
+            "id": "scanner",
+            "name": "Scanner",
+            "status": "planned",
+            "version": "0.1.0",
+            "category": "Hardware",
+            "summary": "List scanners and run document scans through URI routes.",
+            "description": "Scanner is an if-uri urirun connector for list scanners and run document scans through URI routes. It is represented in the public catalog so the connector can be discovered, versioned and linked to its repository while implementation details are completed.",
+            "uriSchemes": [
+                "scanner"
+            ],
+            "routes": [
+                "scanner://host/device/query/list",
+                "scanner://host/document/command/scan"
+            ],
+            "examples": [
+                {
+                    "title": "Check Scanner route",
+                    "uri": "scanner://host/device/query/list",
+                    "payload": []
+                }
+            ],
+            "flowExample": [],
+            "install": {
+                "mode": "planned",
+                "pipSpec": "urirun-connector-scanner"
+            },
+            "docsUrl": "https://github.com/if-uri/urirun-connector-scanner",
+            "hubUrl": "https://connect.ifuri.com/connectors/scanner",
+            "manifestUrl": "https://connect.ifuri.com/connectors/scanner.json",
+            "verified": false
+        },
+        {
             "id": "screen",
             "name": "Screen Capture",
             "status": "planned",
+            "version": "0.1.0",
             "category": "Vision",
             "summary": "Screen capture — frame query, single capture, capture loop.",
             "description": "Screen capture — frame query, single capture, capture loop. A tellmesh capability pack adopted into urirun via its manifest (`urirun adopt-pack`): 3 screen:// routes mapped 1:1 to bindings.v2, validated, ready to project to MCP tools / A2A skills.",
@@ -1348,6 +2200,7 @@
             "id": "sheet",
             "name": "Spreadsheet I/O (XLSX/CSV)",
             "status": "available",
+            "version": "0.1.0",
             "category": "Accounting",
             "summary": "Read and write XLSX/CSV over sheet:// URIs without libreoffice. CSV via stdlib (always works); XLSX via openpyxl (pure Python). Reads return {columns, rows}; writes take rows and pick CSV/XLSX from the extension, with an optional totals footer. Pairs with invoice://ksef:// to emit accountant-ready Excel.",
             "description": "sheet:// makes spreadsheet I/O a first-class URI. sheet://host/file/query/read returns {columns, rows} from a .xlsx (any tab) or .csv — for ingesting bank statements and accounting exports. sheet://host/file/command/write writes a list of row dicts to .xlsx or .csv (chosen by extension), with an optional per-column SUM footer — for turning parsed invoice / KSeF VAT-register rows into an Excel an accountant opens. sheet://host/file/query/info lists sheets + dimensions. CSV needs no extra deps; XLSX needs openpyxl (pip).",
@@ -1392,9 +2245,42 @@
             "verified": false
         },
         {
+            "id": "smart-crop",
+            "name": "Smart Crop",
+            "status": "planned",
+            "version": "0.1.0",
+            "category": "Vision",
+            "summary": "Detect useful regions and crop images automatically.",
+            "description": "Smart Crop is an if-uri urirun connector for detect useful regions and crop images automatically. It is represented in the public catalog so the connector can be discovered, versioned and linked to its repository while implementation details are completed.",
+            "uriSchemes": [
+                "smartcrop"
+            ],
+            "routes": [
+                "smartcrop://host/image/command/crop",
+                "smartcrop://host/image/query/regions"
+            ],
+            "examples": [
+                {
+                    "title": "Check Smart Crop route",
+                    "uri": "smartcrop://host/image/command/crop",
+                    "payload": []
+                }
+            ],
+            "flowExample": [],
+            "install": {
+                "mode": "planned",
+                "pipSpec": "urirun-connector-smart-crop"
+            },
+            "docsUrl": "https://github.com/if-uri/urirun-connector-smart-crop",
+            "hubUrl": "https://connect.ifuri.com/connectors/smart-crop",
+            "manifestUrl": "https://connect.ifuri.com/connectors/smart-crop.json",
+            "verified": false
+        },
+        {
             "id": "stepper",
             "name": "Stepper Motor",
             "status": "planned",
+            "version": "0.1.0",
             "category": "Devices",
             "summary": "Stepper motor URI pack (mock + rpi-gpio-step-dir drivers).",
             "description": "Stepper motor URI pack (mock + rpi-gpio-step-dir drivers). A tellmesh capability pack adopted into urirun via its manifest (`urirun adopt-pack`): 7 stepper:// routes mapped 1:1 to bindings.v2, validated, ready to project to MCP tools / A2A skills.",
@@ -1434,6 +2320,7 @@
             "id": "stt",
             "name": "Speech to Text",
             "status": "planned",
+            "version": "0.1.0",
             "category": "Voice",
             "summary": "Speech-to-text pack (mock MVP; browser passthrough + audio transcribe).",
             "description": "Speech-to-text pack (mock MVP; browser passthrough + audio transcribe). A tellmesh capability pack adopted into urirun via its manifest (`urirun adopt-pack`): 3 stt:// routes mapped 1:1 to bindings.v2, validated, ready to project to MCP tools / A2A skills.",
@@ -1466,9 +2353,114 @@
             "verified": false
         },
         {
+            "id": "subiekt-nexo",
+            "name": "Subiekt nexo / InsERT Sfera Bridge",
+            "status": "planned",
+            "version": "0.1.0",
+            "category": "ERP",
+            "summary": "Planned Subiekt nexo connector via a local Sfera/SQL bridge for Polish marketplace ERP pilots.",
+            "description": "Added because Marketing repeatedly points to marketplace -> ERP synchronization and Subiekt is a likely Polish SMB ERP target. Unlike BaseLinker or enova365 WebAPI, this connector needs validation first: practical integrations often require a local bridge around InsERT Sfera libraries or read-only SQL access, not a simple public SaaS token. The planned connector should therefore start as a local bridge contract, not a direct cloud API promise.",
+            "uriSchemes": [
+                "subiekt"
+            ],
+            "routes": [
+                "subiekt://host/doctor/query/report",
+                "subiekt://host/products/query/list",
+                "subiekt://host/stock/query/list",
+                "subiekt://host/customers/query/list",
+                "subiekt://host/order/command/create-draft"
+            ],
+            "examples": [
+                {
+                    "title": "Read product stock by symbol",
+                    "uri": "subiekt://host/stock/query/list",
+                    "payload": {
+                        "symbol": "SKU-001"
+                    }
+                }
+            ],
+            "flowExample": [
+                "baselinker://host/orders/query/list",
+                "subiekt://host/stock/query/list",
+                "planfile://host/dsl/command/run"
+            ],
+            "install": {
+                "mode": "planned"
+            },
+            "docsUrl": "https://forum.insert.com.pl/index.php?/topic/102966-api-insert-nexo-pro-integracja-subiekt-nexo-pro-gestor-nexo-pro-pod-n8n-chat-gpt-itp-czy-si%C4%99-da-to-dobrze-tanio-po%C5%82%C4%85czy%C4%87/",
+            "hubUrl": "https://connect.ifuri.com/connectors/subiekt-nexo",
+            "manifestUrl": "https://connect.ifuri.com/connectors/subiekt-nexo.json",
+            "verified": false
+        },
+        {
+            "id": "twin",
+            "name": "Twin",
+            "status": "planned",
+            "version": "0.1.0",
+            "category": "Digital Twin",
+            "summary": "Expose digital twin state and updates through URI routes.",
+            "description": "Twin is an if-uri urirun connector for expose digital twin state and updates through URI routes. It is represented in the public catalog so the connector can be discovered, versioned and linked to its repository while implementation details are completed.",
+            "uriSchemes": [
+                "twin"
+            ],
+            "routes": [
+                "twin://host/entity/query/state",
+                "twin://host/entity/command/update"
+            ],
+            "examples": [
+                {
+                    "title": "Check Twin route",
+                    "uri": "twin://host/entity/query/state",
+                    "payload": []
+                }
+            ],
+            "flowExample": [],
+            "install": {
+                "mode": "planned",
+                "pipSpec": "urirun-connector-twin"
+            },
+            "docsUrl": "https://github.com/if-uri/urirun-connector-twin",
+            "hubUrl": "https://connect.ifuri.com/connectors/twin",
+            "manifestUrl": "https://connect.ifuri.com/connectors/twin.json",
+            "verified": false
+        },
+        {
+            "id": "urifix",
+            "name": "Urifix",
+            "status": "planned",
+            "version": "0.1.0",
+            "category": "Developer Tools",
+            "summary": "Diagnose and repair URI flow or route issues.",
+            "description": "Urifix is an if-uri urirun connector for diagnose and repair URI flow or route issues. It is represented in the public catalog so the connector can be discovered, versioned and linked to its repository while implementation details are completed.",
+            "uriSchemes": [
+                "urifix"
+            ],
+            "routes": [
+                "urifix://host/uri/query/diagnose",
+                "urifix://host/uri/command/repair"
+            ],
+            "examples": [
+                {
+                    "title": "Check Urifix route",
+                    "uri": "urifix://host/uri/query/diagnose",
+                    "payload": []
+                }
+            ],
+            "flowExample": [],
+            "install": {
+                "mode": "planned",
+                "pipSpec": "urirun-connector-urifix"
+            },
+            "docsUrl": "https://github.com/if-uri/urirun-connector-urifix",
+            "hubUrl": "https://connect.ifuri.com/connectors/urifix",
+            "manifestUrl": "https://connect.ifuri.com/connectors/urifix.json",
+            "verified": false
+        },
+        {
             "id": "urimail",
             "name": "Email",
             "status": "planned",
+            "version": "0.1.0",
             "category": "Messaging",
             "summary": "Mail mock/mailpit/smtp automation for urisys-node.",
             "description": "Mail mock/mailpit/smtp automation for urisys-node. A tellmesh capability pack adopted into urirun via its manifest (`urirun adopt-pack`): 5 urimail:// routes mapped 1:1 to bindings.v2, validated, ready to project to MCP tools / A2A skills.",
@@ -1506,6 +2498,7 @@
             "id": "urioffice",
             "name": "Office Documents",
             "status": "planned",
+            "version": "0.1.0",
             "category": "Files",
             "summary": "Office document mock/writer/LibreOffice automation for urisys-node.",
             "description": "Office document mock/writer/LibreOffice automation for urisys-node. A tellmesh capability pack adopted into urirun via its manifest (`urirun adopt-pack`): 5 urioffice:// routes mapped 1:1 to bindings.v2, validated, ready to project to MCP tools / A2A skills.",
@@ -1540,9 +2533,74 @@
             "verified": false
         },
         {
+            "id": "urivision",
+            "name": "Urivision",
+            "status": "planned",
+            "version": "0.1.0",
+            "category": "Vision",
+            "summary": "Analyze images and screens through URI vision routes.",
+            "description": "Urivision is an if-uri urirun connector for analyze images and screens through URI vision routes. It is represented in the public catalog so the connector can be discovered, versioned and linked to its repository while implementation details are completed.",
+            "uriSchemes": [
+                "vision"
+            ],
+            "routes": [
+                "vision://host/image/query/analyze",
+                "vision://host/screen/query/describe"
+            ],
+            "examples": [
+                {
+                    "title": "Check Urivision route",
+                    "uri": "vision://host/image/query/analyze",
+                    "payload": []
+                }
+            ],
+            "flowExample": [],
+            "install": {
+                "mode": "planned",
+                "pipSpec": "urirun-connector-urivision"
+            },
+            "docsUrl": "https://github.com/if-uri/urirun-connector-urivision",
+            "hubUrl": "https://connect.ifuri.com/connectors/urivision",
+            "manifestUrl": "https://connect.ifuri.com/connectors/urivision.json",
+            "verified": false
+        },
+        {
+            "id": "urivision-runtime",
+            "name": "Urivision Runtime",
+            "status": "planned",
+            "version": "0.1.0",
+            "category": "Vision",
+            "summary": "Manage the runtime layer for URI vision connectors.",
+            "description": "Urivision Runtime is an if-uri urirun connector for manage the runtime layer for URI vision connectors. It is represented in the public catalog so the connector can be discovered, versioned and linked to its repository while implementation details are completed.",
+            "uriSchemes": [
+                "vision"
+            ],
+            "routes": [
+                "vision://runtime/model/query/status",
+                "vision://runtime/model/command/load"
+            ],
+            "examples": [
+                {
+                    "title": "Check Urivision Runtime route",
+                    "uri": "vision://runtime/model/query/status",
+                    "payload": []
+                }
+            ],
+            "flowExample": [],
+            "install": {
+                "mode": "planned",
+                "pipSpec": "urirun-connector-urivision-runtime"
+            },
+            "docsUrl": "https://github.com/if-uri/urirun-connector-urivision-runtime",
+            "hubUrl": "https://connect.ifuri.com/connectors/urivision-runtime",
+            "manifestUrl": "https://connect.ifuri.com/connectors/urivision-runtime.json",
+            "verified": false
+        },
+        {
             "id": "usb",
             "name": "USB devices",
             "status": "available",
+            "version": "0.1.0",
             "category": "Hardware",
             "summary": "Enumerate and classify the USB devices plugged into a computer over usb:// URIs. Reads the kernel's sysfs view (no root, no extra deps), labels each device by USB class codes (camera/webcam, keyboard, mouse, audio, storage, hub, printer, bluetooth, serial, smart-card/security-key) and maps it to the /dev nodes it owns (/dev/video*, /dev/input/*, /dev/ttyUSB*, /dev/hidraw*).",
             "description": "usb:// answers 'what is physically connected to this machine?' as a first-class URI instead of ad-hoc lsusb parsing. usb://host/devices/query/list returns every device with a friendly category, roles, vendor/product ids and the device nodes it exposes. usb://host/devices/query/find searches by name, vendor:product or category. usb://host/cameras/query/list returns only USB cameras with their /dev/video* capture nodes — the discovery layer the camera connector builds on. usb://host/input/query/list returns keyboards, mice and other HID gear with their /dev/input nodes. usb://host/devices/query/probe reports host support. Built on Linux sysfs (/sys/bus/usb/devices) and /sys/class/* node mapping; lsusb is used only to fill in nicer vendor/product names.",
@@ -1584,6 +2642,7 @@
             "id": "uuid",
             "name": "UUID (JavaScript)",
             "status": "available",
+            "version": "0.1.0",
             "category": "Utilities",
             "summary": "Generate UUID v4 identifiers through uuid:// URI commands.",
             "description": "UUID is a polyglot urirun connector written in JavaScript (Node). It proves connectors are language-agnostic: it emits a v2 bindings document and answers the uuid:// route via an argv-template the urirun runtime invokes.",
@@ -1615,9 +2674,74 @@
             "verified": false
         },
         {
+            "id": "vdisplay",
+            "name": "Vdisplay",
+            "status": "planned",
+            "version": "0.1.0",
+            "category": "Display",
+            "summary": "Manage virtual displays through URI routes.",
+            "description": "Vdisplay is an if-uri urirun connector for manage virtual displays through URI routes. It is represented in the public catalog so the connector can be discovered, versioned and linked to its repository while implementation details are completed.",
+            "uriSchemes": [
+                "vdisplay"
+            ],
+            "routes": [
+                "vdisplay://host/display/query/list",
+                "vdisplay://host/display/command/create"
+            ],
+            "examples": [
+                {
+                    "title": "Check Vdisplay route",
+                    "uri": "vdisplay://host/display/query/list",
+                    "payload": []
+                }
+            ],
+            "flowExample": [],
+            "install": {
+                "mode": "planned",
+                "pipSpec": "urirun-connector-vdisplay"
+            },
+            "docsUrl": "https://github.com/if-uri/urirun-connector-vdisplay",
+            "hubUrl": "https://connect.ifuri.com/connectors/vdisplay",
+            "manifestUrl": "https://connect.ifuri.com/connectors/vdisplay.json",
+            "verified": false
+        },
+        {
+            "id": "view",
+            "name": "View",
+            "status": "planned",
+            "version": "0.1.0",
+            "category": "Viewer",
+            "summary": "Render or open resources in a URI-addressable viewer.",
+            "description": "View is an if-uri urirun connector for render or open resources in a URI-addressable viewer. It is represented in the public catalog so the connector can be discovered, versioned and linked to its repository while implementation details are completed.",
+            "uriSchemes": [
+                "view"
+            ],
+            "routes": [
+                "view://host/resource/query/render",
+                "view://host/resource/command/open"
+            ],
+            "examples": [
+                {
+                    "title": "Check View route",
+                    "uri": "view://host/resource/query/render",
+                    "payload": []
+                }
+            ],
+            "flowExample": [],
+            "install": {
+                "mode": "planned",
+                "pipSpec": "urirun-connector-view"
+            },
+            "docsUrl": "https://github.com/if-uri/urirun-connector-view",
+            "hubUrl": "https://connect.ifuri.com/connectors/view",
+            "manifestUrl": "https://connect.ifuri.com/connectors/view.json",
+            "verified": false
+        },
+        {
             "id": "vql",
             "name": "Visual Query",
             "status": "planned",
+            "version": "0.1.0",
             "category": "Data",
             "summary": "Visual query language — UI detect/compare for urisys-node.",
             "description": "Visual query language — UI detect/compare for urisys-node. A tellmesh capability pack adopted into urirun via its manifest (`urirun adopt-pack`): 2 vql:// routes mapped 1:1 to bindings.v2, validated, ready to project to MCP tools / A2A skills.",
@@ -1649,9 +2773,42 @@
             "verified": false
         },
         {
+            "id": "webnode",
+            "name": "Webnode",
+            "status": "planned",
+            "version": "0.1.0",
+            "category": "Web",
+            "summary": "Operate web node publishing/status workflows through URI routes.",
+            "description": "Webnode is an if-uri urirun connector for operate web node publishing/status workflows through URI routes. It is represented in the public catalog so the connector can be discovered, versioned and linked to its repository while implementation details are completed.",
+            "uriSchemes": [
+                "webnode"
+            ],
+            "routes": [
+                "webnode://host/page/query/status",
+                "webnode://host/page/command/publish"
+            ],
+            "examples": [
+                {
+                    "title": "Check Webnode route",
+                    "uri": "webnode://host/page/query/status",
+                    "payload": []
+                }
+            ],
+            "flowExample": [],
+            "install": {
+                "mode": "planned",
+                "pipSpec": "urirun-connector-webnode"
+            },
+            "docsUrl": "https://github.com/if-uri/urirun-connector-webnode",
+            "hubUrl": "https://connect.ifuri.com/connectors/webnode",
+            "manifestUrl": "https://connect.ifuri.com/connectors/webnode.json",
+            "verified": false
+        },
+        {
             "id": "webrtc",
             "name": "WebRTC",
             "status": "planned",
+            "version": "0.1.0",
             "category": "Media",
             "summary": "WebRTC session — HTTP signaling inbox (node) and DataChannel URI envelopes; browser P2P via ifURI /api/webrtc/signal.",
             "description": "WebRTC session — HTTP signaling inbox (node) and DataChannel URI envelopes; browser P2P via ifURI /api/webrtc/signal. A tellmesh capability pack adopted into urirun via its manifest (`urirun adopt-pack`): 4 webrtc:// routes mapped 1:1 to bindings.v2, validated, ready to project to MCP tools / A2A skills.",
@@ -1682,6 +2839,81 @@
             "docsUrl": "https://docs.ifuri.com/adopt-as-uri.html",
             "hubUrl": "https://connect.ifuri.com/connectors/webrtc",
             "manifestUrl": "https://connect.ifuri.com/connectors/webrtc.json",
+            "verified": false
+        },
+        {
+            "id": "wfirma",
+            "name": "wFirma.pl",
+            "status": "planned",
+            "version": "0.1.0",
+            "category": "Accounting / invoicing",
+            "summary": "Planned wFirma connector for invoice, contractor, goods and warehouse-document checks in marketplace accounting pilots.",
+            "description": "Added because Marketing lists marketplace -> accounting as a concrete offer: verify that confirmed marketplace orders have invoices and KSeF traces. wFirma publishes API documentation with API key and OAuth options, modules such as invoices, contractors, goods, warehouses, warehouse_documents and KSeF-related workflows. This connector should start read-only and dry-run invoice draft creation.",
+            "uriSchemes": [
+                "wfirma"
+            ],
+            "routes": [
+                "wfirma://host/auth/query/status",
+                "wfirma://host/invoices/query/list",
+                "wfirma://host/invoice/query/show",
+                "wfirma://host/contractors/query/list",
+                "wfirma://host/goods/query/list",
+                "wfirma://host/invoice/command/create-draft",
+                "wfirma://host/doctor/query/report"
+            ],
+            "examples": [
+                {
+                    "title": "Find invoices for a period",
+                    "uri": "wfirma://host/invoices/query/list",
+                    "payload": {
+                        "date_from": "2026-07-01",
+                        "date_to": "2026-07-31"
+                    }
+                }
+            ],
+            "flowExample": [
+                "baselinker://host/orders/query/list",
+                "wfirma://host/invoices/query/list",
+                "ksef://demo/invoices/query"
+            ],
+            "install": {
+                "mode": "planned"
+            },
+            "docsUrl": "https://doc.wfirma.pl/",
+            "hubUrl": "https://connect.ifuri.com/connectors/wfirma",
+            "manifestUrl": "https://connect.ifuri.com/connectors/wfirma.json",
+            "verified": false
+        },
+        {
+            "id": "youtube",
+            "name": "Youtube",
+            "status": "planned",
+            "version": "0.1.0",
+            "category": "Media",
+            "summary": "Inspect and process YouTube video resources through URI routes.",
+            "description": "Youtube is an if-uri urirun connector for inspect and process YouTube video resources through URI routes. It is represented in the public catalog so the connector can be discovered, versioned and linked to its repository while implementation details are completed.",
+            "uriSchemes": [
+                "youtube"
+            ],
+            "routes": [
+                "youtube://host/video/query/info",
+                "youtube://host/video/command/download"
+            ],
+            "examples": [
+                {
+                    "title": "Check Youtube route",
+                    "uri": "youtube://host/video/query/info",
+                    "payload": []
+                }
+            ],
+            "flowExample": [],
+            "install": {
+                "mode": "planned",
+                "pipSpec": "urirun-connector-youtube"
+            },
+            "docsUrl": "https://github.com/if-uri/urirun-connector-youtube",
+            "hubUrl": "https://connect.ifuri.com/connectors/youtube",
+            "manifestUrl": "https://connect.ifuri.com/connectors/youtube.json",
             "verified": false
         }
     ]

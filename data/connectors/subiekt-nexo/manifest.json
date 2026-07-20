@@ -1,0 +1,33 @@
+{
+  "id": "subiekt-nexo",
+  "name": "Subiekt nexo / InsERT Sfera Bridge",
+  "version": "0.1.0",
+  "status": "planned",
+  "category": "ERP",
+  "summary": "Planned Subiekt nexo connector via a local Sfera/SQL bridge for Polish marketplace ERP pilots.",
+  "description": "Added because Marketing repeatedly points to marketplace -> ERP synchronization and Subiekt is a likely Polish SMB ERP target. Unlike BaseLinker or enova365 WebAPI, this connector needs validation first: practical integrations often require a local bridge around InsERT Sfera libraries or read-only SQL access, not a simple public SaaS token. The planned connector should therefore start as a local bridge contract, not a direct cloud API promise.",
+  "uriSchemes": ["subiekt"],
+  "routes": [
+    "subiekt://host/doctor/query/report",
+    "subiekt://host/products/query/list",
+    "subiekt://host/stock/query/list",
+    "subiekt://host/customers/query/list",
+    "subiekt://host/order/command/create-draft"
+  ],
+  "useCases": [
+    "Read Subiekt stock and compare it with BaseLinker inventory.",
+    "Create a draft sales order from a marketplace order after operator approval.",
+    "Offer a local-first path for customers whose ERP data cannot leave the organization."
+  ],
+  "examples": [
+    {"title": "Read product stock by symbol", "uri": "subiekt://host/stock/query/list", "payload": {"symbol": "SKU-001"}}
+  ],
+  "flowExample": ["baselinker://host/orders/query/list", "subiekt://host/stock/query/list", "planfile://host/dsl/command/run"],
+  "requires": ["python>=3.10", "customer-hosted bridge service", "InsERT Sfera or read-only SQL access", "technical operator credentials"],
+  "adapterKinds": ["http-api", "local-function"],
+  "install": {"mode": "planned"},
+  "provenance": "verified",
+  "publisher": {"name": "if-uri", "url": "https://ifuri.com", "github": "https://github.com/urirun-connectors"},
+  "docsUrl": "https://forum.insert.com.pl/index.php?/topic/102966-api-insert-nexo-pro-integracja-subiekt-nexo-pro-gestor-nexo-pro-pod-n8n-chat-gpt-itp-czy-si%C4%99-da-to-dobrze-tanio-po%C5%82%C4%85czy%C4%87/",
+  "keywords": ["subiekt", "insert", "nexo", "sfera", "erp", "stock", "orders", "local-first"]
+}
