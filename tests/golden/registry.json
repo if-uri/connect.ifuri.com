@@ -2031,10 +2031,10 @@
             "id": "subactor-agent",
             "name": "Subactor Agent Control Loop",
             "status": "available",
-            "version": "0.2.1",
+            "version": "0.3.1",
             "category": "Agents",
             "summary": "Control todo-agent execution through bounded loops, cron discovery and deduplicated triggers.",
-            "description": "A URI-native control plane for Subactor's doctor, repair and validator fleet. It reuses todo-agent discovery, Planfile's OneDev backend and the validated runner, persists generation and retry feedback, and never accepts commands or repository paths from actor payloads.",
+            "description": "A URI-native control plane for Subactor's doctor, repair and validator fleet. It reuses todo-agent discovery, Planfile's OneDev backend and the validated runner, persists generation, typed blockers and retry feedback, continues past deferred tasks, and never accepts commands or repository paths from actor payloads.",
             "uriSchemes": [
                 "subactor-agent"
             ],
@@ -2077,7 +2077,7 @@
             ],
             "install": {
                 "mode": "urirun-extra",
-                "pipSpec": "urirun-connector-subactor-agent @ git+https://github.com/urirun-connectors/urirun-connector-subactor-agent.git@v0.2.1"
+                "pipSpec": "urirun-connector-subactor-agent @ git+https://github.com/urirun-connectors/urirun-connector-subactor-agent.git@v0.3.1"
             },
             "docsUrl": "https://github.com/urirun-connectors/urirun-connector-subactor-agent",
             "hubUrl": "https://connect.ifuri.com/connectors/subactor-agent",

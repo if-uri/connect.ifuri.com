@@ -3194,11 +3194,11 @@
         {
             "id": "subactor-agent",
             "name": "Subactor Agent Control Loop",
-            "version": "0.2.1",
+            "version": "0.3.1",
             "status": "available",
             "category": "Agents",
             "summary": "Control todo-agent execution through bounded loops, cron discovery and deduplicated triggers.",
-            "description": "A URI-native control plane for Subactor's doctor, repair and validator fleet. It reuses todo-agent discovery, Planfile's OneDev backend and the validated runner, persists generation and retry feedback, and never accepts commands or repository paths from actor payloads.",
+            "description": "A URI-native control plane for Subactor's doctor, repair and validator fleet. It reuses todo-agent discovery, Planfile's OneDev backend and the validated runner, persists generation, typed blockers and retry feedback, continues past deferred tasks, and never accepts commands or repository paths from actor payloads.",
             "uriSchemes": [
                 "subactor-agent"
             ],
@@ -3216,7 +3216,8 @@
                 "Poll and transition Planfile OneDev task tickets without duplicating the OneDev client.",
                 "Drive cron-based maintenance without executing the same schedule slot twice.",
                 "Queue ticket, repository and webhook triggers with stable idempotency keys.",
-                "Inspect control-loop generations, run receipts and deterministic retry backoff."
+                "Inspect control-loop generations, run receipts and deterministic retry backoff.",
+                "Continue later Planfile tickets while a failed task waits for its retry window."
             ],
             "examples": [
                 {
@@ -3253,12 +3254,12 @@
                     "urirun>=0.4.190"
                 ],
                 "optional": [
-                    "ifuri-todo-agent>=0.15.0 with planfile on the execution node"
+                    "ifuri-todo-agent>=0.15.1 with planfile on the execution node"
                 ]
             },
             "install": {
                 "mode": "urirun-extra",
-                "pipSpec": "urirun-connector-subactor-agent @ git+https://github.com/urirun-connectors/urirun-connector-subactor-agent.git@v0.2.1"
+                "pipSpec": "urirun-connector-subactor-agent @ git+https://github.com/urirun-connectors/urirun-connector-subactor-agent.git@v0.3.1"
             },
             "adapterKinds": [
                 "local-function"
