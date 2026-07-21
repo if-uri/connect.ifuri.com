@@ -1,7 +1,7 @@
 {
   "id": "subactor-agent",
   "name": "Subactor Agent Control Loop",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "status": "available",
   "category": "Agents",
   "summary": "Control todo-agent execution through bounded loops, cron discovery and deduplicated triggers.",
@@ -64,7 +64,7 @@
   },
   "install": {
     "mode": "urirun-extra",
-    "pipSpec": "urirun-connector-subactor-agent @ git+https://github.com/urirun-connectors/urirun-connector-subactor-agent.git@v0.1.0"
+    "pipSpec": "urirun-connector-subactor-agent @ git+https://github.com/urirun-connectors/urirun-connector-subactor-agent.git@v0.1.1"
   },
   "adapterKinds": [
     "local-function"
