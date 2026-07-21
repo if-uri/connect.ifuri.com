@@ -27,6 +27,7 @@ def manifest(**overrides) -> dict:
     base = {
         "id": "demo",
         "name": "Demo Connector",
+        "version": "0.0.0",
         "status": "available",
         "category": "Test",
         "summary": "A connector used only by the policy test suite.",

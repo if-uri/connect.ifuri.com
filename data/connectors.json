@@ -984,7 +984,7 @@
     {
       "id": "camera",
       "name": "Camera capture + OCR",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "status": "available",
       "category": "Hardware",
       "summary": "Turn a USB/built-in webcam into data over camera:// URIs: discover cameras, beep before scan, capture a still frame, describe what is in the photo, find and crop to the dominant object, OCR it, and run simple inspection/alert rules. Capture uses ffmpeg (OpenCV optional); scene understanding + object detection reuse the img2nl engine via urirun-connector-ocr (Pillow edge/stats fallback); OCR uses tesseract, upgrading to the richer OCR connector backends automatically.",
@@ -1040,9 +1040,9 @@
       },
       "install": {
         "mode": "urirun-extra",
-        "pipSpec": "urirun-connector-camera @ git+https://github.com/if-uri/urirun-connector-camera.git"
+        "pipSpec": "urirun-connector-camera @ git+https://github.com/urirun-connectors/urirun-connector-camera.git@v0.1.1"
       },
-      "docsUrl": "https://github.com/if-uri/urirun-connector-camera",
+      "docsUrl": "https://github.com/urirun-connectors/urirun-connector-camera",
       "keywords": [
         "camera",
         "webcam",
@@ -2694,12 +2694,12 @@
       ],
       "install": {
         "mode": "urirun-extra",
-        "pipSpec": "urirun-connector-pdf @ git+https://github.com/if-uri/urirun-connector-pdf.git"
+        "pipSpec": "urirun-connector-pdf @ git+https://github.com/urirun-connectors/urirun-connector-pdf.git@v0.1.0"
       },
       "adapterKinds": [
         "local-function"
       ],
-      "docsUrl": "https://github.com/if-uri/urirun-connector-pdf",
+      "docsUrl": "https://github.com/urirun-connectors/urirun-connector-pdf",
       "keywords": [
         "pdf",
         "markdown",
@@ -3189,6 +3189,94 @@
         "name": "tellmesh",
         "url": "https://github.com/tellmesh",
         "github": "https://github.com/tellmesh"
+      }
+    },
+    {
+      "id": "subactor-agent",
+      "name": "Subactor Agent Control Loop",
+      "version": "0.1.0",
+      "status": "available",
+      "category": "Agents",
+      "summary": "Control todo-agent execution through bounded loops, cron discovery and deduplicated triggers.",
+      "description": "A URI-native control plane for Subactor's doctor, repair and validator fleet. It reuses todo-agent discovery and its validated runner, persists generation and retry feedback, and never accepts commands or repository paths from actor payloads.",
+      "uriSchemes": [
+        "subactor-agent"
+      ],
+      "routes": [
+        "subactor-agent://host/cycle/command/run",
+        "subactor-agent://host/doctor/query/report",
+        "subactor-agent://host/loop/session/run",
+        "subactor-agent://host/runs/query/list",
+        "subactor-agent://host/state/query/status",
+        "subactor-agent://host/tasks/query/discover",
+        "subactor-agent://host/trigger/event/emit"
+      ],
+      "useCases": [
+        "Run ready todo-agent task packages from a urirun node.",
+        "Drive cron-based maintenance without executing the same schedule slot twice.",
+        "Queue ticket, repository and webhook triggers with stable idempotency keys.",
+        "Inspect control-loop generations, run receipts and deterministic retry backoff."
+      ],
+      "examples": [
+        {
+          "title": "Preview a cron control cycle",
+          "uri": "subactor-agent://host/cycle/command/run",
+          "payload": {
+            "trigger": "schedule",
+            "execute": false,
+            "max_tasks": 3
+          }
+        },
+        {
+          "title": "Queue a Planfile ticket trigger",
+          "uri": "subactor-agent://host/trigger/event/emit",
+          "payload": {
+            "kind": "ticket",
+            "event_id": "planfile-PLF-123",
+            "task_id": "0042_customer-mail-triage",
+            "context": {
+              "ticket_id": "PLF-123"
+            }
+          }
+        }
+      ],
+      "flowExample": [
+        "subactor-agent://host/trigger/event/emit",
+        "subactor-agent://host/loop/session/run",
+        "subactor-agent://host/runs/query/list"
+      ],
+      "requires": {
+        "system": [],
+        "python": [
+          "python>=3.11",
+          "urirun>=0.4.190"
+        ],
+        "optional": [
+          "ifuri-todo-agent>=0.14.3 on the execution node"
+        ]
+      },
+      "install": {
+        "mode": "urirun-extra",
+        "pipSpec": "urirun-connector-subactor-agent @ git+https://github.com/urirun-connectors/urirun-connector-subactor-agent.git@v0.1.0"
+      },
+      "adapterKinds": [
+        "local-function"
+      ],
+      "docsUrl": "https://github.com/urirun-connectors/urirun-connector-subactor-agent",
+      "keywords": [
+        "subactor",
+        "agents",
+        "todo-agent",
+        "cron",
+        "triggers",
+        "control-loop",
+        "urirun"
+      ],
+      "provenance": "verified",
+      "publisher": {
+        "name": "urirun-connectors",
+        "url": "https://github.com/urirun-connectors",
+        "github": "https://github.com/urirun-connectors"
       }
     },
     {

@@ -40,7 +40,7 @@
   ],
   "install": {
     "mode": "urirun-extra",
-    "pipSpec": "urirun-connector-camera @ git+https://github.com/if-uri/urirun-connector-camera.git"
+    "pipSpec": "urirun-connector-camera @ git+https://github.com/urirun-connectors/urirun-connector-camera.git@v0.1.1"
   },
   "provenance": "verified",
   "publisher": {
@@ -48,7 +48,7 @@
     "url": "https://ifuri.com",
     "github": "https://github.com/if-uri"
   },
-  "docsUrl": "https://github.com/if-uri/urirun-connector-camera",
+  "docsUrl": "https://github.com/urirun-connectors/urirun-connector-camera",
   "keywords": [
     "camera",
     "webcam",
@@ -86,5 +86,5 @@
       "urirun-connector-usb (named camera discovery)"
     ]
   },
-  "version": "0.1.0"
+  "version": "0.1.1"
 }

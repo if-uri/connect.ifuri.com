@@ -173,6 +173,7 @@ for connector in catalog["connectors"]:
 valid_manifest = {
     "id": "demo-connector",
     "name": "Demo Connector",
+    "version": "0.0.0",
     "status": "planned",
     "category": "Test",
     "summary": "A valid connector manifest used by the smoke test.",
@@ -261,6 +262,7 @@ for path, expected in checks:
 valid_manifest = {
     "id": "public-smoke",
     "name": "Public Smoke",
+    "version": "0.0.0",
     "status": "planned",
     "category": "Test",
     "summary": "A valid connector manifest used by the public smoke test.",
