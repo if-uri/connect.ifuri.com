@@ -219,6 +219,7 @@ window.CONNECT_I18N = <?php echo json_encode(hub_js_i18n(), JSON_UNESCAPED_SLASH
     });
   })();
   </script>
+  <script src="/assets/manifest-builder.js"></script>
   <script src="/assets/app.js"></script>
   <script src="/assets/ifuri-ecobar.js" defer></script>
 </body>

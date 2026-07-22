@@ -16,6 +16,7 @@ python3 -m json.tool schema/connector.schema.json >/tmp/connect-ifuri-connector-
 python3 -m json.tool schema/connectors.schema.json >/tmp/connect-ifuri-schema.json
 python3 tools/build_catalog.py --check
 python3 tests/policy_test.py
+node --test tests/manifest_builder.test.js
 php tests/snapshot_test.php
 php tests/sign_test.php
 

@@ -111,134 +111,105 @@ document.querySelectorAll('[data-tabs]').forEach((tabs) => {
 
 refreshCommand();
 
-const builder = document.getElementById('connectorBuilder');
-if (builder) {
-  const form = document.getElementById('connectorBuilderForm');
-  const output = document.getElementById('manifestOutput');
-  const folder = document.getElementById('manifestFolder');
-  const result = document.getElementById('validationResult');
-  const template = window.CONNECTOR_TEMPLATE || {};
-
-  const lineList = (value) => (value || '')
-    .split(/[\n,]+/)
-    .map((item) => item.trim())
-    .filter(Boolean);
-
-  const escapeHtml = (value) => String(value)
+function escapeHtml(value) {
+  return String(value)
     .replaceAll('&', '&amp;')
     .replaceAll('<', '&lt;')
     .replaceAll('>', '&gt;')
     .replaceAll('"', '&quot;')
     .replaceAll("'", '&#039;');
-
-  const setField = (name, value) => {
-    const field = form?.elements.namedItem(name);
-    if (field) field.value = Array.isArray(value) ? value.join('\n') : (value || '');
-  };
-
-  const readManifest = () => {
-    const values = Object.fromEntries(new FormData(form).entries());
-    const pipValues = lineList(values.pipPackages);
-    const install = { mode: values.installMode || 'planned' };
-    if (install.mode === 'planned' && pipValues[0]) {
-      install.pipSpec = pipValues[0];
-    } else if (pipValues.length) {
-      install.pipPackages = pipValues;
-    }
-    return {
-      id: (values.id || '').trim(),
-      name: (values.name || '').trim(),
-      status: values.status || 'planned',
-      category: (values.category || '').trim(),
-      summary: (values.summary || '').trim(),
-      description: (values.description || '').trim(),
-      uriSchemes: lineList(values.uriSchemes),
-      routes: lineList(values.routes),
-      useCases: template.useCases || [],
-      examples: template.examples || [],
-      flowExample: lineList(values.routes).slice(0, 3),
-      requires: template.requires || ['python>=3.10'],
-      install,
-      adapterKinds: lineList(values.adapterKinds),
-      docsUrl: (values.docsUrl || '').trim(),
-      keywords: lineList(values.keywords),
-      provenance: values.provenance || 'community',
-      publisher: {
-        name: (values.publisherName || '').trim(),
-        url: (values.publisherUrl || '').trim(),
-        github: (values.publisherGithub || '').trim(),
-      },
-    };
-  };
-
-  const renderManifest = () => {
-    const manifest = readManifest();
-    output.value = JSON.stringify(manifest, null, 2);
-    if (folder) folder.textContent = `data/connectors/${manifest.id || '<id>'}/manifest.json`;
-    return manifest;
-  };
-
-  const renderValidation = (payload) => {
-    result.classList.toggle('ok', Boolean(payload.ok));
-    result.classList.toggle('error', !payload.ok);
-    const i18n = window.CONNECT_I18N || {};
-    if (payload.ok) {
-      const validText = i18n.validManifest || 'Valid manifest.';
-      result.innerHTML = `<strong>${escapeHtml(validText)}</strong><span>${escapeHtml(payload.folder || '')}</span>`;
-      return;
-    }
-    const errors = payload.errors || [{ field: 'unknown', message: 'validation failed' }];
-    const fixTemplate = i18n.fixIssues || 'Fix {n} issue(s).';
-    const fixText = fixTemplate.replace('{n}', String(errors.length));
-    result.innerHTML = `<strong>${escapeHtml(fixText)}</strong><ul>${errors.map((item) => `<li><code>${escapeHtml(item.field)}</code> ${escapeHtml(item.message)}</li>`).join('')}</ul>`;
-  };
-
-  const loadTemplate = () => {
-    setField('id', template.id);
-    setField('name', template.name);
-    setField('status', template.status);
-    setField('provenance', template.provenance);
-    setField('category', template.category);
-    setField('installMode', template.install?.mode);
-    setField('summary', template.summary);
-    setField('description', template.description);
-    setField('uriSchemes', template.uriSchemes || []);
-    setField('routes', template.routes || []);
-    setField('adapterKinds', template.adapterKinds || []);
-    setField('pipPackages', template.install?.pipSpec || (template.install?.pipPackages || []).join('\n'));
-    setField('publisherName', template.publisher?.name);
-    setField('publisherUrl', template.publisher?.url);
-    setField('publisherGithub', template.publisher?.github);
-    setField('docsUrl', template.docsUrl);
-    setField('keywords', template.keywords || []);
-    result.textContent = '';
-    result.className = 'validation-result';
-    renderManifest();
-  };
-
-  document.getElementById('loadTemplate')?.addEventListener('click', loadTemplate);
-  document.getElementById('buildManifest')?.addEventListener('click', renderManifest);
-  document.getElementById('validateManifest')?.addEventListener('click', async () => {
-    const manifest = renderManifest();
-    try {
-      const response = await fetch('/validate-connector', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(manifest),
-      });
-      const payload = await response.json();
-      renderValidation(payload);
-    } catch (error) {
-      renderValidation({ ok: false, errors: [{ field: 'network', message: String(error) }] });
-    }
-  });
-  form?.addEventListener('input', () => {
-    result.textContent = '';
-    result.className = 'validation-result';
-    renderManifest();
-  });
-  loadTemplate();
 }
+
+function connectorBuilderContext() {
+  const root = document.getElementById('connectorBuilder');
+  if (!root || !window.ConnectorManifestBuilder) return null;
+  return {
+    root,
+    form: document.getElementById('connectorBuilderForm'),
+    output: document.getElementById('manifestOutput'),
+    folder: document.getElementById('manifestFolder'),
+    result: document.getElementById('validationResult'),
+    template: window.CONNECTOR_TEMPLATE || {},
+    tools: window.ConnectorManifestBuilder,
+  };
+}
+
+function setBuilderField(context, name, value) {
+  const field = context.form?.elements.namedItem(name);
+  if (field) field.value = Array.isArray(value) ? value.join('\n') : (value || '');
+}
+
+function clearBuilderValidation(context) {
+  context.result.textContent = '';
+  context.result.className = 'validation-result';
+}
+
+function readBuilderManifest(context) {
+  const values = Object.fromEntries(new FormData(context.form).entries());
+  return context.tools.buildManifest(values, context.template);
+}
+
+function renderBuilderManifest(context) {
+  const manifest = readBuilderManifest(context);
+  context.output.value = JSON.stringify(manifest, null, 2);
+  if (context.folder) {
+    context.folder.textContent = `data/connectors/${manifest.id || '<id>'}/manifest.json`;
+  }
+  return manifest;
+}
+
+function renderBuilderValidation(context, payload) {
+  context.result.classList.toggle('ok', Boolean(payload.ok));
+  context.result.classList.toggle('error', !payload.ok);
+  const i18n = window.CONNECT_I18N || {};
+  if (payload.ok) {
+    const validText = i18n.validManifest || 'Valid manifest.';
+    context.result.innerHTML = `<strong>${escapeHtml(validText)}</strong><span>${escapeHtml(payload.folder || '')}</span>`;
+    return;
+  }
+  const errors = payload.errors || [{ field: 'unknown', message: 'validation failed' }];
+  const fixTemplate = i18n.fixIssues || 'Fix {n} issue(s).';
+  const fixText = fixTemplate.replace('{n}', String(errors.length));
+  context.result.innerHTML = `<strong>${escapeHtml(fixText)}</strong><ul>${errors.map((item) => `<li><code>${escapeHtml(item.field)}</code> ${escapeHtml(item.message)}</li>`).join('')}</ul>`;
+}
+
+function loadBuilderTemplate(context) {
+  Object.entries(context.tools.templateFields(context.template))
+    .forEach(([name, value]) => setBuilderField(context, name, value));
+  clearBuilderValidation(context);
+  renderBuilderManifest(context);
+}
+
+async function validateBuilderManifest(context) {
+  const manifest = renderBuilderManifest(context);
+  try {
+    const response = await fetch('/validate-connector', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(manifest),
+    });
+    renderBuilderValidation(context, await response.json());
+  } catch (error) {
+    renderBuilderValidation(context, {
+      ok: false,
+      errors: [{ field: 'network', message: String(error) }],
+    });
+  }
+}
+
+function initializeConnectorBuilder(context) {
+  document.getElementById('loadTemplate')?.addEventListener('click', () => loadBuilderTemplate(context));
+  document.getElementById('buildManifest')?.addEventListener('click', () => renderBuilderManifest(context));
+  document.getElementById('validateManifest')?.addEventListener('click', () => validateBuilderManifest(context));
+  context.form?.addEventListener('input', () => {
+    clearBuilderValidation(context);
+    renderBuilderManifest(context);
+  });
+  loadBuilderTemplate(context);
+}
+
+const manifestBuilder = connectorBuilderContext();
+if (manifestBuilder) initializeConnectorBuilder(manifestBuilder);
 
 
 // Theme toggle: cycles light/dark and persists; defaults to OS preference.
