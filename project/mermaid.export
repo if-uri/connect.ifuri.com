@@ -26,31 +26,27 @@ flowchart TD
         assets__app__buttons["buttons"]
         assets__app__panels["panels"]
         assets__app__active["active"]
-        assets__app__builder{{builder CC=51}}
-        assets__app__form["form"]
-        assets__app__output["output"]
-        assets__app__folder["folder"]
-        assets__app__result["result"]
-        assets__app__template["template"]
-        assets__app__lineList["lineList"]
         assets__app__escapeHtml["escapeHtml"]
-        assets__app__setField["setField"]
+        assets__app__connectorBuilderContext["connectorBuilderContext"]
+        assets__app__root["root"]
+        assets__app__setBuilderField["setBuilderField"]
         assets__app__field["field"]
-        assets__app__readManifest{{readManifest CC=19}}
+        assets__app__clearBuilderValidation["clearBuilderValidation"]
+        assets__app__readBuilderManifest["readBuilderManifest"]
         assets__app__values["values"]
-        assets__app__pipValues["pipValues"]
-        assets__app__renderManifest["renderManifest"]
+        assets__app__renderBuilderManifest["renderBuilderManifest"]
         assets__app__manifest["manifest"]
-        assets__app__renderValidation["renderValidation"]
+        assets__app__renderBuilderValidation["renderBuilderValidation"]
         assets__app__i18n["i18n"]
         assets__app__validText["validText"]
         assets__app__errors["errors"]
         assets__app__fixTemplate["fixTemplate"]
         assets__app__fixText["fixText"]
-        assets__app__loadTemplate("loadTemplate CC=13")
+        assets__app__loadBuilderTemplate["loadBuilderTemplate"]
+        assets__app__validateBuilderManifest["validateBuilderManifest"]
         assets__app__response["response"]
-        assets__app__payload["payload"]
-        assets__app__root["root"]
+        assets__app__initializeConnectorBuilder["initializeConnectorBuilder"]
+        assets__app__manifestBuilder["manifestBuilder"]
         assets__app__saved["saved"]
         assets__app__nav["nav"]
         assets__app__isDark["isDark"]
@@ -72,18 +68,30 @@ flowchart TD
         assets__ifuri_ecobar__sr["sr"]
         assets__ifuri_ecobar__p["p"]
     end
+    subgraph assets__manifest_builder
+        assets__manifest_builder__api["api"]
+        assets__manifest_builder__lineList["lineList"]
+        assets__manifest_builder__trimmed["trimmed"]
+        assets__manifest_builder__installFrom["installFrom"]
+        assets__manifest_builder__pipPackages["pipPackages"]
+        assets__manifest_builder__buildManifest["buildManifest"]
+        assets__manifest_builder__routes["routes"]
+        assets__manifest_builder__templateFields("templateFields CC=9")
+        assets__manifest_builder__install["install"]
+        assets__manifest_builder__publisher["publisher"]
+    end
     subgraph scripts__check_connectors
         scripts__check_connectors__reachable["reachable"]
         scripts__check_connectors__main{{main CC=20}}
     end
     subgraph scripts__connector_template
-        scripts__connector_template__pkg__cli__emit["emit"]
-        scripts__connector_template__pkg__cli__main["main"]
         scripts__connector_template__pkg__core___json_resource["_json_resource"]
         scripts__connector_template__pkg__core__connector_manifest["connector_manifest"]
         scripts__connector_template__pkg__core__run_command["run_command"]
         scripts__connector_template__pkg__core__urirun_bindings["urirun_bindings"]
         scripts__connector_template__pkg__core__run["run"]
+        scripts__connector_template__pkg__cli__emit["emit"]
+        scripts__connector_template__pkg__cli__main["main"]
     end
     subgraph scripts__sign_manifest
         scripts__sign_manifest__die_err["die_err"]
@@ -129,30 +137,44 @@ flowchart TD
         tools__build_catalog__encode["encode"]
         tools__build_catalog__main["main"]
     end
+    assets__manifest_builder__installFrom --> assets__manifest_builder__lineList
+    assets__manifest_builder__buildManifest --> assets__manifest_builder__lineList
+    assets__manifest_builder__buildManifest --> assets__manifest_builder__trimmed
+    assets__manifest_builder__buildManifest --> assets__manifest_builder__installFrom
+    assets__manifest_builder__routes --> assets__manifest_builder__trimmed
+    assets__manifest_builder__routes --> assets__manifest_builder__lineList
+    assets__manifest_builder__routes --> assets__manifest_builder__installFrom
     assets__ifuri_ecobar__navHTML --> assets__ifuri_ecobar__esc
     assets__ifuri_ecobar__navHTML --> assets__ifuri_ecobar__isActive
     assets__app__installCommand --> assets__app__selectedIds
     assets__app__refreshCommand --> assets__app__installCommand
     assets__app__button --> assets__app__copyText
-    assets__app__builder --> assets__app__lineList
-    assets__app__readManifest --> assets__app__lineList
-    assets__app__renderManifest --> assets__app__readManifest
-    assets__app__manifest --> assets__app__renderValidation
-    assets__app__renderValidation --> assets__app__escapeHtml
-    assets__app__validText --> assets__app__escapeHtml
-    assets__app__loadTemplate --> assets__app__setField
-    assets__app__loadTemplate --> assets__app__renderManifest
     assets__app__root --> assets__app__isDark
+    assets__app__renderBuilderManifest --> assets__app__readBuilderManifest
+    assets__app__manifest --> assets__app__renderBuilderValidation
+    assets__app__renderBuilderValidation --> assets__app__escapeHtml
+    assets__app__validText --> assets__app__escapeHtml
+    assets__app__loadBuilderTemplate --> assets__app__setBuilderField
+    assets__app__loadBuilderTemplate --> assets__app__clearBuilderValidation
+    assets__app__loadBuilderTemplate --> assets__app__renderBuilderManifest
+    assets__app__validateBuilderManifest --> assets__app__renderBuilderManifest
+    assets__app__validateBuilderManifest --> assets__app__renderBuilderValidation
+    assets__app__initializeConnectorBuilder --> assets__app__loadBuilderTemplate
+    assets__app__initializeConnectorBuilder --> assets__app__renderBuilderManifest
+    assets__app__initializeConnectorBuilder --> assets__app__validateBuilderManifest
+    assets__app__initializeConnectorBuilder --> assets__app__clearBuilderValidation
+    assets__app__manifestBuilder --> assets__app__isDark
+    assets__app__manifestBuilder --> assets__app__render
     assets__app__saved --> assets__app__isDark
     assets__app__nav --> assets__app__isDark
     assets__app__btn --> assets__app__isDark
     assets__app__render --> assets__app__isDark
-    scripts__validate_connectors__main --> scripts__validate_connectors__load
+    scripts__connector_template__pkg__core__connector_manifest --> scripts__connector_template__pkg__core___json_resource
     scripts__connector_template__pkg__cli__main --> scripts__connector_template__pkg__core__run
     scripts__connector_template__pkg__cli__main --> scripts__connector_template__pkg__cli__emit
     scripts__connector_template__pkg__cli__main --> scripts__connector_template__pkg__core__connector_manifest
     scripts__connector_template__pkg__cli__main --> scripts__connector_template__pkg__core__urirun_bindings
-    scripts__connector_template__pkg__core__connector_manifest --> scripts__connector_template__pkg__core___json_resource
+    scripts__validate_connectors__main --> scripts__validate_connectors__load
     tools__build_catalog__build_catalog --> tools__build_catalog__load_json
     tools__build_catalog__build_catalog --> tools__build_catalog__validate_manifest
     tools__build_catalog__build_catalog --> tools__build_catalog__public_connector
@@ -194,5 +216,5 @@ flowchart TD
 
     classDef highCC fill:#ff6b6b,stroke:#c92a2a,color:#fff
     classDef medCC fill:#ffd43b,stroke:#f08c00,color:#000
-    class assets__app__builder,assets__app__readManifest,scripts__check_connectors__main,tools__build_catalog__validate_manifest,tools__audit_connector_repos__detail_for highCC
-    class assets__ifuri_ecobar__host,assets__ifuri_ecobar__curView,assets__ifuri_ecobar__isActive,assets__app__search,assets__app__cards,assets__app__count,assets__app__noResults,assets__app__filterConnectors,assets__app__loadTemplate,scripts__validate_connectors__main,tools__build_catalog__build_catalog,tools__audit_connector_repos__discover_gh_repos,tools__audit_connector_repos__read_remote_file,tools__audit_connector_repos__remote_tag_present,tools__audit_connector_repos__build_report medCC
+    class scripts__check_connectors__main,tools__build_catalog__validate_manifest,tools__audit_connector_repos__detail_for highCC
+    class assets__manifest_builder__templateFields,assets__ifuri_ecobar__host,assets__ifuri_ecobar__curView,assets__ifuri_ecobar__isActive,assets__app__search,assets__app__cards,assets__app__count,assets__app__noResults,assets__app__filterConnectors,scripts__validate_connectors__main,tools__build_catalog__build_catalog,tools__audit_connector_repos__discover_gh_repos,tools__audit_connector_repos__read_remote_file,tools__audit_connector_repos__remote_tag_present,tools__audit_connector_repos__build_report medCC

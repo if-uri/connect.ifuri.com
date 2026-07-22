@@ -4,40 +4,6 @@ schema: code2llm.planfile_tickets.v1
 project_root: /home/tom/github/if-uri/connect.ifuri.com
 tickets:
 - signal: code2llm_cc
-  title: 'Reduce cyclomatic complexity: assets.app.builder (CC=51)'
-  description: 'code2llm reports `assets.app.builder` at `assets/app.js:114` with
-    cyclomatic complexity 51 (limit 15).
-
-
-    Extract smaller functions, flatten conditionals, or split strategy branches. Re-run
-    code2llm after the change and keep tests green.'
-  priority: high
-  labels:
-  - llm-ready
-  - code2llm
-  - complexity
-  - refactor
-  files:
-  - assets/app.js
-  dedupe_key: code2llm:cc:assets/app.js:assets.app.builder
-- signal: code2llm_cc
-  title: 'Reduce cyclomatic complexity: assets.app.readManifest (CC=19)'
-  description: 'code2llm reports `assets.app.readManifest` at `assets/app.js:139`
-    with cyclomatic complexity 19 (limit 15).
-
-
-    Extract smaller functions, flatten conditionals, or split strategy branches. Re-run
-    code2llm after the change and keep tests green.'
-  priority: normal
-  labels:
-  - llm-ready
-  - code2llm
-  - complexity
-  - refactor
-  files:
-  - assets/app.js
-  dedupe_key: code2llm:cc:assets/app.js:assets.app.readManifest
-- signal: code2llm_cc
   title: 'Reduce cyclomatic complexity: scripts.check_connectors.main (CC=20)'
   description: 'code2llm reports `scripts.check_connectors.main` at `scripts/check_connectors.py:42`
     with cyclomatic complexity 20 (limit 15).
@@ -127,11 +93,11 @@ tickets:
   dedupe_key: 'code2llm:smell:god_function:tools/audit_connector_repos.py:353:God
     Function: build_report'
 - signal: code2llm_smell_god_function
-  title: 'Address code smell: God Function: loadTemplate'
-  description: 'code2llm reports `God Function: loadTemplate` in `assets/app.js:196`.
+  title: 'Address code smell: God Function: main'
+  description: 'code2llm reports `God Function: main` in `scripts/connector-template/pkg/cli.py:17`.
 
 
-    Function ''loadTemplate'' is oversized: CC=13, fan-out=3, mutations=0.
+    Function ''main'' is oversized: CC=5, fan-out=10, mutations=11.
 
 
     Make the smallest refactor that removes the smell and run local tests.'
@@ -142,8 +108,9 @@ tickets:
   - code-smell
   - god-function
   files:
-  - assets/app.js
-  dedupe_key: 'code2llm:smell:god_function:assets/app.js:196:God Function: loadTemplate'
+  - scripts/connector-template/pkg/cli.py
+  dedupe_key: 'code2llm:smell:god_function:scripts/connector-template/pkg/cli.py:17:God
+    Function: main'
 - signal: code2llm_smell_god_function
   title: 'Address code smell: God Function: main'
   description: 'code2llm reports `God Function: main` in `scripts/validate_connectors.py:28`.
@@ -165,25 +132,6 @@ tickets:
     main'
 - signal: code2llm_smell_god_function
   title: 'Address code smell: God Function: main'
-  description: 'code2llm reports `God Function: main` in `scripts/connector-template/pkg/cli.py:17`.
-
-
-    Function ''main'' is oversized: CC=5, fan-out=10, mutations=11.
-
-
-    Make the smallest refactor that removes the smell and run local tests.'
-  priority: normal
-  labels:
-  - llm-ready
-  - code2llm
-  - code-smell
-  - god-function
-  files:
-  - scripts/connector-template/pkg/cli.py
-  dedupe_key: 'code2llm:smell:god_function:scripts/connector-template/pkg/cli.py:17:God
-    Function: main'
-- signal: code2llm_smell_god_function
-  title: 'Address code smell: God Function: main'
   description: 'code2llm reports `God Function: main` in `tools/audit_connector_repos.py:432`.
 
 
@@ -202,11 +150,29 @@ tickets:
   dedupe_key: 'code2llm:smell:god_function:tools/audit_connector_repos.py:432:God
     Function: main'
 - signal: code2llm_smell_god_function
+  title: 'Address code smell: God Function: manifestBuilder'
+  description: 'code2llm reports `God Function: manifestBuilder` in `assets/app.js:211`.
+
+
+    Function ''manifestBuilder'' is oversized: CC=7, fan-out=11, mutations=0.
+
+
+    Make the smallest refactor that removes the smell and run local tests.'
+  priority: normal
+  labels:
+  - llm-ready
+  - code2llm
+  - code-smell
+  - god-function
+  files:
+  - assets/app.js
+  dedupe_key: 'code2llm:smell:god_function:assets/app.js:211:God Function: manifestBuilder'
+- signal: code2llm_smell_god_function
   title: 'Address code smell: God Module: assets.app'
   description: 'code2llm reports `God Module: assets.app` in `assets/app.js:1`.
 
 
-    Module ''assets.app'' is too large (60 functions, 0 classes). Consider splitting
+    Module ''assets.app'' is too large (57 functions, 0 classes). Consider splitting
     into sub-modules.
 
 

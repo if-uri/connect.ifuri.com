@@ -1,28 +1,30 @@
-# connect.ifuri.com | 113 func | 9f | 12056L | json | 2026-07-14
+# connect.ifuri.com | 119 func | 10f | 13295L | json | 2026-07-22
 # generated in 0.00s
 
 HEALTH:
-  CC̄=4.4  critical=12 (limit:10)  dup=0  cycles=0
+  CC̄=3.8  critical=9 (limit:10)  dup=0  cycles=0
 
-ALERTS[14]:
-  !!! cc_exceeded      builder = 51 (limit:15)
-  !!! high_fan_out     builder = 29 (limit:10)
+ALERTS[12]:
   !!! high_fan_out     main = 21 (limit:10)
   !!  cc_exceeded      detail_for = 23 (limit:15)
   !!  cc_exceeded      main = 20 (limit:15)
   !!  high_fan_out     main = 19 (limit:10)
   !!  high_fan_out     detail_for = 17 (limit:10)
   !!  high_fan_out     build_report = 15 (limit:10)
-  !   cc_exceeded      readManifest = 19 (limit:15)
   !   cc_exceeded      validate_manifest = 16 (limit:15)
+  !   high_fan_out     main = 12 (limit:10)
+  !   high_fan_out     manifestBuilder = 11 (limit:10)
+  !   high_fan_out     main = 10 (limit:10)
 
-MODULES[103] (top by size):
-  M[data/connectors.json] 3995L C:0 F:0 CC↑0 D:0 (json)
+MODULES[107] (top by size):
+  M[data/connectors.json] 4085L C:0 F:0 CC↑0 D:0 (json)
   M[data/connector-repo-audit.json] 1179L C:0 F:0 CC↑0 D:0 (json)
+  M[planfile.yaml] 695L C:0 F:0 CC↑0 D:0 (yaml)
   M[tools/audit_connector_repos.py] 459L C:0 F:26 CC↑23 D:0 (python)
-  M[assets/app.js] 268L C:0 F:56 CC↑51 D:0 (javascript)
+  M[assets/app.js] 239L C:0 F:52 CC↑11 D:0 (javascript)
   M[connector.php] 235L C:0 F:0 CC↑0 D:0 (php)
-  M[submit.php] 225L C:0 F:0 CC↑0 D:0 (php)
+  M[submit.php] 226L C:0 F:0 CC↑0 D:0 (php)
+  M[tree.txt] 217L C:0 F:0 CC↑0 D:0 (txt)
   M[index.php] 211L C:0 F:0 CC↑0 D:0 (php)
   M[tools/build_catalog.py] 171L C:0 F:6 CC↑16 D:0 (python)
   M[categories.php] 140L C:0 F:0 CC↑0 D:0 (php)
@@ -30,23 +32,21 @@ MODULES[103] (top by size):
   M[assets/ifuri-ecobar.js] 108L C:0 F:12 CC↑9 D:0 (javascript)
   M[schema/connector.schema.json] 106L C:0 F:0 CC↑0 D:0 (json)
   M[data/connectors/ksef/manifest.json] 101L C:0 F:0 CC↑0 D:0 (json)
-  M[data/connectors/sqlite-context/manifest.json] 100L C:0 F:0 CC↑0 D:0 (json)
-  M[data/connectors/planfile/manifest.json] 91L C:0 F:0 CC↑0 D:0 (json)
-  LANGS: json:70/php:18/python:7/shell:4/javascript:2/other:2
+  LANGS: json:71/php:18/python:7/javascript:3/shell:3/other:2/yaml:2/txt:1
 
 HOTSPOTS[9]:
-  ★ builder fan=29  // Orchestrates 29 calls
   ★ main fan=21  // Orchestrates 21 calls
   ★ main fan=19  // Orchestrates 19 calls
   ★ detail_for fan=17  // Orchestrates 17 calls
   ★ build_report fan=15  // Orchestrates 15 calls
+  ★ main fan=12  // Orchestrates 12 calls
 
-REFACTOR[10]:
-  [1] H/L Split builder (CC=51)
-  [2] H/H Split god module data/connector-repo-audit.json (1179L, 0 classes)
-  [3] H/H Split god module data/connectors.json (3995L, 0 classes)
-  [4] M/L Split readManifest (CC=19)
-  [5] M/L Split main (CC=20)
+REFACTOR[9]:
+  [1] H/H Split god module data/connector-repo-audit.json (1179L, 0 classes)
+  [2] H/H Split god module data/connectors.json (4085L, 0 classes)
+  [3] H/H Split god module planfile.yaml (695L, 0 classes)
+  [4] M/L Split main (CC=20)
+  [5] M/L Split validate_manifest (CC=16)
 
 EVOLUTION:
-  2026-07-14 CC̄=4.4 crit=12 12056L // Automated analysis
+  2026-07-22 CC̄=3.8 crit=9 13295L // Automated analysis

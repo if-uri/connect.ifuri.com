@@ -1,41 +1,38 @@
-# code2llm/evolution | 100 func | 4f | 2026-07-14
+# code2llm/evolution | 106 func | 5f | 2026-07-22
 # generated in 0.00s
 
-NEXT[6] (ranked by impact):
-  [1] !! SPLIT-FUNC      builder  CC=51  fan=29
-      WHY: CC=51 exceeds 15
-      EFFORT: ~1h  IMPACT: 1479
-
-  [2] !  SPLIT-FUNC      detail_for  CC=23  fan=17
+NEXT[5] (ranked by impact):
+  [1] !  SPLIT-FUNC      detail_for  CC=23  fan=17
       WHY: CC=23 exceeds 15
       EFFORT: ~1h  IMPACT: 391
 
-  [3] !  SPLIT-FUNC      readManifest  CC=19  fan=6
-      WHY: CC=19 exceeds 15
-      EFFORT: ~1h  IMPACT: 114
-
-  [4] !  SPLIT-FUNC      validate_manifest  CC=16  fan=7
+  [2] !  SPLIT-FUNC      validate_manifest  CC=16  fan=7
       WHY: CC=16 exceeds 15
       EFFORT: ~1h  IMPACT: 112
 
-  [5] !! SPLIT           data/connectors.json
-      WHY: 3995L, 0 classes, max CC=0
+  [3] !! SPLIT           data/connectors.json
+      WHY: 4085L, 0 classes, max CC=0
       EFFORT: ~4h  IMPACT: 0
 
-  [6] !! SPLIT           data/connector-repo-audit.json
+  [4] !! SPLIT           data/connector-repo-audit.json
       WHY: 1179L, 0 classes, max CC=0
       EFFORT: ~4h  IMPACT: 0
 
+  [5] !! SPLIT           planfile.yaml
+      WHY: 695L, 0 classes, max CC=0
+      EFFORT: ~4h  IMPACT: 0
 
-RISKS[2]:
+
+RISKS[3]:
   ⚠ Splitting data/connectors.json may break 0 import paths
   ⚠ Splitting data/connector-repo-audit.json may break 0 import paths
+  ⚠ Splitting planfile.yaml may break 0 import paths
 
 METRICS-TARGET:
-  CC̄:          4.5 → ≤3.1
-  max-CC:      51 → ≤20
-  god-modules: 2 → 0
-  high-CC(≥15): 4 → ≤2
+  CC̄:          3.8 → ≤2.7
+  max-CC:      23 → ≤11
+  god-modules: 3 → 0
+  high-CC(≥15): 2 → ≤1
   hub-types:   0 → ≤0
 
 PATTERNS (language parser shared logic):
@@ -63,4 +60,4 @@ PATTERNS (language parser shared logic):
     - Standardized FunctionInfo/ClassInfo models
 
 HISTORY:
-  (first run — no previous data)
+  prev CC̄=4.5 → now CC̄=3.8

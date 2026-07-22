@@ -1,11 +1,11 @@
-# connect.ifuri.com | 103f 12056L | shell:4,php:18,json:70,javascript:2,python:7 | 2026-07-14
-# generated in 0.01s
-# stats: 113 func | 0 cls | 103 mod | CC̄=4.4 | critical:5 | cycles:0
-# alerts[5]: CC builder=51; fan-out builder=29; fan-out main=21; CC detail_for=23; CC main=20
-# hotspots[5]: builder fan=29; main fan=21; main fan=19; detail_for fan=17; build_report fan=15
-# evolution: baseline
+# connect.ifuri.com | 107f 13295L | php:18,yaml:2,txt:1,shell:3,json:71,javascript:3,python:7 | 2026-07-22
+# generated in 0.02s
+# stats: 119 func | 0 cls | 107 mod | CC̄=3.8 | critical:3 | cycles:0
+# alerts[5]: fan-out main=21; CC detail_for=23; CC main=20; fan-out main=19; fan-out detail_for=17
+# hotspots[5]: main fan=21; main fan=19; detail_for fan=17; build_report fan=15; main fan=12
+# evolution: CC̄ 4.5→3.8 (improved -0.7)
 # Keys: M=modules, D=details, i=imports, e=exports, c=classes, f=functions, m=methods
-M[103]:
+M[107]:
   404.php,61
   Makefile,53
   api/a2a.php,4
@@ -15,13 +15,14 @@ M[103]:
   api/registry.php,6
   api/search.php,6
   api/validate_connector.php,69
-  assets/app.js,268
+  assets/app.js,239
   assets/ifuri-ecobar.js,108
+  assets/manifest-builder.js,84
   categories.php,140
   connector.php,235
   data/catalog.meta.json,44
   data/connector-repo-audit.json,1179
-  data/connectors.json,3995
+  data/connectors.json,4085
   data/connectors/adb/manifest.json,54
   data/connectors/adopt/manifest.json,54
   data/connectors/agents/manifest.json,54
@@ -70,6 +71,7 @@ M[103]:
   data/connectors/sqlite-context/manifest.json,100
   data/connectors/stepper/manifest.json,61
   data/connectors/stt/manifest.json,57
+  data/connectors/subactor-agent/manifest.json,90
   data/connectors/time-tools/manifest.json,65
   data/connectors/twin/manifest.json,54
   data/connectors/urifix/manifest.json,54
@@ -89,6 +91,8 @@ M[103]:
   index.php,211
   install.php,9
   llms.php,52
+  planfile.yaml,695
+  prefact.yaml,94
   project.sh,66
   robots.php,9
   router.php,74
@@ -98,80 +102,18 @@ M[103]:
   scripts/connector-template/Makefile,18
   scripts/connector-template/pkg/__init__.py,6
   scripts/connector-template/pkg/cli.py,39
-  scripts/connector-template/pkg/connector.manifest.json,27
+  scripts/connector-template/pkg/connector.manifest.json,28
   scripts/connector-template/pkg/core.py,41
   scripts/deploy-plesk.sh,15
   scripts/new-connector.sh,39
   scripts/sign-manifest.php,90
   scripts/validate_connectors.py,59
   sitemap.php,34
-  submit.php,225
+  submit.php,226
   tools/audit_connector_repos.py,459
   tools/build_catalog.py,171
-  tree.sh,4
+  tree.txt,217
 D:
-  assets/app.js:
-    e: checks,command,copyInstall,selectAvailable,hubBase,selectedIds,installCommand,suffix,refreshCommand,copyText,input,previous,button,button,target,search,cards,count,noResults,filterConnectors,term,visible,ofWord,buttons,panels,target,active,active,builder,form,output,folder,result,template,lineList,escapeHtml,setField,field,readManifest,values,pipValues,renderManifest,manifest,renderValidation,i18n,validText,errors,fixTemplate,fixText,loadTemplate,manifest,response,payload,root,saved,nav,isDark,btn,render,next
-    checks()
-    command()
-    copyInstall()
-    selectAvailable()
-    hubBase()
-    selectedIds()
-    installCommand()
-    suffix()
-    refreshCommand()
-    copyText()
-    input()
-    previous()
-    button()
-    button()
-    target()
-    search()
-    cards()
-    count()
-    noResults()
-    filterConnectors()
-    term()
-    visible()
-    ofWord()
-    buttons()
-    panels()
-    target()
-    active()
-    active()
-    builder()
-    form()
-    output()
-    folder()
-    result()
-    template()
-    lineList()
-    escapeHtml()
-    setField()
-    field()
-    readManifest()
-    values()
-    pipValues()
-    renderManifest()
-    manifest()
-    renderValidation()
-    i18n()
-    validText()
-    errors()
-    fixTemplate()
-    fixText()
-    loadTemplate()
-    manifest()
-    response()
-    payload()
-    root()
-    saved()
-    nav()
-    isDark()
-    btn()
-    render()
-    next()
   tools/audit_connector_repos.py:
     e: run,load_json,connector_id,is_connector_repo,gh_env,run_gh,has_gh,discover_local_repos,discover_gh_repos,merge_repos,load_manifests,load_catalog_entries,read_local_file,read_remote_file,read_repo_file,pyproject_version,local_tags,remote_tag_present,tag_present,add_issue,detail_for,summarize,build_report,print_report,check_failed,main
     run(cmd)
@@ -212,6 +154,77 @@ D:
     build_catalog()
     encode(data)
     main()
+  assets/app.js:
+    e: checks,command,copyInstall,selectAvailable,hubBase,selectedIds,installCommand,suffix,refreshCommand,copyText,input,previous,button,button,target,search,cards,count,noResults,filterConnectors,term,visible,ofWord,buttons,panels,target,active,active,escapeHtml,connectorBuilderContext,root,setBuilderField,field,clearBuilderValidation,readBuilderManifest,values,renderBuilderManifest,manifest,renderBuilderValidation,i18n,validText,errors,fixTemplate,fixText,loadBuilderTemplate,validateBuilderManifest,manifest,response,initializeConnectorBuilder,manifestBuilder,root,saved,nav,isDark,btn,render,next
+    checks()
+    command()
+    copyInstall()
+    selectAvailable()
+    hubBase()
+    selectedIds()
+    installCommand()
+    suffix()
+    refreshCommand()
+    copyText()
+    input()
+    previous()
+    button()
+    button()
+    target()
+    search()
+    cards()
+    count()
+    noResults()
+    filterConnectors()
+    term()
+    visible()
+    ofWord()
+    buttons()
+    panels()
+    target()
+    active()
+    active()
+    escapeHtml()
+    connectorBuilderContext()
+    root()
+    setBuilderField()
+    field()
+    clearBuilderValidation()
+    readBuilderManifest()
+    values()
+    renderBuilderManifest()
+    manifest()
+    renderBuilderValidation()
+    i18n()
+    validText()
+    errors()
+    fixTemplate()
+    fixText()
+    loadBuilderTemplate()
+    validateBuilderManifest()
+    manifest()
+    response()
+    initializeConnectorBuilder()
+    manifestBuilder()
+    root()
+    saved()
+    nav()
+    isDark()
+    btn()
+    render()
+    next()
+  assets/manifest-builder.js:
+    e: api,lineList,trimmed,installFrom,pipPackages,buildManifest,routes,templateFields,install,publisher
+    api()
+    lineList()
+    trimmed()
+    installFrom()
+    pipPackages()
+    buildManifest()
+    routes()
+    templateFields()
+    install()
+    publisher()
   assets/ifuri-ecobar.js:
     e: params,lang,view,host,curView,isActive,esc,navHTML,label,hostEl,sr,p
     params()
@@ -245,97 +258,100 @@ D:
     run_command(target;timeout)
     urirun_bindings()
     run(target;timeout)
-  Makefile:
-  tree.sh:
   install.php:
-  project.sh:
+  planfile.yaml:
+  Makefile:
   categories.php:
-  schema/connector.schema.json:
-  router.php:
   robots.php:
-  llms.php:
+  tree.txt:
   404.php:
-  submit.php:
+  llms.php:
+  router.php:
+  project.sh:
+  schema/connector.schema.json:
   schema/connectors.schema.json:
-  scripts/deploy-plesk.sh:
-  scripts/connector-template/Makefile:
-  api/connectors.php:
-  index.php:
-  sitemap.php:
+  prefact.yaml:
+  submit.php:
   connector.php:
-  api/registry.php:
-  api/mcp.php:
+  index.php:
+  scripts/deploy-plesk.sh:
   scripts/new-connector.sh:
+  scripts/connector-template/Makefile:
+  api/mcp.php:
   api/search.php:
-  api/connector.php:
   api/a2a.php:
-  data/catalog.meta.json:
-  data/connectors/grpc-transport/manifest.json:
-  data/connectors/base64/manifest.json:
-  scripts/connector-template/pkg/connector.manifest.json:
-  data/connectors/ksef/manifest.json:
+  sitemap.php:
+  api/registry.php:
   data/connector-repo-audit.json:
+  api/validate_connector.php:
+  scripts/connector-template/pkg/connector.manifest.json:
+  data/catalog.meta.json:
+  api/connectors.php:
+  data/publishers.json:
+  data/connectors/base64/manifest.json:
+  api/connector.php:
   data/connectors/flow-repair/manifest.json:
-  data/connectors.json:
   data/connectors/img2nl/manifest.json:
   data/connectors/ocr/manifest.json:
-  data/publishers.json:
+  data/connectors/webrtc/manifest.json:
   data/connectors/http-check/manifest.json:
   data/connectors/vql/manifest.json:
-  data/connectors/webrtc/manifest.json:
+  data/connectors/sheet/manifest.json:
   data/connectors/linkedin/manifest.json:
   data/connectors/pdf/manifest.json:
   data/connectors/doc/manifest.json:
-  data/connectors/sheet/manifest.json:
-  data/connectors/namecheap-dns/manifest.json:
-  data/connectors/docid/manifest.json:
-  data/connectors/browser-control/manifest.json:
   data/connectors/connectorgen/manifest.json:
-  data/connectors/scanner/manifest.json:
+  data/connectors/adb/manifest.json:
+  data/connectors/twin/manifest.json:
+  data/connectors/docid/manifest.json:
+  data/connectors/stt/manifest.json:
+  data/connectors/browser-control/manifest.json:
+  data/connectors.json:
+  data/connectors/grpc-transport/manifest.json:
+  data/connectors/namecheap-dns/manifest.json:
+  data/connectors/uuid/manifest.json:
   data/connectors/planfile/manifest.json:
-  api/validate_connector.php:
+  data/connectors/ksef/manifest.json:
   data/connectors/get-node/manifest.json:
   data/connectors/llm/manifest.json:
   data/connectors/usb/manifest.json:
-  data/connectors/adb/manifest.json:
-  data/connectors/urivision/manifest.json:
-  data/connectors/calendar/manifest.json:
-  data/connectors/twin/manifest.json:
-  data/connectors/view/manifest.json:
+  data/connectors/subactor-agent/manifest.json:
   data/connectors/urivision-runtime/manifest.json:
-  data/connectors/stt/manifest.json:
-  data/connectors/smart-crop/manifest.json:
+  data/connectors/calendar/manifest.json:
+  data/connectors/scanner/manifest.json:
+  data/connectors/mqtt/manifest.json:
   data/connectors/hash/manifest.json:
   data/connectors/camera-web/manifest.json:
+  data/connectors/urimail/manifest.json:
   data/connectors/fs/manifest.json:
+  data/connectors/mcp-filesystem/manifest.json:
   data/connectors/urifix/manifest.json:
   data/connectors/github/manifest.json:
+  data/connectors/chat/manifest.json:
   data/connectors/screen/manifest.json:
   data/connectors/message/manifest.json:
-  data/connectors/mcp-filesystem/manifest.json:
-  data/connectors/chat/manifest.json:
-  data/connectors/uuid/manifest.json:
   data/connectors/nodeadmin/manifest.json:
-  data/connectors/urioffice/manifest.json:
+  data/connectors/router/manifest.json:
   data/connectors/adopt/manifest.json:
-  data/connectors/domain-monitor/manifest.json:
-  data/connectors/camera/manifest.json:
-  data/connectors/invoice/manifest.json:
+  data/connectors/him/manifest.json:
   data/connectors/rdp/manifest.json:
-  data/connectors/vdisplay/manifest.json:
+  data/connectors/view/manifest.json:
   data/connectors/email/manifest.json:
+  data/connectors/vdisplay/manifest.json:
+  data/connectors/urioffice/manifest.json:
   data/connectors/document/manifest.json:
   data/connectors/agents/manifest.json:
+  data/connectors/urivision/manifest.json:
   data/connectors/time-tools/manifest.json:
-  data/connectors/mqtt/manifest.json:
-  data/connectors/sqlite-context/manifest.json:
+  data/connectors/domain-monitor/manifest.json:
   data/connectors/webnode/manifest.json:
-  data/connectors/router/manifest.json:
-  data/connectors/him/manifest.json:
-  data/connectors/stepper/manifest.json:
   data/connectors/koru/manifest.json:
-  data/connectors/urimail/manifest.json:
+  data/connectors/stepper/manifest.json:
   data/connectors/netscan/manifest.json:
-  data/connectors/youtube/manifest.json:
   data/connectors/kvm/manifest.json:
+  data/connectors/smart-crop/manifest.json:
+  data/connectors/sqlite-context/manifest.json:
+  data/connectors/invoice/manifest.json:
+  data/connectors/youtube/manifest.json:
+  data/connectors/camera/manifest.json:
   scripts/connector-template/pkg/__init__.py:
